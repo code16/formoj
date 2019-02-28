@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export function getForm(baseUrl, { baseUrl, formId }) {
+export function getForm(baseUrl, { formId }) {
     return axios.get(`${baseUrl}/${formId}`)
         .then(response => response.data);
 }

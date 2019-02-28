@@ -18,5 +18,9 @@
   "homepage": "https://github.com/code16/formoj#readme",
   "dependencies": {
     "axios": "^0.18.0"
+  },
+  "devDependencies": {
+    "@vue/cli": "^3.4.1",
+    "vue": "^2.6.7"
   }
 }

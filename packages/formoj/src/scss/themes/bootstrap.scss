@@ -1,0 +1,27 @@
+@import '../formoj';
+
+.fj-alert {
+  @extend .alert;
+  &--success {
+    @extend .alert-success;
+  }
+  &--error {
+    @extend .alert-danger;
+  }
+}
+
+.fj-text,
+.fj-textarea,
+.fj-select {
+  @extend .form-control;
+}
+
+.fj-button {
+  @extend .btn;
+  &--primary {
+    @extend .btn-primary;
+  }
+  &--secondary {
+    @extend .btn-secondary;
+  }
+}

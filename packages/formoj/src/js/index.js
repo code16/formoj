@@ -1,13 +1,16 @@
+import Formoj from './components/Formoj.vue';
 import Form from './components/Form.vue';
-import VueI18n from 'vue-i18n';
+import { createConfig } from "./util/config";
 
 export default {
-    install(Vue) {
-        Vue.use(VueI18n);
+    install(Vue, config={}) {
+        Vue.component('formoj', Formoj);
         Vue.component('fj-form', Form);
+        Vue.prototype.$formoj = createConfig(config);
     }
 }
 
 export {
-    Form
+    Formoj,
+    Form,
 }
