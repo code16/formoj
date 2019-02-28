@@ -4,8 +4,8 @@ import VueFormoj from 'vue-formoj/src';
 
 Vue.config.productionTip = false;
 
-Vue.use(VueFormoj);
+Vue.use(VueFormoj, { apiBaseUrl: '/api' });
 
 new Vue({
-  render: h => h(App),
+    render: h => h(App),
 }).$mount('#app');

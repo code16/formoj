@@ -2,8 +2,12 @@
 @import "~bootstrap/scss/bootstrap";
 @import "~formoj-theme/scss/themes/bootstrap";
 
-.fj-form {
+.formoj {
   width: 500px;
+  max-width: 100%;
+}
+
+.fj-form {
   @extend .card;
   &__header {
     @extend .card-header;

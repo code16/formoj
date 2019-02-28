@@ -1,4 +1,5 @@
 const path = require('path');
+const server = require('./server');
 
 module.exports = {
     configureWebpack: {
@@ -8,5 +9,10 @@ module.exports = {
                 'node_modules',
             ],
         }
+    },
+    devServer: {
+        before(app) {
+            server(app);
+        },
     }
 };
