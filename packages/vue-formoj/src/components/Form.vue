@@ -18,8 +18,8 @@
                     :fields="currentSection.fields"
                     :title="currentSection.title"
                     :description="currentSection.description"
-                    :is-first="isFirstSection(currentSection)"
-                    :is-last="isLastSection(currentSection)"
+                    :is-first="isCurrentFirst"
+                    :is-last="isCurrentLast"
                     :key="currentSection.id"
                     @submit="handleSubmit"
                     @next="handleNextSectionRequested"
@@ -72,7 +72,13 @@
         computed: {
             currentSection() {
                 return this.sections[this.currentSectionIndex];
-            }
+            },
+            isCurrentFirst() {
+                return this.currentSectionIndex === 0;
+            },
+            isCurrentLast() {
+                return this.currentSectionIndex === this.sections.length - 1;
+            },
         },
 
         methods: {
@@ -85,32 +91,12 @@
                     ? this.data[fieldKey]
                     : null;
             },
-            isFirstSection(section) {
-                const firstSection = this.sections[0];
-                return section.id === firstSection.id;
-            },
-            isLastSection(section) {
-                const lastSection = this.sections[this.sections.length - 1];
-                return section.id === lastSection.id;
-            },
-            nextSectionIndex(section) {
-                if(section) {
-                    return this.sections.findIndex(s => s.id === section.id) + 1;
-                }
-                return 0;
-            },
-            previousSectionIndex(section) {
-                if(section) {
-                    return this.sections.findIndex(s => s.id === section.id) - 1;
-                }
-                return this.sections.length - 1;
-            },
 
             handleNextSectionRequested() {
-                this.currentSectionIndex = this.nextSectionIndex(this.currentSection);
+                this.currentSectionIndex++;
             },
             handlePreviousSectionRequested() {
-                this.currentSectionIndex = this.previousSectionIndex(this.currentSection);
+                this.currentSectionIndex--;
             },
 
             handleFieldChanged(field, value) {
