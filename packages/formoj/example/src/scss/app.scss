@@ -1,0 +1,14 @@
+
+@import "~bootstrap/scss/bootstrap";
+@import "~formoj/scss/themes/bootstrap";
+
+.fj-form {
+  width: 500px;
+  @extend .card;
+  &__header {
+    @extend .card-header;
+  }
+  &__content {
+    @extend .card-body;
+  }
+}
