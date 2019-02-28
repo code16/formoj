@@ -18,6 +18,7 @@ class CreateFormojFieldsTable extends Migration
             $table->string("label");
             $table->boolean('required')->default(false);
             $table->text("description")->nullable();
+            $table->unsignedSmallInteger("order")->default(100);
             $table->string("type"); // text, textarea, select
 
             // Text, textarea

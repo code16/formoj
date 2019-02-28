@@ -12,6 +12,8 @@ class Field extends Model
 
     protected $table = "formoj_fields";
 
+    protected $guarded = ["id"];
+
     /** @var array */
     protected $casts = [
         'values' => 'json',
