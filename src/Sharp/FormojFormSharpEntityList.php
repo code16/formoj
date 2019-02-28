@@ -26,6 +26,9 @@ class FormojFormSharpEntityList extends SharpEntityList
         )->addDataContainer(
             EntityListDataContainer::make("published_at")
                 ->setLabel("Dates publication")
+        )->addDataContainer(
+            EntityListDataContainer::make("sections")
+                ->setLabel("Sections")
         );
     }
 
@@ -36,9 +39,10 @@ class FormojFormSharpEntityList extends SharpEntityList
      */
     function buildListLayout()
     {
-        $this->addColumn("title", 4)
-            ->addColumn("description", 4)
-            ->addColumn("published_at", 4);
+        $this->addColumn("title", 3, 5)
+            ->addColumnLarge("description", 3)
+            ->addColumn("published_at", 3, 7)
+            ->addColumnLarge("sections", 3);
     }
 
     /**
@@ -59,6 +63,34 @@ class FormojFormSharpEntityList extends SharpEntityList
      */
     function getListData(EntityListQueryParams $params)
     {
-        return $this->transform(Form::all());
+        return $this
+            ->setCustomTransformer("published_at", function($value, $instance) {
+                if($instance->published_at) {
+                    if($instance->unpublished_at) {
+                        return sprintf(
+                            "Du %s<br>au %s",
+                            $instance->published_at->formatLocalized("%a %e %B %Y %Hh%M"),
+                            $instance->unpublished_at->formatLocalized("%a %e %B %Y %Hh%M")
+                        );
+                    }
+                    return sprintf(
+                        "À partir du %s",
+                        $instance->published_at->formatLocalized("%a %e %B %Y %Hh%M")
+                    );
+                }
+
+                if($instance->unpublished_at) {
+                    return sprintf(
+                        "Jusqu'au %s",
+                        $instance->unpublished_at->formatLocalized("%a %e %B %Y %Hh%M")
+                    );
+                }
+
+                return "";
+            })
+            ->setCustomTransformer("sections", function($value, $instance) {
+                return $instance->sections->pluck("title")->implode("<br>");
+            })
+            ->transform(Form::with("sections")->get());
     }
 }

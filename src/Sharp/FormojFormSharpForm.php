@@ -5,7 +5,9 @@ namespace Code16\Formoj\Sharp;
 use Code16\Formoj\Models\Form;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
+use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
+use Code16\Sharp\Form\Fields\SharpFormTextareaField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Layout\FormLayoutFieldset;
@@ -36,14 +38,29 @@ class FormojFormSharpForm extends SharpForm
                 ->setHeight(200)
         )->addField(
             SharpFormDateField::make("published_at")
+                ->setLabel("Du (facultatif)")
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
-                ->setLabel("Du (facultatif)")
         )->addField(
             SharpFormDateField::make("unpublished_at")
+                ->setLabel("Au (facultatif)")
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
-                ->setLabel("Au (facultatif)")
+        )->addField(
+            SharpFormListField::make("sections")
+                ->setLabel("Sections")
+                ->setAddable()->setAddText("Ajouter une section")
+                ->setRemovable()
+                ->setSortable()->setOrderAttribute("order")
+                ->addItemField(
+                    SharpFormTextField::make("title")
+                        ->setLabel("Titre")
+                )
+                ->addItemField(
+                    SharpFormTextareaField::make("description")
+                        ->setLabel("Description")
+                        ->setRowCount(3)
+                )
         );
     }
 
@@ -59,10 +76,16 @@ class FormojFormSharpForm extends SharpForm
                 ->withSingleField("title")
                 ->withFieldset("Publication", function (FormLayoutFieldset $fieldset) {
                     $fieldset->withFields("published_at|6", "unpublished_at|6");
-                });
+                })
+                ->withSingleField("description");
 
         })->addColumn(6, function (FormLayoutColumn $column) {
-            $column->withSingleField("description");
+            $column
+                ->withSingleField("sections", function(FormLayoutColumn $column) {
+                    $column
+                        ->withSingleField("title")
+                        ->withSingleField("description");
+                });
         });
     }
 
@@ -74,7 +97,7 @@ class FormojFormSharpForm extends SharpForm
      */
     function find($id): array
     {
-        return $this->transform(Form::findOrFail($id));
+        return $this->transform(Form::with("sections")->findOrFail($id));
     }
 
     /**
@@ -84,6 +107,11 @@ class FormojFormSharpForm extends SharpForm
      */
     function update($id, array $data)
     {
+        $form = $id ? Form::findOrFail($id) : new Form();
+
+        $this->save($form, $data);
+
+        return $form->id;
     }
 
     /**
@@ -91,5 +119,6 @@ class FormojFormSharpForm extends SharpForm
      */
     function delete($id)
     {
+        Form::findOrFail($id)->delete();
     }
 }

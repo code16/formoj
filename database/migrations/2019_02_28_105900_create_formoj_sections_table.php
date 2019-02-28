@@ -17,6 +17,7 @@ class CreateFormojSectionsTable extends Migration
             $table->increments('id');
             $table->string("title");
             $table->text("description")->nullable();
+            $table->unsignedSmallInteger("order")->default(100);
 
             $table->unsignedInteger('form_id');
             $table->foreign('form_id')

@@ -8,6 +8,8 @@ class Section extends Model
 {
     protected $table = "formoj_sections";
 
+    protected $guarded = ["id"];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
