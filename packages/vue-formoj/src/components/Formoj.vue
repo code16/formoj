@@ -1,14 +1,15 @@
 <template>
     <div class="formoj">
+        <template v-if="hasAlert">
+            <fj-alert :type="messageType">{{ message }}</fj-alert>
+        </template>
         <template v-if="ready">
-            <template v-if="hasAlert">
-                <fj-alert :type="messageType">{{ message }}</fj-alert>
-            </template>
             <fj-form
                 :title="form.title"
                 :description="form.description"
                 :sections="form.sections"
                 :form-id="form.id"
+                @submit="handleSubmit"
             />
         </template>
     </div>
@@ -49,8 +50,15 @@
             }
         },
         methods: {
-            handleSubmit() {
-                postForm(this.config.baseApiUrl, { formId: this.formId });
+            handleSubmit(data) {
+                this.resetAlert();
+                postForm(this.config.apiBaseUrl, { formId: this.formId, data })
+                    .catch(() => {
+                        this.showAlert({
+                            message: $t('form.error.post'),
+                            type: 'error',
+                        });
+                    });
             },
 
             resetAlert() {
@@ -62,22 +70,18 @@
                 this.messageType = type;
             },
 
-            init() {
+            async init() {
                 this.ready = false;
                 this.resetAlert();
-                return getForm(this.config.baseApiUrl, { formId: this.formId })
-                    .then(form => {
-                        this.form = form;
-                    })
-                    .catch(() => {
+                this.form = await getForm(this.config.apiBaseUrl, { formId: this.formId })
+                    .catch(error => {
                         this.showAlert({
-                            message: $t('form.error.network'),
+                            message: $t('form.error.get'),
                             type: 'error',
                         });
-                    })
-                    .finally(() => {
-                        this.ready = true;
+                        return Promise.reject(error);
                     });
+                this.ready = true;
             }
         },
         created() {
