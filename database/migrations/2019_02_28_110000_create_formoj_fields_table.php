@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFieldsTable extends Migration
+class CreateFormojFieldsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('fields', function (Blueprint $table) {
+        Schema::create('formoj_fields', function (Blueprint $table) {
             $table->increments('id');
             $table->string("label");
             $table->boolean('required')->default(false);
@@ -31,7 +31,7 @@ class CreateFieldsTable extends Migration
             $table->unsignedInteger('section_id');
             $table->foreign('section_id')
                 ->references('id')
-                ->on('sections')
+                ->on('formoj_sections')
                 ->onDelete('cascade');
 
             $table->timestamps();

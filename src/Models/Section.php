@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Section extends Model
 {
+    protected $table = "formoj_sections";
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

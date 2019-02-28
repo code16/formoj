@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSectionsTable extends Migration
+class CreateFormojFormsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,12 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('formoj_forms', function (Blueprint $table) {
             $table->increments('id');
             $table->string("title");
             $table->text("description")->nullable();
-
-            $table->unsignedInteger('form_id');
-            $table->foreign('form_id')
-                ->references('id')
-                ->on('forms')
-                ->onDelete('cascade');
+            $table->dateTime('published_at')->nullable();
+            $table->dateTime('unpublished_at')->nullable();
 
             $table->timestamps();
         });

@@ -10,6 +10,8 @@ class Field extends Model
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
 
+    protected $table = "formoj_fields";
+
     /** @var array */
     protected $casts = [
         'values' => 'json',
