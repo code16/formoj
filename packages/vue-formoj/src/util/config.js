@@ -3,7 +3,7 @@
 export function createConfig(config) {
     config = config || {};
     return {
-        baseApiUrl: config.baseApiUrl,
+        apiBaseUrl: config.apiBaseUrl,
     };
 }
 
