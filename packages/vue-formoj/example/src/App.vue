@@ -7,6 +7,7 @@
                 :title="form.title"
                 :description="form.description"
                 :sections="form.sections"
+                @submit="handleSubmit"
             />
         </div>
     </div>
@@ -55,7 +56,13 @@
                   ]
               }
           }
-     }
+     },
+
+      methods: {
+          handleSubmit() {
+              alert('Formulaire envoyé!');
+          }
+      }
   }
 </script>
 

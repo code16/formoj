@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import VueFormoj from 'formoj/js';
+import VueFormoj from 'vue-formoj/src';
 
 Vue.config.productionTip = false;
 

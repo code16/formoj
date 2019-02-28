@@ -1,8 +1,8 @@
 {
-  "name": "formoj",
+  "name": "formoj-theme",
   "version": "0.0.1",
-  "description": "Customisable forms renderer",
-  "main": "dist/formoj.js",
+  "description": "Formoj component theme",
+  "main": "scss/formoj.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -15,12 +15,5 @@
   "bugs": {
     "url": "https://github.com/code16/formoj/issues"
   },
-  "homepage": "https://github.com/code16/formoj#readme",
-  "dependencies": {
-    "axios": "^0.18.0"
-  },
-  "devDependencies": {
-    "@vue/cli": "^3.4.1",
-    "vue": "^2.6.7"
-  }
+  "homepage": "https://github.com/code16/formoj#readme"
 }

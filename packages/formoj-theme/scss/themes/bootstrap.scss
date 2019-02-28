@@ -25,3 +25,7 @@
     @extend .btn-secondary;
   }
 }
+
+.fj-field {
+  @extend .form-group;
+}
