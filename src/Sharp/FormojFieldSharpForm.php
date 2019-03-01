@@ -140,16 +140,20 @@ class FormojFieldSharpForm extends SharpForm
                 "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
             ]);
 
-        // TODO handle this part with field_attributes
-//        $data["values"] = $data["type"] == Field::TYPE_SELECT
-//            ? collect($data["values"])->pluck("value")->all()
-//            : null;
-//
-//        foreach(["max_length", "rows_count", "max_options", "multiple"] as $attribute) {
-//            $this->setCustomTransformer($attribute, function($value) use($attribute) {
-//                return $field->fieldAttribute($attribute);
-//            });
-//        }
+        $data["field_attributes"] = [];
+
+        if($data["type"] == Field::TYPE_TEXT) {
+            $this->transformAttributesToFieldAttributes($data, ["max_length"]);
+
+        } elseif($data["type"] == Field::TYPE_TEXTAREA) {
+            $this->transformAttributesToFieldAttributes($data, ["max_length", "rows_count"]);
+
+        } elseif($data["type"] == Field::TYPE_SELECT) {
+            $this->transformAttributesToFieldAttributes($data, ["max_options", "multiple"]);
+            $data["field_attributes"]["options"] = collect($data["options"])->pluck("label")->all();
+        }
+
+        unset($data["max_length"], $data["rows_count"], $data["options"], $data["max_options"], $data["multiple"]);
 
         $this->save($field, $data);
 
@@ -162,5 +166,16 @@ class FormojFieldSharpForm extends SharpForm
     function delete($id)
     {
         Field::findOrFail($id)->delete();
+    }
+
+    protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels)
+    {
+        collect($data)
+            ->filter(function ($value, $attribute) use($attributeLabels) {
+                return in_array($attribute, $attributeLabels);
+            })
+            ->each(function($value, $attribute) use(&$data) {
+                $data["field_attributes"][$attribute] = $value;
+            });
     }
 }
