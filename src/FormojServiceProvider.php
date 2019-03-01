@@ -9,6 +9,8 @@ class FormojServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->loadRoutesFrom(__DIR__.'/api.php');
+
         $this->loadMigrationsFrom(dirname(__DIR__) . "/database/migrations");
     }
 

@@ -6,3 +6,4 @@ composer.lock
 .env.*.php
 .env.php
 .env
+.phpunit.result.cache
