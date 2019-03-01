@@ -18,7 +18,9 @@ class FieldResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'label' => $this->label,
-            'required' => $this->required,
+            'required' => $this->when(
+                !$this->isTypeHeading(), $this->required
+            ),
             'maxlength' => $this->when(
                 $this->isTypeText() || $this->isTypeTextarea(), $this->max_length
             ),

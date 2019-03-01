@@ -9,6 +9,7 @@ class Field extends Model
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
+    const TYPE_HEADING = "heading";
 
     protected $table = "formoj_fields";
 
@@ -53,5 +54,13 @@ class Field extends Model
     public function isTypeSelect()
     {
         return $this->type === static::TYPE_SELECT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeHeading()
+    {
+        return $this->type === static::TYPE_HEADING;
     }
 }

@@ -185,4 +185,30 @@ class FormojFormControllerTest extends FormojTestCase
                 ]
             ]);
     }
+
+    /** @test */
+    function we_can_get_a_form_with_an_heading_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "heading",
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => $field->id,
+                        "type" => "heading",
+                        "label" => $field->label,
+                    ]
+                ]
+            ]);
+    }
 }

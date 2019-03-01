@@ -36,8 +36,10 @@ class FormojFieldSharpForm extends SharpForm
                     SharpFormMarkdownField::A,
                 ])
                 ->setHeight(200)
+                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
             SharpFormCheckField::make("required", "Saisie obligatoire")
+                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
             SharpFormSelectField::make("type", FormojFieldSharpEntityList::$FIELD_TYPES)
             ->setDisplayAsDropdown()
