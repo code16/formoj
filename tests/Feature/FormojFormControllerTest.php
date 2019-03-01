@@ -46,6 +46,7 @@ class FormojFormControllerTest extends FormojTestCase
                                 [
                                     "id" => $field->id,
                                     "type" => $field->type,
+                                    "helpText" => $field->description,
                                     "label" => $field->label,
                                     "required" => $field->required
                                 ]
@@ -78,6 +79,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => $field->type,
                         "label" => $field->label,
+                        "helpText" => $field->description,
                         "required" => $field->required,
                         "maxlength" => 10,
                     ]
@@ -107,6 +109,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => $field->type,
                         "label" => $field->label,
+                        "helpText" => $field->description,
                         "required" => $field->required,
                         "maxlength" => 10,
                     ]
@@ -137,6 +140,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => $field->type,
                         "label" => $field->label,
+                        "helpText" => $field->description,
                         "required" => $field->required,
                         "multiple" => false,
                         "options" => [
@@ -173,6 +177,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => $field->type,
                         "label" => $field->label,
+                        "helpText" => $field->description,
                         "required" => $field->required,
                         "multiple" => true,
                         "max" => 2,
