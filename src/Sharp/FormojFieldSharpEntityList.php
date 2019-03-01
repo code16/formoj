@@ -34,7 +34,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
             EntityListDataContainer::make("label")
                 ->setLabel("Libellé")
         )->addDataContainer(
-            EntityListDataContainer::make("description")
+            EntityListDataContainer::make("help_text")
                 ->setLabel("Texte d'aide")
         );
     }

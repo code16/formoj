@@ -28,8 +28,8 @@ class FormojFieldSharpForm extends SharpForm
             SharpFormTextField::make("label")
                 ->setLabel("Libellé")
         )->addField(
-            SharpFormMarkdownField::make("description")
-                ->setLabel("Description")
+            SharpFormMarkdownField::make("help_text")
+                ->setLabel("Texte d'aide")
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
@@ -56,18 +56,18 @@ class FormojFieldSharpForm extends SharpForm
             SharpFormCheckField::make("multiple", "Autoriser plusieurs réponses")
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
         )->addField(
-            SharpFormTextField::make("max_values")
+            SharpFormTextField::make("max_options")
                 ->setLabel("Nombre maximum de réponses")
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
                 ->addConditionalDisplay("multiple")
         )->addField(
-            SharpFormListField::make("values")
+            SharpFormListField::make("options")
                 ->setLabel("Valeurs possibles")
                 ->setAddable()->setAddText("Ajouter une valeur")
                 ->setRemovable()
                 ->setSortable()
                 ->addItemField(
-                    SharpFormTextField::make("value")
+                    SharpFormTextField::make("label")
                 )
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
         );
@@ -91,11 +91,11 @@ class FormojFieldSharpForm extends SharpForm
             $column
                 ->withSingleField("max_length")
                 ->withSingleField("rows_count")
-                ->withSingleField("values", function(FormLayoutColumn $column) {
-                    $column->withSingleField("value");
+                ->withSingleField("options", function(FormLayoutColumn $column) {
+                    $column->withSingleField("label");
                 })
                 ->withSingleField("multiple")
-                ->withSingleField("max_values");
+                ->withSingleField("max_options");
         });
     }
 
@@ -107,13 +107,19 @@ class FormojFieldSharpForm extends SharpForm
      */
     function find($id): array
     {
+        foreach(["max_length", "rows_count", "max_options", "multiple"] as $attribute) {
+            $this->setCustomTransformer($attribute, function($value, $field) use($attribute) {
+                return $field->fieldAttribute($attribute);
+            });
+        }
+
         return $this
-            ->setCustomTransformer("values", function($value, $field) {
-                return collect($value)
-                    ->map(function($value) {
+            ->setCustomTransformer("options", function($value, $field) {
+                return collect($field->fieldAttribute("options"))
+                    ->map(function($option) {
                         return [
                             "id" => uniqid(),
-                            "value" => $value
+                            "label" => $option
                         ];
                     })
                     ->values();
@@ -134,9 +140,16 @@ class FormojFieldSharpForm extends SharpForm
                 "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
             ]);
 
-        $data["values"] = $data["type"] == Field::TYPE_SELECT
-            ? collect($data["values"])->pluck("value")->all()
-            : null;
+        // TODO handle this part with field_attributes
+//        $data["values"] = $data["type"] == Field::TYPE_SELECT
+//            ? collect($data["values"])->pluck("value")->all()
+//            : null;
+//
+//        foreach(["max_length", "rows_count", "max_options", "multiple"] as $attribute) {
+//            $this->setCustomTransformer($attribute, function($value) use($attribute) {
+//                return $field->fieldAttribute($attribute);
+//            });
+//        }
 
         $this->save($field, $data);
 
