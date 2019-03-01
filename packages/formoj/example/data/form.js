@@ -27,10 +27,9 @@ module.exports = {
             "fields": [
                 {
                     "id": 2,
-                    "type": "text",
-                    "label": "Nom",
+                    "type": "textarea",
+                    "label": "Message",
                     "required": true,
-                    "maxlength": 10
                 }
             ]
         }
