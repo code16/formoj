@@ -127,7 +127,9 @@ class FormojFieldSharpForm extends SharpForm
                 "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
             ]);
 
-        $data["values"] = collect($data["values"])->pluck("value")->all();
+        $data["values"] = $data["type"] == Field::TYPE_SELECT
+            ? collect($data["values"])->pluck("value")->all()
+            : null;
 
         $this->save($field, $data);
 
