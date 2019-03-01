@@ -217,4 +217,40 @@ class FormojFormControllerTest extends FormojTestCase
                 ]
             ]);
     }
+
+    /** @test */
+    function we_can_not_get_a_not_published_already_form()
+    {
+        $form = factory(Form::class)->create([
+            "published_at" => now()->addHour(),
+            "unpublished_at" => null,
+        ]);
+
+        $this->getJson("/formoj/api/form/{$form->id}")
+            ->assertStatus(409);
+    }
+
+    /** @test */
+    function we_can_not_get_a_to_be_published_in_the_future_form()
+    {
+        $form = factory(Form::class)->create([
+            "published_at" => null,
+            "unpublished_at" => now()->subHour(),
+        ]);
+
+        $this->getJson("/formoj/api/form/{$form->id}")
+            ->assertStatus(409);
+    }
+
+    /** @test */
+    function we_can_get_a_form_with_valid_publish_dates()
+    {
+        $form = factory(Form::class)->create([
+            "published_at" => now()->subHour(),
+            "unpublished_at" => now()->addHour(),
+        ]);
+
+        $this->getJson("/formoj/api/form/{$form->id}")
+            ->assertStatus(200);
+    }
 }

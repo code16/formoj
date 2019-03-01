@@ -14,6 +14,14 @@ class FormojFormController
      */
     public function show(Form $form)
     {
+        if($form->isNotPublishedYet()) {
+            abort(409, "Ce formulaire n'est pas encore disponible publiquement.");
+        }
+
+        if($form->isNoMorePublished()) {
+            abort(409, "Ce formulaire n'est plus disponible publiquement.");
+        }
+
         return new FormResource($form);
     }
 }
