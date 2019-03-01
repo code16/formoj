@@ -1,6 +1,6 @@
 <template>
-    <div class="fj-field">
-        <label :for="id">{{ field.label }}</label>
+    <div class="fj-field" :class="{ 'fj-field--required':isRequired }">
+        <label class="fj-field__label" :for="id">{{ field.label }}</label>
         <component :is="component" :id="id" :value="value" v-bind="field" @input="handleInput" />
     </div>
 </template>
@@ -14,18 +14,15 @@
         props: {
             value: {},
             field: Object,
-            formId: {
-                type: [Number, String],
-                default: '0',
-            },
+            id: String,
         },
 
         computed: {
-            id() {
-                return `formoj-${this.formId}-field-${this.field.id}`;
-            },
             component() {
                 return getFieldByType(this.field.type);
+            },
+            isRequired() {
+                return this.field.required;
             },
         },
         methods: {

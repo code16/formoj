@@ -1,5 +1,5 @@
 <template>
-
+    <textarea class="fj-textarea" @input="handleInput">{{ value }}</textarea>
 </template>
 
 <script>
