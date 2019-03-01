@@ -29,3 +29,10 @@
 .fj-field {
   @extend .form-group;
 }
+
+.fj-field {
+  &__help {
+    @extend .form-text;
+    @extend .text-muted;
+  }
+}
