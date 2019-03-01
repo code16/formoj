@@ -55,6 +55,7 @@ class FormojFieldSharpForm extends SharpForm
         )->addField(
             SharpFormTextField::make("max_values")
                 ->setLabel("Nombre maximum de réponses")
+                ->addConditionalDisplay("type", Field::TYPE_SELECT)
                 ->addConditionalDisplay("multiple")
         )->addField(
             SharpFormListField::make("values")
@@ -79,20 +80,17 @@ class FormojFieldSharpForm extends SharpForm
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("label")
-//                ->withFieldset("Publication", function (FormLayoutFieldset $fieldset) {
-//                    $fieldset->withFields("published_at|6", "unpublished_at|6");
-//                })
                 ->withSingleField("type")
-                ->withSingleField("description")
-                ->withSingleField("required");
+                ->withSingleField("required")
+                ->withSingleField("description");
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("max_length")
-                ->withSingleField("multiple")
                 ->withSingleField("values", function(FormLayoutColumn $column) {
                     $column->withSingleField("value");
                 })
+                ->withSingleField("multiple")
                 ->withSingleField("max_values");
         });
     }
@@ -127,6 +125,8 @@ class FormojFieldSharpForm extends SharpForm
     function update($id, array $data)
     {
         $field = $id ? Field::findOrFail($id) : new Field(); // TODO section
+
+        $data["values"] = collect($data["values"])->pluck("value")->all();
 
         $this->save($field, $data);
 
