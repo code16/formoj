@@ -14,7 +14,7 @@ return [
         ],
         "field" => [
             "list" => \Code16\Formoj\Sharp\FormojFieldSharpEntityList::class,
-//            "form" => \Code16\Formoj\Sharp\FormojFormSharpForm::class,
+            "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
 //            "validator" => \Code16\Formoj\Sharp\FormojFormSharpValidator::class,
         ],
     ],
