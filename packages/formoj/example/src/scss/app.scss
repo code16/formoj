@@ -1,18 +1,8 @@
 
 @import "~bootstrap/scss/bootstrap";
-@import "~formoj/scss/themes/bootstrap";
+@import "~formoj/scss/themes/default";
 
 .formoj {
   width: 500px;
   max-width: 100%;
-}
-
-.fj-form {
-  @extend .card;
-  &__header {
-    @extend .card-header;
-  }
-  &__content {
-    @extend .card-body;
-  }
 }
