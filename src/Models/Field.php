@@ -20,6 +20,7 @@ class Field extends Model
         'values' => 'json',
         'max_length' => 'integer',
         'max_values' => 'integer',
+        'rows_count' => 'integer',
         'required' => 'boolean',
         'multiple' => 'boolean',
     ];

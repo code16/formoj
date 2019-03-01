@@ -109,6 +109,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => $field->type,
                         "label" => $field->label,
+                        "rows" => $field->rows_count,
                         "helpText" => $field->description,
                         "required" => $field->required,
                         "maxlength" => 10,

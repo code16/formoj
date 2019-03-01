@@ -56,6 +56,7 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
             : null,
         'values' => $values,
         'max_values' => $maxValues,
+        'rows_count' => $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA ? $faker->numberBetween(3, 8) : null,
         'multiple' => $multiple,
         'section_id' => function() {
             return factory(\Code16\Formoj\Models\Section::class)->create()->id;

@@ -49,6 +49,10 @@ class FormojFieldSharpForm extends SharpForm
                 ->setHelpMessage("En nombre de caractères")
                 ->addConditionalDisplay("type", [Field::TYPE_TEXT, Field::TYPE_TEXTAREA])
         )->addField(
+            SharpFormTextField::make("rows_count")
+                ->setLabel("Nombre de lignes")
+                ->addConditionalDisplay("type", Field::TYPE_TEXTAREA)
+        )->addField(
             SharpFormCheckField::make("multiple", "Autoriser plusieurs réponses")
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
         )->addField(
@@ -86,6 +90,7 @@ class FormojFieldSharpForm extends SharpForm
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("max_length")
+                ->withSingleField("rows_count")
                 ->withSingleField("values", function(FormLayoutColumn $column) {
                     $column->withSingleField("value");
                 })

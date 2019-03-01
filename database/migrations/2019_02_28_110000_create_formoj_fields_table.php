@@ -24,6 +24,9 @@ class CreateFormojFieldsTable extends Migration
             // Text, textarea
             $table->unsignedSmallInteger("max_length")->nullable();
 
+            // Textarea
+            $table->unsignedSmallInteger("rows_count")->nullable();
+
             // Select
             $table->longText("values")->nullable();
             $table->unsignedSmallInteger("max_values")->nullable();

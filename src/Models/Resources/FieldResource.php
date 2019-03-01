@@ -33,6 +33,9 @@ class FieldResource extends JsonResource
             'max' => $this->when(
                 $this->isTypeSelect() && $this->multiple, $this->max_values
             ),
+            'rows' => $this->when(
+                $this->isTypeTextArea(), $this->rows_count
+            ),
             'options' => $this->when(
                 $this->isTypeSelect(), collect($this->values)->map(
                     function($value, $index) {
