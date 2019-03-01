@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
                     factory(\Code16\Formoj\Models\Field::class)->create([
                         "type" => "heading",
                         "required" => false,
-                        "description" => null,
+                        "help_text" => null,
                         "section_id" => $section->id
                     ]);
                 }

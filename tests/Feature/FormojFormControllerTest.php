@@ -20,7 +20,7 @@ class FormojFormControllerTest extends FormojTestCase
     }
 
     /** @test */
-    function we_can_get_a_form()
+    function we_can_get_a_form_properly_formatted()
     {
         $field = factory(Field::class)->create([
             "section_id" => factory(Section::class)->create([
@@ -46,7 +46,7 @@ class FormojFormControllerTest extends FormojTestCase
                                 [
                                     "id" => $field->id,
                                     "type" => $field->type,
-                                    "helpText" => $field->description,
+                                    "helpText" => $field->help_text,
                                     "label" => $field->label,
                                     "required" => $field->required
                                 ]
@@ -62,7 +62,7 @@ class FormojFormControllerTest extends FormojTestCase
     {
         $field = factory(Field::class)->create([
             "type" => "text",
-            "max_length" => 10,
+            "field_attributes->max_length" => 10,
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
                     "published_at" => null,
@@ -79,7 +79,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => "text",
                         "label" => $field->label,
-                        "helpText" => $field->description,
+                        "helpText" => $field->help_text,
                         "required" => $field->required,
                         "maxlength" => 10,
                     ]
@@ -92,7 +92,8 @@ class FormojFormControllerTest extends FormojTestCase
     {
         $field = factory(Field::class)->create([
             "type" => "textarea",
-            "max_length" => 10,
+            "field_attributes->max_length" => 10,
+            "field_attributes->rows_count" => 12,
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
                     "published_at" => null,
@@ -109,9 +110,9 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => "textarea",
                         "label" => $field->label,
-                        "rows" => $field->rows_count,
-                        "helpText" => $field->description,
+                        "helpText" => $field->help_text,
                         "required" => $field->required,
+                        "rows" => 12,
                         "maxlength" => 10,
                     ]
                 ]
@@ -123,8 +124,8 @@ class FormojFormControllerTest extends FormojTestCase
     {
         $field = factory(Field::class)->create([
             "type" => "select",
-            "multiple" => false,
-            "values" => ["A", "B", "C"],
+            "field_attributes->multiple" => false,
+            "field_attributes->options" => ["A", "B", "C"],
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
                     "published_at" => null,
@@ -141,7 +142,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => "select",
                         "label" => $field->label,
-                        "helpText" => $field->description,
+                        "helpText" => $field->help_text,
                         "required" => $field->required,
                         "multiple" => false,
                         "options" => [
@@ -159,9 +160,9 @@ class FormojFormControllerTest extends FormojTestCase
     {
         $field = factory(Field::class)->create([
             "type" => "select",
-            "multiple" => true,
-            "max_values" => 2,
-            "values" => ["A", "B", "C"],
+            "field_attributes->multiple" => true,
+            "field_attributes->max_options" => 2,
+            "field_attributes->options" => ["A", "B", "C"],
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
                     "published_at" => null,
@@ -178,7 +179,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => $field->id,
                         "type" => "select",
                         "label" => $field->label,
-                        "helpText" => $field->description,
+                        "helpText" => $field->help_text,
                         "required" => $field->required,
                         "multiple" => true,
                         "max" => 2,

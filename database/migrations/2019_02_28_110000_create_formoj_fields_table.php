@@ -17,20 +17,22 @@ class CreateFormojFieldsTable extends Migration
             $table->increments('id');
             $table->string("label");
             $table->boolean('required')->default(false);
-            $table->text("description")->nullable();
+            $table->text("help_text")->nullable();
             $table->unsignedSmallInteger("order")->default(100);
             $table->string("type"); // text, textarea, select
 
-            // Text, textarea
-            $table->unsignedSmallInteger("max_length")->nullable();
+            $table->longText("field_attributes");
 
-            // Textarea
-            $table->unsignedSmallInteger("rows_count")->nullable();
-
-            // Select
-            $table->longText("values")->nullable();
-            $table->unsignedSmallInteger("max_values")->nullable();
-            $table->boolean("multiple")->default(false);
+//            // Text, textarea
+//            $table->unsignedSmallInteger("max_length")->nullable();
+//
+//            // Textarea
+//            $table->unsignedSmallInteger("rows_count")->nullable();
+//
+//            // Select
+//            $table->longText("values")->nullable();
+//            $table->unsignedSmallInteger("max_values")->nullable();
+//            $table->boolean("multiple")->default(false);
 
             $table->unsignedInteger('section_id');
             $table->foreign('section_id')

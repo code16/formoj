@@ -17,12 +17,8 @@ class Field extends Model
 
     /** @var array */
     protected $casts = [
-        'values' => 'json',
-        'max_length' => 'integer',
-        'max_values' => 'integer',
-        'rows_count' => 'integer',
+        'field_attributes' => 'json',
         'required' => 'boolean',
-        'multiple' => 'boolean',
     ];
 
     /**
@@ -31,6 +27,15 @@ class Field extends Model
     public function section()
     {
         return $this->belongsTo(Section::class);
+    }
+
+    /**
+     * @param string $attribute
+     * @return mixed|null
+     */
+    public function fieldAttribute($attribute)
+    {
+        return $this->field_attributes[$attribute] ?? null;
     }
 
     /**
