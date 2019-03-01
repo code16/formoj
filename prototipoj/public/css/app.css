@@ -2145,11 +2145,12 @@ textarea.fj-select__input {
 }
 
 .form-group,
-.fj-field {
+.fj-section__field {
   margin-bottom: 1rem;
 }
 
-.form-text {
+.form-text,
+.fj-field__help {
   display: block;
   margin-top: 0.25rem;
 }
@@ -2373,7 +2374,8 @@ textarea.is-valid.fj-select__input {
   box-shadow: 0 0 0 0.2rem rgba(56, 193, 114, 0.25);
 }
 
-.invalid-feedback {
+.invalid-feedback,
+.fj-field__error {
   display: none;
   width: 100%;
   margin-top: 0.25rem;
@@ -2401,9 +2403,13 @@ textarea.is-valid.fj-select__input {
 .was-validated .fj-textarea:invalid,
 .was-validated .fj-select__input:invalid,
 .form-control.is-invalid,
+.fj-field--invalid .form-control,
 .is-invalid.fj-text,
+.fj-field--invalid .fj-text,
 .is-invalid.fj-textarea,
-.is-invalid.fj-select__input {
+.fj-field--invalid .fj-textarea,
+.is-invalid.fj-select__input,
+.fj-field--invalid .fj-select__input {
   border-color: #e3342f;
   padding-right: calc(1.6em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e3342f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e3342f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
@@ -2417,29 +2423,53 @@ textarea.is-valid.fj-select__input {
 .was-validated .fj-textarea:invalid:focus,
 .was-validated .fj-select__input:invalid:focus,
 .form-control.is-invalid:focus,
+.fj-field--invalid .form-control:focus,
 .is-invalid.fj-text:focus,
+.fj-field--invalid .fj-text:focus,
 .is-invalid.fj-textarea:focus,
-.is-invalid.fj-select__input:focus {
+.fj-field--invalid .fj-textarea:focus,
+.is-invalid.fj-select__input:focus,
+.fj-field--invalid .fj-select__input:focus {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
 
 .was-validated .form-control:invalid ~ .invalid-feedback,
+.was-validated .form-control:invalid ~ .fj-field__error,
 .was-validated .fj-text:invalid ~ .invalid-feedback,
+.was-validated .fj-text:invalid ~ .fj-field__error,
 .was-validated .fj-textarea:invalid ~ .invalid-feedback,
+.was-validated .fj-textarea:invalid ~ .fj-field__error,
 .was-validated .fj-select__input:invalid ~ .invalid-feedback,
+.was-validated .fj-select__input:invalid ~ .fj-field__error,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated .fj-text:invalid ~ .invalid-tooltip,
 .was-validated .fj-textarea:invalid ~ .invalid-tooltip,
 .was-validated .fj-select__input:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
+.form-control.is-invalid ~ .fj-field__error,
+.fj-field--invalid .form-control ~ .invalid-feedback,
+.fj-field--invalid .form-control ~ .fj-field__error,
 .is-invalid.fj-text ~ .invalid-feedback,
+.is-invalid.fj-text ~ .fj-field__error,
+.fj-field--invalid .fj-text ~ .invalid-feedback,
+.fj-field--invalid .fj-text ~ .fj-field__error,
 .is-invalid.fj-textarea ~ .invalid-feedback,
+.is-invalid.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .fj-textarea ~ .fj-field__error,
 .is-invalid.fj-select__input ~ .invalid-feedback,
+.is-invalid.fj-select__input ~ .fj-field__error,
+.fj-field--invalid .fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .fj-select__input ~ .fj-field__error,
 .form-control.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .form-control ~ .invalid-tooltip,
 .is-invalid.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .fj-text ~ .invalid-tooltip,
 .is-invalid.fj-textarea ~ .invalid-tooltip,
-.is-invalid.fj-select__input ~ .invalid-tooltip {
+.fj-field--invalid .fj-textarea ~ .invalid-tooltip,
+.is-invalid.fj-select__input ~ .invalid-tooltip,
+.fj-field--invalid .fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2448,99 +2478,213 @@ textarea.is-valid.fj-select__input {
 .was-validated textarea.fj-textarea:invalid,
 .was-validated textarea.fj-select__input:invalid,
 textarea.form-control.is-invalid,
+.fj-field--invalid textarea.form-control,
 textarea.is-invalid.fj-text,
+.fj-field--invalid textarea.fj-text,
 textarea.is-invalid.fj-textarea,
-textarea.is-invalid.fj-select__input {
+.fj-field--invalid textarea.fj-textarea,
+textarea.is-invalid.fj-select__input,
+.fj-field--invalid textarea.fj-select__input {
   padding-right: calc(1.6em + 0.75rem);
   background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem);
 }
 
 .was-validated .custom-select:invalid,
-.custom-select.is-invalid {
+.custom-select.is-invalid,
+.fj-field--invalid .custom-select.form-control,
+.fj-field--invalid .custom-select.fj-text,
+.fj-field--invalid .custom-select.fj-textarea,
+.fj-field--invalid .custom-select.fj-select__input {
   border-color: #e3342f;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e3342f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e3342f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
 }
 
 .was-validated .custom-select:invalid:focus,
-.custom-select.is-invalid:focus {
+.custom-select.is-invalid:focus,
+.fj-field--invalid .custom-select.form-control:focus,
+.fj-field--invalid .custom-select.fj-text:focus,
+.fj-field--invalid .custom-select.fj-textarea:focus,
+.fj-field--invalid .custom-select.fj-select__input:focus {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
 
 .was-validated .custom-select:invalid ~ .invalid-feedback,
+.was-validated .custom-select:invalid ~ .fj-field__error,
 .was-validated .custom-select:invalid ~ .invalid-tooltip,
 .custom-select.is-invalid ~ .invalid-feedback,
-.custom-select.is-invalid ~ .invalid-tooltip {
+.custom-select.is-invalid ~ .fj-field__error,
+.fj-field--invalid .custom-select.form-control ~ .invalid-feedback,
+.fj-field--invalid .custom-select.form-control ~ .fj-field__error,
+.fj-field--invalid .custom-select.fj-text ~ .invalid-feedback,
+.fj-field--invalid .custom-select.fj-text ~ .fj-field__error,
+.fj-field--invalid .custom-select.fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .custom-select.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .custom-select.fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .custom-select.fj-select__input ~ .fj-field__error,
+.custom-select.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.form-control ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.fj-textarea ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .form-control-file:invalid ~ .invalid-feedback,
+.was-validated .form-control-file:invalid ~ .fj-field__error,
 .was-validated .form-control-file:invalid ~ .invalid-tooltip,
 .form-control-file.is-invalid ~ .invalid-feedback,
-.form-control-file.is-invalid ~ .invalid-tooltip {
+.form-control-file.is-invalid ~ .fj-field__error,
+.fj-field--invalid .form-control-file.form-control ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.form-control ~ .fj-field__error,
+.fj-field--invalid .form-control-file.fj-text ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.fj-text ~ .fj-field__error,
+.fj-field--invalid .form-control-file.fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .form-control-file.fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.fj-select__input ~ .fj-field__error,
+.form-control-file.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.form-control ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.fj-textarea ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .form-check-input:invalid ~ .form-check-label,
-.form-check-input.is-invalid ~ .form-check-label {
+.form-check-input.is-invalid ~ .form-check-label,
+.fj-field--invalid .form-check-input.form-control ~ .form-check-label,
+.fj-field--invalid .form-check-input.fj-text ~ .form-check-label,
+.fj-field--invalid .form-check-input.fj-textarea ~ .form-check-label,
+.fj-field--invalid .form-check-input.fj-select__input ~ .form-check-label {
   color: #e3342f;
 }
 
 .was-validated .form-check-input:invalid ~ .invalid-feedback,
+.was-validated .form-check-input:invalid ~ .fj-field__error,
 .was-validated .form-check-input:invalid ~ .invalid-tooltip,
 .form-check-input.is-invalid ~ .invalid-feedback,
-.form-check-input.is-invalid ~ .invalid-tooltip {
+.form-check-input.is-invalid ~ .fj-field__error,
+.fj-field--invalid .form-check-input.form-control ~ .invalid-feedback,
+.fj-field--invalid .form-check-input.form-control ~ .fj-field__error,
+.fj-field--invalid .form-check-input.fj-text ~ .invalid-feedback,
+.fj-field--invalid .form-check-input.fj-text ~ .fj-field__error,
+.fj-field--invalid .form-check-input.fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .form-check-input.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .form-check-input.fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .form-check-input.fj-select__input ~ .fj-field__error,
+.form-check-input.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .form-check-input.form-control ~ .invalid-tooltip,
+.fj-field--invalid .form-check-input.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .form-check-input.fj-textarea ~ .invalid-tooltip,
+.fj-field--invalid .form-check-input.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .custom-control-input:invalid ~ .custom-control-label,
-.custom-control-input.is-invalid ~ .custom-control-label {
+.custom-control-input.is-invalid ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.form-control ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.fj-text ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.fj-textarea ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.fj-select__input ~ .custom-control-label {
   color: #e3342f;
 }
 
 .was-validated .custom-control-input:invalid ~ .custom-control-label::before,
-.custom-control-input.is-invalid ~ .custom-control-label::before {
+.custom-control-input.is-invalid ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-control ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-text ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-textarea ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-select__input ~ .custom-control-label::before {
   border-color: #e3342f;
 }
 
 .was-validated .custom-control-input:invalid ~ .invalid-feedback,
+.was-validated .custom-control-input:invalid ~ .fj-field__error,
 .was-validated .custom-control-input:invalid ~ .invalid-tooltip,
 .custom-control-input.is-invalid ~ .invalid-feedback,
-.custom-control-input.is-invalid ~ .invalid-tooltip {
+.custom-control-input.is-invalid ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.form-control ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.form-control ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.fj-text ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.fj-text ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.fj-select__input ~ .fj-field__error,
+.custom-control-input.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.form-control ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.fj-textarea ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .custom-control-input:invalid:checked ~ .custom-control-label::before,
-.custom-control-input.is-invalid:checked ~ .custom-control-label::before {
+.custom-control-input.is-invalid:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-control:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-text:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-textarea:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-select__input:checked ~ .custom-control-label::before {
   border-color: #e9605c;
   background-color: #e9605c;
 }
 
 .was-validated .custom-control-input:invalid:focus ~ .custom-control-label::before,
-.custom-control-input.is-invalid:focus ~ .custom-control-label::before {
+.custom-control-input.is-invalid:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-control:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-text:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-textarea:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-select__input:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
 
 .was-validated .custom-control-input:invalid:focus:not(:checked) ~ .custom-control-label::before,
-.custom-control-input.is-invalid:focus:not(:checked) ~ .custom-control-label::before {
+.custom-control-input.is-invalid:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-control:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-text:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-textarea:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-select__input:focus:not(:checked) ~ .custom-control-label::before {
   border-color: #e3342f;
 }
 
 .was-validated .custom-file-input:invalid ~ .custom-file-label,
-.custom-file-input.is-invalid ~ .custom-file-label {
+.custom-file-input.is-invalid ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.form-control ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-text ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-textarea ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-select__input ~ .custom-file-label {
   border-color: #e3342f;
 }
 
 .was-validated .custom-file-input:invalid ~ .invalid-feedback,
+.was-validated .custom-file-input:invalid ~ .fj-field__error,
 .was-validated .custom-file-input:invalid ~ .invalid-tooltip,
 .custom-file-input.is-invalid ~ .invalid-feedback,
-.custom-file-input.is-invalid ~ .invalid-tooltip {
+.custom-file-input.is-invalid ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.form-control ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.form-control ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.fj-text ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.fj-text ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.fj-textarea ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.fj-textarea ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.fj-select__input ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.fj-select__input ~ .fj-field__error,
+.custom-file-input.is-invalid ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.form-control ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.fj-text ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.fj-textarea ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .custom-file-input:invalid:focus ~ .custom-file-label,
-.custom-file-input.is-invalid:focus ~ .custom-file-label {
+.custom-file-input.is-invalid:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.form-control:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-text:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-textarea:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-select__input:focus ~ .custom-file-label {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
@@ -2564,7 +2708,7 @@ textarea.is-invalid.fj-select__input {
   }
 
   .form-inline .form-group,
-  .form-inline .fj-field {
+  .form-inline .fj-section__field {
     display: flex;
     flex: 0 0 auto;
     flex-flow: row wrap;
@@ -4983,7 +5127,9 @@ input[type=button].btn-block {
   color: #fff;
 }
 
-.card {
+.card,
+.fj-form--card,
+.fj-form {
   position: relative;
   display: flex;
   flex-direction: column;
@@ -4995,22 +5141,30 @@ input[type=button].btn-block {
   border-radius: 0.25rem;
 }
 
-.card > hr {
+.card > hr,
+.fj-form--card > hr,
+.fj-form > hr {
   margin-right: 0;
   margin-left: 0;
 }
 
-.card > .list-group:first-child .list-group-item:first-child {
+.card > .list-group:first-child .list-group-item:first-child,
+.fj-form--card > .list-group:first-child .list-group-item:first-child,
+.fj-form > .list-group:first-child .list-group-item:first-child {
   border-top-left-radius: 0.25rem;
   border-top-right-radius: 0.25rem;
 }
 
-.card > .list-group:last-child .list-group-item:last-child {
+.card > .list-group:last-child .list-group-item:last-child,
+.fj-form--card > .list-group:last-child .list-group-item:last-child,
+.fj-form > .list-group:last-child .list-group-item:last-child {
   border-bottom-right-radius: 0.25rem;
   border-bottom-left-radius: 0.25rem;
 }
 
-.card-body {
+.card-body,
+.fj-form--card .fj-form__content,
+.fj-form .fj-form__content {
   flex: 1 1 auto;
   padding: 1.25rem;
 }
@@ -5036,18 +5190,24 @@ input[type=button].btn-block {
   margin-left: 1.25rem;
 }
 
-.card-header {
+.card-header,
+.fj-form--card .fj-form__header,
+.fj-form .fj-form__header {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
   border-bottom: 1px solid rgba(0, 0, 0, 0.125);
 }
 
-.card-header:first-child {
+.card-header:first-child,
+.fj-form--card .fj-form__header:first-child,
+.fj-form .fj-form__header:first-child {
   border-radius: calc(0.25rem - 1px) calc(0.25rem - 1px) 0 0;
 }
 
-.card-header + .list-group .list-group-item:first-child {
+.card-header + .list-group .list-group-item:first-child,
+.fj-form--card .fj-form__header + .list-group .list-group-item:first-child,
+.fj-form .fj-form__header + .list-group .list-group-item:first-child {
   border-top: 0;
 }
 
@@ -5104,7 +5264,9 @@ input[type=button].btn-block {
   flex-direction: column;
 }
 
-.card-deck .card {
+.card-deck .card,
+.card-deck .fj-form--card,
+.card-deck .fj-form {
   margin-bottom: 15px;
 }
 
@@ -5115,7 +5277,9 @@ input[type=button].btn-block {
     margin-left: -15px;
   }
 
-  .card-deck .card {
+  .card-deck .card,
+  .card-deck .fj-form--card,
+  .card-deck .fj-form {
     display: flex;
     flex: 1 0 0%;
     flex-direction: column;
@@ -5130,7 +5294,9 @@ input[type=button].btn-block {
   flex-direction: column;
 }
 
-.card-group > .card {
+.card-group > .card,
+.card-group > .fj-form--card,
+.card-group > .fj-form {
   margin-bottom: 15px;
 }
 
@@ -5139,48 +5305,92 @@ input[type=button].btn-block {
     flex-flow: row wrap;
   }
 
-  .card-group > .card {
+  .card-group > .card,
+  .card-group > .fj-form--card,
+  .card-group > .fj-form {
     flex: 1 0 0%;
     margin-bottom: 0;
   }
 
-  .card-group > .card + .card {
+  .card-group > .card + .card,
+  .card-group > .fj-form--card + .card,
+  .card-group > .fj-form + .card,
+  .card-group > .card + .fj-form--card,
+  .card-group > .card + .fj-form,
+  .card-group > .fj-form--card + .fj-form--card,
+  .card-group > .fj-form + .fj-form--card,
+  .card-group > .fj-form--card + .fj-form,
+  .card-group > .fj-form + .fj-form {
     margin-left: 0;
     border-left: 0;
   }
 
-  .card-group > .card:not(:last-child) {
+  .card-group > .card:not(:last-child),
+  .card-group > .fj-form--card:not(:last-child),
+  .card-group > .fj-form:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
   .card-group > .card:not(:last-child) .card-img-top,
-  .card-group > .card:not(:last-child) .card-header {
+  .card-group > .fj-form--card:not(:last-child) .card-img-top,
+  .card-group > .fj-form:not(:last-child) .card-img-top,
+  .card-group > .card:not(:last-child) .card-header,
+  .card-group > .card:not(:last-child) .fj-form--card .fj-form__header,
+  .card-group > .card:not(:last-child) .fj-form .fj-form__header,
+  .fj-form--card .card-group > .card:not(:last-child) .fj-form__header,
+  .fj-form .card-group > .card:not(:last-child) .fj-form__header,
+  .card-group > .fj-form--card:not(:last-child) .card-header,
+  .card-group > .fj-form:not(:last-child) .card-header,
+  .card-group > .fj-form--card:not(:last-child) .fj-form__header,
+  .card-group > .fj-form:not(:last-child) .fj-form__header {
     border-top-right-radius: 0;
   }
 
   .card-group > .card:not(:last-child) .card-img-bottom,
-  .card-group > .card:not(:last-child) .card-footer {
+  .card-group > .fj-form--card:not(:last-child) .card-img-bottom,
+  .card-group > .fj-form:not(:last-child) .card-img-bottom,
+  .card-group > .card:not(:last-child) .card-footer,
+  .card-group > .fj-form--card:not(:last-child) .card-footer,
+  .card-group > .fj-form:not(:last-child) .card-footer {
     border-bottom-right-radius: 0;
   }
 
-  .card-group > .card:not(:first-child) {
+  .card-group > .card:not(:first-child),
+  .card-group > .fj-form--card:not(:first-child),
+  .card-group > .fj-form:not(:first-child) {
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }
 
   .card-group > .card:not(:first-child) .card-img-top,
-  .card-group > .card:not(:first-child) .card-header {
+  .card-group > .fj-form--card:not(:first-child) .card-img-top,
+  .card-group > .fj-form:not(:first-child) .card-img-top,
+  .card-group > .card:not(:first-child) .card-header,
+  .card-group > .card:not(:first-child) .fj-form--card .fj-form__header,
+  .card-group > .card:not(:first-child) .fj-form .fj-form__header,
+  .fj-form--card .card-group > .card:not(:first-child) .fj-form__header,
+  .fj-form .card-group > .card:not(:first-child) .fj-form__header,
+  .card-group > .fj-form--card:not(:first-child) .card-header,
+  .card-group > .fj-form:not(:first-child) .card-header,
+  .card-group > .fj-form--card:not(:first-child) .fj-form__header,
+  .card-group > .fj-form:not(:first-child) .fj-form__header {
     border-top-left-radius: 0;
   }
 
   .card-group > .card:not(:first-child) .card-img-bottom,
-  .card-group > .card:not(:first-child) .card-footer {
+  .card-group > .fj-form--card:not(:first-child) .card-img-bottom,
+  .card-group > .fj-form:not(:first-child) .card-img-bottom,
+  .card-group > .card:not(:first-child) .card-footer,
+  .card-group > .fj-form--card:not(:first-child) .card-footer,
+  .card-group > .fj-form:not(:first-child) .card-footer {
     border-bottom-left-radius: 0;
   }
 }
 
-.card-columns .card {
+.card-columns .card,
+.card-columns .fj-form--card,
+.card-columns .fj-form {
   margin-bottom: 0.75rem;
 }
 
@@ -5194,37 +5404,61 @@ input[type=button].btn-block {
     widows: 1;
   }
 
-  .card-columns .card {
+  .card-columns .card,
+  .card-columns .fj-form--card,
+  .card-columns .fj-form {
     display: inline-block;
     width: 100%;
   }
 }
 
-.accordion > .card {
+.accordion > .card,
+.accordion > .fj-form--card,
+.accordion > .fj-form {
   overflow: hidden;
 }
 
-.accordion > .card:not(:first-of-type) .card-header:first-child {
+.accordion > .card:not(:first-of-type) .card-header:first-child,
+.accordion > .card:not(:first-of-type) .fj-form--card .fj-form__header:first-child,
+.accordion > .card:not(:first-of-type) .fj-form .fj-form__header:first-child,
+.fj-form--card .accordion > .card:not(:first-of-type) .fj-form__header:first-child,
+.fj-form .accordion > .card:not(:first-of-type) .fj-form__header:first-child,
+.accordion > .fj-form--card:not(:first-of-type) .card-header:first-child,
+.accordion > .fj-form:not(:first-of-type) .card-header:first-child,
+.accordion > .fj-form--card:not(:first-of-type) .fj-form__header:first-child,
+.accordion > .fj-form:not(:first-of-type) .fj-form__header:first-child {
   border-radius: 0;
 }
 
-.accordion > .card:not(:first-of-type):not(:last-of-type) {
+.accordion > .card:not(:first-of-type):not(:last-of-type),
+.accordion > .fj-form--card:not(:first-of-type):not(:last-of-type),
+.accordion > .fj-form:not(:first-of-type):not(:last-of-type) {
   border-bottom: 0;
   border-radius: 0;
 }
 
-.accordion > .card:first-of-type {
+.accordion > .card:first-of-type,
+.accordion > .fj-form--card:first-of-type,
+.accordion > .fj-form:first-of-type {
   border-bottom: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.accordion > .card:last-of-type {
+.accordion > .card:last-of-type,
+.accordion > .fj-form--card:last-of-type,
+.accordion > .fj-form:last-of-type {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
 
-.accordion > .card .card-header {
+.accordion > .card .card-header,
+.fj-form--card .accordion > .card .fj-form__header,
+.fj-form .accordion > .card .fj-form__header,
+.accordion > .fj-form--card .card-header,
+.accordion > .fj-form .card-header,
+.accordion > .fj-form--card .fj-form__header,
+.accordion > .fj-form .fj-form__header {
   margin-bottom: -1px;
 }
 
@@ -10771,7 +11005,8 @@ a.text-dark:focus {
   color: #212529 !important;
 }
 
-.text-muted {
+.text-muted,
+.fj-field__help {
   color: #6c757d !important;
 }
 
@@ -10910,10 +11145,6 @@ a.text-dark:focus {
   }
 }
 
-.fj-form__description {
-  margin-bottom: 0;
-}
-
 .fj-section__footer {
   margin-top: 1rem;
   text-align: right;
@@ -10924,7 +11155,19 @@ a.text-dark:focus {
 }
 
 .fj-field--required .fj-field__label::after {
-  content: "*";
-  padding-left: 0.125em;
+  content: "\A0*";
+}
+
+.fj-field__label {
+  display: block;
+}
+
+.fj-field__help {
+  font-size: 80%;
+}
+
+.fj-form--card .fj-form__description,
+.fj-form .fj-form__description {
+  margin-bottom: 0;
 }
 

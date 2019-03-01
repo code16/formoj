@@ -1,13 +1,22 @@
 <template>
-    <div class="fj-field" :class="{ 'fj-field--required':isRequired }">
+    <div class="fj-field" :class="classes">
         <label class="fj-field__label" :for="id">{{ field.label }}</label>
-        <component :is="component" :id="id" :value="value" v-bind="props" @input="handleInput" />
+        <component
+            :is="component"
+            :id="id"
+            :value="value"
+            v-bind="props"
+            @input="handleInput"
+        />
+        <template v-if="hasError">
+            <div class="fj-field__error">{{ errorMessage }}</div>
+        </template>
         <div class="fj-field__help">{{ field.helpText }}</div>
     </div>
 </template>
 
 <script>
-    import {getFieldByType} from "./fields";
+    import { getFieldByType } from "./fields";
 
     export default {
         name: 'FjField',
@@ -16,12 +25,10 @@
             value: {},
             field: Object,
             id: String,
+            error: String,
         },
 
         computed: {
-            isRequired() {
-                return this.field.required;
-            },
             component() {
                 return getFieldByType(this.field.type);
             },
@@ -31,6 +38,21 @@
                     label: undefined,
                     helpText: undefined,
                     name: this.field.id,
+                }
+            },
+            isRequired() {
+                return this.field.required;
+            },
+            hasError() {
+                return !!this.error;
+            },
+            errorMessage() {
+                return this.error;
+            },
+            classes() {
+                return {
+                    'fj-field--required': this.isRequired,
+                    'fj-field--invalid': this.hasError,
                 }
             },
         },

@@ -2601,8 +2601,11 @@ function getForm(baseUrl, _ref) {
 }
 function postSection(baseUrl, _ref2) {
   var formId = _ref2.formId,
-      sectionId = _ref2.sectionId;
-  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(baseUrl, "/form/").concat(formId, "/validate/").concat(sectionId));
+      sectionId = _ref2.sectionId,
+      data = _ref2.data;
+  return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("".concat(baseUrl, "/form/").concat(formId, "/validate/").concat(sectionId), {
+    data: data
+  });
 }
 function postForm(baseUrl, _ref3) {
   var formId = _ref3.formId,
@@ -3239,7 +3242,8 @@ __webpack_require__.r(__webpack_exports__);
   'form.error.post': "Une erreur est survenu lors de l'envoi du formulaire",
   'section.button.next': 'Suivant',
   'section.button.previous': 'Précédent',
-  'section.button.submit': 'Envoyer'
+  'section.button.submit': 'Envoyer',
+  'field.select.placeholder': 'Choisir...'
 });
 
 /***/ }),
@@ -3307,6 +3311,40 @@ function $t(key) {
 
 /***/ }),
 
+/***/ "../packages/formoj/src/util/validation.js":
+/*!*************************************************!*\
+  !*** ../packages/formoj/src/util/validation.js ***!
+  \*************************************************/
+/*! exports provided: getValidationErrors */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getValidationErrors", function() { return getValidationErrors; });
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function getValidationErrors(data) {
+  return Object.entries(data.errors).reduce(function (res, _ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        key = _ref2[0],
+        messages = _ref2[1];
+
+    return _objectSpread({}, res, _defineProperty({}, key, messages[0]));
+  }, {});
+}
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!../packages/formoj/src/components/Alert.vue?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!../packages/formoj/src/components/Alert.vue?vue&type=script&lang=js& ***!
@@ -3348,6 +3386,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fields__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fields */ "../packages/formoj/src/components/fields/index.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3361,14 +3413,34 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     value: {},
     field: Object,
-    id: String
+    id: String,
+    error: String
   },
   computed: {
     component: function component() {
       return Object(_fields__WEBPACK_IMPORTED_MODULE_0__["getFieldByType"])(this.field.type);
     },
+    props: function props() {
+      return _objectSpread({}, this.field, {
+        label: undefined,
+        helpText: undefined,
+        name: this.field.id
+      });
+    },
     isRequired: function isRequired() {
       return this.field.required;
+    },
+    hasError: function hasError() {
+      return !!this.error;
+    },
+    errorMessage: function errorMessage() {
+      return this.error;
+    },
+    classes: function classes() {
+      return {
+        'fj-field--required': this.isRequired,
+        'fj-field--invalid': this.hasError
+      };
     }
   },
   methods: {
@@ -3430,6 +3502,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3442,7 +3515,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     title: String,
     description: String,
     sections: Array,
-    formId: [Number, String]
+    formId: [Number, String],
+    index: Number,
+    errors: Object,
+    appearance: String
   },
   data: function data() {
     return {
@@ -3451,6 +3527,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       messageType: null,
       currentSectionIndex: 0
     };
+  },
+  watch: {
+    index: function index(_index) {
+      this.currentSectionIndex = _index;
+    }
   },
   computed: {
     currentSection: function currentSection() {
@@ -3461,6 +3542,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     isCurrentLast: function isCurrentLast() {
       return this.currentSectionIndex === this.sections.length - 1;
+    },
+    classes: function classes() {
+      return _defineProperty({}, "fj-form--".concat(this.appearance), !!this.appearance);
     }
   },
   methods: {
@@ -3474,11 +3558,27 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fieldIdAttribute: function fieldIdAttribute(field) {
       return "formoj-".concat(this.formId, "-field-").concat(field.id);
     },
+    fieldError: function fieldError(field) {
+      var fieldKey = this.fieldKey(field);
+      return this.errors ? this.errors[fieldKey] : null;
+    },
     handleNextSectionRequested: function handleNextSectionRequested() {
-      this.currentSectionIndex++;
+      var cancelled = false;
+      var event = {
+        preventDefault: function preventDefault() {
+          return cancelled = true;
+        }
+      };
+      this.$emit('next', event, this.currentSection, this.data);
+
+      if (!cancelled) {
+        this.currentSectionIndex++;
+        this.$emit('update:index', this.currentSectionIndex);
+      }
     },
     handlePreviousSectionRequested: function handlePreviousSectionRequested() {
       this.currentSectionIndex--;
+      this.$emit('update:index', this.currentSectionIndex);
     },
     handleFieldChanged: function handleFieldChanged(field, value) {
       var fieldKey = this.fieldKey(field);
@@ -3505,9 +3605,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Form__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Form */ "../packages/formoj/src/components/Form.vue");
 /* harmony import */ var _Alert__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Alert */ "../packages/formoj/src/components/Alert.vue");
-/* harmony import */ var _util_config__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/config */ "../packages/formoj/src/util/config.js");
-/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../api */ "../packages/formoj/src/api.js");
-/* harmony import */ var _util_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/i18n */ "../packages/formoj/src/util/i18n.js");
+/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../api */ "../packages/formoj/src/api.js");
+/* harmony import */ var _util_config__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../util/config */ "../packages/formoj/src/util/config.js");
+/* harmony import */ var _util_validation__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../util/validation */ "../packages/formoj/src/util/validation.js");
+/* harmony import */ var _util_i18n__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../util/i18n */ "../packages/formoj/src/util/i18n.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3531,6 +3632,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+
 
 
 
@@ -3545,36 +3651,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     formId: {
       type: String,
       required: true
-    }
+    },
+    appearance: String
   },
   data: function data() {
     return {
       ready: false,
       form: null,
       message: null,
-      messageType: null
+      messageType: null,
+      currentSectionIndex: 0,
+      validationErrors: null
     };
   },
   computed: {
-    config: _util_config__WEBPACK_IMPORTED_MODULE_3__["config"],
+    config: _util_config__WEBPACK_IMPORTED_MODULE_4__["config"],
     hasAlert: function hasAlert() {
       return !!this.message;
     }
   },
   methods: {
-    handleSubmit: function handleSubmit(data) {
+    handleFormSubmitted: function handleFormSubmitted(data) {
       var _this = this;
 
       this.resetAlert();
-      Object(_api__WEBPACK_IMPORTED_MODULE_4__["postForm"])(this.config.apiBaseUrl, {
+      this.resetValidation();
+      Object(_api__WEBPACK_IMPORTED_MODULE_3__["postForm"])(this.config.apiBaseUrl, {
         formId: this.formId,
         data: data
-      }).catch(function () {
+      }).catch(this.handleValidationError).catch(function () {
         _this.showAlert({
-          message: Object(_util_i18n__WEBPACK_IMPORTED_MODULE_5__["$t"])('form.error.post'),
+          message: Object(_util_i18n__WEBPACK_IMPORTED_MODULE_6__["$t"])('form.error.post'),
           type: 'error'
         });
       });
+    },
+    handleNextSectionRequested: function handleNextSectionRequested(e, currentSection, data) {
+      var _this2 = this;
+
+      e.preventDefault();
+      this.resetAlert();
+      this.resetValidation();
+      Object(_api__WEBPACK_IMPORTED_MODULE_3__["postSection"])(this.config.apiBaseUrl, {
+        formId: this.formId,
+        sectionId: currentSection.id,
+        data: data
+      }).then(function () {
+        _this2.currentSectionIndex++;
+      }).catch(this.handleValidationError).catch(function () {
+        _this2.showAlert({
+          message: Object(_util_i18n__WEBPACK_IMPORTED_MODULE_6__["$t"])('form.error.post'),
+          type: 'error'
+        });
+      });
+    },
+    handleValidationError: function handleValidationError(error) {
+      if (error.response.status === 422) {
+        console.log(error.response);
+        this.validationErrors = Object(_util_validation__WEBPACK_IMPORTED_MODULE_5__["getValidationErrors"])(error.response.data);
+      } else {
+        return Promise.reject(error);
+      }
     },
     resetAlert: function resetAlert() {
       this.message = null;
@@ -3586,11 +3723,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.message = message;
       this.messageType = type;
     },
+    resetValidation: function resetValidation() {
+      this.validationErrors = null;
+    },
     init: function () {
       var _init = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var _this2 = this;
+        var _this3 = this;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
@@ -3599,11 +3739,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 this.ready = false;
                 this.resetAlert();
                 _context.next = 4;
-                return Object(_api__WEBPACK_IMPORTED_MODULE_4__["getForm"])(this.config.apiBaseUrl, {
+                return Object(_api__WEBPACK_IMPORTED_MODULE_3__["getForm"])(this.config.apiBaseUrl, {
                   formId: this.formId
                 }).catch(function (error) {
-                  _this2.showAlert({
-                    message: Object(_util_i18n__WEBPACK_IMPORTED_MODULE_5__["$t"])('form.error.get'),
+                  _this3.showAlert({
+                    message: Object(_util_i18n__WEBPACK_IMPORTED_MODULE_6__["$t"])('form.error.get'),
                     type: 'error'
                   });
 
@@ -3682,6 +3822,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3721,6 +3862,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _util_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../util/i18n */ "../packages/formoj/src/util/i18n.js");
 //
 //
 //
@@ -3736,9 +3878,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'FjSelect',
   props: {
+    value: String,
     type: String,
     multiple: Boolean,
     options: Array
@@ -3749,6 +3894,7 @@ __webpack_require__.r(__webpack_exports__);
     }
   },
   methods: {
+    $t: _util_i18n__WEBPACK_IMPORTED_MODULE_0__["$t"],
     handleChanged: function handleChanged(e) {
       this.$emit('input', e.target.value);
     }
@@ -4325,10 +4471,7 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    {
-      staticClass: "fj-field",
-      class: { "fj-field--required": _vm.isRequired }
-    },
+    { staticClass: "fj-field", class: _vm.classes },
     [
       _c("label", { staticClass: "fj-field__label", attrs: { for: _vm.id } }, [
         _vm._v(_vm._s(_vm.field.label))
@@ -4343,12 +4486,24 @@ var render = function() {
             on: { input: _vm.handleInput }
           },
           "component",
-          _vm.field,
+          _vm.props,
           false
         )
-      )
+      ),
+      _vm._v(" "),
+      _vm.hasError
+        ? [
+            _c("div", { staticClass: "fj-field__error" }, [
+              _vm._v(_vm._s(_vm.errorMessage))
+            ])
+          ]
+        : _vm._e(),
+      _vm._v(" "),
+      _c("div", { staticClass: "fj-field__help" }, [
+        _vm._v(_vm._s(_vm.field.helpText))
+      ])
     ],
-    1
+    2
   )
 }
 var staticRenderFns = []
@@ -4373,7 +4528,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "fj-form" }, [
+  return _c("div", { staticClass: "fj-form", class: _vm.classes }, [
     _c(
       "div",
       { staticClass: "fj-form__header" },
@@ -4422,7 +4577,8 @@ var render = function() {
                             attrs: {
                               id: _vm.fieldIdAttribute(field),
                               value: _vm.fieldValue(field),
-                              field: field
+                              field: field,
+                              error: _vm.fieldError(field)
                             },
                             on: {
                               input: function($event) {
@@ -4436,7 +4592,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  2206308198
+                  66363249
                 )
               })
             ]
@@ -4487,9 +4643,18 @@ var render = function() {
                 title: _vm.form.title,
                 description: _vm.form.description,
                 sections: _vm.form.sections,
-                "form-id": _vm.form.id
+                "form-id": _vm.form.id,
+                index: _vm.currentSectionIndex,
+                errors: _vm.validationErrors,
+                appearance: _vm.appearance
               },
-              on: { submit: _vm.handleSubmit }
+              on: {
+                "update:index": function($event) {
+                  _vm.currentSectionIndex = $event
+                },
+                next: _vm.handleNextSectionRequested,
+                submit: _vm.handleFormSubmitted
+              }
             })
           ]
         : _vm._e()
@@ -4519,103 +4684,105 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "fj-section" },
-    [
-      _c(
-        "div",
-        { staticClass: "fj-section__header" },
-        [
-          _vm._t("header", [
-            _c("h4", { staticClass: "fj-section__title" }, [
-              _vm._v(_vm._s(_vm.title))
-            ]),
-            _vm._v(" "),
-            _c("p", { staticClass: "fj-section__description" }, [
-              _vm._v(_vm._s(_vm.description))
-            ])
-          ])
-        ],
-        2
-      ),
-      _vm._v(" "),
-      _vm._l(_vm.fields, function(field) {
-        return [
-          _c(
-            "div",
-            { key: field.id, staticClass: "fj-section__fields" },
-            [_vm._t("field", null, { field: field })],
-            2
-          )
-        ]
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "fj-section__footer" },
-        [
-          !_vm.isFirst
-            ? [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "fj-button fj-button--secondary fj-section__button",
-                    on: { click: _vm.handlePreviousButtonClicked }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.$t("section.button.previous")) +
-                        "\n            "
-                    )
-                  ]
-                )
-              ]
-            : _vm._e(),
+  return _c("div", { staticClass: "fj-section" }, [
+    _c(
+      "div",
+      { staticClass: "fj-section__header" },
+      [
+        _vm._t("header", [
+          _c("h4", { staticClass: "fj-section__title" }, [
+            _vm._v(_vm._s(_vm.title))
+          ]),
           _vm._v(" "),
-          _vm.isLast
-            ? [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "fj-button fj-button--primary fj-section__button",
-                    on: { click: _vm.handleSubmitButtonClicked }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.$t("section.button.submit")) +
-                        "\n            "
-                    )
-                  ]
-                )
-              ]
-            : [
-                _c(
-                  "button",
-                  {
-                    staticClass:
-                      "fj-button fj-button--primary fj-section__button",
-                    on: { click: _vm.handleNextButtonClicked }
-                  },
-                  [
-                    _vm._v(
-                      "\n                " +
-                        _vm._s(_vm.$t("section.button.next")) +
-                        "\n            "
-                    )
-                  ]
-                )
-              ]
-        ],
-        2
-      )
-    ],
-    2
-  )
+          _c("p", { staticClass: "fj-section__description" }, [
+            _vm._v(_vm._s(_vm.description))
+          ])
+        ])
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "fj-section__fields" },
+      [
+        _vm._l(_vm.fields, function(field) {
+          return [
+            _c(
+              "div",
+              { key: field.id, staticClass: "fj-section__field" },
+              [_vm._t("field", null, { field: field })],
+              2
+            )
+          ]
+        })
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "fj-section__footer" },
+      [
+        !_vm.isFirst
+          ? [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "fj-button fj-button--secondary fj-section__button",
+                  on: { click: _vm.handlePreviousButtonClicked }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$t("section.button.previous")) +
+                      "\n            "
+                  )
+                ]
+              )
+            ]
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.isLast
+          ? [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "fj-button fj-button--primary fj-section__button",
+                  on: { click: _vm.handleSubmitButtonClicked }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$t("section.button.submit")) +
+                      "\n            "
+                  )
+                ]
+              )
+            ]
+          : [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "fj-button fj-button--primary fj-section__button",
+                  on: { click: _vm.handleNextButtonClicked }
+                },
+                [
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(_vm.$t("section.button.next")) +
+                      "\n            "
+                  )
+                ]
+              )
+            ]
+      ],
+      2
+    )
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4651,6 +4818,7 @@ var render = function() {
               _vm._b(
                 {
                   staticClass: "fj-select__input",
+                  domProps: { value: _vm.value },
                   on: { change: _vm.handleChanged }
                 },
                 "select",
@@ -4658,6 +4826,10 @@ var render = function() {
                 false
               ),
               [
+                _c("option", { attrs: { value: "", selected: "" } }, [
+                  _vm._v(_vm._s(_vm.$t("field.select.placeholder")))
+                ]),
+                _vm._v(" "),
                 _vm._l(_vm.options, function(option) {
                   return [
                     _c(
@@ -16844,8 +17016,8 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/philippe/code/code16/formoj/prototipoj/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/philippe/code/code16/formoj/prototipoj/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/antoine/code/formoj/prototipoj/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/antoine/code/formoj/prototipoj/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

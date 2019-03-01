@@ -53,8 +53,16 @@ $formoj-form-appearance: 'card'!default;
 }
 
 .fj-field {
+  &--invalid {
+    .form-control {
+      @extend .is-invalid;
+    }
+  }
   &__help {
     @extend .form-text;
     @extend .text-muted;
+  }
+  &__error {
+    @extend .invalid-feedback;
   }
 }

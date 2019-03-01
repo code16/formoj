@@ -24,6 +24,7 @@
                             :id="fieldIdAttribute(field)"
                             :value="fieldValue(field)"
                             :field="field"
+                            :error="fieldError(field)"
                             @input="handleFieldChanged(field, $event)"
                         />
                     </template>
@@ -50,6 +51,8 @@
             description: String,
             sections: Array,
             formId: [Number, String],
+            index: Number,
+            errors: Object,
             appearance: String,
         },
 
@@ -61,6 +64,12 @@
                 messageType: null,
 
                 currentSectionIndex: 0,
+            }
+        },
+
+        watch: {
+            index(index) {
+                this.currentSectionIndex = index;
             }
         },
 
@@ -95,12 +104,27 @@
             fieldIdAttribute(field) {
                 return `formoj-${this.formId}-field-${field.id}`;
             },
+            fieldError(field) {
+                const fieldKey = this.fieldKey(field);
+                return this.errors
+                    ? this.errors[fieldKey]
+                    : null;
+            },
 
             handleNextSectionRequested() {
-                this.currentSectionIndex++;
+                let cancelled = false;
+                const event = {
+                    preventDefault: () => cancelled = true,
+                };
+                this.$emit('next', event, this.currentSection, this.data);
+                if(!cancelled) {
+                    this.currentSectionIndex++;
+                    this.$emit('update:index', this.currentSectionIndex);
+                }
             },
             handlePreviousSectionRequested() {
                 this.currentSectionIndex--;
+                this.$emit('update:index', this.currentSectionIndex);
             },
 
             handleFieldChanged(field, value) {
