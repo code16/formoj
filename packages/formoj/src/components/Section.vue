@@ -1,13 +1,9 @@
 <template>
     <div class="fj-section">
-        <div class="fj-section__title">
-            <slot name="title">
-                <h4>{{ title }}</h4>
-            </slot>
-        </div>
-        <div class="fj-section__description">
-            <slot name="description">
-                <p>{{ description }}</p>
+        <div class="fj-section__header">
+            <slot name="header">
+                <h4 class="fj-section__title">{{ title }}</h4>
+                <p class="fj-section__description">{{ description }}</p>
             </slot>
         </div>
 

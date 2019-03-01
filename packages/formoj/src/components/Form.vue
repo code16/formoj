@@ -1,16 +1,10 @@
 <template>
     <div class="fj-form">
         <div class="fj-form__header">
-            <div class="fj-form__title">
-                <slot name="title">
-                    <h3>{{ title }}</h3>
-                </slot>
-            </div>
-            <div class="fj-form__description">
-                <slot name="description">
-                    <p>{{ description }}</p>
-                </slot>
-            </div>
+            <slot name="header">
+                <h3 class="fj-form__title">{{ title }}</h3>
+                <p class="fj-form__description">{{ description }}</p>
+            </slot>
         </div>
         <div class="fj-form__content">
             <template v-if="currentSection">
