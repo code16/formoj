@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export function getForm(baseUrl, { formId }) {
     return axios.get(`${baseUrl}/form/${formId}`)
-        .then(response => response.data);
+        .then(response => response.data.data);
 }
 
 export function postSection(baseUrl, { formId, sectionId }) {
