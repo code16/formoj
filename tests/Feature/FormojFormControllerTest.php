@@ -55,4 +55,134 @@ class FormojFormControllerTest extends FormojTestCase
                 ]
             ]);
     }
+
+    /** @test */
+    function we_can_get_a_form_with_a_text_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "text",
+            "max_length" => 10,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => $field->id,
+                        "type" => $field->type,
+                        "label" => $field->label,
+                        "required" => $field->required,
+                        "maxlength" => 10,
+                    ]
+                ]
+            ]);
+    }
+
+    /** @test */
+    function we_can_get_a_form_with_a_textarea_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "textarea",
+            "max_length" => 10,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => $field->id,
+                        "type" => $field->type,
+                        "label" => $field->label,
+                        "required" => $field->required,
+                        "maxlength" => 10,
+                    ]
+                ]
+            ]);
+    }
+
+    /** @test */
+    function we_can_get_a_form_with_a_single_select_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "multiple" => false,
+            "values" => ["A", "B", "C"],
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => $field->id,
+                        "type" => $field->type,
+                        "label" => $field->label,
+                        "required" => $field->required,
+                        "multiple" => false,
+                        "options" => [
+                            ["id"=>1, "label"=>"A"],
+                            ["id"=>2, "label"=>"B"],
+                            ["id"=>3, "label"=>"C"],
+                        ],
+                    ]
+                ]
+            ]);
+    }
+
+    /** @test */
+    function we_can_get_a_form_with_a_multiple_select_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "multiple" => true,
+            "max_values" => 2,
+            "values" => ["A", "B", "C"],
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => $field->id,
+                        "type" => $field->type,
+                        "label" => $field->label,
+                        "required" => $field->required,
+                        "multiple" => true,
+                        "max" => 2,
+                        "options" => [
+                            ["id"=>1, "label"=>"A"],
+                            ["id"=>2, "label"=>"B"],
+                            ["id"=>3, "label"=>"C"],
+                        ],
+                    ]
+                ]
+            ]);
+    }
 }

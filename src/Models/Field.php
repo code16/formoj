@@ -17,6 +17,10 @@ class Field extends Model
     /** @var array */
     protected $casts = [
         'values' => 'json',
+        'max_length' => 'integer',
+        'max_values' => 'integer',
+        'required' => 'boolean',
+        'multiple' => 'boolean',
     ];
 
     /**
@@ -25,5 +29,29 @@ class Field extends Model
     public function section()
     {
         return $this->belongsTo(Section::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeText()
+    {
+        return $this->type === static::TYPE_TEXT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeTextarea()
+    {
+        return $this->type === static::TYPE_TEXTAREA;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeSelect()
+    {
+        return $this->type === static::TYPE_SELECT;
     }
 }
