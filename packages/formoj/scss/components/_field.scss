@@ -1,0 +1,10 @@
+.fj-field {
+  &--required {
+    .fj-field__label {
+      &::after {
+        content: "*";
+        padding-left: .125em;
+      }
+    }
+  }
+}
