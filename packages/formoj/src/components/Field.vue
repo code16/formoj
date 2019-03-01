@@ -14,16 +14,10 @@
         props: {
             value: {},
             field: Object,
-            formId: {
-                type: [Number, String],
-                default: '0',
-            },
+            id: String,
         },
 
         computed: {
-            id() {
-                return `formoj-${this.formId}-field-${this.field.id}`;
-            },
             component() {
                 return getFieldByType(this.field.type);
             },

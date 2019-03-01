@@ -21,9 +21,9 @@
                 >
                     <template slot="field" slot-scope="{ field }">
                         <fj-field
+                            :id="fieldIdAttribute(field)"
                             :value="fieldValue(field)"
                             :field="field"
-                            :form-id="formId"
                             @input="handleFieldChanged(field, $event)"
                         />
                     </template>
@@ -49,7 +49,7 @@
             title: String,
             description: String,
             sections: Array,
-            formId: String,
+            formId: [Number, String],
         },
 
         data() {
@@ -84,6 +84,9 @@
                 return this.data
                     ? this.data[fieldKey]
                     : null;
+            },
+            fieldIdAttribute(field) {
+                return `formoj-${this.formId}-field-${field.id}`;
             },
 
             handleNextSectionRequested() {
