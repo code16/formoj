@@ -12,6 +12,12 @@ use Code16\Sharp\EntityList\SharpEntityList;
 
 class FormojFieldSharpEntityList extends SharpEntityList
 {
+    /** @var array */
+    public static $FIELD_TYPES = [
+        Field::TYPE_TEXT => "Texte simple",
+        Field::TYPE_TEXTAREA => "Texte multilignes",
+        Field::TYPE_SELECT => "Liste déroulante",
+    ];
 
     /**
      * Build list containers using ->addDataContainer()
@@ -28,7 +34,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
                 ->setLabel("Libellé")
         )->addDataContainer(
             EntityListDataContainer::make("description")
-                ->setLabel("Description")
+                ->setLabel("Texte d'aide")
         );
     }
 
@@ -39,9 +45,9 @@ class FormojFieldSharpEntityList extends SharpEntityList
      */
     function buildListLayout()
     {
-        $this->addColumn("type", 2)
-            ->addColumn("label", 5)
-            ->addColumn("description", 5);
+        $this->addColumn("type", 3, 5)
+            ->addColumn("label", 5, 7)
+            ->addColumnLarge("description", 4);
     }
 
     /**
@@ -70,6 +76,17 @@ class FormojFieldSharpEntityList extends SharpEntityList
         $fields = Field::orderBy("order")
             ->where("section_id", $section);
 
-        return $this->transform($fields->get());
+        return $this
+            ->setCustomTransformer("label", function($value, $instance) {
+                return sprintf(
+                    '<div>%s</div><div style="color:orange"><small>%s</small></div>',
+                    $instance->label,
+                    $instance->required ? "obligatoire" : ""
+                );
+            })
+            ->setCustomTransformer("type", function($value, $instance) {
+                return static::$FIELD_TYPES[$value];
+            })
+            ->transform($fields->get());
     }
 }

@@ -9,6 +9,14 @@ class FormojSectionFilterHandler implements EntityListRequiredFilter
 {
 
     /**
+     * @return string
+     */
+    public function label()
+    {
+        return "section";
+    }
+
+    /**
      * @return array
      */
     public function values()

@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
+use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
@@ -38,11 +39,7 @@ class FormojFieldSharpForm extends SharpForm
         )->addField(
             SharpFormCheckField::make("required", "Saisie obligatoire")
         )->addField(
-            SharpFormSelectField::make("type", [
-                Field::TYPE_TEXT => "Texte simple",
-                Field::TYPE_TEXTAREA => "Texte multilignes",
-                Field::TYPE_SELECT => "Liste déroulante",
-            ])
+            SharpFormSelectField::make("type", FormojFieldSharpEntityList::$FIELD_TYPES)
             ->setDisplayAsDropdown()
         )->addField(
             SharpFormTextField::make("max_length")
@@ -124,7 +121,11 @@ class FormojFieldSharpForm extends SharpForm
      */
     function update($id, array $data)
     {
-        $field = $id ? Field::findOrFail($id) : new Field(); // TODO section
+        $field = $id
+            ? Field::findOrFail($id)
+            : new Field([
+                "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
+            ]);
 
         $data["values"] = collect($data["values"])->pluck("value")->all();
 

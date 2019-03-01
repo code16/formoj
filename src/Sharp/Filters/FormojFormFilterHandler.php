@@ -9,6 +9,14 @@ class FormojFormFilterHandler implements EntityListRequiredFilter
 {
 
     /**
+     * @return string
+     */
+    public function label()
+    {
+        return "formulaire";
+    }
+
+    /**
      * @return array
      */
     public function values()
