@@ -39,7 +39,7 @@
 
 <script>
     import FjField from './Field';
-    import { $t } from "../util/i18n";
+    import {$t} from "../util/i18n";
 
     export default {
         name: 'FjSection',
