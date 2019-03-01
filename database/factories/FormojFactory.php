@@ -26,3 +26,39 @@ $factory->define(\Code16\Formoj\Models\Section::class, function (Faker $faker) {
         }
     ];
 });
+
+$factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker) {
+    $type = $faker->randomElement([
+        \Code16\Formoj\Models\Field::TYPE_TEXT,
+        \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
+        \Code16\Formoj\Models\Field::TYPE_SELECT,
+    ]);
+
+    $values = null;
+    $maxValues = null;
+    $multiple = false;
+    if($type == \Code16\Formoj\Models\Field::TYPE_SELECT) {
+        for($i=0; $i<rand(3, 12); $i++) {
+            $values[] = $faker->unique()->word;
+        }
+        if($multiple = $faker->boolean(40)) {
+            $maxValues = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
+        }
+    }
+
+    return [
+        'label' => $faker->words(3, true),
+        'description' => $faker->boolean(25) ? $faker->paragraph : null,
+        'required' => $faker->boolean(40),
+        'type' => $type,
+        'max_length' => $type != \Code16\Formoj\Models\Field::TYPE_SELECT
+            ? ($faker->boolean ? $faker->randomNumber(2) : null)
+            : null,
+        'values' => $values,
+        'max_values' => $maxValues,
+        'multiple' => $multiple,
+        'section_id' => function() {
+            return factory(\Code16\Formoj\Models\Section::class)->create()->id;
+        }
+    ];
+});

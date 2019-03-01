@@ -15,12 +15,15 @@ class DatabaseSeeder extends Seeder
             "email" => "admin@example.com",
         ]);
 
-        $forms = factory(\Code16\Formoj\Models\Form::class, 5)->create();
-        foreach($forms as $form) {
+        foreach(factory(\Code16\Formoj\Models\Form::class, 5)->create() as $form) {
             for($k=1; $k<=rand(1, 4); $k++) {
-                factory(\Code16\Formoj\Models\Section::class)->create([
+                $section = factory(\Code16\Formoj\Models\Section::class)->create([
                     "title" => "Section $k",
                     "form_id" => $form->id
+                ]);
+
+                factory(\Code16\Formoj\Models\Field::class, rand(3, 8))->create([
+                    "section_id" => $section->id
                 ]);
             }
         }
