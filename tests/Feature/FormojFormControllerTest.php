@@ -77,7 +77,7 @@ class FormojFormControllerTest extends FormojTestCase
                 "fields" => [
                     [
                         "id" => $field->id,
-                        "type" => $field->type,
+                        "type" => "text",
                         "label" => $field->label,
                         "helpText" => $field->description,
                         "required" => $field->required,
@@ -107,7 +107,7 @@ class FormojFormControllerTest extends FormojTestCase
                 "fields" => [
                     [
                         "id" => $field->id,
-                        "type" => $field->type,
+                        "type" => "textarea",
                         "label" => $field->label,
                         "rows" => $field->rows_count,
                         "helpText" => $field->description,
@@ -139,7 +139,7 @@ class FormojFormControllerTest extends FormojTestCase
                 "fields" => [
                     [
                         "id" => $field->id,
-                        "type" => $field->type,
+                        "type" => "select",
                         "label" => $field->label,
                         "helpText" => $field->description,
                         "required" => $field->required,
@@ -176,7 +176,7 @@ class FormojFormControllerTest extends FormojTestCase
                 "fields" => [
                     [
                         "id" => $field->id,
-                        "type" => $field->type,
+                        "type" => "select",
                         "label" => $field->label,
                         "helpText" => $field->description,
                         "required" => $field->required,

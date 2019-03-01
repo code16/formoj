@@ -29,7 +29,7 @@ class FormojFieldSharpValidator extends FormRequest
             'type' => 'required',
             'max_length' => 'integer|nullable',
             'max_values' => 'integer|nullable',
-            'rows_count' => 'integer|required_if:type,' . Field::TYPE_TEXTAREA,
+            'rows_count' => 'integer|nullable|required_if:type,' . Field::TYPE_TEXTAREA,
             'values' => 'required_if:type,' . Field::TYPE_SELECT,
             'values.*.value' => 'required',
         ];
