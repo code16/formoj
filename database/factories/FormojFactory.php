@@ -27,8 +27,8 @@ $factory->define(\Code16\Formoj\Models\Section::class, function (Faker $faker) {
     ];
 });
 
-$factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker) {
-    $type = $faker->randomElement([
+$factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $attributes) {
+    $type = $attributes["type"] ?? $faker->randomElement([
         \Code16\Formoj\Models\Field::TYPE_TEXT,
         \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
         \Code16\Formoj\Models\Field::TYPE_SELECT,
@@ -51,11 +51,12 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker) {
         'description' => $faker->boolean(25) ? $faker->paragraph : null,
         'required' => $faker->boolean(40),
         'type' => $type,
-        'max_length' => $type != \Code16\Formoj\Models\Field::TYPE_SELECT
+        'max_length' => in_array($type, [\Code16\Formoj\Models\Field::TYPE_TEXT, \Code16\Formoj\Models\Field::TYPE_TEXTAREA])
             ? ($faker->boolean ? $faker->randomNumber(2) : null)
             : null,
         'values' => $values,
         'max_values' => $maxValues,
+        'rows_count' => $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA ? $faker->numberBetween(3, 8) : null,
         'multiple' => $multiple,
         'section_id' => function() {
             return factory(\Code16\Formoj\Models\Section::class)->create()->id;

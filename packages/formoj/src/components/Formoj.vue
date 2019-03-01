@@ -20,9 +20,9 @@
     import FjForm from './Form';
     import FjAlert from './Alert';
 
-    import { config } from "../util/config";
-    import { getForm, postForm } from "../api";
-    import { $t } from "../util/i18n";
+    import {config} from "../util/config";
+    import {getForm, postForm} from "../api";
+    import {$t} from "../util/i18n";
 
     export default {
         components: {

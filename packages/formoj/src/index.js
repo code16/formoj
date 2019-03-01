@@ -1,6 +1,6 @@
 import Formoj from './components/Formoj.vue';
 import Form from './components/Form.vue';
-import { createConfig } from "./util/config";
+import {createConfig} from "./util/config";
 
 export default {
     install(Vue, config={}) {

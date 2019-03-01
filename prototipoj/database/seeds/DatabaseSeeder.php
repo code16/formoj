@@ -22,6 +22,19 @@ class DatabaseSeeder extends Seeder
                     "form_id" => $form->id
                 ]);
 
+                if(rand(0, 9) >= 6) {
+                    factory(\Code16\Formoj\Models\Field::class, rand(1, 3))->create([
+                        "section_id" => $section->id
+                    ]);
+
+                    factory(\Code16\Formoj\Models\Field::class)->create([
+                        "type" => "heading",
+                        "required" => false,
+                        "description" => null,
+                        "section_id" => $section->id
+                    ]);
+                }
+
                 factory(\Code16\Formoj\Models\Field::class, rand(3, 8))->create([
                     "section_id" => $section->id
                 ]);

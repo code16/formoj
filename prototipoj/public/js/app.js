@@ -2596,7 +2596,7 @@ __webpack_require__.r(__webpack_exports__);
 function getForm(baseUrl, _ref) {
   var formId = _ref.formId;
   return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("".concat(baseUrl, "/form/").concat(formId)).then(function (response) {
-    return response.data;
+    return response.data.data;
   });
 }
 function postSection(baseUrl, _ref2) {
@@ -3361,17 +3361,14 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     value: {},
     field: Object,
-    formId: {
-      type: [Number, String],
-      default: '0'
-    }
+    id: String
   },
   computed: {
-    id: function id() {
-      return "formoj-".concat(this.formId, "-field-").concat(this.field.id);
-    },
     component: function component() {
       return Object(_fields__WEBPACK_IMPORTED_MODULE_0__["getFieldByType"])(this.field.type);
+    },
+    isRequired: function isRequired() {
+      return this.field.required;
     }
   },
   methods: {
@@ -3433,12 +3430,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3451,7 +3442,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     title: String,
     description: String,
     sections: Array,
-    formId: String
+    formId: [Number, String]
   },
   data: function data() {
     return {
@@ -3479,6 +3470,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fieldValue: function fieldValue(field) {
       var fieldKey = this.fieldKey(field);
       return this.data ? this.data[fieldKey] : null;
+    },
+    fieldIdAttribute: function fieldIdAttribute(field) {
+      return "formoj-".concat(this.formId, "-field-").concat(field.id);
     },
     handleNextSectionRequested: function handleNextSectionRequested() {
       this.currentSectionIndex++;
@@ -3688,10 +3682,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3735,8 +3725,34 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'FjSelect'
+  name: 'FjSelect',
+  props: {
+    type: String,
+    multiple: Boolean,
+    options: Array
+  },
+  computed: {
+    isMultiple: function isMultiple() {
+      return this.multiple;
+    }
+  },
+  methods: {
+    handleChanged: function handleChanged(e) {
+      this.$emit('input', e.target.value);
+    }
+  }
 });
 
 /***/ }),
@@ -4309,9 +4325,12 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "fj-field" },
+    {
+      staticClass: "fj-field",
+      class: { "fj-field--required": _vm.isRequired }
+    },
     [
-      _c("label", { attrs: { for: _vm.id } }, [
+      _c("label", { staticClass: "fj-field__label", attrs: { for: _vm.id } }, [
         _vm._v(_vm._s(_vm.field.label))
       ]),
       _vm._v(" "),
@@ -4355,21 +4374,22 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "fj-form" }, [
-    _c("div", { staticClass: "fj-form__header" }, [
-      _c(
-        "div",
-        { staticClass: "fj-form__title" },
-        [_vm._t("title", [_c("h3", [_vm._v(_vm._s(_vm.title))])])],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "fj-form__description" },
-        [_vm._t("description", [_c("p", [_vm._v(_vm._s(_vm.description))])])],
-        2
-      )
-    ]),
+    _c(
+      "div",
+      { staticClass: "fj-form__header" },
+      [
+        _vm._t("header", [
+          _c("h3", { staticClass: "fj-form__title" }, [
+            _vm._v(_vm._s(_vm.title))
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "fj-form__description" }, [
+            _vm._v(_vm._s(_vm.description))
+          ])
+        ])
+      ],
+      2
+    ),
     _vm._v(" "),
     _c(
       "div",
@@ -4400,9 +4420,9 @@ var render = function() {
                         return [
                           _c("fj-field", {
                             attrs: {
+                              id: _vm.fieldIdAttribute(field),
                               value: _vm.fieldValue(field),
-                              field: field,
-                              "form-id": _vm.formId
+                              field: field
                             },
                             on: {
                               input: function($event) {
@@ -4416,7 +4436,7 @@ var render = function() {
                   ],
                   null,
                   false,
-                  263811606
+                  2206308198
                 )
               })
             ]
@@ -4505,15 +4525,18 @@ var render = function() {
     [
       _c(
         "div",
-        { staticClass: "fj-section__title" },
-        [_vm._t("title", [_c("h4", [_vm._v(_vm._s(_vm.title))])])],
-        2
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "fj-section__description" },
-        [_vm._t("description", [_c("p", [_vm._v(_vm._s(_vm.description))])])],
+        { staticClass: "fj-section__header" },
+        [
+          _vm._t("header", [
+            _c("h4", { staticClass: "fj-section__title" }, [
+              _vm._v(_vm._s(_vm.title))
+            ]),
+            _vm._v(" "),
+            _c("p", { staticClass: "fj-section__description" }, [
+              _vm._v(_vm._s(_vm.description))
+            ])
+          ])
+        ],
         2
       ),
       _vm._v(" "),
@@ -4616,7 +4639,41 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "div",
+    { staticClass: "fj-select" },
+    [
+      _vm.isMultiple
+        ? void 0
+        : [
+            _c(
+              "select",
+              _vm._b(
+                {
+                  staticClass: "fj-select__input",
+                  on: { change: _vm.handleChanged }
+                },
+                "select",
+                _vm.$attrs,
+                false
+              ),
+              [
+                _vm._l(_vm.options, function(option) {
+                  return [
+                    _c(
+                      "option",
+                      { key: option.id, domProps: { value: option.id } },
+                      [_vm._v(_vm._s(option.label))]
+                    )
+                  ]
+                })
+              ],
+              2
+            )
+          ]
+    ],
+    2
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -4669,7 +4726,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div")
+  return _c(
+    "textarea",
+    { staticClass: "fj-textarea", on: { input: _vm.handleInput } },
+    [_vm._v(_vm._s(_vm.value))]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -16783,8 +16844,8 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/antoine/code/formoj/prototipoj/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/antoine/code/formoj/prototipoj/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/philippe/code/code16/formoj/prototipoj/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/philippe/code/code16/formoj/prototipoj/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

@@ -17,6 +17,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
         Field::TYPE_TEXT => "Texte simple",
         Field::TYPE_TEXTAREA => "Texte multilignes",
         Field::TYPE_SELECT => "Liste déroulante",
+        Field::TYPE_HEADING => "Intertitre",
     ];
 
     /**
@@ -78,6 +79,12 @@ class FormojFieldSharpEntityList extends SharpEntityList
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {
+                if($instance->isTypeHeading()) {
+                    return sprintf(
+                        '<div style="color:gray"><em>%s</em></div>',
+                        $instance->label
+                    );
+                }
                 return sprintf(
                     '<div>%s</div><div style="color:orange"><small>%s</small></div>',
                     $instance->label,

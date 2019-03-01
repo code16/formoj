@@ -1967,7 +1967,7 @@ pre code {
 .form-control,
 .fj-text,
 .fj-textarea,
-.fj-select {
+.fj-select__input {
   display: block;
   width: 100%;
   height: calc(1.6em + 0.75rem + 2px);
@@ -1987,7 +1987,7 @@ pre code {
   .form-control,
   .fj-text,
   .fj-textarea,
-  .fj-select {
+  .fj-select__input {
     transition: none;
   }
 }
@@ -1995,7 +1995,7 @@ pre code {
 .form-control::-ms-expand,
 .fj-text::-ms-expand,
 .fj-textarea::-ms-expand,
-.fj-select::-ms-expand {
+.fj-select__input::-ms-expand {
   background-color: transparent;
   border: 0;
 }
@@ -2003,7 +2003,7 @@ pre code {
 .form-control:focus,
 .fj-text:focus,
 .fj-textarea:focus,
-.fj-select:focus {
+.fj-select__input:focus {
   color: #495057;
   background-color: #fff;
   border-color: #a1cbef;
@@ -2014,7 +2014,7 @@ pre code {
 .form-control::-webkit-input-placeholder,
 .fj-text::-webkit-input-placeholder,
 .fj-textarea::-webkit-input-placeholder,
-.fj-select::-webkit-input-placeholder {
+.fj-select__input::-webkit-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2022,7 +2022,7 @@ pre code {
 .form-control:-ms-input-placeholder,
 .fj-text:-ms-input-placeholder,
 .fj-textarea:-ms-input-placeholder,
-.fj-select:-ms-input-placeholder {
+.fj-select__input:-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2030,7 +2030,7 @@ pre code {
 .form-control::-ms-input-placeholder,
 .fj-text::-ms-input-placeholder,
 .fj-textarea::-ms-input-placeholder,
-.fj-select::-ms-input-placeholder {
+.fj-select__input::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2038,7 +2038,7 @@ pre code {
 .form-control::placeholder,
 .fj-text::placeholder,
 .fj-textarea::placeholder,
-.fj-select::placeholder {
+.fj-select__input::placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2046,11 +2046,11 @@ pre code {
 .form-control:disabled,
 .fj-text:disabled,
 .fj-textarea:disabled,
-.fj-select:disabled,
+.fj-select__input:disabled,
 .form-control[readonly],
 [readonly].fj-text,
 [readonly].fj-textarea,
-[readonly].fj-select {
+[readonly].fj-select__input {
   background-color: #e9ecef;
   opacity: 1;
 }
@@ -2058,7 +2058,7 @@ pre code {
 select.form-control:focus::-ms-value,
 select.fj-text:focus::-ms-value,
 select.fj-textarea:focus::-ms-value,
-select.fj-select:focus::-ms-value {
+select.fj-select__input:focus::-ms-value {
   color: #495057;
   background-color: #fff;
 }
@@ -2129,18 +2129,18 @@ select.fj-select:focus::-ms-value {
 select.form-control[size],
 select[size].fj-text,
 select[size].fj-textarea,
-select[size].fj-select,
+select[size].fj-select__input,
 select.form-control[multiple],
 select[multiple].fj-text,
 select[multiple].fj-textarea,
-select[multiple].fj-select {
+select[multiple].fj-select__input {
   height: auto;
 }
 
 textarea.form-control,
 textarea.fj-text,
 textarea.fj-textarea,
-textarea.fj-select {
+textarea.fj-select__input {
   height: auto;
 }
 
@@ -2227,11 +2227,11 @@ textarea.fj-select {
 .was-validated .form-control:valid,
 .was-validated .fj-text:valid,
 .was-validated .fj-textarea:valid,
-.was-validated .fj-select:valid,
+.was-validated .fj-select__input:valid,
 .form-control.is-valid,
 .is-valid.fj-text,
 .is-valid.fj-textarea,
-.is-valid.fj-select {
+.is-valid.fj-select__input {
   border-color: #38c172;
   padding-right: calc(1.6em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2338c172' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
@@ -2243,11 +2243,11 @@ textarea.fj-select {
 .was-validated .form-control:valid:focus,
 .was-validated .fj-text:valid:focus,
 .was-validated .fj-textarea:valid:focus,
-.was-validated .fj-select:valid:focus,
+.was-validated .fj-select__input:valid:focus,
 .form-control.is-valid:focus,
 .is-valid.fj-text:focus,
 .is-valid.fj-textarea:focus,
-.is-valid.fj-select:focus {
+.is-valid.fj-select__input:focus {
   border-color: #38c172;
   box-shadow: 0 0 0 0.2rem rgba(56, 193, 114, 0.25);
 }
@@ -2255,30 +2255,30 @@ textarea.fj-select {
 .was-validated .form-control:valid ~ .valid-feedback,
 .was-validated .fj-text:valid ~ .valid-feedback,
 .was-validated .fj-textarea:valid ~ .valid-feedback,
-.was-validated .fj-select:valid ~ .valid-feedback,
+.was-validated .fj-select__input:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
 .was-validated .fj-text:valid ~ .valid-tooltip,
 .was-validated .fj-textarea:valid ~ .valid-tooltip,
-.was-validated .fj-select:valid ~ .valid-tooltip,
+.was-validated .fj-select__input:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
 .is-valid.fj-text ~ .valid-feedback,
 .is-valid.fj-textarea ~ .valid-feedback,
-.is-valid.fj-select ~ .valid-feedback,
+.is-valid.fj-select__input ~ .valid-feedback,
 .form-control.is-valid ~ .valid-tooltip,
 .is-valid.fj-text ~ .valid-tooltip,
 .is-valid.fj-textarea ~ .valid-tooltip,
-.is-valid.fj-select ~ .valid-tooltip {
+.is-valid.fj-select__input ~ .valid-tooltip {
   display: block;
 }
 
 .was-validated textarea.form-control:valid,
 .was-validated textarea.fj-text:valid,
 .was-validated textarea.fj-textarea:valid,
-.was-validated textarea.fj-select:valid,
+.was-validated textarea.fj-select__input:valid,
 textarea.form-control.is-valid,
 textarea.is-valid.fj-text,
 textarea.is-valid.fj-textarea,
-textarea.is-valid.fj-select {
+textarea.is-valid.fj-select__input {
   padding-right: calc(1.6em + 0.75rem);
   background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem);
 }
@@ -2399,11 +2399,11 @@ textarea.is-valid.fj-select {
 .was-validated .form-control:invalid,
 .was-validated .fj-text:invalid,
 .was-validated .fj-textarea:invalid,
-.was-validated .fj-select:invalid,
+.was-validated .fj-select__input:invalid,
 .form-control.is-invalid,
 .is-invalid.fj-text,
 .is-invalid.fj-textarea,
-.is-invalid.fj-select {
+.is-invalid.fj-select__input {
   border-color: #e3342f;
   padding-right: calc(1.6em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e3342f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e3342f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
@@ -2415,11 +2415,11 @@ textarea.is-valid.fj-select {
 .was-validated .form-control:invalid:focus,
 .was-validated .fj-text:invalid:focus,
 .was-validated .fj-textarea:invalid:focus,
-.was-validated .fj-select:invalid:focus,
+.was-validated .fj-select__input:invalid:focus,
 .form-control.is-invalid:focus,
 .is-invalid.fj-text:focus,
 .is-invalid.fj-textarea:focus,
-.is-invalid.fj-select:focus {
+.is-invalid.fj-select__input:focus {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
@@ -2427,30 +2427,30 @@ textarea.is-valid.fj-select {
 .was-validated .form-control:invalid ~ .invalid-feedback,
 .was-validated .fj-text:invalid ~ .invalid-feedback,
 .was-validated .fj-textarea:invalid ~ .invalid-feedback,
-.was-validated .fj-select:invalid ~ .invalid-feedback,
+.was-validated .fj-select__input:invalid ~ .invalid-feedback,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated .fj-text:invalid ~ .invalid-tooltip,
 .was-validated .fj-textarea:invalid ~ .invalid-tooltip,
-.was-validated .fj-select:invalid ~ .invalid-tooltip,
+.was-validated .fj-select__input:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
 .is-invalid.fj-text ~ .invalid-feedback,
 .is-invalid.fj-textarea ~ .invalid-feedback,
-.is-invalid.fj-select ~ .invalid-feedback,
+.is-invalid.fj-select__input ~ .invalid-feedback,
 .form-control.is-invalid ~ .invalid-tooltip,
 .is-invalid.fj-text ~ .invalid-tooltip,
 .is-invalid.fj-textarea ~ .invalid-tooltip,
-.is-invalid.fj-select ~ .invalid-tooltip {
+.is-invalid.fj-select__input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated textarea.form-control:invalid,
 .was-validated textarea.fj-text:invalid,
 .was-validated textarea.fj-textarea:invalid,
-.was-validated textarea.fj-select:invalid,
+.was-validated textarea.fj-select__input:invalid,
 textarea.form-control.is-invalid,
 textarea.is-invalid.fj-text,
 textarea.is-invalid.fj-textarea,
-textarea.is-invalid.fj-select {
+textarea.is-invalid.fj-select__input {
   padding-right: calc(1.6em + 0.75rem);
   background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem);
 }
@@ -2575,7 +2575,7 @@ textarea.is-invalid.fj-select {
   .form-inline .form-control,
   .form-inline .fj-text,
   .form-inline .fj-textarea,
-  .form-inline .fj-select {
+  .form-inline .fj-select__input {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -3793,7 +3793,7 @@ input[type=button].btn-block {
 .input-group > .form-control,
 .input-group > .fj-text,
 .input-group > .fj-textarea,
-.input-group > .fj-select,
+.input-group > .fj-select__input,
 .input-group > .form-control-plaintext,
 .input-group > .custom-select,
 .input-group > .custom-file {
@@ -3806,43 +3806,43 @@ input[type=button].btn-block {
 .input-group > .form-control + .form-control,
 .input-group > .fj-text + .form-control,
 .input-group > .fj-textarea + .form-control,
-.input-group > .fj-select + .form-control,
+.input-group > .fj-select__input + .form-control,
 .input-group > .form-control + .fj-text,
 .input-group > .fj-text + .fj-text,
 .input-group > .fj-textarea + .fj-text,
-.input-group > .fj-select + .fj-text,
+.input-group > .fj-select__input + .fj-text,
 .input-group > .form-control + .fj-textarea,
 .input-group > .fj-text + .fj-textarea,
 .input-group > .fj-textarea + .fj-textarea,
-.input-group > .fj-select + .fj-textarea,
-.input-group > .form-control + .fj-select,
-.input-group > .fj-text + .fj-select,
-.input-group > .fj-textarea + .fj-select,
-.input-group > .fj-select + .fj-select,
+.input-group > .fj-select__input + .fj-textarea,
+.input-group > .form-control + .fj-select__input,
+.input-group > .fj-text + .fj-select__input,
+.input-group > .fj-textarea + .fj-select__input,
+.input-group > .fj-select__input + .fj-select__input,
 .input-group > .form-control + .custom-select,
 .input-group > .fj-text + .custom-select,
 .input-group > .fj-textarea + .custom-select,
-.input-group > .fj-select + .custom-select,
+.input-group > .fj-select__input + .custom-select,
 .input-group > .form-control + .custom-file,
 .input-group > .fj-text + .custom-file,
 .input-group > .fj-textarea + .custom-file,
-.input-group > .fj-select + .custom-file,
+.input-group > .fj-select__input + .custom-file,
 .input-group > .form-control-plaintext + .form-control,
 .input-group > .form-control-plaintext + .fj-text,
 .input-group > .form-control-plaintext + .fj-textarea,
-.input-group > .form-control-plaintext + .fj-select,
+.input-group > .form-control-plaintext + .fj-select__input,
 .input-group > .form-control-plaintext + .custom-select,
 .input-group > .form-control-plaintext + .custom-file,
 .input-group > .custom-select + .form-control,
 .input-group > .custom-select + .fj-text,
 .input-group > .custom-select + .fj-textarea,
-.input-group > .custom-select + .fj-select,
+.input-group > .custom-select + .fj-select__input,
 .input-group > .custom-select + .custom-select,
 .input-group > .custom-select + .custom-file,
 .input-group > .custom-file + .form-control,
 .input-group > .custom-file + .fj-text,
 .input-group > .custom-file + .fj-textarea,
-.input-group > .custom-file + .fj-select,
+.input-group > .custom-file + .fj-select__input,
 .input-group > .custom-file + .custom-select,
 .input-group > .custom-file + .custom-file {
   margin-left: -1px;
@@ -3851,7 +3851,7 @@ input[type=button].btn-block {
 .input-group > .form-control:focus,
 .input-group > .fj-text:focus,
 .input-group > .fj-textarea:focus,
-.input-group > .fj-select:focus,
+.input-group > .fj-select__input:focus,
 .input-group > .custom-select:focus,
 .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
   z-index: 3;
@@ -3864,7 +3864,7 @@ input[type=button].btn-block {
 .input-group > .form-control:not(:last-child),
 .input-group > .fj-text:not(:last-child),
 .input-group > .fj-textarea:not(:last-child),
-.input-group > .fj-select:not(:last-child),
+.input-group > .fj-select__input:not(:last-child),
 .input-group > .custom-select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -3873,7 +3873,7 @@ input[type=button].btn-block {
 .input-group > .form-control:not(:first-child),
 .input-group > .fj-text:not(:first-child),
 .input-group > .fj-textarea:not(:first-child),
-.input-group > .fj-select:not(:first-child),
+.input-group > .fj-select__input:not(:first-child),
 .input-group > .custom-select:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -3968,7 +3968,7 @@ input[type=button].btn-block {
 .input-group-lg > .form-control:not(textarea),
 .input-group-lg > .fj-text:not(textarea),
 .input-group-lg > .fj-textarea:not(textarea),
-.input-group-lg > .fj-select:not(textarea),
+.input-group-lg > .fj-select__input:not(textarea),
 .input-group-lg > .custom-select {
   height: calc(1.5em + 1rem + 2px);
 }
@@ -3976,7 +3976,7 @@ input[type=button].btn-block {
 .input-group-lg > .form-control,
 .input-group-lg > .fj-text,
 .input-group-lg > .fj-textarea,
-.input-group-lg > .fj-select,
+.input-group-lg > .fj-select__input,
 .input-group-lg > .custom-select,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
@@ -3993,7 +3993,7 @@ input[type=button].btn-block {
 .input-group-sm > .form-control:not(textarea),
 .input-group-sm > .fj-text:not(textarea),
 .input-group-sm > .fj-textarea:not(textarea),
-.input-group-sm > .fj-select:not(textarea),
+.input-group-sm > .fj-select__input:not(textarea),
 .input-group-sm > .custom-select {
   height: calc(1.5em + 0.5rem + 2px);
 }
@@ -4001,7 +4001,7 @@ input[type=button].btn-block {
 .input-group-sm > .form-control,
 .input-group-sm > .fj-text,
 .input-group-sm > .fj-textarea,
-.input-group-sm > .fj-select,
+.input-group-sm > .fj-select__input,
 .input-group-sm > .custom-select,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
@@ -10910,7 +10910,7 @@ a.text-dark:focus {
   }
 }
 
-.fj-form__description p {
+.fj-form__description {
   margin-bottom: 0;
 }
 
@@ -10921,5 +10921,10 @@ a.text-dark:focus {
 
 .fj-section__button + .fj-section__button {
   margin-left: 1rem;
+}
+
+.fj-field--required .fj-field__label::after {
+  content: "*";
+  padding-left: 0.125em;
 }
 

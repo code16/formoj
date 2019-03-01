@@ -36,8 +36,10 @@ class FormojFieldSharpForm extends SharpForm
                     SharpFormMarkdownField::A,
                 ])
                 ->setHeight(200)
+                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
             SharpFormCheckField::make("required", "Saisie obligatoire")
+                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
             SharpFormSelectField::make("type", FormojFieldSharpEntityList::$FIELD_TYPES)
             ->setDisplayAsDropdown()
@@ -46,6 +48,10 @@ class FormojFieldSharpForm extends SharpForm
                 ->setLabel("Longueur maximale")
                 ->setHelpMessage("En nombre de caractères")
                 ->addConditionalDisplay("type", [Field::TYPE_TEXT, Field::TYPE_TEXTAREA])
+        )->addField(
+            SharpFormTextField::make("rows_count")
+                ->setLabel("Nombre de lignes")
+                ->addConditionalDisplay("type", Field::TYPE_TEXTAREA)
         )->addField(
             SharpFormCheckField::make("multiple", "Autoriser plusieurs réponses")
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
@@ -84,6 +90,7 @@ class FormojFieldSharpForm extends SharpForm
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("max_length")
+                ->withSingleField("rows_count")
                 ->withSingleField("values", function(FormLayoutColumn $column) {
                     $column->withSingleField("value");
                 })
@@ -127,7 +134,9 @@ class FormojFieldSharpForm extends SharpForm
                 "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
             ]);
 
-        $data["values"] = collect($data["values"])->pluck("value")->all();
+        $data["values"] = $data["type"] == Field::TYPE_SELECT
+            ? collect($data["values"])->pluck("value")->all()
+            : null;
 
         $this->save($field, $data);
 

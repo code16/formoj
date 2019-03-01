@@ -7,7 +7,7 @@
 </template>
 
 <script>
-    import { getFieldByType } from "./fields";
+    import {getFieldByType} from "./fields";
 
     export default {
         name: 'FjField',
