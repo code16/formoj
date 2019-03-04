@@ -23,6 +23,7 @@
                         <fj-field
                             :id="fieldIdAttribute(field)"
                             :value="fieldValue(field)"
+                            :name="fieldKey(field)"
                             :field="field"
                             :error="fieldError(field)"
                             @input="handleFieldChanged(field, $event)"

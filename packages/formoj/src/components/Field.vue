@@ -5,6 +5,7 @@
             :is="component"
             :id="id"
             :value="value"
+            :name="name"
             v-bind="props"
             @input="handleInput"
         />
@@ -24,7 +25,14 @@
         props: {
             value: {},
             field: Object,
-            id: String,
+            id: {
+                type: String,
+                required: true,
+            },
+            name: {
+                type: String,
+                required: true,
+            },
             error: String,
         },
 
@@ -37,7 +45,6 @@
                     ...this.field,
                     label: undefined,
                     helpText: undefined,
-                    name: this.field.id,
                 }
             },
             isRequired() {
@@ -53,7 +60,7 @@
                 return {
                     'fj-field--required': this.isRequired,
                     'fj-field--invalid': this.hasError,
-                }
+                };
             },
         },
         methods: {
