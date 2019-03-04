@@ -36,7 +36,7 @@ class FormojFormFillController
         ]);
 
         return response()->json([
-            "message" => $form->success_message ?: __("formoj.success_message")
+            "message" => $form->success_message ?: __("formoj::form.success_message")
         ]);
     }
 }
