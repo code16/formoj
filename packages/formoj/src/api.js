@@ -6,9 +6,9 @@ export function getForm(baseUrl, { formId }) {
 }
 
 export function postSection(baseUrl, { formId, sectionId, data }) {
-    return axios.post(`${baseUrl}/form/${formId}/validate/${sectionId}`, { data });
+    return axios.post(`${baseUrl}/form/${formId}/validate/${sectionId}`,  { ...data });
 }
 
 export function postForm(baseUrl, { formId, data }) {
-    return axios.post(`${baseUrl}/form/${formId}`, { data });
+    return axios.post(`${baseUrl}/form/${formId}`, { ...data });
 }
