@@ -17,7 +17,8 @@
   },
   "homepage": "https://github.com/code16/formoj#readme",
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "core-js": "^2.6.5"
   },
   "devDependencies": {
     "@babel/runtime": "^7.3.4",

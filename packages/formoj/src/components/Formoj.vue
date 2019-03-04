@@ -1,5 +1,5 @@
 <template>
-    <div class="formoj">
+    <div class="formoj" :class="classes">
         <template v-if="hasAlert">
             <fj-alert :type="messageType">{{ message }}</fj-alert>
         </template>
@@ -9,9 +9,15 @@
                 :description="form.description"
                 :sections="form.sections"
                 :form-id="form.id"
+                :index.sync="currentSectionIndex"
+                :errors="validationErrors"
                 :appearance="appearance"
-                @submit="handleSubmit"
+                @next="handleNextSectionRequested"
+                @submit="handleFormSubmitted"
             />
+        </template>
+        <template v-if="isLoadingVisible">
+            <fj-loading />
         </template>
     </div>
 </template>
@@ -19,15 +25,18 @@
 <script>
     import FjForm from './Form';
     import FjAlert from './Alert';
+    import FjLoading from './Loading';
 
-    import {config} from "../util/config";
-    import {getForm, postForm} from "../api";
-    import {$t} from "../util/i18n";
+    import { getForm, postForm, postSection } from "../api";
+    import { config } from "../util/config";
+    import { getValidationErrors } from "../util/validation";
+    import { $t } from "../util/i18n";
 
     export default {
         components: {
             FjForm,
             FjAlert,
+            FjLoading,
         },
         props: {
             formId: {
@@ -40,27 +49,78 @@
             return {
                 ready: false,
                 form: null,
+                isLoading: false,
 
                 message: null,
                 messageType: null,
+
+                currentSectionIndex: 0,
+                validationErrors: null,
             }
         },
         computed: {
             config,
             hasAlert() {
                 return !!this.message;
-            }
+            },
+            classes() {
+                return {
+                    'formoj--empty': !this.ready,
+                }
+            },
+            isLoadingVisible() {
+                return !this.ready || this.isLoading;
+            },
         },
         methods: {
-            handleSubmit(data) {
+            handleFormSubmitted(data) {
+                this.isLoading = true;
                 this.resetAlert();
+                this.resetValidation();
                 postForm(this.config.apiBaseUrl, { formId: this.formId, data })
+                    .catch(this.handleValidationError)
                     .catch(() => {
                         this.showAlert({
                             message: $t('form.error.post'),
                             type: 'error',
                         });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
+            },
+            handleNextSectionRequested(e, currentSection, data) {
+                e.preventDefault();
+                this.isLoading = true;
+                this.resetAlert();
+                this.resetValidation();
+                postSection(this.config.apiBaseUrl, {
+                    formId: this.formId,
+                    sectionId: currentSection.id,
+                    data,
+                })
+                .then(() => {
+                    this.currentSectionIndex++;
+                })
+                .catch(this.handleValidationError)
+                .catch(() => {
+                    this.showAlert({
+                        message: $t('form.error.post'),
+                        type: 'error',
+                    });
+                })
+                .finally(() => {
+                    this.isLoading = false;
+                });
+            },
+
+            handleValidationError(error) {
+                if(error.response.status === 422) {
+                    console.log(error.response);
+                    this.validationErrors = getValidationErrors(error.response.data);
+                } else {
+                    return Promise.reject(error);
+                }
             },
 
             resetAlert() {
@@ -70,6 +130,9 @@
             showAlert({ message, type }) {
                 this.message = message;
                 this.messageType = type;
+            },
+            resetValidation() {
+                this.validationErrors = null;
             },
 
             async init() {

@@ -1,6 +1,7 @@
 @import '../formoj';
 
 $formoj-form-appearance: 'card'!default;
+$formoj-loading-appearance: 'spinner'!default;
 
 .fj-alert {
   @extend .alert;
@@ -53,8 +54,30 @@ $formoj-form-appearance: 'card'!default;
 }
 
 .fj-field {
+  &--invalid {
+    .form-control {
+      @extend .is-invalid;
+    }
+  }
   &__help {
     @extend .form-text;
     @extend .text-muted;
+  }
+  &__error {
+    @extend .invalid-feedback;
+  }
+}
+
+.fj-loading {
+  &__indicator {
+    color: $formoj-loading-color;
+  }
+  &--spinner {
+    .fj-loading__indicator {
+      @extend .spinner-grow;
+    }
+  }
+  @if($formoj-loading-appearance == 'spinner') {
+    @extend .fj-loading--spinner;
   }
 }

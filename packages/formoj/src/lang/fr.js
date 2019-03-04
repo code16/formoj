@@ -5,4 +5,6 @@ export default {
     'section.button.next': 'Suivant',
     'section.button.previous': 'Précédent',
     'section.button.submit': 'Envoyer',
+    'field.select.placeholder': 'Choisir...',
+    'loading': 'Chargement...',
 }
