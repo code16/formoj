@@ -94,7 +94,7 @@
 
         methods: {
             fieldKey(field) {
-                return field.id;
+                return field.id.toString();
             },
             fieldValue(field) {
                 const fieldKey = this.fieldKey(field);
