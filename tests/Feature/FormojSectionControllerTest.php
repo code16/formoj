@@ -190,4 +190,40 @@ class FormojSectionControllerTest extends FormojTestCase
             ])
             ->assertStatus(200);
     }
+
+    /** @test */
+    function we_cant_validate_a_section_of_an_outdated_form()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "text",
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => now()->addHour(),
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "f" . $field->id => "test",
+            ])
+            ->assertStatus(403);
+
+        $field = factory(Field::class)->create([
+            "type" => "text",
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => now()->subHour(),
+                ])->id
+            ])->id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "f" . $field->id => "test",
+            ])
+            ->assertStatus(403);
+    }
 }
