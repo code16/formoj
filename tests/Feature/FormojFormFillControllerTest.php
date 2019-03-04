@@ -16,6 +16,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_can_fill_a_form_with_one_section()
     {
+        $this->withoutExceptionHandling();
         $answer = Str::random(5);
 
         $field = factory(Field::class)->create([
@@ -102,6 +103,43 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         $this->assertDatabaseMissing("formoj_answers", [
             "form_id" => $field->section->form_id,
+        ]);
+    }
+
+    /** @test */
+    function we_store_only_the_form_data_with_the_answer()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "text",
+            "required" => true,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $field2 = factory(Field::class)->create([
+            "type" => "text",
+            "required" => false,
+            "section_id" => $field->section_id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}", [
+                "f" . $field->id => "test",
+                "f" . $field2->id => "test",
+                "sometingelse" => "should not be stored",
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                "f" . $field->id => "test",
+                "f" . $field2->id => "test",
+            ])
         ]);
     }
 }
