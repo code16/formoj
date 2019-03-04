@@ -15,7 +15,7 @@ class FieldResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => "f" . $this->id,
             'type' => $this->type,
             'label' => $this->label,
             'helpText' => $this->when(
