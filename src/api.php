@@ -15,4 +15,6 @@ Route::group([
 
     Route::post('/form/{form}/validate/{section}', 'FormojSectionController@update');
 
+    Route::post('/form/{form}', 'FormojFormFillController@store');
+
 });
