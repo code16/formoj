@@ -9,6 +9,8 @@
 
   &__label {
     display: block;
+    margin-bottom: $formoj-label-margin-bottom;
+    font-weight: bold;
   }
   &__help {
     font-size: 80%;
