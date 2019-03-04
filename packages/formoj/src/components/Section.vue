@@ -6,12 +6,13 @@
                 <p class="fj-section__description">{{ description }}</p>
             </slot>
         </div>
-
-        <template v-for="field in fields">
-            <div class="fj-section__fields" :key="field.id">
-                <slot name="field" :field="field" />
-            </div>
-        </template>
+        <div class="fj-section__fields">
+            <template v-for="field in fields">
+                <div class="fj-section__field" :key="field.id">
+                    <slot name="field" :field="field"  />
+                </div>
+            </template>
+        </div>
 
         <div class="fj-section__footer">
             <template v-if="!isFirst">

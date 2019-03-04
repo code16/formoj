@@ -1,5 +1,7 @@
 @import '../formoj';
 
+$formoj-form-appearance: 'card'!default;
+
 .fj-alert {
   @extend .alert;
   &--success {
@@ -26,6 +28,33 @@
   }
 }
 
+.fj-form {
+  &--card {
+    @extend .card;
+    .fj-form__header {
+      @extend .card-header;
+    }
+    .fj-form__content {
+      @extend .card-body;
+    }
+    .fj-form__description {
+      margin-bottom: 0;
+    }
+  }
+  @if($formoj-form-appearance == 'card') {
+    @extend .fj-form--card;
+  }
+}
+
+.fj-section {
+  &__field {
+    @extend .form-group;
+  }
+}
+
 .fj-field {
-  @extend .form-group;
+  &__help {
+    @extend .form-text;
+    @extend .text-muted;
+  }
 }

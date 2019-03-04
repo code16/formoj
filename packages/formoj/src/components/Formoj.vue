@@ -9,6 +9,7 @@
                 :description="form.description"
                 :sections="form.sections"
                 :form-id="form.id"
+                :appearance="appearance"
                 @submit="handleSubmit"
             />
         </template>
@@ -32,7 +33,8 @@
             formId: {
                 type: String,
                 required: true,
-            }
+            },
+            appearance: String,
         },
         data() {
             return {

@@ -1,5 +1,5 @@
 <template>
-    <div class="fj-form">
+    <div class="fj-form" :class="classes">
         <div class="fj-form__header">
             <slot name="header">
                 <h3 class="fj-form__title">{{ title }}</h3>
@@ -50,6 +50,7 @@
             description: String,
             sections: Array,
             formId: [Number, String],
+            appearance: String,
         },
 
         data() {
@@ -72,6 +73,12 @@
             },
             isCurrentLast() {
                 return this.currentSectionIndex === this.sections.length - 1;
+            },
+
+            classes() {
+                return {
+                    [`fj-form--${this.appearance}`]: !!this.appearance,
+                };
             },
         },
 

@@ -14,7 +14,8 @@
             "type": "text",
             "label": "Nom",
             "required": true,
-            "maxlength": 10
+            "maxlength": 10,
+            "helpText": "Texte d'aide pour faire comprendre quelque chose à l'utilisateur"
           }
         ]
       },
