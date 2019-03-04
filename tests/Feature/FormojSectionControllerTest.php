@@ -72,7 +72,7 @@ class FormojSectionControllerTest extends FormojTestCase
     }
 
     /** @test */
-    function we_get_a_422_when_posting_a_non_exisiting_value_to_select()
+    function we_get_a_422_when_posting_a_non_existing_value_to_a_single_select()
     {
         $field = factory(Field::class)->create([
             "type" => "select",
@@ -103,38 +103,113 @@ class FormojSectionControllerTest extends FormojTestCase
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
                 "data" => [
+                    $field->id => [2],
+                ]
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors("data.{$field->id}");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
                     $field->id => 2,
                 ]
             ])
             ->assertStatus(200);
     }
 
-//    /** @test */
-//    function we_get_a_422_when_posting_multiple_values_to_a_single_select()
-//    {
-//        $field = factory(Field::class)->create([
-//            "type" => "select",
-//            "required" => false,
-//            "section_id" => factory(Section::class)->create([
-//                "form_id" => factory(Form::class)->create([
-//                    "published_at" => null,
-//                    "unpublished_at" => null,
-//                ])->id
-//            ])->id
-//        ]);
-//
-//        $field->field_attributes = ["multiple" => false];
-//        $field->save();
-//
-//        $this
-//            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-//                "data" => [
-//                    $field->id => [
-//
-//                    ],
-//                ]
-//            ])
-//            ->assertStatus(422)
-//            ->assertJsonValidationErrors("data.{$field->id}");
-//    }
+    /** @test */
+    function we_get_a_422_when_posting_a_non_existing_value_to_a_multiple_select()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "required" => false,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $field->field_attributes = [
+            "multiple" => true,
+            "options" => ["one", "two"]
+        ];
+        $field->save();
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => [3],
+                ]
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors("data.{$field->id}");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => [1,2,3],
+                ]
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors("data.{$field->id}");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => 3,
+                ]
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors("data.{$field->id}");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => [1,2],
+                ]
+            ])
+            ->assertStatus(200);
+    }
+
+    /** @test */
+    function we_get_a_422_when_posting_to_much_values_to_a_multiple_select_with_max_options()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "required" => false,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $field->field_attributes = [
+            "multiple" => true,
+            "options" => ["one", "two", "three"],
+            "max_options" => 2,
+        ];
+        $field->save();
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => [1,2,3],
+                ]
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors("data.{$field->id}");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
+                "data" => [
+                    $field->id => [1,2],
+                ]
+            ])
+            ->assertStatus(200);
+    }
 }

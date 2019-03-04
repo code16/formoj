@@ -13,7 +13,7 @@ class FormojSectionController
     /**
      * @param Form $form
      * @param Section $section
-     * @return void
+     * @return \Illuminate\Http\JsonResponse
      */
     public function update(Form $form, Section $section)
     {
@@ -24,13 +24,15 @@ class FormojSectionController
 
                 if($field->required) {
                     $rules[] = "required";
+                } else {
+                    $rules[] = "nullable";
                 }
 
                 if(($field->isTypeText() || $field->isTypeTextarea()) && $field->fieldAttribute("max_length")) {
                     $rules[] = "max:" . $field->fieldAttribute("max_length");
                 }
 
-                if($field->isTypeSelect() && !$field->fieldAttribute("multiple")) {
+                if($field->isTypeSelect()) {
                     $rules[] = Rule::in(
                         collect($field->fieldAttribute("options"))
                             ->keys()
@@ -38,6 +40,14 @@ class FormojSectionController
                                 return $index + 1;
                             })
                     );
+
+                    if($field->fieldAttribute("multiple")) {
+                        $rules[] = "array";
+
+                        if($field->fieldAttribute("max_options")) {
+                            $rules[] = "max:" . $field->fieldAttribute("max_options");
+                        }
+                    }
                 }
 
                 return [
@@ -46,10 +56,8 @@ class FormojSectionController
             })
             ->all();
 
-//        dd($rules);
-
         request()->validate($rules);
 
-        //
+        return response()->json(["ok" => true]);
     }
 }
