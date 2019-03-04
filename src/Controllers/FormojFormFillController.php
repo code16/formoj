@@ -12,6 +12,7 @@ class FormojFormFillController
     /**
      * @param Form $form
      * @param FormRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
     public function store(Form $form, FormRequest $request)
     {
@@ -36,7 +37,7 @@ class FormojFormFillController
         ]);
 
         return response()->json([
-            "message" => $form->success_message ?: __("formoj::form.success_message")
+            "message" => $form->success_message ?: trans("formoj::form.success_message")
         ]);
     }
 }
