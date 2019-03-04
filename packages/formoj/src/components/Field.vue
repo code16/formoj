@@ -3,7 +3,7 @@
         <template v-if="isFieldset">
             <div class="fj-field__label">{{ label }}</div>
         </template>
-        <template v-else>
+        <template v-else-if="!isContentOnly">
             <label class="fj-field__label" :for="id">{{ label }}</label>
         </template>
         <component
@@ -23,7 +23,7 @@
 
 <script>
     import { $t } from "../util/i18n";
-    import { getFieldByType, isFieldset } from "./fields";
+    import { getFieldByType, isFieldset, isContentOnly } from "./fields";
 
     export default {
         name: 'FjField',
@@ -53,10 +53,14 @@
                     isMultiple: this.field.multiple,
                 });
             },
+            isContentOnly() {
+                return isContentOnly(this.field.type);
+            },
             props() {
                 return {
                     ...this.field,
-                    label: undefined,
+                    // send the label only if no label is displayed here
+                    label: this.isContentOnly ? this.field.label : undefined,
                     helpText: undefined,
                 }
             },

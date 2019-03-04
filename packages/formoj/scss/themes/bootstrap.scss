@@ -2,8 +2,8 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 
 @import '../formoj';
 
-$formoj-form-appearance: 'card'!default;
-$formoj-loading-appearance: 'spinner'!default;
+$formoj-form-appearance: 'card' !default;
+$formoj-loading-appearance: 'spinner' !default;
 
 .fj-alert {
   @extend .alert;
@@ -39,9 +39,20 @@ $formoj-loading-appearance: 'spinner'!default;
     }
     .fj-form__content {
       @extend .card-body;
+      position: relative;
     }
     .fj-form__description {
       margin-bottom: 0;
+    }
+    .fj-heading {
+      border-bottom: $formoj-heading-border-width solid transparent;
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        border-top: $formoj-heading-border-width solid $formoj-heading-border-color;
+      }
     }
   }
   @if($formoj-form-appearance == 'card') {
