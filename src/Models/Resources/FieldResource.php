@@ -15,29 +15,35 @@ class FieldResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
+            'id' => "f" . $this->id,
             'type' => $this->type,
             'label' => $this->label,
             'helpText' => $this->when(
-                !$this->isTypeHeading(), $this->description
+                !$this->isTypeHeading(), $this->help_text
             ),
             'required' => $this->when(
-                !$this->isTypeHeading(), $this->required
+                !$this->isTypeHeading(),
+                $this->required
             ),
             'maxlength' => $this->when(
-                $this->isTypeText() || $this->isTypeTextarea(), $this->max_length
+                $this->isTypeText() || $this->isTypeTextarea(),
+                $this->fieldAttribute('max_length')
             ),
             'multiple' => $this->when(
-                $this->isTypeSelect(), $this->multiple
+                $this->isTypeSelect(),
+                $this->fieldAttribute('multiple')
             ),
             'max' => $this->when(
-                $this->isTypeSelect() && $this->multiple, $this->max_values
+                $this->isTypeSelect() && $this->fieldAttribute('multiple'),
+                $this->fieldAttribute('max_options')
             ),
             'rows' => $this->when(
-                $this->isTypeTextArea(), $this->rows_count
+                $this->isTypeTextArea(),
+                $this->fieldAttribute('rows_count')
             ),
             'options' => $this->when(
-                $this->isTypeSelect(), collect($this->values)->map(
+                $this->isTypeSelect(),
+                collect($this->fieldAttribute('options'))->map(
                     function($value, $index) {
                         return [
                             "id" => $index+1,

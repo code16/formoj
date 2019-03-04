@@ -14,6 +14,14 @@ class FormojFormController
      */
     public function show(Form $form)
     {
+        if($form->isNotPublishedYet()) {
+            abort(409, trans("formoj::form.form_too_soon"));
+        }
+
+        if($form->isNoMorePublished()) {
+            abort(409, trans("formoj::form.form_too_late"));
+        }
+
         return new FormResource($form);
     }
 }

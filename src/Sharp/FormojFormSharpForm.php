@@ -37,13 +37,23 @@ class FormojFormSharpForm extends SharpForm
                 ])
                 ->setHeight(200)
         )->addField(
+            SharpFormMarkdownField::make("success_message")
+                ->setLabel("Message affiché en fin de saisie du formulaire")
+                ->setToolbar([
+                    SharpFormMarkdownField::B, SharpFormMarkdownField::I,
+                    SharpFormMarkdownField::SEPARATOR,
+                    SharpFormMarkdownField::A,
+                ])
+                ->setHeight(200)
+                ->setHelpMessage("Ce texte sera affiché à l'utilisateur au moment de la validation de sa réponse. S'il est laissé vide, un message standard le remplacera.")
+        )->addField(
             SharpFormDateField::make("published_at")
-                ->setLabel("Du (facultatif)")
+                ->setLabel("Du")
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
             SharpFormDateField::make("unpublished_at")
-                ->setLabel("Au (facultatif)")
+                ->setLabel("Au")
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
@@ -74,10 +84,11 @@ class FormojFormSharpForm extends SharpForm
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("title")
-                ->withFieldset("Publication", function (FormLayoutFieldset $fieldset) {
+                ->withFieldset("Dates de publication (facultatif)", function (FormLayoutFieldset $fieldset) {
                     $fieldset->withFields("published_at|6", "unpublished_at|6");
                 })
-                ->withSingleField("description");
+                ->withSingleField("description")
+                ->withSingleField("success_message");
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column

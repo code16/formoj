@@ -20,4 +20,20 @@ class Form extends Model
         return $this->hasMany(Section::class)
             ->orderBy("order");
     }
+
+    /**
+     * @return bool
+     */
+    public function isNotPublishedYet()
+    {
+        return $this->published_at && $this->published_at->isFuture();
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNoMorePublished()
+    {
+        return $this->unpublished_at && $this->unpublished_at->isPast();
+    }
 }

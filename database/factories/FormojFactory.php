@@ -34,30 +34,31 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         \Code16\Formoj\Models\Field::TYPE_SELECT,
     ]);
 
-    $values = null;
-    $maxValues = null;
-    $multiple = false;
+    $fieldAttributes = [];
+
     if($type == \Code16\Formoj\Models\Field::TYPE_SELECT) {
         for($i=0; $i<rand(3, 12); $i++) {
-            $values[] = $faker->unique()->word;
+            $fieldAttributes["options"][] = $faker->unique()->word;
         }
-        if($multiple = $faker->boolean(40)) {
-            $maxValues = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
+        if($faker->boolean(40)) {
+            $fieldAttributes["multiple"] = true;
+            $fieldAttributes["max_options"] = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
+        }
+
+    } elseif($type == \Code16\Formoj\Models\Field::TYPE_TEXT || $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
+        $fieldAttributes["max_length"] = $faker->boolean ? $faker->randomNumber(2) : null;
+
+        if($type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
+            $fieldAttributes["rows_count"] = $faker->numberBetween(3, 8);
         }
     }
 
     return [
         'label' => $faker->words(3, true),
-        'description' => $faker->boolean(25) ? $faker->paragraph : null,
-        'required' => $faker->boolean(40),
+        'help_text' => $faker->boolean(25) ? $faker->paragraph : null,
         'type' => $type,
-        'max_length' => in_array($type, [\Code16\Formoj\Models\Field::TYPE_TEXT, \Code16\Formoj\Models\Field::TYPE_TEXTAREA])
-            ? ($faker->boolean ? $faker->randomNumber(2) : null)
-            : null,
-        'values' => $values,
-        'max_values' => $maxValues,
-        'rows_count' => $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA ? $faker->numberBetween(3, 8) : null,
-        'multiple' => $multiple,
+        'field_attributes' => $fieldAttributes,
+        'required' => $type == \Code16\Formoj\Models\Field::TYPE_HEADING ? false : $faker->boolean(40),
         'section_id' => function() {
             return factory(\Code16\Formoj\Models\Section::class)->create()->id;
         }

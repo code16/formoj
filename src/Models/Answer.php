@@ -4,11 +4,16 @@ namespace Code16\Formoj\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Section extends Model
+class Answer extends Model
 {
-    protected $table = "formoj_sections";
+    protected $table = "formoj_answers";
 
     protected $guarded = ["id"];
+
+    /** @var array */
+    protected $casts = [
+        'content' => 'json',
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -19,11 +24,11 @@ class Section extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @param string $attribute
+     * @return mixed|null
      */
-    public function fields()
+    public function content($attribute)
     {
-        return $this->hasMany(Field::class)
-            ->orderBy("order");
+        return $this->content[$attribute] ?? null;
     }
 }

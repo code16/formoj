@@ -17,7 +17,8 @@
     "mockery/mockery": "1.0.*",
     "phpunit/phpunit": "~8.0",
     "doctrine/dbal": "~2.5",
-    "orchestra/testbench": "~3.8"
+    "orchestra/testbench": "~3.8",
+    "ext-json": "*"
   },
   "autoload": {
     "psr-4": {

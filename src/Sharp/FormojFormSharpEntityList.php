@@ -18,6 +18,9 @@ class FormojFormSharpEntityList extends SharpEntityList
     function buildListDataContainers()
     {
         $this->addDataContainer(
+            EntityListDataContainer::make("ref")
+                ->setLabel("ID")
+        )->addDataContainer(
             EntityListDataContainer::make("title")
                 ->setLabel("Titre")
         )->addDataContainer(
@@ -39,9 +42,11 @@ class FormojFormSharpEntityList extends SharpEntityList
      */
     function buildListLayout()
     {
-        $this->addColumn("title", 3, 5)
+        $this
+            ->addColumn("ref", 1)
+            ->addColumn("title", 3, 5)
             ->addColumnLarge("description", 3)
-            ->addColumn("published_at", 3, 7)
+            ->addColumn("published_at", 2, 6)
             ->addColumnLarge("sections", 3);
     }
 
@@ -64,25 +69,31 @@ class FormojFormSharpEntityList extends SharpEntityList
     function getListData(EntityListQueryParams $params)
     {
         return $this
+            ->setCustomTransformer("ref", function($value, $instance) {
+                return "<strong>{$instance->id}</strong>";
+            })
+            ->setCustomTransformer("title", function($value, $instance) {
+                return $instance->title ?: "<em>(sans titre)</em>";
+            })
             ->setCustomTransformer("published_at", function($value, $instance) {
                 if($instance->published_at) {
                     if($instance->unpublished_at) {
                         return sprintf(
                             "Du %s<br>au %s",
-                            $instance->published_at->formatLocalized("%a %e %B %Y %Hh%M"),
-                            $instance->unpublished_at->formatLocalized("%a %e %B %Y %Hh%M")
+                            $instance->published_at->formatLocalized("%e %b %Y %Hh%M"),
+                            $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
                         );
                     }
                     return sprintf(
                         "À partir du %s",
-                        $instance->published_at->formatLocalized("%a %e %B %Y %Hh%M")
+                        $instance->published_at->formatLocalized("%e %b %Y %Hh%M")
                     );
                 }
 
                 if($instance->unpublished_at) {
                     return sprintf(
                         "Jusqu'au %s",
-                        $instance->unpublished_at->formatLocalized("%a %e %B %Y %Hh%M")
+                        $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
                     );
                 }
 
