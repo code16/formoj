@@ -34,5 +34,9 @@ class FormojFormFillController
                     ->all()
             )
         ]);
+
+        return response()->json([
+            "message" => $form->success_message ?: __("formoj.success_message")
+        ]);
     }
 }

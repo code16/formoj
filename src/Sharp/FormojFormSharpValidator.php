@@ -24,7 +24,6 @@ class FormojFormSharpValidator extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
             'published_at' => 'date|nullable',
             'unpublished_at' => 'date|after:published_at|nullable',
             'sections' => 'required',
