@@ -34,14 +34,12 @@ class FormojSectionControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => "",
-                    $field2->id => "",
-                ]
+                "f" . $field->id => "",
+                "f" . $field2->id => "",
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}")
-            ->assertJsonMissingValidationErrors("data.{$field2->id}");
+            ->assertJsonValidationErrors("f" . $field->id)
+            ->assertJsonMissingValidationErrors("f" . $field2->id);
     }
 
     /** @test */
@@ -63,12 +61,10 @@ class FormojSectionControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => "ABCD",
-                ]
+                "f" . $field->id => "ABCD",
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
     }
 
     /** @test */
@@ -93,27 +89,21 @@ class FormojSectionControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => 3,
-                ]
+                "f" . $field->id => 3,
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [2],
-                ]
+                "f" . $field->id => [2],
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => 2,
-                ]
+                "f" . $field->id => 2,
             ])
             ->assertStatus(200);
     }
@@ -140,36 +130,28 @@ class FormojSectionControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [3],
-                ]
+                "f" . $field->id => [3],
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [1,2,3],
-                ]
+                "f" . $field->id => [1,2,3],
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => 3,
-                ]
+                "f" . $field->id => 3,
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [1,2],
-                ]
+                "f" . $field->id => [1,2],
             ])
             ->assertStatus(200);
     }
@@ -197,18 +179,14 @@ class FormojSectionControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [1,2,3],
-                ]
+                "f" . $field->id => [1,2,3],
             ])
             ->assertStatus(422)
-            ->assertJsonValidationErrors("data.{$field->id}");
+            ->assertJsonValidationErrors("f" . $field->id);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/validate/{$field->section_id}", [
-                "data" => [
-                    $field->id => [1,2],
-                ]
+                "f" . $field->id => [1,2],
             ])
             ->assertStatus(200);
     }

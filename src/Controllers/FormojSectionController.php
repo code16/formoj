@@ -20,13 +20,7 @@ class FormojSectionController
         $rules = $section
             ->fields
             ->mapWithKeys(function(Field $field) {
-                $rules = [];
-
-                if($field->required) {
-                    $rules[] = "required";
-                } else {
-                    $rules[] = "nullable";
-                }
+                $rules = $field->required ? ["required"] : ["nullable"];
 
                 if(($field->isTypeText() || $field->isTypeTextarea()) && $field->fieldAttribute("max_length")) {
                     $rules[] = "max:" . $field->fieldAttribute("max_length");
@@ -51,7 +45,7 @@ class FormojSectionController
                 }
 
                 return [
-                    "data.{$field->id}" => $rules
+                    "f" . $field->id => $rules
                 ];
             })
             ->all();
