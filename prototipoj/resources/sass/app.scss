@@ -9,3 +9,12 @@
 body {
   padding-bottom: 3rem;
 }
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.fj-form {
+  @extend .shadow;
+}
