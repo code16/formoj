@@ -35,6 +35,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertStatus(200)
             ->assertJson([
                 "data" => [
+                    "id" => $field->section->form_id,
                     "title" => $field->section->form->title,
                     "description" => $field->section->form->description,
                     "sections" => [
@@ -44,7 +45,7 @@ class FormojFormControllerTest extends FormojTestCase
                             "description" => $field->section->description,
                             "fields" => [
                                 [
-                                    "id" => $field->id,
+                                    "id" => "f" . $field->id,
                                     "type" => $field->type,
                                     "helpText" => $field->help_text,
                                     "label" => $field->label,
@@ -76,7 +77,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertJsonFragment([
                 "fields" => [
                     [
-                        "id" => $field->id,
+                        "id" => "f" . $field->id,
                         "type" => "text",
                         "label" => $field->label,
                         "helpText" => $field->help_text,
@@ -107,7 +108,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertJsonFragment([
                 "fields" => [
                     [
-                        "id" => $field->id,
+                        "id" => "f" . $field->id,
                         "type" => "textarea",
                         "label" => $field->label,
                         "helpText" => $field->help_text,
@@ -139,7 +140,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertJsonFragment([
                 "fields" => [
                     [
-                        "id" => $field->id,
+                        "id" => "f" . $field->id,
                         "type" => "select",
                         "label" => $field->label,
                         "helpText" => $field->help_text,
@@ -176,7 +177,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertJsonFragment([
                 "fields" => [
                     [
-                        "id" => $field->id,
+                        "id" => "f" . $field->id,
                         "type" => "select",
                         "label" => $field->label,
                         "helpText" => $field->help_text,
@@ -211,7 +212,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertJsonFragment([
                 "fields" => [
                     [
-                        "id" => $field->id,
+                        "id" => "f" . $field->id,
                         "type" => "heading",
                         "label" => $field->label,
                     ]
