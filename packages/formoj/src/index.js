@@ -1,3 +1,4 @@
+import './polyfill';
 import Formoj from './components/Formoj.vue';
 import Form from './components/Form.vue';
 import {createConfig} from "./util/config";
