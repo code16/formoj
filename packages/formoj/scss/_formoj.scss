@@ -1,4 +1,13 @@
 
+@import "variables";
 @import "components/form";
 @import "components/section";
 @import "components/field";
+@import "components/loading";
+
+.formoj {
+  position: relative;
+  &--empty {
+    min-height: 200px;
+  }
+}

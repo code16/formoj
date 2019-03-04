@@ -1,6 +1,7 @@
 @import '../formoj';
 
 $formoj-form-appearance: 'card'!default;
+$formoj-loading-appearance: 'spinner'!default;
 
 .fj-alert {
   @extend .alert;
@@ -64,5 +65,19 @@ $formoj-form-appearance: 'card'!default;
   }
   &__error {
     @extend .invalid-feedback;
+  }
+}
+
+.fj-loading {
+  &__indicator {
+    color: $formoj-loading-color;
+  }
+  &--spinner {
+    .fj-loading__indicator {
+      @extend .spinner-grow;
+    }
+  }
+  @if($formoj-loading-appearance == 'spinner') {
+    @extend .fj-loading--spinner;
   }
 }

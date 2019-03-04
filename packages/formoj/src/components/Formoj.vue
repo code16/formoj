@@ -1,5 +1,5 @@
 <template>
-    <div class="formoj">
+    <div class="formoj" :class="classes">
         <template v-if="hasAlert">
             <fj-alert :type="messageType">{{ message }}</fj-alert>
         </template>
@@ -16,12 +16,16 @@
                 @submit="handleFormSubmitted"
             />
         </template>
+        <template v-if="isLoadingVisible">
+            <fj-loading />
+        </template>
     </div>
 </template>
 
 <script>
     import FjForm from './Form';
     import FjAlert from './Alert';
+    import FjLoading from './Loading';
 
     import { getForm, postForm, postSection } from "../api";
     import { config } from "../util/config";
@@ -32,6 +36,7 @@
         components: {
             FjForm,
             FjAlert,
+            FjLoading,
         },
         props: {
             formId: {
@@ -44,6 +49,7 @@
             return {
                 ready: false,
                 form: null,
+                isLoading: false,
 
                 message: null,
                 messageType: null,
@@ -56,10 +62,19 @@
             config,
             hasAlert() {
                 return !!this.message;
-            }
+            },
+            classes() {
+                return {
+                    'formoj--empty': !this.ready,
+                }
+            },
+            isLoadingVisible() {
+                return !this.ready || this.isLoading;
+            },
         },
         methods: {
             handleFormSubmitted(data) {
+                this.isLoading = true;
                 this.resetAlert();
                 this.resetValidation();
                 postForm(this.config.apiBaseUrl, { formId: this.formId, data })
@@ -69,10 +84,14 @@
                             message: $t('form.error.post'),
                             type: 'error',
                         });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
             },
             handleNextSectionRequested(e, currentSection, data) {
                 e.preventDefault();
+                this.isLoading = true;
                 this.resetAlert();
                 this.resetValidation();
                 postSection(this.config.apiBaseUrl, {
@@ -89,6 +108,9 @@
                         message: $t('form.error.post'),
                         type: 'error',
                     });
+                })
+                .finally(() => {
+                    this.isLoading = false;
                 });
             },
 
