@@ -19,8 +19,6 @@ return [
         ],
         "answer" => [
             "list" => \Code16\Formoj\Sharp\FormojAnswerSharpEntityList::class,
-//            "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
-//            "validator" => \Code16\Formoj\Sharp\FormojFieldSharpValidator::class,
             "policy" => \Code16\Formoj\Sharp\Policies\FormojAnswerSharpPolicy::class,
         ],
     ],
