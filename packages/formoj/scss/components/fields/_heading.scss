@@ -1,0 +1,7 @@
+.fj-heading {
+  margin-top: 1.5rem;
+  &__title {
+    margin-bottom: .25em;
+  }
+  border-bottom: $formoj-heading-border-width solid $formoj-heading-border-color;
+}

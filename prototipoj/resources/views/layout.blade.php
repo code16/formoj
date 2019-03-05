@@ -11,9 +11,13 @@
 <body>
     <div id="app">
         <div class="container">
-            <h1>Prototipoj</h1>
-            <hr>
-            @yield('content')
+            <div class="content">
+                <h1 class="mt-3">Prototipoj</h1>
+                <hr>
+                <div class="my-5">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </div>
 

@@ -23,6 +23,7 @@
                         <fj-field
                             :id="fieldIdAttribute(field)"
                             :value="fieldValue(field)"
+                            :name="fieldKey(field)"
                             :field="field"
                             :error="fieldError(field)"
                             @input="handleFieldChanged(field, $event)"
@@ -93,7 +94,7 @@
 
         methods: {
             fieldKey(field) {
-                return field.id;
+                return field.id.toString();
             },
             fieldValue(field) {
                 const fieldKey = this.fieldKey(field);

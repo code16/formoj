@@ -116,7 +116,6 @@
 
             handleValidationError(error) {
                 if(error.response.status === 422) {
-                    console.log(error.response);
                     this.validationErrors = getValidationErrors(error.response.data);
                 } else {
                     return Promise.reject(error);
