@@ -73,7 +73,7 @@ class FormojFormSharpEntityList extends SharpEntityList
                 return "<strong>#{$instance->id}</strong>";
             })
             ->setCustomTransformer("title", function($value, $instance) {
-                return $instance->title ?: "<em>(sans titre)</em>";
+                return $instance->title ?: "<em>" . trans("formoj::sharp.forms.no_title") . "</em>";
             })
             ->setCustomTransformer("published_at", function($value, $instance) {
                 if($instance->published_at) {

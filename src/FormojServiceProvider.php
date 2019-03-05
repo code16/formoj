@@ -13,7 +13,9 @@ class FormojServiceProvider extends ServiceProvider
 
         $this->loadMigrationsFrom(dirname(__DIR__) . "/database/migrations");
 
-        $this->loadTranslationsFrom(dirname(__DIR__) . '/lang', 'formoj');
+        $this->loadTranslationsFrom(dirname(__DIR__) . '/resources/lang', 'formoj');
+
+        $this->loadViewsFrom(dirname(__DIR__) . '/resources/views', 'formoj');
 
         $this->publishes([
             dirname(__DIR__) . '/lang' => resource_path('lang/vendor/formoj')

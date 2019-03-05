@@ -17,6 +17,12 @@ return [
             "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
             "validator" => \Code16\Formoj\Sharp\FormojFieldSharpValidator::class,
         ],
+        "answer" => [
+            "list" => \Code16\Formoj\Sharp\FormojAnswerSharpEntityList::class,
+//            "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
+//            "validator" => \Code16\Formoj\Sharp\FormojFieldSharpValidator::class,
+            "policy" => \Code16\Formoj\Sharp\Policies\FormojAnswerSharpPolicy::class,
+        ],
     ],
 
     "menu" => [
@@ -32,6 +38,11 @@ return [
                     "entity" => "field",
                     "label" => "Champs",
                     "icon" => "fa-square-o"
+                ],
+                [
+                    "entity" => "answer",
+                    "label" => "Réponses",
+                    "icon" => "fa-envelope-o"
                 ],
             ]
         ]

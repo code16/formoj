@@ -1967,7 +1967,7 @@ pre code {
 .form-control,
 .fj-text,
 .fj-textarea,
-.fj-select__input {
+.fj-select {
   display: block;
   width: 100%;
   height: calc(1.6em + 0.75rem + 2px);
@@ -1987,7 +1987,7 @@ pre code {
   .form-control,
   .fj-text,
   .fj-textarea,
-  .fj-select__input {
+  .fj-select {
     transition: none;
   }
 }
@@ -1995,7 +1995,7 @@ pre code {
 .form-control::-ms-expand,
 .fj-text::-ms-expand,
 .fj-textarea::-ms-expand,
-.fj-select__input::-ms-expand {
+.fj-select::-ms-expand {
   background-color: transparent;
   border: 0;
 }
@@ -2003,7 +2003,7 @@ pre code {
 .form-control:focus,
 .fj-text:focus,
 .fj-textarea:focus,
-.fj-select__input:focus {
+.fj-select:focus {
   color: #495057;
   background-color: #fff;
   border-color: #a1cbef;
@@ -2014,7 +2014,7 @@ pre code {
 .form-control::-webkit-input-placeholder,
 .fj-text::-webkit-input-placeholder,
 .fj-textarea::-webkit-input-placeholder,
-.fj-select__input::-webkit-input-placeholder {
+.fj-select::-webkit-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2022,7 +2022,7 @@ pre code {
 .form-control:-ms-input-placeholder,
 .fj-text:-ms-input-placeholder,
 .fj-textarea:-ms-input-placeholder,
-.fj-select__input:-ms-input-placeholder {
+.fj-select:-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2030,7 +2030,7 @@ pre code {
 .form-control::-ms-input-placeholder,
 .fj-text::-ms-input-placeholder,
 .fj-textarea::-ms-input-placeholder,
-.fj-select__input::-ms-input-placeholder {
+.fj-select::-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2038,7 +2038,7 @@ pre code {
 .form-control::placeholder,
 .fj-text::placeholder,
 .fj-textarea::placeholder,
-.fj-select__input::placeholder {
+.fj-select::placeholder {
   color: #6c757d;
   opacity: 1;
 }
@@ -2046,11 +2046,11 @@ pre code {
 .form-control:disabled,
 .fj-text:disabled,
 .fj-textarea:disabled,
-.fj-select__input:disabled,
+.fj-select:disabled,
 .form-control[readonly],
 [readonly].fj-text,
 [readonly].fj-textarea,
-[readonly].fj-select__input {
+[readonly].fj-select {
   background-color: #e9ecef;
   opacity: 1;
 }
@@ -2058,7 +2058,7 @@ pre code {
 select.form-control:focus::-ms-value,
 select.fj-text:focus::-ms-value,
 select.fj-textarea:focus::-ms-value,
-select.fj-select__input:focus::-ms-value {
+select.fj-select:focus::-ms-value {
   color: #495057;
   background-color: #fff;
 }
@@ -2129,18 +2129,18 @@ select.fj-select__input:focus::-ms-value {
 select.form-control[size],
 select[size].fj-text,
 select[size].fj-textarea,
-select[size].fj-select__input,
+select[size].fj-select,
 select.form-control[multiple],
 select[multiple].fj-text,
 select[multiple].fj-textarea,
-select[multiple].fj-select__input {
+select[multiple].fj-select {
   height: auto;
 }
 
 textarea.form-control,
 textarea.fj-text,
 textarea.fj-textarea,
-textarea.fj-select__input {
+textarea.fj-select {
   height: auto;
 }
 
@@ -2168,23 +2168,29 @@ textarea.fj-select__input {
   padding-left: 5px;
 }
 
-.form-check {
+.form-check,
+.fj-checkboxes__check {
   position: relative;
   display: block;
   padding-left: 1.25rem;
 }
 
-.form-check-input {
+.form-check-input,
+.fj-checkboxes__check-input {
   position: absolute;
   margin-top: 0.3rem;
   margin-left: -1.25rem;
 }
 
-.form-check-input:disabled ~ .form-check-label {
+.form-check-input:disabled ~ .form-check-label,
+.form-check-input:disabled ~ .fj-checkboxes__check-label,
+.fj-checkboxes__check-input:disabled ~ .form-check-label,
+.fj-checkboxes__check-input:disabled ~ .fj-checkboxes__check-label {
   color: #6c757d;
 }
 
-.form-check-label {
+.form-check-label,
+.fj-checkboxes__check-label {
   margin-bottom: 0;
 }
 
@@ -2195,7 +2201,8 @@ textarea.fj-select__input {
   margin-right: 0.75rem;
 }
 
-.form-check-inline .form-check-input {
+.form-check-inline .form-check-input,
+.form-check-inline .fj-checkboxes__check-input {
   position: static;
   margin-top: 0;
   margin-right: 0.3125rem;
@@ -2228,11 +2235,11 @@ textarea.fj-select__input {
 .was-validated .form-control:valid,
 .was-validated .fj-text:valid,
 .was-validated .fj-textarea:valid,
-.was-validated .fj-select__input:valid,
+.was-validated .fj-select:valid,
 .form-control.is-valid,
 .is-valid.fj-text,
 .is-valid.fj-textarea,
-.is-valid.fj-select__input {
+.is-valid.fj-select {
   border-color: #38c172;
   padding-right: calc(1.6em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%2338c172' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
@@ -2244,11 +2251,11 @@ textarea.fj-select__input {
 .was-validated .form-control:valid:focus,
 .was-validated .fj-text:valid:focus,
 .was-validated .fj-textarea:valid:focus,
-.was-validated .fj-select__input:valid:focus,
+.was-validated .fj-select:valid:focus,
 .form-control.is-valid:focus,
 .is-valid.fj-text:focus,
 .is-valid.fj-textarea:focus,
-.is-valid.fj-select__input:focus {
+.is-valid.fj-select:focus {
   border-color: #38c172;
   box-shadow: 0 0 0 0.2rem rgba(56, 193, 114, 0.25);
 }
@@ -2256,30 +2263,30 @@ textarea.fj-select__input {
 .was-validated .form-control:valid ~ .valid-feedback,
 .was-validated .fj-text:valid ~ .valid-feedback,
 .was-validated .fj-textarea:valid ~ .valid-feedback,
-.was-validated .fj-select__input:valid ~ .valid-feedback,
+.was-validated .fj-select:valid ~ .valid-feedback,
 .was-validated .form-control:valid ~ .valid-tooltip,
 .was-validated .fj-text:valid ~ .valid-tooltip,
 .was-validated .fj-textarea:valid ~ .valid-tooltip,
-.was-validated .fj-select__input:valid ~ .valid-tooltip,
+.was-validated .fj-select:valid ~ .valid-tooltip,
 .form-control.is-valid ~ .valid-feedback,
 .is-valid.fj-text ~ .valid-feedback,
 .is-valid.fj-textarea ~ .valid-feedback,
-.is-valid.fj-select__input ~ .valid-feedback,
+.is-valid.fj-select ~ .valid-feedback,
 .form-control.is-valid ~ .valid-tooltip,
 .is-valid.fj-text ~ .valid-tooltip,
 .is-valid.fj-textarea ~ .valid-tooltip,
-.is-valid.fj-select__input ~ .valid-tooltip {
+.is-valid.fj-select ~ .valid-tooltip {
   display: block;
 }
 
 .was-validated textarea.form-control:valid,
 .was-validated textarea.fj-text:valid,
 .was-validated textarea.fj-textarea:valid,
-.was-validated textarea.fj-select__input:valid,
+.was-validated textarea.fj-select:valid,
 textarea.form-control.is-valid,
 textarea.is-valid.fj-text,
 textarea.is-valid.fj-textarea,
-textarea.is-valid.fj-select__input {
+textarea.is-valid.fj-select {
   padding-right: calc(1.6em + 0.75rem);
   background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem);
 }
@@ -2312,14 +2319,24 @@ textarea.is-valid.fj-select__input {
 }
 
 .was-validated .form-check-input:valid ~ .form-check-label,
-.form-check-input.is-valid ~ .form-check-label {
+.was-validated .form-check-input:valid ~ .fj-checkboxes__check-label,
+.was-validated .fj-checkboxes__check-input:valid ~ .form-check-label,
+.was-validated .fj-checkboxes__check-input:valid ~ .fj-checkboxes__check-label,
+.form-check-input.is-valid ~ .form-check-label,
+.form-check-input.is-valid ~ .fj-checkboxes__check-label,
+.is-valid.fj-checkboxes__check-input ~ .form-check-label,
+.is-valid.fj-checkboxes__check-input ~ .fj-checkboxes__check-label {
   color: #38c172;
 }
 
 .was-validated .form-check-input:valid ~ .valid-feedback,
+.was-validated .fj-checkboxes__check-input:valid ~ .valid-feedback,
 .was-validated .form-check-input:valid ~ .valid-tooltip,
+.was-validated .fj-checkboxes__check-input:valid ~ .valid-tooltip,
 .form-check-input.is-valid ~ .valid-feedback,
-.form-check-input.is-valid ~ .valid-tooltip {
+.is-valid.fj-checkboxes__check-input ~ .valid-feedback,
+.form-check-input.is-valid ~ .valid-tooltip,
+.is-valid.fj-checkboxes__check-input ~ .valid-tooltip {
   display: block;
 }
 
@@ -2401,15 +2418,15 @@ textarea.is-valid.fj-select__input {
 .was-validated .form-control:invalid,
 .was-validated .fj-text:invalid,
 .was-validated .fj-textarea:invalid,
-.was-validated .fj-select__input:invalid,
+.was-validated .fj-select:invalid,
 .form-control.is-invalid,
 .fj-field--invalid .form-control,
 .is-invalid.fj-text,
 .fj-field--invalid .fj-text,
 .is-invalid.fj-textarea,
 .fj-field--invalid .fj-textarea,
-.is-invalid.fj-select__input,
-.fj-field--invalid .fj-select__input {
+.is-invalid.fj-select,
+.fj-field--invalid .fj-select {
   border-color: #e3342f;
   padding-right: calc(1.6em + 0.75rem);
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e3342f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e3342f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E");
@@ -2421,15 +2438,15 @@ textarea.is-valid.fj-select__input {
 .was-validated .form-control:invalid:focus,
 .was-validated .fj-text:invalid:focus,
 .was-validated .fj-textarea:invalid:focus,
-.was-validated .fj-select__input:invalid:focus,
+.was-validated .fj-select:invalid:focus,
 .form-control.is-invalid:focus,
 .fj-field--invalid .form-control:focus,
 .is-invalid.fj-text:focus,
 .fj-field--invalid .fj-text:focus,
 .is-invalid.fj-textarea:focus,
 .fj-field--invalid .fj-textarea:focus,
-.is-invalid.fj-select__input:focus,
-.fj-field--invalid .fj-select__input:focus {
+.is-invalid.fj-select:focus,
+.fj-field--invalid .fj-select:focus {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
@@ -2440,12 +2457,12 @@ textarea.is-valid.fj-select__input {
 .was-validated .fj-text:invalid ~ .fj-field__error,
 .was-validated .fj-textarea:invalid ~ .invalid-feedback,
 .was-validated .fj-textarea:invalid ~ .fj-field__error,
-.was-validated .fj-select__input:invalid ~ .invalid-feedback,
-.was-validated .fj-select__input:invalid ~ .fj-field__error,
+.was-validated .fj-select:invalid ~ .invalid-feedback,
+.was-validated .fj-select:invalid ~ .fj-field__error,
 .was-validated .form-control:invalid ~ .invalid-tooltip,
 .was-validated .fj-text:invalid ~ .invalid-tooltip,
 .was-validated .fj-textarea:invalid ~ .invalid-tooltip,
-.was-validated .fj-select__input:invalid ~ .invalid-tooltip,
+.was-validated .fj-select:invalid ~ .invalid-tooltip,
 .form-control.is-invalid ~ .invalid-feedback,
 .form-control.is-invalid ~ .fj-field__error,
 .fj-field--invalid .form-control ~ .invalid-feedback,
@@ -2458,33 +2475,33 @@ textarea.is-valid.fj-select__input {
 .is-invalid.fj-textarea ~ .fj-field__error,
 .fj-field--invalid .fj-textarea ~ .invalid-feedback,
 .fj-field--invalid .fj-textarea ~ .fj-field__error,
-.is-invalid.fj-select__input ~ .invalid-feedback,
-.is-invalid.fj-select__input ~ .fj-field__error,
-.fj-field--invalid .fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .fj-select__input ~ .fj-field__error,
+.is-invalid.fj-select ~ .invalid-feedback,
+.is-invalid.fj-select ~ .fj-field__error,
+.fj-field--invalid .fj-select ~ .invalid-feedback,
+.fj-field--invalid .fj-select ~ .fj-field__error,
 .form-control.is-invalid ~ .invalid-tooltip,
 .fj-field--invalid .form-control ~ .invalid-tooltip,
 .is-invalid.fj-text ~ .invalid-tooltip,
 .fj-field--invalid .fj-text ~ .invalid-tooltip,
 .is-invalid.fj-textarea ~ .invalid-tooltip,
 .fj-field--invalid .fj-textarea ~ .invalid-tooltip,
-.is-invalid.fj-select__input ~ .invalid-tooltip,
-.fj-field--invalid .fj-select__input ~ .invalid-tooltip {
+.is-invalid.fj-select ~ .invalid-tooltip,
+.fj-field--invalid .fj-select ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated textarea.form-control:invalid,
 .was-validated textarea.fj-text:invalid,
 .was-validated textarea.fj-textarea:invalid,
-.was-validated textarea.fj-select__input:invalid,
+.was-validated textarea.fj-select:invalid,
 textarea.form-control.is-invalid,
 .fj-field--invalid textarea.form-control,
 textarea.is-invalid.fj-text,
 .fj-field--invalid textarea.fj-text,
 textarea.is-invalid.fj-textarea,
 .fj-field--invalid textarea.fj-textarea,
-textarea.is-invalid.fj-select__input,
-.fj-field--invalid textarea.fj-select__input {
+textarea.is-invalid.fj-select,
+.fj-field--invalid textarea.fj-select {
   padding-right: calc(1.6em + 0.75rem);
   background-position: top calc(0.4em + 0.1875rem) right calc(0.4em + 0.1875rem);
 }
@@ -2494,7 +2511,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-select.form-control,
 .fj-field--invalid .custom-select.fj-text,
 .fj-field--invalid .custom-select.fj-textarea,
-.fj-field--invalid .custom-select.fj-select__input {
+.fj-field--invalid .custom-select.fj-select,
+.fj-field--invalid .custom-select.form-check-input,
+.fj-field--invalid .custom-select.fj-checkboxes__check-input {
   border-color: #e3342f;
   padding-right: calc((1em + 0.75rem) * 3 / 4 + 1.75rem);
   background: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3e%3cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/8px 10px, url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%23e3342f' viewBox='-2 -2 7 7'%3e%3cpath stroke='%23e3342f' d='M0 0l3 3m0-3L0 3'/%3e%3ccircle r='.5'/%3e%3ccircle cx='3' r='.5'/%3e%3ccircle cy='3' r='.5'/%3e%3ccircle cx='3' cy='3' r='.5'/%3e%3c/svg%3E") #fff no-repeat center right 1.75rem/calc(0.8em + 0.375rem) calc(0.8em + 0.375rem);
@@ -2505,7 +2524,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-select.form-control:focus,
 .fj-field--invalid .custom-select.fj-text:focus,
 .fj-field--invalid .custom-select.fj-textarea:focus,
-.fj-field--invalid .custom-select.fj-select__input:focus {
+.fj-field--invalid .custom-select.fj-select:focus,
+.fj-field--invalid .custom-select.form-check-input:focus,
+.fj-field--invalid .custom-select.fj-checkboxes__check-input:focus {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
@@ -2521,13 +2542,19 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-select.fj-text ~ .fj-field__error,
 .fj-field--invalid .custom-select.fj-textarea ~ .invalid-feedback,
 .fj-field--invalid .custom-select.fj-textarea ~ .fj-field__error,
-.fj-field--invalid .custom-select.fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .custom-select.fj-select__input ~ .fj-field__error,
+.fj-field--invalid .custom-select.fj-select ~ .invalid-feedback,
+.fj-field--invalid .custom-select.fj-select ~ .fj-field__error,
+.fj-field--invalid .custom-select.form-check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-select.fj-checkboxes__check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-select.form-check-input ~ .fj-field__error,
+.fj-field--invalid .custom-select.fj-checkboxes__check-input ~ .fj-field__error,
 .custom-select.is-invalid ~ .invalid-tooltip,
 .fj-field--invalid .custom-select.form-control ~ .invalid-tooltip,
 .fj-field--invalid .custom-select.fj-text ~ .invalid-tooltip,
 .fj-field--invalid .custom-select.fj-textarea ~ .invalid-tooltip,
-.fj-field--invalid .custom-select.fj-select__input ~ .invalid-tooltip {
+.fj-field--invalid .custom-select.fj-select ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.form-check-input ~ .invalid-tooltip,
+.fj-field--invalid .custom-select.fj-checkboxes__check-input ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2542,43 +2569,55 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .form-control-file.fj-text ~ .fj-field__error,
 .fj-field--invalid .form-control-file.fj-textarea ~ .invalid-feedback,
 .fj-field--invalid .form-control-file.fj-textarea ~ .fj-field__error,
-.fj-field--invalid .form-control-file.fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .form-control-file.fj-select__input ~ .fj-field__error,
+.fj-field--invalid .form-control-file.fj-select ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.fj-select ~ .fj-field__error,
+.fj-field--invalid .form-control-file.form-check-input ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.fj-checkboxes__check-input ~ .invalid-feedback,
+.fj-field--invalid .form-control-file.form-check-input ~ .fj-field__error,
+.fj-field--invalid .form-control-file.fj-checkboxes__check-input ~ .fj-field__error,
 .form-control-file.is-invalid ~ .invalid-tooltip,
 .fj-field--invalid .form-control-file.form-control ~ .invalid-tooltip,
 .fj-field--invalid .form-control-file.fj-text ~ .invalid-tooltip,
 .fj-field--invalid .form-control-file.fj-textarea ~ .invalid-tooltip,
-.fj-field--invalid .form-control-file.fj-select__input ~ .invalid-tooltip {
+.fj-field--invalid .form-control-file.fj-select ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.form-check-input ~ .invalid-tooltip,
+.fj-field--invalid .form-control-file.fj-checkboxes__check-input ~ .invalid-tooltip {
   display: block;
 }
 
 .was-validated .form-check-input:invalid ~ .form-check-label,
+.was-validated .form-check-input:invalid ~ .fj-checkboxes__check-label,
+.was-validated .fj-checkboxes__check-input:invalid ~ .form-check-label,
+.was-validated .fj-checkboxes__check-input:invalid ~ .fj-checkboxes__check-label,
 .form-check-input.is-invalid ~ .form-check-label,
-.fj-field--invalid .form-check-input.form-control ~ .form-check-label,
-.fj-field--invalid .form-check-input.fj-text ~ .form-check-label,
-.fj-field--invalid .form-check-input.fj-textarea ~ .form-check-label,
-.fj-field--invalid .form-check-input.fj-select__input ~ .form-check-label {
+.form-check-input.is-invalid ~ .fj-checkboxes__check-label,
+.is-invalid.fj-checkboxes__check-input ~ .form-check-label,
+.is-invalid.fj-checkboxes__check-input ~ .fj-checkboxes__check-label,
+.fj-field--invalid .form-check-input ~ .form-check-label,
+.fj-field--invalid .form-check-input ~ .fj-checkboxes__check-label,
+.fj-field--invalid .fj-checkboxes__check-input ~ .form-check-label,
+.fj-field--invalid .fj-checkboxes__check-input ~ .fj-checkboxes__check-label {
   color: #e3342f;
 }
 
 .was-validated .form-check-input:invalid ~ .invalid-feedback,
+.was-validated .fj-checkboxes__check-input:invalid ~ .invalid-feedback,
 .was-validated .form-check-input:invalid ~ .fj-field__error,
+.was-validated .fj-checkboxes__check-input:invalid ~ .fj-field__error,
 .was-validated .form-check-input:invalid ~ .invalid-tooltip,
+.was-validated .fj-checkboxes__check-input:invalid ~ .invalid-tooltip,
 .form-check-input.is-invalid ~ .invalid-feedback,
+.is-invalid.fj-checkboxes__check-input ~ .invalid-feedback,
 .form-check-input.is-invalid ~ .fj-field__error,
-.fj-field--invalid .form-check-input.form-control ~ .invalid-feedback,
-.fj-field--invalid .form-check-input.form-control ~ .fj-field__error,
-.fj-field--invalid .form-check-input.fj-text ~ .invalid-feedback,
-.fj-field--invalid .form-check-input.fj-text ~ .fj-field__error,
-.fj-field--invalid .form-check-input.fj-textarea ~ .invalid-feedback,
-.fj-field--invalid .form-check-input.fj-textarea ~ .fj-field__error,
-.fj-field--invalid .form-check-input.fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .form-check-input.fj-select__input ~ .fj-field__error,
+.is-invalid.fj-checkboxes__check-input ~ .fj-field__error,
+.fj-field--invalid .form-check-input ~ .invalid-feedback,
+.fj-field--invalid .fj-checkboxes__check-input ~ .invalid-feedback,
+.fj-field--invalid .form-check-input ~ .fj-field__error,
+.fj-field--invalid .fj-checkboxes__check-input ~ .fj-field__error,
 .form-check-input.is-invalid ~ .invalid-tooltip,
-.fj-field--invalid .form-check-input.form-control ~ .invalid-tooltip,
-.fj-field--invalid .form-check-input.fj-text ~ .invalid-tooltip,
-.fj-field--invalid .form-check-input.fj-textarea ~ .invalid-tooltip,
-.fj-field--invalid .form-check-input.fj-select__input ~ .invalid-tooltip {
+.is-invalid.fj-checkboxes__check-input ~ .invalid-tooltip,
+.fj-field--invalid .form-check-input ~ .invalid-tooltip,
+.fj-field--invalid .fj-checkboxes__check-input ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2587,7 +2626,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.form-control ~ .custom-control-label,
 .fj-field--invalid .custom-control-input.fj-text ~ .custom-control-label,
 .fj-field--invalid .custom-control-input.fj-textarea ~ .custom-control-label,
-.fj-field--invalid .custom-control-input.fj-select__input ~ .custom-control-label {
+.fj-field--invalid .custom-control-input.fj-select ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.form-check-input ~ .custom-control-label,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input ~ .custom-control-label {
   color: #e3342f;
 }
 
@@ -2596,7 +2637,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.form-control ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-text ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-textarea ~ .custom-control-label::before,
-.fj-field--invalid .custom-control-input.fj-select__input ~ .custom-control-label::before {
+.fj-field--invalid .custom-control-input.fj-select ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-check-input ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input ~ .custom-control-label::before {
   border-color: #e3342f;
 }
 
@@ -2611,13 +2654,19 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.fj-text ~ .fj-field__error,
 .fj-field--invalid .custom-control-input.fj-textarea ~ .invalid-feedback,
 .fj-field--invalid .custom-control-input.fj-textarea ~ .fj-field__error,
-.fj-field--invalid .custom-control-input.fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .custom-control-input.fj-select__input ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.fj-select ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.fj-select ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.form-check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-control-input.form-check-input ~ .fj-field__error,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input ~ .fj-field__error,
 .custom-control-input.is-invalid ~ .invalid-tooltip,
 .fj-field--invalid .custom-control-input.form-control ~ .invalid-tooltip,
 .fj-field--invalid .custom-control-input.fj-text ~ .invalid-tooltip,
 .fj-field--invalid .custom-control-input.fj-textarea ~ .invalid-tooltip,
-.fj-field--invalid .custom-control-input.fj-select__input ~ .invalid-tooltip {
+.fj-field--invalid .custom-control-input.fj-select ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.form-check-input ~ .invalid-tooltip,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2626,7 +2675,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.form-control:checked ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-text:checked ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-textarea:checked ~ .custom-control-label::before,
-.fj-field--invalid .custom-control-input.fj-select__input:checked ~ .custom-control-label::before {
+.fj-field--invalid .custom-control-input.fj-select:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-check-input:checked ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input:checked ~ .custom-control-label::before {
   border-color: #e9605c;
   background-color: #e9605c;
 }
@@ -2636,7 +2687,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.form-control:focus ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-text:focus ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-textarea:focus ~ .custom-control-label::before,
-.fj-field--invalid .custom-control-input.fj-select__input:focus ~ .custom-control-label::before {
+.fj-field--invalid .custom-control-input.fj-select:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-check-input:focus ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input:focus ~ .custom-control-label::before {
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
 
@@ -2645,7 +2698,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-control-input.form-control:focus:not(:checked) ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-text:focus:not(:checked) ~ .custom-control-label::before,
 .fj-field--invalid .custom-control-input.fj-textarea:focus:not(:checked) ~ .custom-control-label::before,
-.fj-field--invalid .custom-control-input.fj-select__input:focus:not(:checked) ~ .custom-control-label::before {
+.fj-field--invalid .custom-control-input.fj-select:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.form-check-input:focus:not(:checked) ~ .custom-control-label::before,
+.fj-field--invalid .custom-control-input.fj-checkboxes__check-input:focus:not(:checked) ~ .custom-control-label::before {
   border-color: #e3342f;
 }
 
@@ -2654,7 +2709,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-file-input.form-control ~ .custom-file-label,
 .fj-field--invalid .custom-file-input.fj-text ~ .custom-file-label,
 .fj-field--invalid .custom-file-input.fj-textarea ~ .custom-file-label,
-.fj-field--invalid .custom-file-input.fj-select__input ~ .custom-file-label {
+.fj-field--invalid .custom-file-input.fj-select ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.form-check-input ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-checkboxes__check-input ~ .custom-file-label {
   border-color: #e3342f;
 }
 
@@ -2669,13 +2726,19 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-file-input.fj-text ~ .fj-field__error,
 .fj-field--invalid .custom-file-input.fj-textarea ~ .invalid-feedback,
 .fj-field--invalid .custom-file-input.fj-textarea ~ .fj-field__error,
-.fj-field--invalid .custom-file-input.fj-select__input ~ .invalid-feedback,
-.fj-field--invalid .custom-file-input.fj-select__input ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.fj-select ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.fj-select ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.form-check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.fj-checkboxes__check-input ~ .invalid-feedback,
+.fj-field--invalid .custom-file-input.form-check-input ~ .fj-field__error,
+.fj-field--invalid .custom-file-input.fj-checkboxes__check-input ~ .fj-field__error,
 .custom-file-input.is-invalid ~ .invalid-tooltip,
 .fj-field--invalid .custom-file-input.form-control ~ .invalid-tooltip,
 .fj-field--invalid .custom-file-input.fj-text ~ .invalid-tooltip,
 .fj-field--invalid .custom-file-input.fj-textarea ~ .invalid-tooltip,
-.fj-field--invalid .custom-file-input.fj-select__input ~ .invalid-tooltip {
+.fj-field--invalid .custom-file-input.fj-select ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.form-check-input ~ .invalid-tooltip,
+.fj-field--invalid .custom-file-input.fj-checkboxes__check-input ~ .invalid-tooltip {
   display: block;
 }
 
@@ -2684,7 +2747,9 @@ textarea.is-invalid.fj-select__input,
 .fj-field--invalid .custom-file-input.form-control:focus ~ .custom-file-label,
 .fj-field--invalid .custom-file-input.fj-text:focus ~ .custom-file-label,
 .fj-field--invalid .custom-file-input.fj-textarea:focus ~ .custom-file-label,
-.fj-field--invalid .custom-file-input.fj-select__input:focus ~ .custom-file-label {
+.fj-field--invalid .custom-file-input.fj-select:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.form-check-input:focus ~ .custom-file-label,
+.fj-field--invalid .custom-file-input.fj-checkboxes__check-input:focus ~ .custom-file-label {
   border-color: #e3342f;
   box-shadow: 0 0 0 0.2rem rgba(227, 52, 47, 0.25);
 }
@@ -2695,7 +2760,8 @@ textarea.is-invalid.fj-select__input,
   align-items: center;
 }
 
-.form-inline .form-check {
+.form-inline .form-check,
+.form-inline .fj-checkboxes__check {
   width: 100%;
 }
 
@@ -2719,7 +2785,7 @@ textarea.is-invalid.fj-select__input,
   .form-inline .form-control,
   .form-inline .fj-text,
   .form-inline .fj-textarea,
-  .form-inline .fj-select__input {
+  .form-inline .fj-select {
     display: inline-block;
     width: auto;
     vertical-align: middle;
@@ -2734,7 +2800,8 @@ textarea.is-invalid.fj-select__input,
     width: auto;
   }
 
-  .form-inline .form-check {
+  .form-inline .form-check,
+  .form-inline .fj-checkboxes__check {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2742,7 +2809,8 @@ textarea.is-invalid.fj-select__input,
     padding-left: 0;
   }
 
-  .form-inline .form-check-input {
+  .form-inline .form-check-input,
+  .form-inline .fj-checkboxes__check-input {
     position: relative;
     flex-shrink: 0;
     margin-top: 0;
@@ -3937,7 +4005,7 @@ input[type=button].btn-block {
 .input-group > .form-control,
 .input-group > .fj-text,
 .input-group > .fj-textarea,
-.input-group > .fj-select__input,
+.input-group > .fj-select,
 .input-group > .form-control-plaintext,
 .input-group > .custom-select,
 .input-group > .custom-file {
@@ -3950,43 +4018,43 @@ input[type=button].btn-block {
 .input-group > .form-control + .form-control,
 .input-group > .fj-text + .form-control,
 .input-group > .fj-textarea + .form-control,
-.input-group > .fj-select__input + .form-control,
+.input-group > .fj-select + .form-control,
 .input-group > .form-control + .fj-text,
 .input-group > .fj-text + .fj-text,
 .input-group > .fj-textarea + .fj-text,
-.input-group > .fj-select__input + .fj-text,
+.input-group > .fj-select + .fj-text,
 .input-group > .form-control + .fj-textarea,
 .input-group > .fj-text + .fj-textarea,
 .input-group > .fj-textarea + .fj-textarea,
-.input-group > .fj-select__input + .fj-textarea,
-.input-group > .form-control + .fj-select__input,
-.input-group > .fj-text + .fj-select__input,
-.input-group > .fj-textarea + .fj-select__input,
-.input-group > .fj-select__input + .fj-select__input,
+.input-group > .fj-select + .fj-textarea,
+.input-group > .form-control + .fj-select,
+.input-group > .fj-text + .fj-select,
+.input-group > .fj-textarea + .fj-select,
+.input-group > .fj-select + .fj-select,
 .input-group > .form-control + .custom-select,
 .input-group > .fj-text + .custom-select,
 .input-group > .fj-textarea + .custom-select,
-.input-group > .fj-select__input + .custom-select,
+.input-group > .fj-select + .custom-select,
 .input-group > .form-control + .custom-file,
 .input-group > .fj-text + .custom-file,
 .input-group > .fj-textarea + .custom-file,
-.input-group > .fj-select__input + .custom-file,
+.input-group > .fj-select + .custom-file,
 .input-group > .form-control-plaintext + .form-control,
 .input-group > .form-control-plaintext + .fj-text,
 .input-group > .form-control-plaintext + .fj-textarea,
-.input-group > .form-control-plaintext + .fj-select__input,
+.input-group > .form-control-plaintext + .fj-select,
 .input-group > .form-control-plaintext + .custom-select,
 .input-group > .form-control-plaintext + .custom-file,
 .input-group > .custom-select + .form-control,
 .input-group > .custom-select + .fj-text,
 .input-group > .custom-select + .fj-textarea,
-.input-group > .custom-select + .fj-select__input,
+.input-group > .custom-select + .fj-select,
 .input-group > .custom-select + .custom-select,
 .input-group > .custom-select + .custom-file,
 .input-group > .custom-file + .form-control,
 .input-group > .custom-file + .fj-text,
 .input-group > .custom-file + .fj-textarea,
-.input-group > .custom-file + .fj-select__input,
+.input-group > .custom-file + .fj-select,
 .input-group > .custom-file + .custom-select,
 .input-group > .custom-file + .custom-file {
   margin-left: -1px;
@@ -3995,7 +4063,7 @@ input[type=button].btn-block {
 .input-group > .form-control:focus,
 .input-group > .fj-text:focus,
 .input-group > .fj-textarea:focus,
-.input-group > .fj-select__input:focus,
+.input-group > .fj-select:focus,
 .input-group > .custom-select:focus,
 .input-group > .custom-file .custom-file-input:focus ~ .custom-file-label {
   z-index: 3;
@@ -4008,7 +4076,7 @@ input[type=button].btn-block {
 .input-group > .form-control:not(:last-child),
 .input-group > .fj-text:not(:last-child),
 .input-group > .fj-textarea:not(:last-child),
-.input-group > .fj-select__input:not(:last-child),
+.input-group > .fj-select:not(:last-child),
 .input-group > .custom-select:not(:last-child) {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -4017,7 +4085,7 @@ input[type=button].btn-block {
 .input-group > .form-control:not(:first-child),
 .input-group > .fj-text:not(:first-child),
 .input-group > .fj-textarea:not(:first-child),
-.input-group > .fj-select__input:not(:first-child),
+.input-group > .fj-select:not(:first-child),
 .input-group > .custom-select:not(:first-child) {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
@@ -4112,7 +4180,7 @@ input[type=button].btn-block {
 .input-group-lg > .form-control:not(textarea),
 .input-group-lg > .fj-text:not(textarea),
 .input-group-lg > .fj-textarea:not(textarea),
-.input-group-lg > .fj-select__input:not(textarea),
+.input-group-lg > .fj-select:not(textarea),
 .input-group-lg > .custom-select {
   height: calc(1.5em + 1rem + 2px);
 }
@@ -4120,7 +4188,7 @@ input[type=button].btn-block {
 .input-group-lg > .form-control,
 .input-group-lg > .fj-text,
 .input-group-lg > .fj-textarea,
-.input-group-lg > .fj-select__input,
+.input-group-lg > .fj-select,
 .input-group-lg > .custom-select,
 .input-group-lg > .input-group-prepend > .input-group-text,
 .input-group-lg > .input-group-append > .input-group-text,
@@ -4137,7 +4205,7 @@ input[type=button].btn-block {
 .input-group-sm > .form-control:not(textarea),
 .input-group-sm > .fj-text:not(textarea),
 .input-group-sm > .fj-textarea:not(textarea),
-.input-group-sm > .fj-select__input:not(textarea),
+.input-group-sm > .fj-select:not(textarea),
 .input-group-sm > .custom-select {
   height: calc(1.5em + 0.5rem + 2px);
 }
@@ -4145,7 +4213,7 @@ input[type=button].btn-block {
 .input-group-sm > .form-control,
 .input-group-sm > .fj-text,
 .input-group-sm > .fj-textarea,
-.input-group-sm > .fj-select__input,
+.input-group-sm > .fj-select,
 .input-group-sm > .custom-select,
 .input-group-sm > .input-group-prepend > .input-group-text,
 .input-group-sm > .input-group-append > .input-group-text,
@@ -5137,7 +5205,7 @@ input[type=button].btn-block {
   word-wrap: break-word;
   background-color: #fff;
   background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
+  border: 1px solid #999;
   border-radius: 0.25rem;
 }
 
@@ -5196,7 +5264,7 @@ input[type=button].btn-block {
   padding: 0.75rem 1.25rem;
   margin-bottom: 0;
   background-color: rgba(0, 0, 0, 0.03);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+  border-bottom: 1px solid #999;
 }
 
 .card-header:first-child,
@@ -5214,7 +5282,7 @@ input[type=button].btn-block {
 .card-footer {
   padding: 0.75rem 1.25rem;
   background-color: rgba(0, 0, 0, 0.03);
-  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  border-top: 1px solid #999;
 }
 
 .card-footer:last-child {
@@ -7176,7 +7244,9 @@ a.close.disabled {
   }
 }
 
-.spinner-grow {
+.spinner-grow,
+.fj-loading--spinner .fj-loading__indicator,
+.fj-loading .fj-loading__indicator {
   display: inline-block;
   width: 2rem;
   height: 2rem;
@@ -8543,7 +8613,8 @@ button.bg-dark:focus {
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
 }
 
-.shadow {
+.shadow,
+.fj-form {
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
@@ -11160,14 +11231,85 @@ a.text-dark:focus {
 
 .fj-field__label {
   display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
 }
 
 .fj-field__help {
   font-size: 80%;
 }
 
+.fj-heading {
+  margin-top: 1.5rem;
+  border-bottom: 1px solid #ccc;
+}
+
+.fj-heading__title {
+  margin-bottom: 0.25em;
+}
+
+.fj-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.fj-nowrap {
+  white-space: nowrap;
+}
+
+.formoj {
+  position: relative;
+}
+
+.formoj--empty {
+  min-height: 200px;
+}
+
+.fj-form--card .fj-form__content,
+.fj-form .fj-form__content {
+  position: relative;
+}
+
 .fj-form--card .fj-form__description,
 .fj-form .fj-form__description {
   margin-bottom: 0;
+}
+
+.fj-form--card .fj-heading,
+.fj-form .fj-heading {
+  border-bottom: 1px solid transparent;
+}
+
+.fj-form--card .fj-heading::after,
+.fj-form .fj-heading::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  border-top: 1px solid #ccc;
+}
+
+.fj-field__error {
+  display: block;
+}
+
+.fj-loading__indicator {
+  color: #222;
+}
+
+body {
+  padding-bottom: 3rem;
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
 }
 
