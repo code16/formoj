@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
+use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
 use Code16\Formoj\Sharp\Commands\FormojAnswerViewCommand;
 use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
@@ -48,6 +49,7 @@ class FormojAnswerSharpEntityList extends SharpEntityList
     {
         $this
             ->addFilter("formoj_form", FormojFormFilterHandler::class)
+            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class)
             ->addInstanceCommand("view_answer", FormojAnswerViewCommand::class);
     }
 

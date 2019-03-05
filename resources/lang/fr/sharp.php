@@ -8,7 +8,8 @@ return [
 
     'answers' => [
         'commands' => [
-            'view' => "Visualiser cette réponse"
+            'view' => "Visualiser cette réponse",
+            'export' => "Exporter les réponses au format XLS",
         ]
     ]
 

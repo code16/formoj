@@ -20,9 +20,16 @@ class FormojServiceProvider extends ServiceProvider
         $this->publishes([
             dirname(__DIR__) . '/lang' => resource_path('lang/vendor/formoj')
         ]);
+
+        $this->publishes([
+            __DIR__.'/config.php' => config_path('formoj.php'),
+        ]);
     }
 
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/config.php', 'formoj'
+        );
     }
 }
