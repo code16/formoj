@@ -1,24 +1,29 @@
 <template>
     <div class="formoj" :class="classes">
-        <template v-if="hasAlert">
-            <fj-alert :type="messageType">{{ message }}</fj-alert>
-        </template>
-        <template v-if="ready">
-            <fj-form
-                :title="form.title"
-                :description="form.description"
-                :sections="form.sections"
-                :form-id="form.id"
-                :index.sync="currentSectionIndex"
-                :errors="validationErrors"
-                :appearance="appearance"
-                @next="handleNextSectionRequested"
-                @submit="handleFormSubmitted"
-            />
-        </template>
-        <template v-if="isLoadingVisible">
-            <fj-loading />
-        </template>
+        <div class="formoj__content">
+            <template v-if="hasAlert">
+                <div class="formoj__alert-wrapper">
+                    <fj-alert :type="messageType">{{ message }}</fj-alert>
+                </div>
+            </template>
+            <template v-if="ready">
+                <fj-form
+                    :title="form.title"
+                    :description="form.description"
+                    :sections="form.sections"
+                    :form-id="form.id"
+                    :index.sync="currentSectionIndex"
+                    :errors="validationErrors"
+                    :appearance="appearance"
+                    @next="handleNextSectionRequested"
+                    @previous="handlePreviousSectionRequested"
+                    @submit="handleFormSubmitted"
+                />
+            </template>
+            <template v-if="isLoadingVisible">
+                <fj-loading />
+            </template>
+        </div>
     </div>
 </template>
 
@@ -69,7 +74,7 @@
                 }
             },
             isLoadingVisible() {
-                return !this.ready || this.isLoading;
+                return this.isLoading;
             },
         },
         methods: {
@@ -79,6 +84,7 @@
                 this.resetValidation();
                 postForm(this.config.apiBaseUrl, { formId: this.formId, data })
                     .catch(this.handleValidationError)
+                    .catch(this.handleUnauthorizedError)
                     .catch(() => {
                         this.showAlert({
                             message: $t('form.error.post'),
@@ -87,39 +93,73 @@
                     })
                     .finally(() => {
                         this.isLoading = false;
+                        this.scrollTop();
                     });
             },
             handleNextSectionRequested(e, currentSection, data) {
+                const sectionId = currentSection.id;
                 e.preventDefault();
                 this.isLoading = true;
                 this.resetAlert();
                 this.resetValidation();
-                postSection(this.config.apiBaseUrl, {
-                    formId: this.formId,
-                    sectionId: currentSection.id,
-                    data,
-                })
-                .then(() => {
-                    this.currentSectionIndex++;
-                })
-                .catch(this.handleValidationError)
-                .catch(() => {
-                    this.showAlert({
-                        message: $t('form.error.post'),
-                        type: 'error',
+                postSection(this.config.apiBaseUrl, { formId: this.formId, sectionId, data })
+                    .then(() => {
+                        this.currentSectionIndex++;
+                    })
+                    .catch(this.handleValidationError)
+                    .catch(this.handleUnauthorizedError)
+                    .catch(() => {
+                        this.showAlert({
+                            message: $t('form.error.post'),
+                            type: 'error',
+                        });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
+                        this.scrollTop();
                     });
-                })
-                .finally(() => {
-                    this.isLoading = false;
-                });
+            },
+            handlePreviousSectionRequested() {
+                this.scrollTop();
             },
 
             handleValidationError(error) {
                 if(error.response.status === 422) {
                     this.validationErrors = getValidationErrors(error.response.data);
+                    this.showAlert({
+                        message: $t('form.error.post.invalid'),
+                        type: 'error',
+                    });
                 } else {
                     return Promise.reject(error);
                 }
+            },
+
+            handleNotAvailableError(error) {
+                if(error.response.status === 409) {
+                    const data = error.response.data;
+                    this.showAlert({
+                        message: data.message,
+                        type: 'error',
+                    });
+                } else {
+                    return Promise.reject(error);
+                }
+            },
+
+            handleUnauthorizedError(error) {
+                if(error.response.status === 403) {
+                    this.showAlert({
+                        message: $t('form.error.post.unauthorized'),
+                        type: 'error',
+                    });
+                } else {
+                    return Promise.reject(error);
+                }
+            },
+
+            scrollTop() {
+                this.$el.scrollIntoView({ behavior:'smooth', block:'start' });
             },
 
             resetAlert() {
@@ -135,17 +175,23 @@
             },
 
             async init() {
-                this.ready = false;
+                this.isLoading = true;
                 this.resetAlert();
-                this.form = await getForm(this.config.apiBaseUrl, { formId: this.formId })
-                    .catch(error => {
+                getForm(this.config.apiBaseUrl, { formId: this.formId })
+                    .then(form => {
+                        this.form = form;
+                        this.ready = true;
+                    })
+                    .catch(this.handleNotAvailableError)
+                    .catch(() => {
                         this.showAlert({
                             message: $t('form.error.get'),
                             type: 'error',
                         });
-                        return Promise.reject(error);
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
                     });
-                this.ready = true;
             }
         },
         created() {
