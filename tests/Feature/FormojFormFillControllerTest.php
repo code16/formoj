@@ -39,7 +39,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                "f" . $field->id => $answer
+                $field->label => $answer
             ])
         ]);
     }
@@ -111,6 +111,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         $field = factory(Field::class)->create([
             "type" => "text",
+            "field_attributes->max_length" => null,
             "required" => true,
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
@@ -123,6 +124,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $field2 = factory(Field::class)->create([
             "type" => "text",
             "required" => false,
+            "field_attributes->max_length" => null,
             "section_id" => $field->section_id
         ]);
 
@@ -137,8 +139,106 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
+                $field->label => "test",
+                $field2->label => "test",
+            ])
+        ]);
+    }
+
+    /** @test */
+    function we_dont_store_headings_with_the_answer()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "text",
+            "required" => true,
+            "field_attributes->max_length" => null,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $field2 = factory(Field::class)->create([
+            "type" => "heading",
+            "section_id" => $field->section_id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}", [
                 "f" . $field->id => "test",
-                "f" . $field2->id => "test",
+                "f" . $field2->id => "should not be stored",
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                $field->label => "test"
+            ])
+        ]);
+    }
+
+    /** @test */
+    function we_store_select_values_with_the_answer()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "field_attributes->multiple" => false,
+            "field_attributes->options" => ["A", "B", "C"],
+            "required" => true,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}", [
+                "f" . $field->id => 2,
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                $field->label => "B"
+            ])
+        ]);
+    }
+
+    /** @test */
+    function we_store_multiple_select_values_with_the_answer()
+    {
+        $this->withoutExceptionHandling();
+
+        $field = factory(Field::class)->create([
+            "type" => "select",
+            "field_attributes->multiple" => true,
+            "field_attributes->max_options" => 3,
+            "field_attributes->options" => ["A", "B", "C"],
+            "required" => true,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}", [
+                "f" . $field->id => [1,2],
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                $field->label => ["A", "B"]
             ])
         ]);
     }
