@@ -70,7 +70,7 @@ class FormojFormSharpEntityList extends SharpEntityList
     {
         return $this
             ->setCustomTransformer("ref", function($value, $instance) {
-                return "<strong>{$instance->id}</strong>";
+                return "<strong>#{$instance->id}</strong>";
             })
             ->setCustomTransformer("title", function($value, $instance) {
                 return $instance->title ?: "<em>(sans titre)</em>";

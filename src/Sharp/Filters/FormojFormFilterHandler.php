@@ -21,7 +21,11 @@ class FormojFormFilterHandler implements EntityListRequiredFilter
      */
     public function values()
     {
-        return Form::orderBy("title")->pluck("title", "id");
+        return Form::orderBy("title")
+            ->get()
+            ->mapWithKeys(function(Form $form) {
+                return [$form->id => "#" . $form->id . " - " . ($form->title ?: "(sans titre)")];
+            });
     }
 
     /**
