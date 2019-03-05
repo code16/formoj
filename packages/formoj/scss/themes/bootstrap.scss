@@ -5,7 +5,9 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 $formoj-form-appearance: 'card' !default;
 $formoj-loading-appearance: 'spinner' !default;
 
-.formoj--empty {
+.formoj--empty,
+.formoj--finished
+{
   @extend .card;
   // prevent loading to overlay to overflow border radius
   overflow: hidden;

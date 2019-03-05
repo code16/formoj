@@ -6,7 +6,7 @@
                     <fj-alert :type="messageType">{{ message }}</fj-alert>
                 </div>
             </template>
-            <template v-if="ready">
+            <template v-if="ready && !isFinished">
                 <fj-form
                     :title="form.title"
                     :description="form.description"
@@ -55,6 +55,7 @@
                 ready: false,
                 form: null,
                 isLoading: false,
+                isFinished: false,
 
                 message: null,
                 messageType: null,
@@ -71,6 +72,7 @@
             classes() {
                 return {
                     'formoj--empty': !this.ready,
+                    'formoj--finished': this.isFinished,
                 }
             },
             isLoadingVisible() {
@@ -83,6 +85,13 @@
                 this.resetAlert();
                 this.resetValidation();
                 postForm(this.config.apiBaseUrl, { formId: this.formId, data })
+                    .then(response => {
+                        this.showAlert({
+                            message: response.data.message,
+                            type: 'success',
+                        });
+                        this.isFinished = true;
+                    })
                     .catch(this.handleValidationError)
                     .catch(this.handleUnauthorizedError)
                     .catch(() => {
