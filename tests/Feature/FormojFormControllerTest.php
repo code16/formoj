@@ -214,7 +214,7 @@ class FormojFormControllerTest extends FormojTestCase
                     [
                         "id" => "f" . $field->id,
                         "type" => "heading",
-                        "label" => $field->label,
+                        "content" => $field->label,
                     ]
                 ]
             ]);
