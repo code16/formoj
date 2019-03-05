@@ -9,12 +9,12 @@
         name: 'FjHeading',
 
         props: {
-            label: String,
+            content: String,
         },
 
         computed: {
             text() {
-                return this.label;
+                return this.content;
             }
         },
     }

@@ -5,8 +5,25 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 $formoj-form-appearance: 'card' !default;
 $formoj-loading-appearance: 'spinner' !default;
 
+.formoj--empty,
+.formoj--finished
+{
+  @extend .card;
+  // prevent loading to overlay to overflow border radius
+  overflow: hidden;
+  .formoj__content {
+    @extend .card-body;
+    display: flex;
+    align-items: center;
+  }
+  .formoj__alert-wrapper {
+    width: 100%;
+  }
+}
+
 .fj-alert {
   @extend .alert;
+  margin-bottom: 0;
   &--success {
     @extend .alert-success;
   }

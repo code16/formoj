@@ -124,6 +124,8 @@
                 }
             },
             handlePreviousSectionRequested() {
+                this.$emit('previous');
+
                 this.currentSectionIndex--;
                 this.$emit('update:index', this.currentSectionIndex);
             },

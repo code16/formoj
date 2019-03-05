@@ -9,7 +9,16 @@
 
 .formoj {
   position: relative;
+
+  &__alert-wrapper {
+    padding-top: $formoj-alert-margin-y;
+    padding-bottom: $formoj-alert-margin-y;
+  }
   &--empty {
     min-height: 200px;
+    .formoj__alert-wrapper {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
   }
 }
