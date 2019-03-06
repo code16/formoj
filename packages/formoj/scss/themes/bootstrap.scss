@@ -4,6 +4,8 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 
 $formoj-form-appearance: 'card' !default;
 $formoj-loading-appearance: 'spinner' !default;
+$formoj-check-appearance: 'default' !default;
+$formoj-select-appearance: 'default' !default;
 
 .formoj--empty,
 .formoj--finished
@@ -33,8 +35,7 @@ $formoj-loading-appearance: 'spinner' !default;
 }
 
 .fj-text,
-.fj-textarea,
-.fj-select {
+.fj-textarea {
   @extend .form-control;
 }
 
@@ -85,10 +86,9 @@ $formoj-loading-appearance: 'spinner' !default;
 
 .fj-field {
   &--invalid {
-    .form-control, .form-check-input {
+    .form-control, .form-check-input, .custom-select {
       @extend .is-invalid;
     }
-
   }
   &__help {
     @extend .form-text;
@@ -115,13 +115,36 @@ $formoj-loading-appearance: 'spinner' !default;
 }
 
 .fj-checkboxes {
-  &__check {
-    @extend .form-check;
+  @if($formoj-check-appearance == 'custom') {
+    &__check {
+      @extend .custom-control;
+      @extend .custom-checkbox;
+    }
+    &__check-input {
+      @extend .custom-control-input;
+    }
+    &__check-label {
+      @extend .custom-control-label;
+    }
   }
-  &__check-input {
-    @extend .form-check-input;
+  @else {
+    &__check {
+      @extend .form-check;
+    }
+    &__check-input {
+      @extend .form-check-input;
+    }
+    &__check-label {
+      @extend .form-check-label;
+    }
   }
-  &__check-label {
-    @extend .form-check-label;
+}
+
+.fj-select {
+  @if($formoj-select-appearance == 'custom') {
+    @extend .custom-select;
+  }
+  @else {
+    @extend .form-control;
   }
 }
