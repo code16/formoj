@@ -41,7 +41,7 @@ class FormojFieldSharpForm extends SharpForm
             SharpFormCheckField::make("required", trans("formoj::sharp.fields.fields.required.text"))
                 ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
-            SharpFormSelectField::make("type", FormojFieldSharpEntityList::$FIELD_TYPES)
+            SharpFormSelectField::make("type", FormojFieldSharpEntityList::fieldTypes())
                 ->setLabel(trans("formoj::sharp.fields.fields.type.label"))
                 ->setDisplayAsDropdown()
         )->addField(

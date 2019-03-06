@@ -1,5 +1,7 @@
 <?php
 
+use Code16\Formoj\Models\Field;
+
 return [
 
     'forms' => [
@@ -53,6 +55,12 @@ return [
     ],
 
     'fields' => [
+        'types' => [
+            Field::TYPE_TEXT => "Texte simple",
+            Field::TYPE_TEXTAREA => "Texte multilignes",
+            Field::TYPE_SELECT => "Liste déroulante",
+            Field::TYPE_HEADING => "Intertitre",
+        ],
         'fields' => [
             "label" => [
                 "label" => "Libellé"
