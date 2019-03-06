@@ -23,25 +23,25 @@ Formoj works with Laravel 5.7+.
 Install the package via composer:
 
 ```sh
-    composer require code16/formoj
+composer require code16/formoj
 ```
 
 Then run this to create the needed tables in the database:
 
 ```php
-    php artisan migrate
+php artisan migrate
 ```
 
 You may publish the config file:
 
 ```php
-    php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="config"
+php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="config"
 ```
 
 And the lang file, if you need to update or add a translation (consider a PR in this case):
 
 ```php
-    php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="lang"
+php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="lang"
 ```
 
 ## Create a form
