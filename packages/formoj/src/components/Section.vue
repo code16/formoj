@@ -15,21 +15,26 @@
         </div>
 
         <div class="fj-section__footer">
-            <template v-if="!isFirst">
-                <button class="fj-button fj-button--secondary fj-section__button" @click="handlePreviousButtonClicked">
-                    {{ $t('section.button.previous') }}
-                </button>
-            </template>
-            <template v-if="isLast">
-                <button class="fj-button fj-button--primary fj-section__button" @click="handleSubmitButtonClicked">
-                    {{ $t('section.button.submit') }}
-                </button>
-            </template>
-            <template v-else>
-                <button class="fj-button fj-button--primary fj-section__button" @click="handleNextButtonClicked">
-                    {{ $t('section.button.next') }}
-                </button>
-            </template>
+            <div class="fj-section__indication">
+                <slot name="indication"/>
+            </div>
+            <div class="fj-section__buttons">
+                <template v-if="!isFirst">
+                    <button class="fj-button fj-button--light fj-section__button" @click="handlePreviousButtonClicked">
+                        {{ $t('section.button.previous') }}
+                    </button>
+                </template>
+                <template v-if="isLast">
+                    <button class="fj-button fj-button--primary fj-section__button" @click="handleSubmitButtonClicked">
+                        {{ $t('section.button.submit') }}
+                    </button>
+                </template>
+                <template v-else>
+                    <button class="fj-button fj-button--primary fj-section__button" @click="handleNextButtonClicked">
+                        {{ $t('section.button.next') }}
+                    </button>
+                </template>
+            </div>
         </div>
     </div>
 </template>

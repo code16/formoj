@@ -44,8 +44,8 @@ $formoj-select-appearance: 'default' !default;
   &--primary {
     @extend .btn-primary;
   }
-  &--secondary {
-    @extend .btn-secondary;
+  &--light {
+    @extend .btn-light;
   }
 }
 
@@ -81,6 +81,9 @@ $formoj-select-appearance: 'default' !default;
 .fj-section {
   &__field {
     @extend .form-group;
+  }
+  &__indication {
+    color: $text-muted;
   }
 }
 

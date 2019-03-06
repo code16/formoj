@@ -29,6 +29,9 @@
                             @input="handleFieldChanged(field, $event)"
                         />
                     </template>
+                    <template slot="indication">
+                        <template v-if="isIndicationVisible">{{ currentIndication }}</template>
+                    </template>
                 </fj-section>
             </template>
         </div>
@@ -83,6 +86,12 @@
             },
             isCurrentLast() {
                 return this.currentSectionIndex === this.sections.length - 1;
+            },
+            isIndicationVisible() {
+                return !this.isCurrentLast;
+            },
+            currentIndication() {
+                return `${this.currentSectionIndex + 1}/${this.sections.length}`;
             },
 
             classes() {

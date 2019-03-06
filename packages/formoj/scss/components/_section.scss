@@ -1,7 +1,14 @@
 .fj-section {
   &__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     margin-top: 1rem;
     text-align: right;
+  }
+  &__indication {
+    font-size: .875em;
+    letter-spacing: .25em;
   }
   &__button + &__button {
     margin-left: 1rem;
