@@ -35,6 +35,7 @@
     import { getForm, postForm, postSection } from "../api";
     import { config } from "../util/config";
     import { getValidationErrors } from "../util/validation";
+    import { smoothScroll } from "../util/css";
     import { $t } from "../util/i18n";
 
     export default {
@@ -168,7 +169,8 @@
             },
 
             scrollTop() {
-                this.$el.scrollIntoView({ behavior:'smooth', block:'start' });
+                const top = this.$el.getBoundingClientRect().y + pageYOffset - this.config.scrollOffset;
+                smoothScroll(0, top);
             },
 
             resetAlert() {
