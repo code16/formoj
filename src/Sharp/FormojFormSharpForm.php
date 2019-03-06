@@ -7,6 +7,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
+use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Fields\SharpFormTextareaField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -71,6 +72,13 @@ class FormojFormSharpForm extends SharpForm
                         ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
                         ->setRowCount(3)
                 )
+        )->addField(
+            SharpFormTextField::make("administrator_email")
+                ->setLabel(trans("formoj::sharp.forms.fields.administrator_email.label"))
+        )->addField(
+            SharpFormSelectField::make("notifications_strategy", FormojFormSharpEntityList::notificationStrategies())
+                ->setDisplayAsDropdown()
+                ->setLabel(trans("formoj::sharp.forms.fields.notifications_strategy.label"))
         );
     }
 
@@ -84,7 +92,7 @@ class FormojFormSharpForm extends SharpForm
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("title")
-                ->withFieldset("Dates de publication (facultatif)", function (FormLayoutFieldset $fieldset) {
+                ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.dates"), function (FormLayoutFieldset $fieldset) {
                     $fieldset->withFields("published_at|6", "unpublished_at|6");
                 })
                 ->withSingleField("description")
@@ -92,6 +100,10 @@ class FormojFormSharpForm extends SharpForm
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
+                ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.notifications"), function (FormLayoutFieldset $fieldset) {
+                    $fieldset->withSingleField("notifications_strategy")
+                        ->withSingleField("administrator_email");
+                })
                 ->withSingleField("sections", function(FormLayoutColumn $column) {
                     $column
                         ->withSingleField("title")

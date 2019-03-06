@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Form extends Model
 {
+    const NOTIFICATION_STRATEGY_EVERY = "every";
+    const NOTIFICATION_STRATEGY_GROUPED = "grouped";
+    const NOTIFICATION_STRATEGY_NONE = "none";
+
     protected $table = "formoj_forms";
 
     protected $dates = [

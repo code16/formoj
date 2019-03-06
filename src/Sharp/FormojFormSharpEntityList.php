@@ -103,4 +103,19 @@ class FormojFormSharpEntityList extends SharpEntityList
             })
             ->transform(Form::with("sections")->get());
     }
+
+    /**
+     * @param string|null $value
+     * @return array
+     */
+    public static function notificationStrategies($value = null)
+    {
+        $types = [
+            Form::NOTIFICATION_STRATEGY_NONE => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_NONE),
+            Form::NOTIFICATION_STRATEGY_GROUPED => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_GROUPED),
+            Form::NOTIFICATION_STRATEGY_EVERY => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_EVERY),
+        ];
+
+        return $value ? ($types[$value] ?? null) : $types;
+    }
 }

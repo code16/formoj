@@ -1,11 +1,17 @@
 <?php
 
 use Code16\Formoj\Models\Field;
+use Code16\Formoj\Models\Form;
 
 return [
 
     'forms' => [
         'no_title' => "(sans titre)",
+        'notification_strategies' => [
+            Form::NOTIFICATION_STRATEGY_EVERY => "A chaque réponse",
+            Form::NOTIFICATION_STRATEGY_GROUPED => "Une fois par jour",
+            Form::NOTIFICATION_STRATEGY_NONE => "Jamais",
+        ],
         'fields' => [
             "title" => [
                 "label" => "Titre"
@@ -34,7 +40,17 @@ return [
             "success_message" => [
                 "label" => "Message affiché en fin de saisie du formulaire",
                 "help_text" => "Ce texte sera affiché à l'utilisateur au moment de la validation de sa réponse. S'il est laissé vide, un message standard le remplacera.",
-            ]
+            ],
+            "notifications_strategy" => [
+                "label" => "Périodicité d'envoi"
+            ],
+            "administrator_email" => [
+                "label" => "Adresse email de réception"
+            ],
+            "fieldsets" => [
+                "dates" => "Dates de publication (facultatives)",
+                "notifications" => "Notifications",
+            ],
         ],
         "list" => [
             "columns" => [
