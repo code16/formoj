@@ -124,3 +124,7 @@ A given form can then be embedded anywhere with this code:
 ```php
 <formoj-form form-id="1"></formoj-form>
 ```
+
+## Work with answers
+
+// job, cron, sharp command
