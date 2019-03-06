@@ -26,10 +26,10 @@ class FormojFieldSharpForm extends SharpForm
     {
         $this->addField(
             SharpFormTextField::make("label")
-                ->setLabel("Libellé")
+                ->setLabel(trans("formoj::sharp.fields.fields.label.label"))
         )->addField(
             SharpFormMarkdownField::make("help_text")
-                ->setLabel("Texte d'aide")
+                ->setLabel(trans("formoj::sharp.fields.fields.help_text.label"))
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
@@ -38,32 +38,33 @@ class FormojFieldSharpForm extends SharpForm
                 ->setHeight(200)
                 ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
-            SharpFormCheckField::make("required", "Saisie obligatoire")
+            SharpFormCheckField::make("required", trans("formoj::sharp.fields.fields.required.text"))
                 ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
         )->addField(
-            SharpFormSelectField::make("type", FormojFieldSharpEntityList::$FIELD_TYPES)
-            ->setDisplayAsDropdown()
+            SharpFormSelectField::make("type", FormojFieldSharpEntityList::fieldTypes())
+                ->setLabel(trans("formoj::sharp.fields.fields.type.label"))
+                ->setDisplayAsDropdown()
         )->addField(
             SharpFormTextField::make("max_length")
-                ->setLabel("Longueur maximale")
-                ->setHelpMessage("En nombre de caractères")
+                ->setLabel(trans("formoj::sharp.fields.fields.max_length.label"))
+                ->setHelpMessage(trans("formoj::sharp.fields.fields.max_length.help_text"))
                 ->addConditionalDisplay("type", [Field::TYPE_TEXT, Field::TYPE_TEXTAREA])
         )->addField(
             SharpFormTextField::make("rows_count")
-                ->setLabel("Nombre de lignes")
+                ->setLabel(trans("formoj::sharp.fields.fields.rows_count.label"))
                 ->addConditionalDisplay("type", Field::TYPE_TEXTAREA)
         )->addField(
-            SharpFormCheckField::make("multiple", "Autoriser plusieurs réponses")
+            SharpFormCheckField::make("multiple", trans("formoj::sharp.fields.fields.multiple.text"))
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
         )->addField(
             SharpFormTextField::make("max_options")
-                ->setLabel("Nombre maximum de réponses")
+                ->setLabel(trans("formoj::sharp.fields.fields.max_options.label"))
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
                 ->addConditionalDisplay("multiple")
         )->addField(
             SharpFormListField::make("options")
-                ->setLabel("Valeurs possibles")
-                ->setAddable()->setAddText("Ajouter une valeur")
+                ->setLabel(trans("formoj::sharp.fields.fields.options.label"))
+                ->setAddable()->setAddText(trans("formoj::sharp.fields.fields.options.add_label"))
                 ->setRemovable()
                 ->setSortable()
                 ->addItemField(
@@ -179,8 +180,17 @@ class FormojFieldSharpForm extends SharpForm
             });
     }
 
+    /**
+     * @param string $value
+     * @param string $type
+     * @return bool|int|string
+     */
     protected function castValue($value, $type)
     {
+        if(strlen($value) == 0) {
+            return null;
+        }
+
         switch($type) {
             case "int":
                 return (int) $value;

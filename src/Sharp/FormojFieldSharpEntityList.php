@@ -12,14 +12,6 @@ use Code16\Sharp\EntityList\SharpEntityList;
 
 class FormojFieldSharpEntityList extends SharpEntityList
 {
-    /** @var array */
-    public static $FIELD_TYPES = [
-        Field::TYPE_TEXT => "Texte simple",
-        Field::TYPE_TEXTAREA => "Texte multilignes",
-        Field::TYPE_SELECT => "Liste déroulante",
-        Field::TYPE_HEADING => "Intertitre",
-    ];
-
     /**
      * Build list containers using ->addDataContainer()
      *
@@ -29,13 +21,13 @@ class FormojFieldSharpEntityList extends SharpEntityList
     {
         $this->addDataContainer(
             EntityListDataContainer::make("type")
-                ->setLabel("")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
         )->addDataContainer(
             EntityListDataContainer::make("label")
-                ->setLabel("Libellé")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
         )->addDataContainer(
             EntityListDataContainer::make("help_text")
-                ->setLabel("Texte d'aide")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
         );
     }
 
@@ -88,12 +80,28 @@ class FormojFieldSharpEntityList extends SharpEntityList
                 return sprintf(
                     '<div>%s</div><div style="color:orange"><small>%s</small></div>',
                     $instance->label,
-                    $instance->required ? "obligatoire" : ""
+                    $instance->required ? trans("formoj::sharp.fields.list.data.label.required") : ""
                 );
             })
             ->setCustomTransformer("type", function($value, $instance) {
-                return static::$FIELD_TYPES[$value];
+                return static::fieldTypes($value);
             })
             ->transform($fields->get());
+    }
+
+    /**
+     * @param string|null $value
+     * @return array
+     */
+    public static function fieldTypes($value = null)
+    {
+        $types = [
+            Field::TYPE_TEXT => trans("formoj::sharp.fields.types." . Field::TYPE_TEXT),
+            Field::TYPE_TEXTAREA => trans("formoj::sharp.fields.types." . Field::TYPE_TEXTAREA),
+            Field::TYPE_SELECT => trans("formoj::sharp.fields.types." . Field::TYPE_SELECT),
+            Field::TYPE_HEADING => trans("formoj::sharp.fields.types." . Field::TYPE_HEADING),
+        ];
+
+        return $value ? ($types[$value] ?? null) : $types;
     }
 }

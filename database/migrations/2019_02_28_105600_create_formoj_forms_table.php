@@ -20,6 +20,8 @@ class CreateFormojFormsTable extends Migration
             $table->dateTime('published_at')->nullable();
             $table->dateTime('unpublished_at')->nullable();
             $table->text("success_message")->nullable();
+            $table->string("administrator_email")->nullable();
+            $table->string("notifications_strategy")->default("none");
 
             $table->timestamps();
         });

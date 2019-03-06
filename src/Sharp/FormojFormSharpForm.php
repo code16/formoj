@@ -7,6 +7,7 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
+use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Fields\SharpFormTextareaField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
@@ -26,10 +27,10 @@ class FormojFormSharpForm extends SharpForm
     {
         $this->addField(
             SharpFormTextField::make("title")
-                ->setLabel("Titre")
+                ->setLabel(trans("formoj::sharp.forms.fields.title.label"))
         )->addField(
             SharpFormMarkdownField::make("description")
-                ->setLabel("Description")
+                ->setLabel(trans("formoj::sharp.forms.fields.description.label"))
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
@@ -38,39 +39,46 @@ class FormojFormSharpForm extends SharpForm
                 ->setHeight(200)
         )->addField(
             SharpFormMarkdownField::make("success_message")
-                ->setLabel("Message affiché en fin de saisie du formulaire")
+                ->setLabel(trans("formoj::sharp.forms.fields.success_message.label"))
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
                     SharpFormMarkdownField::A,
                 ])
                 ->setHeight(200)
-                ->setHelpMessage("Ce texte sera affiché à l'utilisateur au moment de la validation de sa réponse. S'il est laissé vide, un message standard le remplacera.")
+                ->setHelpMessage(trans("formoj::sharp.forms.fields.success_message.help_text"))
         )->addField(
             SharpFormDateField::make("published_at")
-                ->setLabel("Du")
+                ->setLabel(trans("formoj::sharp.forms.fields.published_at.label"))
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
             SharpFormDateField::make("unpublished_at")
-                ->setLabel("Au")
+                ->setLabel(trans("formoj::sharp.forms.fields.unpublished_at.label"))
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
             SharpFormListField::make("sections")
-                ->setLabel("Sections")
-                ->setAddable()->setAddText("Ajouter une section")
+                ->setLabel(trans("formoj::sharp.forms.fields.sections.label"))
+                ->setAddable()->setAddText(trans("formoj::sharp.forms.fields.sections.add_label"))
                 ->setRemovable()
                 ->setSortable()->setOrderAttribute("order")
                 ->addItemField(
                     SharpFormTextField::make("title")
-                        ->setLabel("Titre")
+                        ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
                 )
                 ->addItemField(
                     SharpFormTextareaField::make("description")
-                        ->setLabel("Description")
+                        ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
                         ->setRowCount(3)
                 )
+        )->addField(
+            SharpFormTextField::make("administrator_email")
+                ->setLabel(trans("formoj::sharp.forms.fields.administrator_email.label"))
+        )->addField(
+            SharpFormSelectField::make("notifications_strategy", FormojFormSharpEntityList::notificationStrategies())
+                ->setDisplayAsDropdown()
+                ->setLabel(trans("formoj::sharp.forms.fields.notifications_strategy.label"))
         );
     }
 
@@ -84,7 +92,7 @@ class FormojFormSharpForm extends SharpForm
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("title")
-                ->withFieldset("Dates de publication (facultatif)", function (FormLayoutFieldset $fieldset) {
+                ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.dates"), function (FormLayoutFieldset $fieldset) {
                     $fieldset->withFields("published_at|6", "unpublished_at|6");
                 })
                 ->withSingleField("description")
@@ -92,6 +100,10 @@ class FormojFormSharpForm extends SharpForm
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
+                ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.notifications"), function (FormLayoutFieldset $fieldset) {
+                    $fieldset->withSingleField("notifications_strategy")
+                        ->withSingleField("administrator_email");
+                })
                 ->withSingleField("sections", function(FormLayoutColumn $column) {
                     $column
                         ->withSingleField("title")

@@ -19,19 +19,19 @@ class FormojFormSharpEntityList extends SharpEntityList
     {
         $this->addDataContainer(
             EntityListDataContainer::make("ref")
-                ->setLabel("ID")
+                ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
         )->addDataContainer(
             EntityListDataContainer::make("title")
-                ->setLabel("Titre")
+                ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
         )->addDataContainer(
             EntityListDataContainer::make("description")
-                ->setLabel("Description")
+                ->setLabel(trans("formoj::sharp.forms.list.columns.description_label"))
         )->addDataContainer(
             EntityListDataContainer::make("published_at")
-                ->setLabel("Dates publication")
+                ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
         )->addDataContainer(
             EntityListDataContainer::make("sections")
-                ->setLabel("Sections")
+                ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
         );
     }
 
@@ -57,7 +57,6 @@ class FormojFormSharpEntityList extends SharpEntityList
      */
     function buildListConfig()
     {
-        // TODO: Implement buildListConfig() method.
     }
 
     /**
@@ -79,20 +78,20 @@ class FormojFormSharpEntityList extends SharpEntityList
                 if($instance->published_at) {
                     if($instance->unpublished_at) {
                         return sprintf(
-                            "Du %s<br>au %s",
+                            trans("formoj::sharp.forms.list.data.dates.both"),
                             $instance->published_at->formatLocalized("%e %b %Y %Hh%M"),
                             $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
                         );
                     }
                     return sprintf(
-                        "À partir du %s",
+                        trans("formoj::sharp.forms.list.data.dates.from"),
                         $instance->published_at->formatLocalized("%e %b %Y %Hh%M")
                     );
                 }
 
                 if($instance->unpublished_at) {
                     return sprintf(
-                        "Jusqu'au %s",
+                        trans("formoj::sharp.forms.list.data.dates.to"),
                         $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
                     );
                 }
@@ -103,5 +102,20 @@ class FormojFormSharpEntityList extends SharpEntityList
                 return $instance->sections->pluck("title")->implode("<br>");
             })
             ->transform(Form::with("sections")->get());
+    }
+
+    /**
+     * @param string|null $value
+     * @return array
+     */
+    public static function notificationStrategies($value = null)
+    {
+        $types = [
+            Form::NOTIFICATION_STRATEGY_NONE => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_NONE),
+            Form::NOTIFICATION_STRATEGY_GROUPED => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_GROUPED),
+            Form::NOTIFICATION_STRATEGY_EVERY => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_EVERY),
+        ];
+
+        return $value ? ($types[$value] ?? null) : $types;
     }
 }

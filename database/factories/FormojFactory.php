@@ -44,13 +44,6 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
             $fieldAttributes["multiple"] = true;
             $fieldAttributes["max_options"] = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
         }
-
-    } elseif($type == \Code16\Formoj\Models\Field::TYPE_TEXT || $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
-        $fieldAttributes["max_length"] = $faker->boolean ? $faker->randomNumber(2) : null;
-
-        if($type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
-            $fieldAttributes["rows_count"] = $faker->numberBetween(3, 8);
-        }
     }
 
     return [
@@ -61,6 +54,17 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         'required' => $type == \Code16\Formoj\Models\Field::TYPE_HEADING ? false : $faker->boolean(40),
         'section_id' => function() {
             return factory(\Code16\Formoj\Models\Section::class)->create()->id;
+        }
+    ];
+});
+
+$factory->define(\Code16\Formoj\Models\Answer::class, function (Faker $faker) {
+    return [
+        'content' => [
+            "field 1" => $faker->sentence
+        ],
+        'form_id' => function() {
+            return factory(\Code16\Formoj\Models\Form::class)->create()->id;
         }
     ];
 });

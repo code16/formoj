@@ -22,10 +22,10 @@ class FormojAnswerSharpEntityList extends SharpEntityList
     {
         $this->addDataContainer(
             EntityListDataContainer::make("created_at")
-                ->setLabel("Date")
+                ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
         )->addDataContainer(
             EntityListDataContainer::make("content")
-                ->setLabel("")
+                ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
         );
     }
 
