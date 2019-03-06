@@ -48,7 +48,7 @@ class FormojSectionFilterHandler implements EntityListRequiredFilter
     /**
      * @return string
      */
-    protected function currentFormId()
+    public function currentFormId()
     {
         return session("_sharp_retained_filter_formoj_form") ?: app(FormojFormFilterHandler::class)->defaultValue();
     }

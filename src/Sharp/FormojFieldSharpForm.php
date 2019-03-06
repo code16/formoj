@@ -143,13 +143,13 @@ class FormojFieldSharpForm extends SharpForm
         $data["field_attributes"] = [];
 
         if($data["type"] == Field::TYPE_TEXT) {
-            $this->transformAttributesToFieldAttributes($data, ["max_length"]);
+            $this->transformAttributesToFieldAttributes($data, ["max_length" => "int"]);
 
         } elseif($data["type"] == Field::TYPE_TEXTAREA) {
-            $this->transformAttributesToFieldAttributes($data, ["max_length", "rows_count"]);
+            $this->transformAttributesToFieldAttributes($data, ["max_length" => "int", "rows_count" => "int"]);
 
         } elseif($data["type"] == Field::TYPE_SELECT) {
-            $this->transformAttributesToFieldAttributes($data, ["max_options", "multiple"]);
+            $this->transformAttributesToFieldAttributes($data, ["max_options" => "int", "multiple" => "boolean"]);
             $data["field_attributes"]["options"] = collect($data["options"])->pluck("label")->all();
         }
 
@@ -172,10 +172,22 @@ class FormojFieldSharpForm extends SharpForm
     {
         collect($data)
             ->filter(function ($value, $attribute) use($attributeLabels) {
-                return in_array($attribute, $attributeLabels);
+                return isset($attributeLabels[$attribute]);
             })
-            ->each(function($value, $attribute) use(&$data) {
-                $data["field_attributes"][$attribute] = $value;
+            ->each(function($value, $attribute) use(&$data, $attributeLabels) {
+                $data["field_attributes"][$attribute] = $this->castValue($value, $attributeLabels[$attribute]);
             });
+    }
+
+    protected function castValue($value, $type)
+    {
+        switch($type) {
+            case "int":
+                return (int) $value;
+            case "boolean":
+                return (boolean) $value;
+        }
+
+        return $value;
     }
 }
