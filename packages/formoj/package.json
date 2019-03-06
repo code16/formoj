@@ -4,7 +4,9 @@
   "description": "Customisable forms renderer",
   "main": "dist/formoj.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -23,6 +25,8 @@
   "devDependencies": {
     "@babel/runtime": "^7.3.4",
     "@vue/cli": "^3.4.1",
-    "vue": "^2.6.7"
+    "vue": "^2.6.8",
+    "laravel-mix": "^4.0.14",
+    "vue-template-compiler": "^2.6.8"
   }
 }
