@@ -187,6 +187,10 @@ class FormojFieldSharpForm extends SharpForm
      */
     protected function castValue($value, $type)
     {
+        if(strlen($value) == 0) {
+            return null;
+        }
+
         switch($type) {
             case "int":
                 return (int) $value;

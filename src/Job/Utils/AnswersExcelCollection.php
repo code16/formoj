@@ -71,10 +71,17 @@ class AnswersExcelCollection extends DefaultValueBinder implements WithCustomVal
      */
     public function collection()
     {
+        $missingAnswers = collect($this->headings())
+            ->mapWithKeys(function($key) {
+                return [$key => ""];
+            })
+            ->all();
+
         return $this->answers
-            ->map(function (Answer $answer) {
+            ->map(function (Answer $answer) use($missingAnswers) {
                 return array_merge(
-                    [$answer->created_at],
+                    $missingAnswers,
+                    ["Date" => $answer->created_at],
                     $answer->content
                 );
             });
