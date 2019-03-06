@@ -4,7 +4,9 @@ Formoj is a form generator package:
 
 // screenshots 
 
-Formoj takes care of the form storage and display, and allow an administrator to work with the answers: notifications, export in XLS format.
+I guess you can picture it like a small Google Form but with full control on it.
+
+Formoj takes care of the form storage and display, allows an administrator to manage forms (notifications, export answers in XLS format) and, of course, stores answers.
 
 Formoj is separated in 3 modules:
 
