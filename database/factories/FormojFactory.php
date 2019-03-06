@@ -57,3 +57,14 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         }
     ];
 });
+
+$factory->define(\Code16\Formoj\Models\Answer::class, function (Faker $faker) {
+    return [
+        'content' => [
+            "field 1" => $faker->sentence
+        ],
+        'form_id' => function() {
+            return factory(\Code16\Formoj\Models\Form::class)->create()->id;
+        }
+    ];
+});

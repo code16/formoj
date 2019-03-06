@@ -2,7 +2,7 @@
 
 namespace Code16\Formoj\Models;
 
-use Code16\Formoj\Notifications\FormojFormWasAnswered;
+use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 
@@ -111,7 +111,7 @@ class Form extends Model
         return tap($answer, function($answer) {
             if($this->notifications_strategy == self::NOTIFICATION_STRATEGY_EVERY) {
                 Notification::route('mail', $this->administrator_email)
-                    ->notify(new FormojFormWasAnswered($answer));
+                    ->notify(new FormojFormWasJustAnswered($answer));
             }
         });
     }

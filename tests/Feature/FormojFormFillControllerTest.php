@@ -5,7 +5,7 @@ namespace Code16\Formoj\Tests\Feature;
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Form;
 use Code16\Formoj\Models\Section;
-use Code16\Formoj\Notifications\FormojFormWasAnswered;
+use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\AnonymousNotifiable;
@@ -279,7 +279,7 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         Notification::assertSentTo(
             new AnonymousNotifiable,
-            FormojFormWasAnswered::class,
+            FormojFormWasJustAnswered::class,
             function($notification, $channels, $notifiable) {
                 return $notifiable->routes['mail'] == "admin@example.org";
             }
@@ -307,6 +307,6 @@ class FormojFormFillControllerTest extends FormojTestCase
             "f" . $field->id => "test",
         ]);
 
-        Notification::assertNotSentTo(new AnonymousNotifiable, FormojFormWasAnswered::class);
+        Notification::assertNotSentTo(new AnonymousNotifiable, FormojFormWasJustAnswered::class);
     }
 }
