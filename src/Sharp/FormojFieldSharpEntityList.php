@@ -29,13 +29,13 @@ class FormojFieldSharpEntityList extends SharpEntityList
     {
         $this->addDataContainer(
             EntityListDataContainer::make("type")
-                ->setLabel("")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
         )->addDataContainer(
             EntityListDataContainer::make("label")
-                ->setLabel("Libellé")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
         )->addDataContainer(
             EntityListDataContainer::make("help_text")
-                ->setLabel("Texte d'aide")
+                ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
         );
     }
 
@@ -88,7 +88,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
                 return sprintf(
                     '<div>%s</div><div style="color:orange"><small>%s</small></div>',
                     $instance->label,
-                    $instance->required ? "obligatoire" : ""
+                    $instance->required ? trans("formoj::sharp.fields.list.data.label.required") : ""
                 );
             })
             ->setCustomTransformer("type", function($value, $instance) {

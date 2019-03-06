@@ -26,10 +26,10 @@ class FormojFormSharpForm extends SharpForm
     {
         $this->addField(
             SharpFormTextField::make("title")
-                ->setLabel("Titre")
+                ->setLabel(trans("formoj::sharp.forms.fields.title.label"))
         )->addField(
             SharpFormMarkdownField::make("description")
-                ->setLabel("Description")
+                ->setLabel(trans("formoj::sharp.forms.fields.description.label"))
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
@@ -38,37 +38,37 @@ class FormojFormSharpForm extends SharpForm
                 ->setHeight(200)
         )->addField(
             SharpFormMarkdownField::make("success_message")
-                ->setLabel("Message affiché en fin de saisie du formulaire")
+                ->setLabel(trans("formoj::sharp.forms.fields.success_message.label"))
                 ->setToolbar([
                     SharpFormMarkdownField::B, SharpFormMarkdownField::I,
                     SharpFormMarkdownField::SEPARATOR,
                     SharpFormMarkdownField::A,
                 ])
                 ->setHeight(200)
-                ->setHelpMessage("Ce texte sera affiché à l'utilisateur au moment de la validation de sa réponse. S'il est laissé vide, un message standard le remplacera.")
+                ->setHelpMessage(trans("formoj::sharp.forms.fields.success_message.help_text"))
         )->addField(
             SharpFormDateField::make("published_at")
-                ->setLabel("Du")
+                ->setLabel(trans("formoj::sharp.forms.fields.published_at.label"))
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
             SharpFormDateField::make("unpublished_at")
-                ->setLabel("Au")
+                ->setLabel(trans("formoj::sharp.forms.fields.unpublished_at.label"))
                 ->setHasTime(true)
                 ->setDisplayFormat("DD/MM/YYYY HH:mm")
         )->addField(
             SharpFormListField::make("sections")
-                ->setLabel("Sections")
-                ->setAddable()->setAddText("Ajouter une section")
+                ->setLabel(trans("formoj::sharp.forms.fields.sections.label"))
+                ->setAddable()->setAddText(trans("formoj::sharp.forms.fields.sections.add_label"))
                 ->setRemovable()
                 ->setSortable()->setOrderAttribute("order")
                 ->addItemField(
                     SharpFormTextField::make("title")
-                        ->setLabel("Titre")
+                        ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
                 )
                 ->addItemField(
                     SharpFormTextareaField::make("description")
-                        ->setLabel("Description")
+                        ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
                         ->setRowCount(3)
                 )
         );
