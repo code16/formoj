@@ -1,7 +1,7 @@
 <?php
 
 Route::group([
-    'prefix' => '/formoj/api',
+    'prefix' => config("formoj.base_url"),
     'middleware' => [
 //        \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
 //        \Illuminate\Session\Middleware\StartSession::class,
