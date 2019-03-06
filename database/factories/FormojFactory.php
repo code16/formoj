@@ -44,13 +44,6 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
             $fieldAttributes["multiple"] = true;
             $fieldAttributes["max_options"] = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
         }
-
-    } elseif($type == \Code16\Formoj\Models\Field::TYPE_TEXT || $type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
-        $fieldAttributes["max_length"] = $faker->boolean ? $faker->randomNumber(2) : null;
-
-        if($type == \Code16\Formoj\Models\Field::TYPE_TEXTAREA) {
-            $fieldAttributes["rows_count"] = $faker->numberBetween(3, 8);
-        }
     }
 
     return [

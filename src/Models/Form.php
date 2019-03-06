@@ -2,7 +2,9 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Notifications\FormojFormWasAnswered;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 
 class Form extends Model
 {
@@ -62,7 +64,7 @@ class Form extends Model
      */
     public function storeNewAnswer($data)
     {
-        return Answer::create([
+        $answer = Answer::create([
             "form_id" => $this->id,
             "content" => collect($data)
 
@@ -105,5 +107,12 @@ class Form extends Model
                 })
                 ->all()
         ]);
+
+        return tap($answer, function($answer) {
+            if($this->notifications_strategy == self::NOTIFICATION_STRATEGY_EVERY) {
+                Notification::route('mail', $this->administrator_email)
+                    ->notify(new FormojFormWasAnswered($answer));
+            }
+        });
     }
 }
