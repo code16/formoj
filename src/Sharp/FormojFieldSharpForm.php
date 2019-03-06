@@ -179,6 +179,11 @@ class FormojFieldSharpForm extends SharpForm
             });
     }
 
+    /**
+     * @param string $value
+     * @param string $type
+     * @return bool|int|string
+     */
     protected function castValue($value, $type)
     {
         switch($type) {
