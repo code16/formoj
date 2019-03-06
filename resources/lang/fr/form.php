@@ -11,7 +11,7 @@ return [
             'subject' => 'Nouvelle réponse au formulaire :form',
             'greeting' => 'Réponse du :date',
         ],
-        'answers_daily' => [
+        'daily_answers' => [
             'subject' => 'Réponses du jour au formulaire :form',
             'greeting' => ':count réponse(s)',
         ]
