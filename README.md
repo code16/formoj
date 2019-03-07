@@ -2,7 +2,8 @@
 
 Formoj is a form generator package:
 
-// screenshots 
+![](/docs/img/formoj.png)  
+*Example of a Formoj form (with de default style).*
 
 I guess you can picture it like a small Google Form but with full control on it.
 
@@ -102,6 +103,14 @@ return [
     [...]
 ];
 ```
+
+This will add a full Formoj administration in Sharp:
+
+![](/docs/img/form.png)
+
+![](/docs/img/fields.png)
+
+![](/docs/img/answers.png)
 
 ### Without Sharp
 

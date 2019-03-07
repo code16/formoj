@@ -86,7 +86,7 @@ class FormojFieldSharpForm extends SharpForm
                 ->withSingleField("label")
                 ->withSingleField("type")
                 ->withSingleField("required")
-                ->withSingleField("description");
+                ->withSingleField("help_text");
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
