@@ -3,7 +3,6 @@
 namespace Code16\Formoj\Sharp\Commands;
 
 use Code16\Formoj\Job\ExportAnswersToXls;
-use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Form;
 use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Sharp\EntityList\Commands\EntityCommand;
@@ -39,16 +38,10 @@ class FormojAnswerExportCommand extends EntityCommand
     public function execute(EntityListQueryParams $params, array $data = []): array
     {
         $formId = $params->filterFor("formoj_form") ?: app(FormojSectionFilterHandler::class)->currentFormId();
-
-        $answers = Answer::where("form_id", $formId)
-            ->orderBy("created_at", "desc")
-            ->get();
-
         $fileName = uniqid('export') . ".xls";
 
         ExportAnswersToXls::dispatch(
             Form::findOrFail($formId),
-            $answers,
             $fileName
         );
 

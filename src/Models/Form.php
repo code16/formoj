@@ -28,6 +28,15 @@ class Form extends Model
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function answers()
+    {
+        return $this->hasMany(Answer::class)
+            ->orderBy("created_at");
+    }
+
+    /**
      * @return bool
      */
     public function isNotPublishedYet()

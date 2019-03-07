@@ -23,16 +23,15 @@ class ExportAnswersToXls
 
     /**
      * @param Form $form
-     * @param Collection $answers
      * @param string $fileName
+     * @param Collection|null $answers
      */
-    public function __construct(Form $form, Collection $answers, $fileName)
+    public function __construct($form, $fileName, $answers = null)
     {
         $this->form = $form;
-        $this->answers = $answers;
         $this->fileName = $fileName;
+        $this->answers = $answers ?: $form->answers;
     }
-
 
     /**
      * Execute the job.
