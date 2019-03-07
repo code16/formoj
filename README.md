@@ -160,3 +160,29 @@ A given form can then be embedded anywhere with this DOM:
 ## Work with answers
 
 // job, cron, sharp command
+
+## Styling the form
+Formoj uses SASS/SCSS language for styles. You can import the style with sass import:
+```scss
+@import 'formoj/scss/themes/default';
+```
+The default theme is very basic and is meant to be customized by your own code.
+Some variable are available and can be overidded, see [`formoj/scss/_variables.scss`](https://github.com/code16/formoj/blob/master/packages/formoj/scss/_variables.scss)
+
+### Bootstrap integration
+```scss
+@import 'formoj/scss/themes/bootstrap';
+
+$formoj-form-appearance: 'card';
+$formoj-loading-appearance: 'spinner';
+```
+
+The bootstrap theme bind all bootstrap's form classes to formoj elements. By default the form has a `card` appearance, you may want to reset that behavior.
+```scss
+$formoj-form-appearance: 'none';
+```
+
+In addition, the select and checkboxes can have the bootstrap's `custom-control` style
+```scss
+$formoj-select-appearance: 'custom';
+```
