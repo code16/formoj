@@ -49,7 +49,7 @@ class FormojFormWasJustAnswered extends Notification implements ShouldQueue
                 ])
             )
             ->greeting(trans('formoj::form.notifications.new_answer.greeting', [
-                'date' => $this->answer->created_at->formatLocalized("%a %e %B %Y %Hh%M")
+                'date' => $this->answer->created_at->isoFormat("LLLL")
             ]));
 
         foreach($this->answer->content as $field => $value) {

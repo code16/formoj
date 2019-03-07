@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <h1 class="mt-3">#1 {{ $answer->form->title ?: trans("formoj::sharp.forms.no_title") }}</h1>
-                    <h4 class="mt-1">{{ $answer->created_at->formatLocalized("%A %e %B %Y %Hh%M") }}</h4>
+                    <h4 class="mt-1">{{ $answer->created_at->isoFormat("LLLL") }}</h4>
                     <hr>
                     <div class="my-5">
                         @foreach($answer->content as $field => $value)

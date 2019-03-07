@@ -66,7 +66,7 @@ class FormojAnswerSharpEntityList extends SharpEntityList
 
         return $this
             ->setCustomTransformer("created_at", function($value, $instance) {
-                return $instance->created_at->formatLocalized("%e %b %Y %Hh%M");
+                return $instance->created_at->isoFormat("LLLL");
             })
             ->setCustomTransformer("content", function($value, $instance) {
                 return collect($value)

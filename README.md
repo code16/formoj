@@ -44,7 +44,7 @@ Vue.use(Formoj, {
 
 ### Laravel module
 
-Formoj works with Laravel 5.7+.
+Formoj works with Laravel 5.8+.
 
 Install the package via composer:
 

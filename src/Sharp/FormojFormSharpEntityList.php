@@ -79,20 +79,20 @@ class FormojFormSharpEntityList extends SharpEntityList
                     if($instance->unpublished_at) {
                         return sprintf(
                             trans("formoj::sharp.forms.list.data.dates.both"),
-                            $instance->published_at->formatLocalized("%e %b %Y %Hh%M"),
-                            $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
+                            $instance->published_at->isoFormat("LLL"),
+                            $instance->unpublished_at->isoFormat("LLL")
                         );
                     }
                     return sprintf(
                         trans("formoj::sharp.forms.list.data.dates.from"),
-                        $instance->published_at->formatLocalized("%e %b %Y %Hh%M")
+                        $instance->published_at->isoFormat("LLL")
                     );
                 }
 
                 if($instance->unpublished_at) {
                     return sprintf(
                         trans("formoj::sharp.forms.list.data.dates.to"),
-                        $instance->unpublished_at->formatLocalized("%e %b %Y %Hh%M")
+                        $instance->unpublished_at->isoFormat("LLL")
                     );
                 }
 
