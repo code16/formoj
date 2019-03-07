@@ -1,15 +1,13 @@
 # Formoj for Laravel
 
-Formoj is a form generator package:
+Formoj is a form generator package.
 
 ![](/docs/img/formoj.png)  
 *Example of a Formoj form (with de default style).*
 
-I guess you can picture it like a small Google Form but with full control on it.
+I guess you can picture it like a small Google Form but with full control on it. Formoj takes care of the form storage and display, allows an administrator to manage forms (notifications, export answers in XLS format) and, of course, stores answers.
 
-Formoj takes care of the form storage and display, allows an administrator to manage forms (notifications, export answers in XLS format) and, of course, stores answers.
-
-Formoj is separated in 3 modules:
+The project is separated in 3 modules:
 
  - the Vue-based front package, which is a distinct NPM package (see installation instructions below)
  - the backend code: models and migrations, controllers, jobs, notifications, ...
@@ -126,9 +124,9 @@ Formoj does not provide any other admin tool for now, so in this case, well, you
 
 ### Field types
 
-## Display a form
+## Embed a form
 
-A given form can then be embedded anywhere with this code:
+A given form can then be embedded anywhere with this DOM:
 
 ```php
 <formoj-form form-id="1"></formoj-form>
