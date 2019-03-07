@@ -141,13 +141,33 @@ Formoj does not provide any other admin tool for now, so in this case, well, you
 
 ## Manage a form
 
-### Availability
+Once again, with Sharp you'll find all the appropriate tooling. This section describes 
 
-### Notifications
+### Form availability
 
-### Sections
+A form can optionally defined a `published_at` and/or a `unpublished_at` dates: outside this period, the form is displayed with an adapted message.
+
+### Form notifications
+
+The form administrator can choose (for each form) to be notified by mail at `formoj_form.administrator_email` in two ways:
+
+- `formoj_form.notifications_strategy` = "every": after every answer
+- `formoj_form.notifications_strategy` = "grouped": a summary of answers of one given day is sent daily.
+
+To configure the "grouped" strategy, you'll have to schedule the `Code16\Formoj\Console\SendFormojNotificationsForYesterday` Command, which will send all answers of yesterday. 
+
+### Form sections
+
+A Form is made of sections, which contains fields. If the form contains more than one section, it will be displayed one section at a time, with "Next" button.
 
 ### Field types
+
+Formoj can display these types of fields:
+
+- `text`, which is a single line text, with an optional `max_length` constraint
+- `textarea`, with a and `rows_count` and an optional `max_length` 
+- `select`, which can either be `multiple` (checklist, with an optional `max_options` attribute) or not (single select).
+- and finally `heading`, which is not a field, but a text separator.
 
 ## Embed a form
 
@@ -159,4 +179,16 @@ A given form can then be embedded anywhere with this DOM:
 
 ## Work with answers
 
-// job, cron, sharp command
+In addition to the notification system, the form administrator can export answers at any time on a xlsx format, via the `Code16\Formoj\Job\ExportAnswersToXls` job, which can be called this way:
+
+```php
+ExportAnswersToXls::dispatch($form, $fileName, $answers);
+```
+
+Where:
+
+- `$form` is a `Code16\Formoj\Models\Form` instance
+- `$fileName` is the export file name (export directory ans disk are configurable in `config/formoj.php`)
+- and `$answers` is a Collection of `Code16\Formoj\Models\Answers`; this argument is nullable, all answers of `$form` are exported by default.
+
+Is Sharp is configured, it will provide a dedicated Command to handle this export (as well as one to display an answer).
