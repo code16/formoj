@@ -15,7 +15,32 @@ The project is separated in 3 modules:
 
 ## Installation
 
-// NPM shit
+### Vue plugin
+```sh
+npm install formoj
+```
+
+#### Basic
+```js
+import Vue from 'vue';
+import Formoj from 'formoj';
+
+Vue.use(Formoj);
+```
+
+#### Advanced Configuration
+```js
+Vue.use(Formoj, {
+    apiBaseUrl: '/custom/api',
+    scrollOffset: 160,
+});
+```
+
+| config | description |
+|---|---|
+| apiBaseUrl | Base URL of the formoj API (define it as `base_url` in laravel in `config/formoj.php`)
+| scrollOffset | Add offset to the automatic scroll top behavior, useful when there is a fixed header in the site.
+
 
 ### Laravel module
 
@@ -129,7 +154,7 @@ Formoj does not provide any other admin tool for now, so in this case, well, you
 A given form can then be embedded anywhere with this DOM:
 
 ```php
-<formoj-form form-id="1"></formoj-form>
+<formoj form-id="1"></formoj>
 ```
 
 ## Work with answers
