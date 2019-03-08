@@ -33,6 +33,12 @@ Vue.use(Formoj);
 Vue.use(Formoj, {
     apiBaseUrl: '/custom/api',
     scrollOffset: 160,
+    locale: 'en',
+    i18n: {
+      en: {
+        'section.button.next': 'Next section',
+      }
+    }
 });
 ```
 
@@ -41,6 +47,7 @@ Vue.use(Formoj, {
 | apiBaseUrl | Base URL of the formoj API (define it as `base_url` in laravel in `config/formoj.php`)
 | scrollOffset | Add offset to the automatic scroll top behavior, useful when there is a fixed header in the site.
 | locale | Locale used in all forms messages, buttons, etc... If not set, the `<html lang="en">` attribute is used.
+| i18n | Localized messages to customize default formoj i18n messages, see [`lang`](https://github.com/code16/formoj/tree/master/packages/formoj/src/lang) files
 
 ### Laravel module
 
