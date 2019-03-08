@@ -81,6 +81,7 @@
             },
         },
         methods: {
+            $t,
             handleFormSubmitted(data) {
                 this.isLoading = true;
                 this.resetAlert();
@@ -97,7 +98,7 @@
                     .catch(this.handleUnauthorizedError)
                     .catch(() => {
                         this.showAlert({
-                            message: $t('form.error.post'),
+                            message: this.$t('form.error.post'),
                             type: 'error',
                         });
                     })
@@ -120,7 +121,7 @@
                     .catch(this.handleUnauthorizedError)
                     .catch(() => {
                         this.showAlert({
-                            message: $t('form.error.post'),
+                            message: this.$t('form.error.post'),
                             type: 'error',
                         });
                     })
@@ -137,7 +138,7 @@
                 if(error.response.status === 422) {
                     this.validationErrors = getValidationErrors(error.response.data);
                     this.showAlert({
-                        message: $t('form.error.post.invalid'),
+                        message: this.$t('form.error.post.invalid'),
                         type: 'error',
                     });
                 } else {
@@ -160,7 +161,7 @@
             handleUnauthorizedError(error) {
                 if(error.response.status === 403) {
                     this.showAlert({
-                        message: $t('form.error.post.unauthorized'),
+                        message: this.$t('form.error.post.unauthorized'),
                         type: 'error',
                     });
                 } else {
@@ -196,7 +197,7 @@
                     .catch(this.handleNotAvailableError)
                     .catch(() => {
                         this.showAlert({
-                            message: $t('form.error.get'),
+                            message: this.$t('form.error.get'),
                             type: 'error',
                         });
                     })

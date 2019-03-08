@@ -4,7 +4,10 @@ import Formoj from 'formoj/src';
 
 Vue.config.productionTip = false;
 
-Vue.use(Formoj, { apiBaseUrl: '/api' });
+Vue.use(Formoj, {
+    apiBaseUrl: '/api',
+    locale:'fr',
+});
 
 new Vue({
     render: h => h(App),

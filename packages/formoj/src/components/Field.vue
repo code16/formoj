@@ -89,12 +89,13 @@
                     && typeof this.field.max === 'number'
                 );
                 if(isMultipleSelectWithMax) {
-                    return $t('field.help_text.select_max', { max:this.field.max });
+                    return this.$t('field.help_text.select_max', { max:this.field.max });
                 }
                 return null;
             }
         },
         methods: {
+            $t,
             handleInput(value) {
                 this.$emit('input', value);
             },
