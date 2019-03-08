@@ -19,5 +19,8 @@ export function $t(key, values) {
 }
 
 export function getDefaultLocale() {
-    return document.documentElement.getAttribute('lang');
+    const langAttribute = document.documentElement.getAttribute('lang');
+    return langAttribute
+        ? langAttribute.split('-')[0]
+        : 'en';
 }

@@ -3,7 +3,7 @@ import { getDefaultLocale } from "./i18n";
 export const defaultConfig = {
     apiBaseUrl: '/formoj/api',
     scrollOffset: 0,
-    locale: getDefaultLocale() || 'en',
+    locale: getDefaultLocale(),
 };
 
 export function createConfig(config) {
