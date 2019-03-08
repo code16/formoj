@@ -1,4 +1,4 @@
-import { getDefaultLocale } from "./i18n";
+import { getDefaultLocale, createI18nConfig } from "./i18n";
 
 export const defaultConfig = {
     apiBaseUrl: '/formoj/api',
@@ -10,6 +10,7 @@ export function createConfig(config) {
     return {
         ...defaultConfig,
         ...config,
+        i18n: createI18nConfig(config.i18n),
     }
 }
 

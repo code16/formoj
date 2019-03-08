@@ -20,7 +20,8 @@
   "homepage": "https://github.com/code16/formoj#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "core-js": "^2.6.5"
+    "core-js": "^2.6.5",
+    "lodash.merge": "^4.6.1"
   },
   "devDependencies": {
     "@babel/runtime": "^7.3.4",

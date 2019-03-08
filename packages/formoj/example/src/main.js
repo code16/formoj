@@ -6,7 +6,12 @@ Vue.config.productionTip = false;
 
 Vue.use(Formoj, {
     apiBaseUrl: '/api',
-    locale:'fr',
+    locale: 'en',
+    i18n: {
+        en: {
+            'section.button.next': 'Next section',
+        }
+    }
 });
 
 new Vue({
