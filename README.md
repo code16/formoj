@@ -40,7 +40,7 @@ Vue.use(Formoj, {
 |---|---|
 | apiBaseUrl | Base URL of the formoj API (define it as `base_url` in laravel in `config/formoj.php`)
 | scrollOffset | Add offset to the automatic scroll top behavior, useful when there is a fixed header in the site.
-
+| locale | Locale used in all forms messages, buttons, etc... If not set, the `<html lang="en">` attribute is used.
 
 ### Laravel module
 
