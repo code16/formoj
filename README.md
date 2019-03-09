@@ -144,7 +144,25 @@ This will add a full Formoj administration in Sharp:
 
 ### Without Sharp
 
-Formoj does not provide any other admin tool for now, so in this case, well, you're free to do what you want :).
+Formoj does not provide any other admin tool for now, so in this case, well, you're free to do as you want. 
+
+There are a couple methods to help you handle section and field creation, for instance:
+
+```php
+$section = $form->createSection("My section");
+
+$text = $section->newTextField("text")
+                ->setRequired()
+                ->setHelpText("help")
+                ->setMaxLength(50)
+                ->create();
+                     
+$select = $section->newSelectField("select", ["option A", "option B"])
+                  ->setRequired()
+                  ->setHelpText("help")
+                  ->setMultiple()->setMaxOptions(2)
+                  ->create();
+```
 
 ## Manage a form
 
