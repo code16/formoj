@@ -49,6 +49,7 @@ class FormojAnswerSharpEntityList extends SharpEntityList
     {
         $this
             ->addFilter("formoj_form", FormojFormFilterHandler::class)
+            ->setPaginated()
             ->addEntityCommand("export_answers", FormojAnswerExportCommand::class)
             ->addInstanceCommand("view_answer", FormojAnswerViewCommand::class);
     }
@@ -77,6 +78,6 @@ class FormojAnswerSharpEntityList extends SharpEntityList
                     ->take(3)
                     ->implode("<br>");
             })
-            ->transform($answers->get());
+            ->transform($answers->paginate(50));
     }
 }
