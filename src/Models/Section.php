@@ -2,7 +2,11 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Models\Creators\SelectFieldCreator;
+use Code16\Formoj\Models\Creators\TextareaFieldCreator;
+use Code16\Formoj\Models\Creators\TextFieldCreator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 class Section extends Model
 {
@@ -25,5 +29,33 @@ class Section extends Model
     {
         return $this->hasMany(Field::class)
             ->orderBy("order");
+    }
+
+    /**
+     * @param string $label
+     * @return TextFieldCreator
+     */
+    public function newTextField($label)
+    {
+        return new TextFieldCreator($this, $label);
+    }
+
+    /**
+     * @param string $label
+     * @return TextareaFieldCreator
+     */
+    public function newTextareaField($label)
+    {
+        return new TextareaFieldCreator($this, $label);
+    }
+
+    /**
+     * @param string $label
+     * @param array|Collection $options
+     * @return SelectFieldCreator
+     */
+    public function newSelectField($label, $options)
+    {
+        return new SelectFieldCreator($this, $label, $options);
     }
 }

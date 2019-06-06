@@ -68,6 +68,16 @@ class Form extends Model
     }
 
     /**
+     * @param string $title
+     * @param string|null $description
+     * @return Section
+     */
+    public function createSection($title, $description = null)
+    {
+        return $this->sections()->create(compact('title', 'description'));
+    }
+
+    /**
      * @param $data
      * @return Answer
      */

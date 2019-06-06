@@ -1,0 +1,23 @@
+language: php
+php:
+  - 7.1
+  - 7.2
+  - 7.3
+
+env:
+  - ILLUMINATE_VERSION=5.8.* PHPUNIT_VERSION=~7.5
+
+matrix:
+  fast_finish: true
+
+before_install:
+  - composer require "laravel/framework:${ILLUMINATE_VERSION}" --no-update --prefer-dist
+  - composer require "orchestra/testbench:${ILLUMINATE_VERSION/5\./3\.}" --no-update --prefer-dist
+  - composer require "phpunit/phpunit:${PHPUNIT_VERSION}" --no-update --prefer-dist
+
+install:
+  - travis_retry composer self-update
+  - travis_retry composer install --no-interaction --prefer-dist
+
+script:
+  - vendor/bin/phpunit
