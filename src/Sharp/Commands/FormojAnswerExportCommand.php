@@ -47,7 +47,7 @@ class FormojAnswerExportCommand extends EntityCommand
 
         return $this->download(
             config("formoj.export.path") . "/{$fileName}",
-            "form-export.xlsx",
+            "form-export.xls",
             config("formoj.export.disk")
         );
     }
