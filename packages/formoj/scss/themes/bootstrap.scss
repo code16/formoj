@@ -151,3 +151,21 @@ $formoj-select-appearance: 'default' !default;
     @extend .form-control;
   }
 }
+
+.fj-upload {
+  &__control {
+    @extend .custom-file;
+  }
+  &__label {
+    @extend .custom-file-label;
+    &::after {
+      content: attr(data-browse);
+    }
+  }
+  &__dropzone {
+    z-index: 1;
+  }
+  input[type=file] {
+    @extend .custom-file-input;
+  }
+}

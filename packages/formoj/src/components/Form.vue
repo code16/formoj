@@ -27,6 +27,7 @@
                             :field="field"
                             :error="fieldError(field)"
                             @input="handleFieldChanged(field, $event)"
+                            @error="handleFieldError(field, $event)"
                         />
                     </template>
                     <template slot="indication">
@@ -145,6 +146,13 @@
                     ...this.data,
                     [fieldKey]: value,
                 };
+            },
+            handleFieldError(field, message) {
+                const fieldKey = this.fieldKey(field);
+                this.error = {
+                    ...this.error,
+                    [fieldKey]: message,
+                }
             },
             handleSubmit() {
                 this.$emit('submit', this.data);

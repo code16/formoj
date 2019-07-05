@@ -3,6 +3,7 @@ import Textarea from './Textarea';
 import Select from './Select';
 import MultipleSelect from './MultipleSelect';
 import Heading from './Heading';
+import Upload from './Upload';
 
 
 export function getFieldByType(type, { isMultiple }={}) {
@@ -16,6 +17,8 @@ export function getFieldByType(type, { isMultiple }={}) {
             : Select;
     } else if(type === 'heading') {
         return Heading;
+    } else if(type === 'upload') {
+        return Upload;
     }
 }
 

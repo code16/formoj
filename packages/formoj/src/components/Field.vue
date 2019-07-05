@@ -13,6 +13,7 @@
             :name="name"
             v-bind="props"
             @input="handleInput"
+            @error="handleError"
         />
         <template v-if="hasError">
             <div class="fj-field__error">{{ errorMessage }}</div>
@@ -98,6 +99,9 @@
             $t,
             handleInput(value) {
                 this.$emit('input', value);
+            },
+            handleError(message) {
+                this.$emit('error', message);
             },
         },
     }

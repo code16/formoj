@@ -1,0 +1,21 @@
+.fj-upload {
+  &__control {
+    position: relative;
+  }
+  &__dropzone {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    .dz-message, .dz-preview {
+      display: none;
+    }
+  }
+  input[type=file] {
+    width: 100% !important;
+    height: 100% !important;
+    visibility: visible !important;
+  }
+}
