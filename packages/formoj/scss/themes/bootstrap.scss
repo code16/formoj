@@ -155,6 +155,7 @@ $formoj-select-appearance: 'default' !default;
 .fj-upload {
   &__control {
     @extend .custom-file;
+    display: block;
   }
   &__label {
     @extend .custom-file-label;

@@ -14,9 +14,9 @@
                 @vdropzone-success="handleSuccess"
                 ref="dropzone"
             />
-            <label class="fj-upload__label" :data-browse="$t('field.upload.browse')">
+            <div class="fj-upload__label" :data-browse="$t('field.upload.browse')">
                 {{ label }}
-            </label>
+            </div>
         </div>
         <template v-if="isUploading">
             <div class="fj-upload__progress">
@@ -66,15 +66,15 @@
                         fieldId: this.name,
                     }),
                     acceptedFiles: this.accept,
-                    maxFilesize: this.maxSize || .1,
+                    maxFilesize: this.maxSize,
                     headers: {
                         'X-XSRF-TOKEN': getXsrfToken(),
                     },
                     dictFileTooBig: this.$t('field.upload.error.max_size', {
-                        max: this.maxFilesize,
+                        max: this.maxSize,
                     }),
                     dictInvalidFileType: this.$t('field.upload.error.invalid_type', {
-                        extensions: this.acceptedFiles,
+                        extensions: this.accept,
                     }),
                 }
             },
@@ -96,7 +96,7 @@
             handleError(file, error, xhr) {
                 if(xhr && xhr.status === 422) {
                     const errors = getValidationErrors(error);
-                    this.$emit('error', errors[this.name]);
+                    this.$emit('error', errors.file);
                 } else {
                     this.$emit('error', error);
                 }
@@ -106,6 +106,7 @@
             },
             handleSending() {
                 this.isUploading = true;
+                this.$emit('clear');
             },
             handleComplete() {
                 this.isUploading = false;
