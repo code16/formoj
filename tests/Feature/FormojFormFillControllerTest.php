@@ -2,14 +2,18 @@
 
 namespace Code16\Formoj\Tests\Feature;
 
+use Carbon\Carbon;
+use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Form;
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class FormojFormFillControllerTest extends FormojTestCase
@@ -116,6 +120,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_store_only_the_form_data_with_the_answer()
     {
+        $this->withoutExceptionHandling();
         $this->withoutNotifications();
 
         $field = factory(Field::class)->create([
@@ -254,6 +259,52 @@ class FormojFormFillControllerTest extends FormojTestCase
                 $field->label => ["A", "B"]
             ])
         ]);
+    }
+
+    /** @test */
+    function we_move_uploads_and_store_filename_with_the_answer()
+    {
+        Storage::fake('local');
+
+        $this->withoutNotifications();
+
+        $field = factory(Field::class)->create([
+            "type" => Field::TYPE_UPLOAD,
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        // Simulate previous answers
+        factory(Answer::class, 20)->create([
+            "form_id" => $field->section->form_id
+        ]);
+
+        Carbon::setTestNow(Carbon::now()->addSecond());
+
+        // Simulate a previous upload
+        UploadedFile::fake()->image('image.jpg')->storeAs("formoj/tmp/{$field->section->form_id}", "image.jpg", "local");
+
+        $this
+            ->postJson("/formoj/api/form/{$field->section->form_id}", [
+                "f" . $field->id => ["file" => "image.jpg"],
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                $field->label => "image.jpg"
+            ])
+        ]);
+
+        $answer = Answer::latest()->first();
+
+        Storage::disk('local')
+            ->assertExists("formoj/forms/{$field->section->form_id}/answers/{$answer->id}/image.jpg");
     }
 
     /** @test */

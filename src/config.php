@@ -11,5 +11,10 @@ return [
     "upload" => [
         "disk" => "local",
         "path" => "/formoj/tmp"
+    ],
+
+    "storage" => [
+        "disk" => "local",
+        "path" => "/formoj/forms"
     ]
 ];
