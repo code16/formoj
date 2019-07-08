@@ -17,6 +17,6 @@ Route::group([
 
     Route::post('/form/{form}', 'FormojFormFillController@store');
 
-    Route::post('/form/{form}/upload/${field}');
+    Route::post('/form/{form}/upload/{field}', 'FormojUploadController@store');
 
 });
