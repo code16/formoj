@@ -25,6 +25,7 @@
                             :value="fieldValue(field)"
                             :name="fieldKey(field)"
                             :field="field"
+                            :form-id="formId"
                             :error="fieldError(field)"
                             @input="handleFieldChanged(field, $event)"
                             @error="handleFieldError(field, $event)"
@@ -55,7 +56,7 @@
             title: String,
             description: String,
             sections: Array,
-            formId: [Number, String],
+            formId: Number,
             index: Number,
             errors: Object,
             appearance: String,
@@ -149,10 +150,7 @@
             },
             handleFieldError(field, message) {
                 const fieldKey = this.fieldKey(field);
-                this.error = {
-                    ...this.error,
-                    [fieldKey]: message,
-                }
+                this.$emit('error', fieldKey, message);
             },
             handleSubmit() {
                 this.$emit('submit', this.data);

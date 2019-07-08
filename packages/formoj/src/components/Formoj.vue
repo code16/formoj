@@ -18,6 +18,7 @@
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                     @submit="handleFormSubmitted"
+                    @error="handleFormError"
                 />
             </template>
             <template v-if="isLoadingVisible">
@@ -167,6 +168,13 @@
                 } else {
                     return Promise.reject(error);
                 }
+            },
+
+            handleFormError(fieldKey, message) {
+                this.validationErrors = {
+                    ...this.validationErrors,
+                    [fieldKey]: message,
+                };
             },
 
             scrollTop() {

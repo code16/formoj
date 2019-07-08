@@ -9,6 +9,7 @@
         <component
             :is="component"
             :id="id"
+            :form-id="formId"
             :value="value"
             :name="name"
             v-bind="props"
@@ -40,6 +41,7 @@
                 type: String,
                 required: true,
             },
+            formId: Number,
             error: String,
         },
 
