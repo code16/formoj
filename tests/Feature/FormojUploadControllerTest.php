@@ -31,7 +31,7 @@ class FormojUploadControllerTest extends FormojTestCase
         ]);
 
         $this
-            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/{$field->id}", [
+            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
                 "file" => UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(200)
@@ -59,13 +59,13 @@ class FormojUploadControllerTest extends FormojTestCase
         ]);
 
         $this
-            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/{$field->id}", [
+            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
                 "file" => UploadedFile::fake()->image('image.jpg')->size(2*1024)
             ])
             ->assertStatus(422);
 
         $this
-            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/{$field->id}", [
+            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
                 "file" => UploadedFile::fake()->create('doc.pdf')->size(512)
             ])
             ->assertStatus(422);
@@ -88,7 +88,7 @@ class FormojUploadControllerTest extends FormojTestCase
         ]);
 
         $this
-            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/{$field->id}", [
+            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
                 "file" => UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(403);
@@ -115,7 +115,7 @@ class FormojUploadControllerTest extends FormojTestCase
         UploadedFile::fake()->image('image.jpg')->storeAs("formoj/tmp/{$field->section->form_id}", "image.jpg", "local");
 
         $this
-            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/{$field->id}", [
+            ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
                 "file" => UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(200)

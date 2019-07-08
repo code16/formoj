@@ -78,4 +78,17 @@ class Field extends Model
     {
         return $this->type === static::TYPE_UPLOAD;
     }
+
+    /**
+     * Retrieve the model for a bound value.
+     * Transform the "f[id]" sent by the front in "[id]"
+     * Example: f123 -> 123
+     *
+     * @param  mixed  $value
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value)
+    {
+        return $this->findOrFail(substr($value, 1));
+    }
 }
