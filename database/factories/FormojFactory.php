@@ -47,7 +47,7 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         }
     } elseif($type == \Code16\Formoj\Models\Field::TYPE_UPLOAD) {
         $fieldAttributes["max_size"] = 4;
-        $fieldAttributes["accept"] = ".jpg,.gif,.png,.pdf";
+        $fieldAttributes["accept"] = ".jpeg,.jpg,.gif,.png,.pdf";
     }
 
     return [

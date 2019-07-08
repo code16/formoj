@@ -2,6 +2,7 @@
 
 namespace Code16\Formoj\Controllers;
 
+use Code16\Formoj\Controllers\Requests\UploadRequest;
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Form;
 use Illuminate\Filesystem\FilesystemManager;
@@ -24,13 +25,13 @@ class FormojUploadController
      * @param Field $field
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Form $form, Field $field)
+    public function store(Form $form, Field $field, UploadRequest $request)
     {
-        $path = request()
+        $path = $request
             ->file('file')
             ->storeAs(
                 config("formoj.upload.path") . "/{$form->id}",
-                $this->getStoreFileName(request()->file, config("formoj.upload.path") . "/{$form->id}"),
+                $this->getStoreFileName($request->file, config("formoj.upload.path") . "/{$form->id}"),
                 config("formoj.upload.disk")
             );
 
