@@ -15,6 +15,7 @@
             v-bind="props"
             @input="handleInput"
             @error="handleError"
+            @clear="handleClear"
         />
         <template v-if="hasError">
             <div class="fj-field__error">{{ errorMessage }}</div>
@@ -104,6 +105,9 @@
             },
             handleError(message) {
                 this.$emit('error', message);
+            },
+            handleClear() {
+                this.$emit('clear');
             },
         },
     }
