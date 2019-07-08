@@ -10,6 +10,7 @@ class Field extends Model
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
     const TYPE_HEADING = "heading";
+    const TYPE_UPLOAD = "upload";
 
     protected $table = "formoj_fields";
 
@@ -68,5 +69,13 @@ class Field extends Model
     public function isTypeHeading()
     {
         return $this->type === static::TYPE_HEADING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeUpload()
+    {
+        return $this->type === static::TYPE_UPLOAD;
     }
 }

@@ -49,6 +49,14 @@ class FieldResource extends JsonResource
                 $this->isTypeTextArea(),
                 $this->fieldAttribute('rows_count')
             ),
+            'maxSize' => $this->when(
+                $this->isTypeUpload(),
+                $this->fieldAttribute('max_size')
+            ),
+            'accept' => $this->when(
+                $this->isTypeUpload(),
+                $this->fieldAttribute('accept')
+            ),
             'options' => $this->when(
                 $this->isTypeSelect(),
                 collect($this->fieldAttribute('options'))->map(

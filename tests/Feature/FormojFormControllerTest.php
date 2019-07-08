@@ -221,6 +221,38 @@ class FormojFormControllerTest extends FormojTestCase
     }
 
     /** @test */
+    function we_can_get_a_form_with_an_upload_field()
+    {
+        $field = factory(Field::class)->create([
+            "type" => "upload",
+            "field_attributes->max_size" => 4,
+            "field_attributes->accept" => ".jpg,.gif",
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $this->get("/formoj/api/form/{$field->section->form_id}")
+            ->assertStatus(200)
+            ->assertJsonFragment([
+                "fields" => [
+                    [
+                        "id" => "f" . $field->id,
+                        "type" => "upload",
+                        "label" => $field->label,
+                        "helpText" => $field->help_text,
+                        "required" => $field->required,
+                        "maxSize" => 4,
+                        "accept" => ".jpg,.gif",
+                    ]
+                ]
+            ]);
+    }
+
+    /** @test */
     function we_can_not_get_a_not_published_already_form()
     {
         $form = factory(Form::class)->create([
