@@ -100,6 +100,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
             Field::TYPE_TEXTAREA => trans("formoj::sharp.fields.types." . Field::TYPE_TEXTAREA),
             Field::TYPE_SELECT => trans("formoj::sharp.fields.types." . Field::TYPE_SELECT),
             Field::TYPE_HEADING => trans("formoj::sharp.fields.types." . Field::TYPE_HEADING),
+            Field::TYPE_UPLOAD => trans("formoj::sharp.fields.types." . Field::TYPE_UPLOAD),
         ];
 
         return $value ? ($types[$value] ?? null) : $types;

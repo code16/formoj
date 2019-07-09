@@ -73,9 +73,10 @@ return [
     'fields' => [
         'types' => [
             Field::TYPE_TEXT => "Simple text",
-            Field::TYPE_TEXTAREA => "multi-rows text",
+            Field::TYPE_TEXTAREA => "Multi-rows text",
             Field::TYPE_SELECT => "Dropdown list",
             Field::TYPE_HEADING => "Inter-title",
+            Field::TYPE_UPLOAD => "File",
         ],
         'fields' => [
             "label" => [
@@ -106,7 +107,15 @@ return [
             "options" => [
                 "label" => "Possible values",
                 "add_label" => "Add a value",
-            ]
+            ],
+            "max_size" => [
+                "label" => "Max size",
+                "help_text" => "Integer, expressed in Mo.",
+            ],
+            "accept" => [
+                "label" => "Allowed file extensions (optional)",
+                "help_text" => "Extensions list separated by commas, without space.",
+            ],
         ],
         "list" => [
             "columns" => [
