@@ -146,6 +146,10 @@ return [
         'commands' => [
             'view' => "View this answer",
             'export' => "Export answers (XLS)",
+            'download_files' => "Download answer attachments",
+        ],
+        'errors' => [
+            'no_file_to_download' => "This answer does not contains any File attachment.",
         ]
     ]
 

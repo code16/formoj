@@ -146,6 +146,10 @@ return [
         'commands' => [
             'view' => "Visualiser cette réponse",
             'export' => "Exporter les réponses au format XLS",
+            'download_files' => "Télécharger les fichiers joints de cette réponse",
+        ],
+        'errors' => [
+            'no_file_to_download' => "Cette réponse en contient aucun fichier en pièce jointe.",
         ]
     ]
 
