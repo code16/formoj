@@ -180,7 +180,10 @@
             },
 
             handleFormFieldClear(fieldKey) {
-                this.validationErrors[fieldKey] = null;
+                this.validationErrors = {
+                    ...this.validationErrors,
+                    [fieldKey]: null,
+                };
             },
 
             scrollTop() {
