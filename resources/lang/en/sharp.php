@@ -110,7 +110,7 @@ return [
             ],
             "max_size" => [
                 "label" => "Max size",
-                "help_text" => "Integer, expressed in Mo.",
+                "help_text" => "Integer, expressed in MB.",
             ],
             "accept" => [
                 "label" => "Allowed file extensions (optional)",

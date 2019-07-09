@@ -77,6 +77,10 @@ And the lang file, if you need to update or add a translation (consider a PR in 
 php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="lang"
 ```
 
+### Update Formoj
+
+Warning: when updating Formoj with `composer update code16/formoj`, **be sure to also execute** `npm install formoj` to keep back and front code in line. 
+
 ## Create a form
 
 ### With Sharp
@@ -192,6 +196,7 @@ Formoj can display these types of fields:
 - `text`, which is a single line text, with an optional `max_length` constraint
 - `textarea`, with a and `rows_count` and an optional `max_length` 
 - `select`, which can either be `multiple` (checklist, with an optional `max_options` attribute) or not (single select).
+- `upload`, with a `max_size` expressed in MB and an optional allowed extension list named `accept` (upload and storage directory and disk are configurable in `config/formoj.php`)
 - and finally `heading`, which is not a field, but a text separator.
 
 ## Embed a form
@@ -213,7 +218,7 @@ ExportAnswersToXls::dispatch($form, $fileName, $answers);
 Where:
 
 - `$form` is a `Code16\Formoj\Models\Form` instance
-- `$fileName` is the export file name (export directory ans disk are configurable in `config/formoj.php`)
+- `$fileName` is the export file name (export directory and disk are configurable in `config/formoj.php`)
 - and `$answers` is a Collection of `Code16\Formoj\Models\Answers`; this argument is nullable, all answers of `$form` are exported by default.
 
 Is Sharp is configured, it will provide a dedicated Command to handle this export (as well as one to display an answer).
