@@ -14,6 +14,7 @@
                     :description="currentSection.description"
                     :is-first="isCurrentFirst"
                     :is-last="isCurrentLast"
+                    :is-loading="isLoading"
                     :key="currentSection.id"
                     @submit="handleSubmit"
                     @next="handleNextSectionRequested"
@@ -61,6 +62,7 @@
             index: Number,
             errors: Object,
             appearance: String,
+            isLoading: Boolean,
         },
 
         data() {

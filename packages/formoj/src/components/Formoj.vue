@@ -15,6 +15,7 @@
                     :index.sync="currentSectionIndex"
                     :errors="validationErrors"
                     :appearance="appearance"
+                    :is-loading="isLoading"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                     @submit="handleFormSubmitted"
