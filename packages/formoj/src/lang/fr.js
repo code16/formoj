@@ -8,6 +8,10 @@ export default {
     'section.button.previous': 'Précédent',
     'section.button.submit': 'Envoyer',
     'field.select.placeholder': 'Choisir...',
+    'field.upload.browse': 'Parcourir...',
+    'field.upload.placeholder': 'Choisissez un fichier',
+    'field.upload.error.max_size': 'Fichier trop volumineux (${max}Mo. maximum)',
+    'field.upload.error.invalid_type': 'Extension invalide (${extensions} acceptées)',
     'field.help_text.select_max': '(maximum ${max} choix)',
     'loading': 'Chargement...',
 }

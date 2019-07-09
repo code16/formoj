@@ -71,6 +71,17 @@ class FormojFieldSharpForm extends SharpForm
                     SharpFormTextField::make("label")
                 )
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
+        )->addField(
+            SharpFormTextField::make("max_size")
+                ->setLabel(trans("formoj::sharp.fields.fields.max_size.label"))
+                ->setHelpMessage(trans("formoj::sharp.fields.fields.max_size.help_text"))
+                ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
+        )->addField(
+            SharpFormTextField::make("accept")
+                ->setLabel(trans("formoj::sharp.fields.fields.accept.label"))
+                ->setPlaceholder("Ex: .jpeg,.gif,.png")
+                ->setHelpMessage(trans("formoj::sharp.fields.fields.accept.help_text"))
+                ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
         );
     }
 
@@ -90,6 +101,8 @@ class FormojFieldSharpForm extends SharpForm
 
         })->addColumn(6, function (FormLayoutColumn $column) {
             $column
+                ->withSingleField("max_size")
+                ->withSingleField("accept")
                 ->withSingleField("max_length")
                 ->withSingleField("rows_count")
                 ->withSingleField("options", function(FormLayoutColumn $column) {
@@ -108,7 +121,7 @@ class FormojFieldSharpForm extends SharpForm
      */
     function find($id): array
     {
-        foreach(["max_length", "rows_count", "max_options", "multiple"] as $attribute) {
+        foreach(["max_length", "rows_count", "max_options", "multiple", "max_size", "accept"] as $attribute) {
             $this->setCustomTransformer($attribute, function($value, $field) use($attribute) {
                 return $field->fieldAttribute($attribute);
             });
@@ -152,9 +165,16 @@ class FormojFieldSharpForm extends SharpForm
         } elseif($data["type"] == Field::TYPE_SELECT) {
             $this->transformAttributesToFieldAttributes($data, ["max_options" => "int", "multiple" => "boolean"]);
             $data["field_attributes"]["options"] = collect($data["options"])->pluck("label")->all();
+
+        } elseif($data["type"] == Field::TYPE_UPLOAD) {
+            $this->transformAttributesToFieldAttributes($data, ["max_size" => "int", "accept" => "string"]);
         }
 
-        unset($data["max_length"], $data["rows_count"], $data["options"], $data["max_options"], $data["multiple"]);
+        unset(
+            $data["max_length"], $data["rows_count"], $data["options"],
+            $data["max_options"], $data["multiple"],
+            $data["max_size"], $data["accept"]
+        );
 
         $this->save($field, $data);
 

@@ -22,7 +22,8 @@
   "dependencies": {
     "axios": "^0.18.1",
     "core-js": "^2.6.5",
-    "lodash.merge": "^4.6.1"
+    "lodash.merge": "^4.6.1",
+    "vue2-dropzone": "^3.6.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.3.4",

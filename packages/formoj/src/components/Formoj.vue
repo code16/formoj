@@ -18,6 +18,8 @@
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                     @submit="handleFormSubmitted"
+                    @error="handleFormFieldError"
+                    @clear="handleFormFieldClear"
                 />
             </template>
             <template v-if="isLoadingVisible">
@@ -167,6 +169,17 @@
                 } else {
                     return Promise.reject(error);
                 }
+            },
+
+            handleFormFieldError(fieldKey, message) {
+                this.validationErrors = {
+                    ...this.validationErrors,
+                    [fieldKey]: message,
+                };
+            },
+
+            handleFormFieldClear(fieldKey) {
+                this.validationErrors[fieldKey] = null;
             },
 
             scrollTop() {

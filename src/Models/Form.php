@@ -101,7 +101,7 @@ class Form extends Model
                         && !$fieldAndValue["field"]->isTypeHeading();
                 })
 
-                // Extract value (select case)
+                // Extract value (select and upload cases)
                 ->mapWithKeys(function($fieldAndValue) {
                     $value = $fieldAndValue["value"];
                     $field = $fieldAndValue["field"];
@@ -120,6 +120,9 @@ class Form extends Model
                         } else {
                             $value = $field->fieldAttribute("options")[$value - 1] ?? '';
                         }
+
+                    } elseif($field->isTypeUpload()) {
+                        $value = $value['file'] ?? null;
                     }
 
                     return [$field->label => $value];

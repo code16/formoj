@@ -76,6 +76,7 @@ return [
             Field::TYPE_TEXTAREA => "Texte multilignes",
             Field::TYPE_SELECT => "Liste déroulante",
             Field::TYPE_HEADING => "Intertitre",
+            Field::TYPE_UPLOAD => "Fichier",
         ],
         'fields' => [
             "label" => [
@@ -106,7 +107,15 @@ return [
             "options" => [
                 "label" => "Valeurs possibles",
                 "add_label" => "Ajouter une valeur",
-            ]
+            ],
+            "max_size" => [
+                "label" => "Taille maximale",
+                "help_text" => "Chiffre entier, exprimé en Mo.",
+            ],
+            "accept" => [
+                "label" => "Extensions acceptées (facultatif)",
+                "help_text" => "Liste d'extensions avec le point, séparés par des virgules, sans espace.",
+            ],
         ],
         "list" => [
             "columns" => [
@@ -137,6 +146,10 @@ return [
         'commands' => [
             'view' => "Visualiser cette réponse",
             'export' => "Exporter les réponses au format XLS",
+            'download_files' => "Télécharger les fichiers joints de cette réponse",
+        ],
+        'errors' => [
+            'no_file_to_download' => "Cette réponse en contient aucun fichier en pièce jointe.",
         ]
     ]
 

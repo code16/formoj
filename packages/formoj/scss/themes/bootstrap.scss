@@ -89,7 +89,7 @@ $formoj-select-appearance: 'default' !default;
 
 .fj-field {
   &--invalid {
-    .form-control, .form-check-input, .custom-select {
+    .form-control, .form-check-input, .custom-select, .custom-file-input {
       @extend .is-invalid;
     }
   }
@@ -149,5 +149,27 @@ $formoj-select-appearance: 'default' !default;
   }
   @else {
     @extend .form-control;
+  }
+}
+
+.fj-upload {
+  &__control {
+    @extend .custom-file;
+    display: block;
+  }
+  &__label {
+    @extend .custom-file-label;
+    &::after {
+      content: attr(data-browse);
+    }
+  }
+  &__input {
+    @extend .custom-file-input;
+  }
+  &__progress {
+    @extend .progress;
+  }
+  &__progress-bar {
+    @extend .progress-bar;
   }
 }

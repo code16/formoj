@@ -9,10 +9,13 @@
         <component
             :is="component"
             :id="id"
+            :form-id="formId"
             :value="value"
             :name="name"
             v-bind="props"
             @input="handleInput"
+            @error="handleError"
+            @clear="handleClear"
         />
         <template v-if="hasError">
             <div class="fj-field__error">{{ errorMessage }}</div>
@@ -39,6 +42,7 @@
                 type: String,
                 required: true,
             },
+            formId: Number,
             error: String,
         },
 
@@ -98,6 +102,12 @@
             $t,
             handleInput(value) {
                 this.$emit('input', value);
+            },
+            handleError(message) {
+                this.$emit('error', message);
+            },
+            handleClear() {
+                this.$emit('clear');
             },
         },
     }

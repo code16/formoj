@@ -12,3 +12,7 @@ export function postSection(baseUrl, { formId, sectionId, data }) {
 export function postForm(baseUrl, { formId, data }) {
     return axios.post(`${baseUrl}/form/${formId}`, { ...data });
 }
+
+export function postUploadUrl(baseUrl, { formId, fieldId }) {
+    return `${baseUrl}/form/${formId}/upload/${fieldId}`;
+}

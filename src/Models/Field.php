@@ -10,6 +10,7 @@ class Field extends Model
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
     const TYPE_HEADING = "heading";
+    const TYPE_UPLOAD = "upload";
 
     protected $table = "formoj_fields";
 
@@ -68,5 +69,26 @@ class Field extends Model
     public function isTypeHeading()
     {
         return $this->type === static::TYPE_HEADING;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTypeUpload()
+    {
+        return $this->type === static::TYPE_UPLOAD;
+    }
+
+    /**
+     * Retrieve the model for a bound value.
+     * Transform the "f[id]" sent by the front in "[id]"
+     * Example: f123 -> 123
+     *
+     * @param  mixed  $value
+     * @return \Illuminate\Database\Eloquent\Model|null
+     */
+    public function resolveRouteBinding($value)
+    {
+        return $this->findOrFail(substr($value, 1));
     }
 }

@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
+use Code16\Formoj\Sharp\Commands\FormojAnswerDownloadFilesCommand;
 use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
 use Code16\Formoj\Sharp\Commands\FormojAnswerViewCommand;
 use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
@@ -51,7 +52,8 @@ class FormojAnswerSharpEntityList extends SharpEntityList
             ->addFilter("formoj_form", FormojFormFilterHandler::class)
             ->setPaginated()
             ->addEntityCommand("export_answers", FormojAnswerExportCommand::class)
-            ->addInstanceCommand("view_answer", FormojAnswerViewCommand::class);
+            ->addInstanceCommand("view_answer", FormojAnswerViewCommand::class)
+            ->addInstanceCommand("download_answer_files", FormojAnswerDownloadFilesCommand::class);
     }
 
     /**

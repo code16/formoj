@@ -17,6 +17,12 @@
             "maxlength": 10
           },
           {
+            "id": 6,
+            "type": "upload",
+            "label": "Fichier",
+            "url": "/api/form/upload/6"
+          },
+          {
             "id": 5,
             "type": "select",
             "multiple": true,

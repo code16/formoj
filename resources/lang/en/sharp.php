@@ -73,9 +73,10 @@ return [
     'fields' => [
         'types' => [
             Field::TYPE_TEXT => "Simple text",
-            Field::TYPE_TEXTAREA => "multi-rows text",
+            Field::TYPE_TEXTAREA => "Multi-rows text",
             Field::TYPE_SELECT => "Dropdown list",
             Field::TYPE_HEADING => "Inter-title",
+            Field::TYPE_UPLOAD => "File",
         ],
         'fields' => [
             "label" => [
@@ -106,7 +107,15 @@ return [
             "options" => [
                 "label" => "Possible values",
                 "add_label" => "Add a value",
-            ]
+            ],
+            "max_size" => [
+                "label" => "Max size",
+                "help_text" => "Integer, expressed in MB.",
+            ],
+            "accept" => [
+                "label" => "Allowed file extensions (optional)",
+                "help_text" => "Extensions list separated by commas, without space.",
+            ],
         ],
         "list" => [
             "columns" => [
@@ -137,6 +146,10 @@ return [
         'commands' => [
             'view' => "View this answer",
             'export' => "Export answers (XLS)",
+            'download_files' => "Download answer attachments",
+        ],
+        'errors' => [
+            'no_file_to_download' => "This answer does not contains any File attachment.",
         ]
     ]
 

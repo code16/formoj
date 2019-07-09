@@ -32,6 +32,7 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         \Code16\Formoj\Models\Field::TYPE_TEXT,
         \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
         \Code16\Formoj\Models\Field::TYPE_SELECT,
+        \Code16\Formoj\Models\Field::TYPE_UPLOAD,
     ]);
 
     $fieldAttributes = [];
@@ -44,6 +45,9 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
             $fieldAttributes["multiple"] = true;
             $fieldAttributes["max_options"] = $faker->boolean() ? $faker->numberBetween(2, 4) : null;
         }
+    } elseif($type == \Code16\Formoj\Models\Field::TYPE_UPLOAD) {
+        $fieldAttributes["max_size"] = 4;
+        $fieldAttributes["accept"] = ".jpeg,.jpg,.gif,.png,.pdf";
     }
 
     return [
