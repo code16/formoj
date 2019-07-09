@@ -1,6 +1,6 @@
 {
   "name": "formoj",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "Customisable forms renderer",
   "main": "dist/formoj.js",
   "scripts": {
