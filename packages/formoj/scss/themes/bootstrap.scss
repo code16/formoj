@@ -85,6 +85,9 @@ $formoj-select-appearance: 'default' !default;
   &__indication {
     color: $text-muted;
   }
+  &__button {
+    @extend .btn-lg;
+  }
 }
 
 .fj-field {
