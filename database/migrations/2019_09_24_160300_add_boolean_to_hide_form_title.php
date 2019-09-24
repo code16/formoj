@@ -14,7 +14,7 @@ class AddBooleanToHideFormTitle extends Migration
     public function up()
     {
         Schema::table('formoj_forms', function (Blueprint $table) {
-            $table->boolean('is_title_hidden');
+            $table->boolean('is_title_hidden')->default(false);
         });
     }
 }
