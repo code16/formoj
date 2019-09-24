@@ -17,6 +17,7 @@ class FormResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'is_title_hidden' => $this->is_title_hidden,
             'description' => $this->description,
             'sections' => SectionResource::collection($this->sections)
         ];
