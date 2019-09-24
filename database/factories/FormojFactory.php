@@ -20,6 +20,7 @@ $factory->define(\Code16\Formoj\Models\Form::class, function (Faker $faker) {
 $factory->define(\Code16\Formoj\Models\Section::class, function (Faker $faker) {
     return [
         'title' => $faker->words(3, true),
+        'is_title_hidden' => $faker->boolean(),
         'description' => $faker->paragraph,
         'form_id' => function() {
             return factory(\Code16\Formoj\Models\Form::class)->create()->id;
