@@ -17,6 +17,7 @@ class SectionResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
+            'isTitleHidden' => $this->is_title_hidden,
             'description' => $this->description,
             'fields' => FieldResource::collection($this->fields)
         ];

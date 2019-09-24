@@ -14,6 +14,14 @@ class Section extends Model
 
     protected $guarded = ["id"];
 
+    protected $casts = [
+        "is_title_hidden" => "boolean",
+    ];
+
+    protected $dates = [
+        "created_at", "updated_at",
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

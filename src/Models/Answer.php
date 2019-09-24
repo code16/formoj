@@ -15,6 +15,10 @@ class Answer extends Model
         'content' => 'json',
     ];
 
+    protected $dates = [
+        "created_at", "updated_at",
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

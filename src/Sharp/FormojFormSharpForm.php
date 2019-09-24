@@ -4,6 +4,7 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Form;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
+use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
@@ -68,6 +69,9 @@ class FormojFormSharpForm extends SharpForm
                         ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
                 )
                 ->addItemField(
+                    SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.sections.fields.is_title_hidden.label"))
+                )
+                ->addItemField(
                     SharpFormTextareaField::make("description")
                         ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
                         ->setRowCount(3)
@@ -107,6 +111,7 @@ class FormojFormSharpForm extends SharpForm
                 ->withSingleField("sections", function(FormLayoutColumn $column) {
                     $column
                         ->withSingleField("title")
+                        ->withSingleField("is_title_hidden")
                         ->withSingleField("description");
                 });
         });
