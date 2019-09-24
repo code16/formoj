@@ -4,6 +4,7 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Form;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
+use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
@@ -28,6 +29,8 @@ class FormojFormSharpForm extends SharpForm
         $this->addField(
             SharpFormTextField::make("title")
                 ->setLabel(trans("formoj::sharp.forms.fields.title.label"))
+        )->addField(
+            SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.is_title_hidden.label"))
         )->addField(
             SharpFormMarkdownField::make("description")
                 ->setLabel(trans("formoj::sharp.forms.fields.description.label"))
@@ -91,7 +94,11 @@ class FormojFormSharpForm extends SharpForm
     {
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
-                ->withSingleField("title")
+
+                ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.title"), function (FormLayoutFieldset $fieldset) {
+                    $fieldset->withSingleField("title")
+                        ->withSingleField("is_title_hidden");
+                })
                 ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.dates"), function (FormLayoutFieldset $fieldset) {
                     $fieldset->withFields("published_at|6", "unpublished_at|6");
                 })

@@ -16,6 +16,9 @@ return [
             "title" => [
                 "label" => "Title"
             ],
+            "is_title_hidden" => [
+                "label" => "Hide form title"
+            ],
             "description" => [
                 "label" => "Description"
             ],
@@ -48,6 +51,7 @@ return [
                 "label" => "Recipient e-mail address"
             ],
             "fieldsets" => [
+                "title" => "Form title",
                 "dates" => "Publication dates (optional)",
                 "notifications" => "Notifications",
             ],

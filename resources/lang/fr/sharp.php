@@ -16,6 +16,9 @@ return [
             "title" => [
                 "label" => "Titre"
             ],
+            "is_title_hidden" => [
+                "label" => "Masquer le titre du formulaire"
+            ],
             "description" => [
                 "label" => "Description"
             ],
@@ -48,6 +51,7 @@ return [
                 "label" => "Adresse email de réception"
             ],
             "fieldsets" => [
+                "title" => "Titre du formulaire",
                 "dates" => "Dates de publication (facultatives)",
                 "notifications" => "Notifications",
             ],
