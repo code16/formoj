@@ -1,6 +1,6 @@
 <template>
     <div class="fj-form" :class="classes">
-        <div class="fj-form__header">
+        <div class="fj-form__header" v-if="showHeader()">
             <slot name="header">
                 <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
                 <p class="fj-form__description">{{ description }}</p>
@@ -163,6 +163,9 @@
             handleSubmit() {
                 this.$emit('submit', this.data);
             },
+            showHeader() {
+                return this.description || (this.title && !this.isTitleHidden);
+            }
         },
     }
 </script>
