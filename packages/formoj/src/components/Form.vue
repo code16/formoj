@@ -105,6 +105,9 @@
                     [`fj-form--${this.appearance}`]: !!this.appearance,
                 };
             },
+            showHeader() {
+                return this.description || (this.title && !this.isTitleHidden);
+            }
         },
 
         methods: {
@@ -163,9 +166,6 @@
             handleSubmit() {
                 this.$emit('submit', this.data);
             },
-            showHeader() {
-                return this.description || (this.title && !this.isTitleHidden);
-            }
         },
     }
 </script>
