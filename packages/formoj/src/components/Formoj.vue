@@ -9,6 +9,7 @@
             <template v-if="ready && !isFinished">
                 <fj-form
                     :title="form.title"
+                    :is-title-hidden="form.isTitleHidden"
                     :description="form.description"
                     :sections="form.sections"
                     :form-id="form.id"

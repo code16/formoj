@@ -2,7 +2,7 @@
     <div class="fj-form" :class="classes">
         <div class="fj-form__header">
             <slot name="header">
-                <h3 class="fj-form__title">{{ title }}</h3>
+                <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
                 <p class="fj-form__description">{{ description }}</p>
             </slot>
         </div>
@@ -56,6 +56,7 @@
 
         props: {
             title: String,
+            isTitleHidden: Boolean,
             description: String,
             sections: Array,
             formId: Number,
