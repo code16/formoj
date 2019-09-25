@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 $factory->define(\Code16\Formoj\Models\Form::class, function (Faker $faker) {
     $hasPublishedDate = $faker->boolean();
@@ -50,8 +51,11 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
         $fieldAttributes["accept"] = ".jpeg,.jpg,.gif,.png,.pdf";
     }
 
+    $label = $faker->words(3, true);
+
     return [
-        'label' => $faker->words(3, true),
+        'label' => $label,
+        'identifier' => Str::slug($label,'_'),
         'help_text' => $faker->boolean(25) ? $faker->paragraph : null,
         'type' => $type,
         'field_attributes' => $fieldAttributes,
