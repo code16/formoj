@@ -11,6 +11,7 @@ use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
+use Code16\Sharp\Form\Layout\FormLayoutFieldset;
 use Code16\Sharp\Form\SharpForm;
 
 class FormojFieldSharpForm extends SharpForm
@@ -98,8 +99,10 @@ class FormojFieldSharpForm extends SharpForm
     {
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
-                ->withSingleField("label")
-                ->withSingleField("identifier")
+                ->withFieldset(trans("formoj::sharp.fields.fields.fieldsets.identifiers"), function (FormLayoutFieldset $fieldset) {
+                    $fieldset->withSingleField("label")
+                        ->withSingleField("identifier");
+                })
                 ->withSingleField("type")
                 ->withSingleField("required")
                 ->withSingleField("help_text");

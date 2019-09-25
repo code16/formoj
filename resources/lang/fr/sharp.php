@@ -84,7 +84,7 @@ return [
             ],
             "identifier" => [
                 "label" => "Identifiant unique",
-                "help_text" => "Champ technique, non affiché à l'utilisateur. Utilisez le séparateur _ (exemple: autres_raisons_1)"
+                "help_text" => "Champ technique qui doit être unique pour tout le formulaire (non affiché à l'utilisateur). Utilisez le séparateur _ (exemple: autres_raisons_1)"
             ],
             "type" => [
                 "label" => ""
@@ -119,6 +119,9 @@ return [
             "accept" => [
                 "label" => "Extensions acceptées (facultatif)",
                 "help_text" => "Liste d'extensions avec le point, séparés par des virgules, sans espace.",
+            ],
+            "fieldsets" => [
+                "identifiers" => "Identifiants",
             ],
         ],
         "list" => [

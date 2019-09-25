@@ -83,8 +83,8 @@ return [
                 "label" => "Label"
             ],
             "identifier" => [
-                "label" => "Unique identfier",
-                "help_text" => "Technical field, not displayed to user. Please use _ separator (exemple: other_reason_1)"
+                "label" => "Unique identifier",
+                "help_text" => "Technical field, must be unique for the whole form (not displayed to user). Please use _ separator (exemple: other_reason_1)"
             ],
             "type" => [
                 "label" => ""
@@ -119,6 +119,9 @@ return [
             "accept" => [
                 "label" => "Allowed file extensions (optional)",
                 "help_text" => "Extensions list separated by commas, without space.",
+            ],
+            "fieldsets" => [
+                "identifiers" => "Identifiers",
             ],
         ],
         "list" => [
