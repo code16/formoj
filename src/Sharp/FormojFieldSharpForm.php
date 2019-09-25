@@ -28,6 +28,10 @@ class FormojFieldSharpForm extends SharpForm
             SharpFormTextField::make("label")
                 ->setLabel(trans("formoj::sharp.fields.fields.label.label"))
         )->addField(
+            SharpFormTextField::make("identifier")
+                ->setLabel(trans("formoj::sharp.fields.fields.identifier.label"))
+                ->setHelpMessage(trans("formoj::sharp.fields.fields.identifier.help_text"))
+        )->addField(
             SharpFormMarkdownField::make("help_text")
                 ->setLabel(trans("formoj::sharp.fields.fields.help_text.label"))
                 ->setToolbar([
@@ -95,6 +99,7 @@ class FormojFieldSharpForm extends SharpForm
         $this->addColumn(6, function (FormLayoutColumn $column) {
             $column
                 ->withSingleField("label")
+                ->withSingleField("identifier")
                 ->withSingleField("type")
                 ->withSingleField("required")
                 ->withSingleField("help_text");

@@ -82,6 +82,10 @@ return [
             "label" => [
                 "label" => "Libellé"
             ],
+            "identifier" => [
+                "label" => "Identifiant unique",
+                "help_text" => "Champ technique, non affiché à l'utilisateur. Utilisez le séparateur _ (exemple: autres_raisons_1)"
+            ],
             "type" => [
                 "label" => ""
             ],

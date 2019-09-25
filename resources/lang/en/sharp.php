@@ -82,6 +82,10 @@ return [
             "label" => [
                 "label" => "Label"
             ],
+            "identifier" => [
+                "label" => "Unique identfier",
+                "help_text" => "Technical field, not displayed to user. Please use _ separator (exemple: other_reason_1)"
+            ],
             "type" => [
                 "label" => ""
             ],
