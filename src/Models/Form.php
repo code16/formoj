@@ -54,7 +54,11 @@ class Form extends Model
 
     public function getLabel()
     {
-        return $this->title ? $this->title : ('#' . $this->id);
+        if($this->title){
+            return $this->title . ' #' . $this->id;
+        }else{
+            return '#' . $this->id;
+        }
     }
 
     /**
