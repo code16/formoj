@@ -1,17 +1,19 @@
 {
     "private": true,
     "scripts": {
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "npm run development -- --watch",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+        "preinstall": "cd ../packages/formoj && npm install",
+        "js:dev": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "js:watch": "npm run js:dev -- --watch",
+        "js:production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "dev": "(cd ../packages/formoj && npm run dev) && npm run js:dev",
+        "watch": "(cd ../packages/formoj && npm run dev) && concurrently --kill-others \"cd ../packages/formoj && npm run watch\" \"npm run js:watch\"",
+        "production": "(cd ../packages/formoj && npm run build) && npm run js:production",
+        "prod": "npm run production"
     },
     "devDependencies": {
         "axios": "^0.18.1",
         "bootstrap": "^4.0.0",
+        "concurrently": "^4.1.2",
         "cross-env": "^5.1",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",

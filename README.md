@@ -253,3 +253,24 @@ In addition, the select and checkboxes can have the bootstrap's `custom-control`
 ```scss
 $formoj-select-appearance: 'custom';
 ```
+
+## Contributing
+
+Setup prototipoj
+```
+    cd ./prototipoj
+    composer install
+```
+
+Build front-end
+```sh
+    cd ./prototipoj
+    npm install
+
+    # Watch and auto re-build formoj package files
+    npm run watch
+
+    # Build all dist files
+    npm run prod
+```
+

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Formoj from 'formoj/src';
+import Formoj from 'formoj';
 
 Vue.use(Formoj);
 
