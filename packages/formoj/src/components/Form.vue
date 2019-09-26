@@ -1,6 +1,6 @@
 <template>
     <div class="fj-form" :class="classes">
-        <div class="fj-form__header" v-if="showHeader()">
+        <div class="fj-form__header" v-if="description || (title && !isTitleHidden)">
             <slot name="header">
                 <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
                 <p class="fj-form__description">{{ description }}</p>
@@ -105,9 +105,6 @@
                     [`fj-form--${this.appearance}`]: !!this.appearance,
                 };
             },
-            showHeader() {
-                return this.description || (this.title && !this.isTitleHidden);
-            }
         },
 
         methods: {
