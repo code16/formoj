@@ -49,7 +49,7 @@ class AnswersExcelCollection extends DefaultValueBinder implements WithCustomVal
                     });
                 })
                 ->map(function($fields) {
-                    return $fields->pluck("label");
+                    return $fields->pluck("identifier");
                 })
                 ->flatten()
                 ->all()

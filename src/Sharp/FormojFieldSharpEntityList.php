@@ -77,9 +77,11 @@ class FormojFieldSharpEntityList extends SharpEntityList
                         $instance->label
                     );
                 }
+
                 return sprintf(
-                    '<div>%s</div><div style="color:orange"><small>%s</small></div>',
+                    '<div>%s</div><div><span style="background:lightgray; padding:0 2px">%s</span></div><div style="color:orange"><small>%s</small></div>',
                     $instance->label,
+                    $instance->identifier,
                     $instance->required ? trans("formoj::sharp.fields.list.data.label.required") : ""
                 );
             })

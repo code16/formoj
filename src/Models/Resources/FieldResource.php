@@ -17,6 +17,7 @@ class FieldResource extends JsonResource
         return [
             'id' => "f" . $this->id,
             'type' => $this->type,
+            'identifier' => $this->identifier,
             'label' => $this->when(
                 !$this->isTypeHeading(),
                 $this->label

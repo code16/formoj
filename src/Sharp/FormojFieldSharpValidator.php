@@ -33,7 +33,11 @@ class FormojFieldSharpValidator extends FormRequest
         return [
             'label' => [
                 'required',
-                Rule::unique('formoj_fields', 'label')
+            ],
+            'identifier' => [
+                'required',
+                'alpha_dash',
+                Rule::unique('formoj_fields', 'identifier')
                     ->whereIn("section_id",
                         Section::select("id")
                             ->where("form_id", session("_sharp_retained_filter_formoj_form") ?: app(FormojFormFilterHandler::class)->defaultValue())
