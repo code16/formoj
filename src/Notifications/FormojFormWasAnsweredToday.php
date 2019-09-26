@@ -51,7 +51,7 @@ class FormojFormWasAnsweredToday extends Notification implements ShouldQueue
         $message = (new MailMessage)
             ->subject(
                 trans('formoj::form.notifications.daily_answers.subject', [
-                    'form' => $this->form->getlabel()
+                    'form' => $this->form->getLabel()
                 ])
             )
             ->greeting(trans('formoj::form.notifications.daily_answers.greeting', [

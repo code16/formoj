@@ -56,13 +56,16 @@ class Form extends Model
         return $this->unpublished_at && $this->unpublished_at->isPast();
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
-        if($this->title){
-            return $this->title . ' #' . $this->id;
-        }else{
-            return '#' . $this->id;
+        if($this->title) {
+            return sprintf("%s (#%s)", $this->title, $this->id);
         }
+
+        return '#' . $this->id;
     }
 
     /**
