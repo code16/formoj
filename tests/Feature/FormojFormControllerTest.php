@@ -25,6 +25,7 @@ class FormojFormControllerTest extends FormojTestCase
         $field = factory(Field::class)->create([
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
+                    "is_title_hidden" => true,
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -37,6 +38,7 @@ class FormojFormControllerTest extends FormojTestCase
                 "data" => [
                     "id" => $field->section->form_id,
                     "title" => $field->section->form->title,
+                    "isTitleHidden" => true,
                     "description" => $field->section->form->description,
                     "sections" => [
                         [

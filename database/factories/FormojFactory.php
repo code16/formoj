@@ -11,6 +11,7 @@ $factory->define(\Code16\Formoj\Models\Form::class, function (Faker $faker) {
 
     return [
         'title' => $faker->words(2, true),
+        'is_title_hidden' => $faker->boolean(),
         'description' => $faker->paragraph,
         'published_at' => $publishedDate,
         'unpublished_at' => $unpublishedDate,

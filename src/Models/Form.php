@@ -18,6 +18,10 @@ class Form extends Model
         "created_at", "updated_at", "published_at", "unpublished_at"
     ];
 
+    protected $casts = [
+        "is_title_hidden" => "boolean",
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
