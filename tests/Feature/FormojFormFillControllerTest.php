@@ -46,7 +46,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => $answer
+                $field->identifier => $answer
             ])
         ]);
     }
@@ -153,8 +153,8 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => "test",
-                $field2->label => "test",
+                $field->identifier => "test",
+                $field2->identifier => "test",
             ])
         ]);
     }
@@ -191,7 +191,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => "test"
+                $field->identifier => "test"
             ])
         ]);
     }
@@ -223,7 +223,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => "B"
+                $field->identifier => "B"
             ])
         ]);
     }
@@ -256,7 +256,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => ["A", "B"]
+                $field->identifier => ["A", "B"]
             ])
         ]);
     }
@@ -297,7 +297,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertDatabaseHas("formoj_answers", [
             "form_id" => $field->section->form_id,
             "content" => json_encode([
-                $field->label => "image.jpg"
+                $field->identifier => "image.jpg"
             ])
         ]);
 
