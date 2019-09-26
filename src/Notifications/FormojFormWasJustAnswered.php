@@ -45,7 +45,7 @@ class FormojFormWasJustAnswered extends Notification implements ShouldQueue
         $message = (new MailMessage)
             ->subject(
                 trans('formoj::form.notifications.new_answer.subject', [
-                    'form' => '#' . $this->answer->form->id
+                    'form' => $this->answer->form->getlabel()
                 ])
             )
             ->greeting(trans('formoj::form.notifications.new_answer.greeting', [
