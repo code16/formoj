@@ -11,6 +11,7 @@
                 <fj-section
                     :fields="currentSection.fields"
                     :title="currentSection.title"
+                    :is-title-hidden="currentSection.isTitleHidden"
                     :description="currentSection.description"
                     :is-first="isCurrentFirst"
                     :is-last="isCurrentLast"

@@ -22,6 +22,10 @@ class Field extends Model
         'required' => 'boolean',
     ];
 
+    protected $dates = [
+        "created_at", "updated_at",
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

@@ -35,6 +35,9 @@ return [
                     "title" => [
                         "label" => "Title"
                     ],
+                    "is_title_hidden" => [
+                        "label" => "Hide section title"
+                    ],
                     "description" => [
                         "label" => "Description"
                     ]

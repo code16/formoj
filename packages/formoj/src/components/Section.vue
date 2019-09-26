@@ -2,7 +2,7 @@
     <div class="fj-section">
         <div class="fj-section__header">
             <slot name="header">
-                <h4 class="fj-section__title">{{ title }}</h4>
+                <h4 class="fj-section__title" v-if="!isTitleHidden">{{ title }}</h4>
                 <p class="fj-section__description">{{ description }}</p>
             </slot>
         </div>
@@ -53,6 +53,7 @@
         props: {
             fields: Array,
             title: String,
+            isTitleHidden: Boolean,
             description: String,
             isFirst: Boolean,
             isLast: Boolean,

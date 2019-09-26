@@ -71,6 +71,9 @@ class FormojFormSharpForm extends SharpForm
                         ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
                 )
                 ->addItemField(
+                    SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.sections.fields.is_title_hidden.label"))
+                )
+                ->addItemField(
                     SharpFormTextareaField::make("description")
                         ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
                         ->setRowCount(3)
@@ -114,6 +117,7 @@ class FormojFormSharpForm extends SharpForm
                 ->withSingleField("sections", function(FormLayoutColumn $column) {
                     $column
                         ->withSingleField("title")
+                        ->withSingleField("is_title_hidden")
                         ->withSingleField("description");
                 });
         });
