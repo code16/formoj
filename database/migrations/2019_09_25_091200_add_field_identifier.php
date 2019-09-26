@@ -17,25 +17,23 @@ class AddFieldIdentifier extends Migration
     public function up()
     {
         Schema::table('formoj_fields', function (Blueprint $table) {
-
             if (config("app.env") != "testing") {
                 $table->string("identifier");
-                $this->fillEmptyFieldIdentifiers();
-                $this->replaceAnswerFieldsWithIdentifiers();
-            }else{
+            } else {
                 $table->string("identifier")->default('');
             }
         });
+
+        $this->fillEmptyFieldIdentifiers();
+        $this->replaceAnswerFieldsWithIdentifiers();
     }
 
     public function fillEmptyFieldIdentifiers()
     {
-
         Field::where('identifier','=','')
             ->get()
-            ->each(function(Field $field){
-
-                $slug = $field->label ? Str::slug($field->label,'_') : 'unamed_field';
+            ->each(function(Field $field) {
+                $slug = $field->label ? Str::slug($field->label,'_') : 'unnamed_field';
                 $generatedIdentifier = $slug;
                 $i = 1;
 
@@ -44,7 +42,7 @@ class AddFieldIdentifier extends Migration
                         ->where('form_id','=',$field->section->form->id)
                         ->where('formoj_fields.identifier','=',$generatedIdentifier)
                         ->exists()
-                ){
+                ) {
                     $generatedIdentifier = $slug . '_' . $i;
                     $i++;
                 }
@@ -57,20 +55,18 @@ class AddFieldIdentifier extends Migration
     public function replaceAnswerFieldsWithIdentifiers()
     {
         Answer::get()
-            ->each(function(Answer $answer){
-
+            ->each(function(Answer $answer) {
                 $newContent = [];
 
-                foreach($answer->content as $key => $value){
-
+                foreach($answer->content as $key => $value) {
                     $field = Field::join('formoj_sections','formoj_fields.section_id','=','formoj_sections.id')
                         ->where('form_id','=',$answer->form_id)
                         ->where('label','=',$key)
                         ->first();
 
-                    if($field){
+                    if($field) {
                         $newContent[$field->identifier] = $value;
-                    }else{
+                    } else {
                         $newContent[$key] = $value;
                     }
 
