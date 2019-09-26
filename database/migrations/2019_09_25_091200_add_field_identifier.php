@@ -19,7 +19,7 @@ class AddFieldIdentifier extends Migration
         Schema::table('formoj_fields', function (Blueprint $table) {
 
             if (config("app.env") != "testing") {
-                //$table->string("identifier");
+                $table->string("identifier");
                 $this->fillEmptyFieldIdentifiers();
                 $this->replaceAnswerFieldsWithIdentifiers();
             }else{
