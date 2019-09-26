@@ -48,7 +48,7 @@ class FormojFieldSharpValidator extends FormRequest
             'rows_count' => 'integer|nullable|required_if:type,' . Field::TYPE_TEXTAREA,
             'options' => 'required_if:type,' . Field::TYPE_SELECT,
             'options.*.label' => 'required',
-            'max_size' => 'required_if:type,' . Field::TYPE_UPLOAD . '|required',
+            'max_size' => 'required_if:type,' . Field::TYPE_UPLOAD . '|integer|nullable',
             'accept' => ['nullable','regex:/^(\.[a-z]+,)*(\.[a-z]+)$/']
         ];
     }
