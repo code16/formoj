@@ -1,5 +1,6 @@
 <?php
 
+use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Field;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -20,6 +21,7 @@ class AddFieldIdentifier extends Migration
             if (config("app.env") != "testing") {
                 //$table->string("identifier");
                 $this->fillEmptyFieldIdentifiers();
+                $this->replaceAnswerFieldsWithIdentifiers();
             }else{
                 $table->string("identifier")->default('');
             }
@@ -49,6 +51,32 @@ class AddFieldIdentifier extends Migration
 
                 $field->identifier = $generatedIdentifier;
                 $field->save();
+            });
+    }
+
+    public function replaceAnswerFieldsWithIdentifiers()
+    {
+        Answer::get()
+            ->each(function(Answer $answer){
+
+                $newContent = [];
+
+                foreach($answer->content as $key => $value){
+
+                    $field = Field::join('formoj_sections','formoj_fields.section_id','=','formoj_sections.id')
+                        ->where('form_id','=',$answer->form_id)
+                        ->where('label','=',$key)
+                        ->first();
+
+                    if($field){
+                        $newContent[$field->identifier] = $value;
+                    }else{
+                        $newContent[$key] = $value;
+                    }
+
+                }
+                $answer->content = $newContent;
+                $answer->save();
             });
     }
 }

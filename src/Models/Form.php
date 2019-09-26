@@ -125,7 +125,7 @@ class Form extends Model
                         $value = $value['file'] ?? null;
                     }
 
-                    return [$field->label => $value];
+                    return [$field->identifier => $value];
                 })
                 ->all()
         ]);
