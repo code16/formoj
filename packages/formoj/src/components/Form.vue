@@ -3,7 +3,7 @@
         <div class="fj-form__header" v-if="description || (title && !isTitleHidden)">
             <slot name="header">
                 <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
-                <p class="fj-form__description">{{ description }}</p>
+                <div class="fj-form__description">{{ description }}</div>
             </slot>
         </div>
         <div class="fj-form__content">

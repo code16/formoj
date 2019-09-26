@@ -3,7 +3,7 @@
         <div class="fj-section__header">
             <slot name="header">
                 <h4 class="fj-section__title" v-if="!isTitleHidden">{{ title }}</h4>
-                <p class="fj-section__description">{{ description }}</p>
+                <div class="fj-section__description">{{ description }}</div>
             </slot>
         </div>
         <div class="fj-section__fields">
