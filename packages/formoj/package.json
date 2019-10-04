@@ -22,15 +22,15 @@
   "homepage": "https://github.com/code16/formoj#readme",
   "dependencies": {
     "axios": "^0.18.1",
-    "core-js": "^2.6.5",
+    "core-js": "^3.2.1",
     "lodash.merge": "^4.6.1",
     "vue2-dropzone": "^3.6.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.3.4",
     "@vue/cli": "^3.4.1",
+    "laravel-mix": "^5.0.0",
     "vue": "^2.6.8",
-    "laravel-mix": "^4.0.14",
     "vue-template-compiler": "^2.6.8"
   }
 }

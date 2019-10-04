@@ -1,2 +1,2 @@
-import 'core-js/fn/promise/finally';
-import 'core-js/fn/object/entries';
+import 'core-js/features/promise/finally';
+import 'core-js/features/object/entries';
