@@ -1,4 +1,7 @@
 .fj-section {
+  &__header {
+    margin-bottom: 1rem;
+  }
   &__footer {
     display: flex;
     justify-content: space-between;
