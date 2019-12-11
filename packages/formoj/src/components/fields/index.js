@@ -1,8 +1,8 @@
 import Text from './Text';
 import Textarea from './Textarea';
-import Select from './Select';
-import Checkboxes from './Checkboxes';
-import Radios from "./Radios";
+import Select from './select/Select';
+import Checkboxes from './select/Checkboxes';
+import Radios from "./select/Radios";
 import Heading from './Heading';
 import Upload from './Upload';
 

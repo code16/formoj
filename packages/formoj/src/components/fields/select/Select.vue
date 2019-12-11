@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import { $t } from "../../util/i18n";
+    import { $t } from "../../../util/i18n";
 
     export default {
         name: 'FjSelect',
