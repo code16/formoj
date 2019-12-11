@@ -6,6 +6,7 @@
                     :id="checkboxId(option)"
                     class="fj-checkboxes__check-input"
                     :name="name"
+                    :value="option.id"
                     :checked="isChecked(option)"
                     @change="handleChanged(option, $event)"
                 >
@@ -17,7 +18,7 @@
 
 <script>
     export default {
-        name: 'FjMultipleSelect',
+        name: 'FjCheckboxes',
 
         props: {
             id: String,

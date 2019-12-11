@@ -5,6 +5,7 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 $formoj-form-appearance: 'card' !default;
 $formoj-loading-appearance: 'spinner' !default;
 $formoj-check-appearance: 'default' !default;
+$formoj-radio-appearance: 'default' !default;
 $formoj-select-appearance: 'default' !default;
 
 .formoj--empty,
@@ -125,6 +126,32 @@ $formoj-select-appearance: 'default' !default;
     &__check {
       @extend .custom-control;
       @extend .custom-checkbox;
+    }
+    &__check-input {
+      @extend .custom-control-input;
+    }
+    &__check-label {
+      @extend .custom-control-label;
+    }
+  }
+  @else {
+    &__check {
+      @extend .form-check;
+    }
+    &__check-input {
+      @extend .form-check-input;
+    }
+    &__check-label {
+      @extend .form-check-label;
+    }
+  }
+}
+
+.fj-radios {
+  @if($formoj-radio-appearance == 'custom') {
+    &__check {
+      @extend .custom-control;
+      @extend .custom-radio;
     }
     &__check-input {
       @extend .custom-control-input;

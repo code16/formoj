@@ -50,6 +50,7 @@
             component() {
                 return getFieldByType(this.field.type, {
                     isMultiple: this.field.multiple,
+                    isRadios: this.field.radios,
                 });
             },
             isFieldset() {
