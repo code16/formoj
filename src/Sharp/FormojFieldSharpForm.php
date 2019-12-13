@@ -203,6 +203,10 @@ class FormojFieldSharpForm extends SharpForm
         Field::findOrFail($id)->delete();
     }
 
+    /**
+     * @param $data
+     * @param array $attributeLabels
+     */
     protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels)
     {
         collect($data)

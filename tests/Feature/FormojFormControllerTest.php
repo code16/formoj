@@ -155,7 +155,6 @@ class FormojFormControllerTest extends FormojTestCase
                         "helpText" => $field->help_text,
                         "required" => $field->required,
                         "radios" => true,
-                        "multiple" => false,
                         "options" => [
                             ["id"=>1, "label"=>"A"],
                             ["id"=>2, "label"=>"B"],
