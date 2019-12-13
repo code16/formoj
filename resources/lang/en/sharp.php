@@ -112,6 +112,9 @@ return [
             "multiple" => [
                 "text" => "Allow multiple choices"
             ],
+            "radios" => [
+                "text" => "Display as radio buttons (can't be multiple)"
+            ],
             "max_options" => [
                 "label" => "Maximum number of choices"
             ],
