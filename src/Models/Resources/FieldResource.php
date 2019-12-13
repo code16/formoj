@@ -42,6 +42,10 @@ class FieldResource extends JsonResource
                 $this->isTypeSelect(),
                 $this->fieldAttribute('multiple')
             ),
+            'radios' => $this->when(
+                $this->isTypeSelect(),
+                $this->fieldAttribute('radios')
+            ),
             'max' => $this->when(
                 $this->isTypeSelect() && $this->fieldAttribute('multiple'),
                 $this->fieldAttribute('max_options')

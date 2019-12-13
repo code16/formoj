@@ -18,6 +18,9 @@ class SelectFieldCreator extends TextFieldCreator
     /** @var bool */
     protected $multiple = false;
 
+    /** @var bool */
+    protected $radios = false;
+
     /**
      * @param Section $section
      * @param $label
@@ -29,7 +32,6 @@ class SelectFieldCreator extends TextFieldCreator
 
         $this->setOptions($options);
     }
-
 
     /**
      * @return string
@@ -73,13 +75,25 @@ class SelectFieldCreator extends TextFieldCreator
     }
 
     /**
+     * @param bool $radios
+     * @return $this
+     */
+    public function setRadios(bool $radios = true)
+    {
+        $this->radios = $radios;
+
+        return $this;
+    }
+
+    /**
      * @return array
      */
     protected function getFieldAttributes()
     {
         return [
             "options" => (array) $this->options,
-            "multiple" => $this->multiple,
+            "multiple" => $this->multiple && !$this->radios,
+            "radios" => $this->radios,
             "max_options" => $this->maxOptions,
         ];
     }
