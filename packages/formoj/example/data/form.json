@@ -43,6 +43,23 @@
               }
             ],
             "helpText": "Texte d'aide pour faire comprendre quelque chose à l'utilisateur"
+          },
+          {
+            "id": 8,
+            "type": "select",
+            "multiple": false,
+            "radios": true,
+            "label": "Genre",
+            "options": [
+              {
+                "id": 1,
+                "label": "Mâle"
+              },
+              {
+                "id": 2,
+                "label": "Femelle"
+              }
+            ]
           }
         ]
       },

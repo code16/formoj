@@ -61,11 +61,16 @@ class FormojFieldSharpForm extends SharpForm
         )->addField(
             SharpFormCheckField::make("multiple", trans("formoj::sharp.fields.fields.multiple.text"))
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
+                ->addConditionalDisplay("!radios")
+        )->addField(
+            SharpFormCheckField::make("radios", trans("formoj::sharp.fields.fields.radios.text"))
+                ->addConditionalDisplay("type", Field::TYPE_SELECT)
         )->addField(
             SharpFormTextField::make("max_options")
                 ->setLabel(trans("formoj::sharp.fields.fields.max_options.label"))
                 ->addConditionalDisplay("type", Field::TYPE_SELECT)
                 ->addConditionalDisplay("multiple")
+                ->addConditionalDisplay("!radios")
         )->addField(
             SharpFormListField::make("options")
                 ->setLabel(trans("formoj::sharp.fields.fields.options.label"))
@@ -116,6 +121,7 @@ class FormojFieldSharpForm extends SharpForm
                 ->withSingleField("options", function(FormLayoutColumn $column) {
                     $column->withSingleField("label");
                 })
+                ->withSingleField("radios")
                 ->withSingleField("multiple")
                 ->withSingleField("max_options");
         });
@@ -129,7 +135,7 @@ class FormojFieldSharpForm extends SharpForm
      */
     function find($id): array
     {
-        foreach(["max_length", "rows_count", "max_options", "multiple", "max_size", "accept"] as $attribute) {
+        foreach(["max_length", "rows_count", "max_options", "radios", "multiple", "max_size", "accept"] as $attribute) {
             $this->setCustomTransformer($attribute, function($value, $field) use($attribute) {
                 return $field->fieldAttribute($attribute);
             });
@@ -171,7 +177,7 @@ class FormojFieldSharpForm extends SharpForm
             $this->transformAttributesToFieldAttributes($data, ["max_length" => "int", "rows_count" => "int"]);
 
         } elseif($data["type"] == Field::TYPE_SELECT) {
-            $this->transformAttributesToFieldAttributes($data, ["max_options" => "int", "multiple" => "boolean"]);
+            $this->transformAttributesToFieldAttributes($data, ["max_options" => "int", "multiple" => "boolean", "radios" => "boolean"]);
             $data["field_attributes"]["options"] = collect($data["options"])->pluck("label")->all();
 
         } elseif($data["type"] == Field::TYPE_UPLOAD) {
@@ -180,7 +186,7 @@ class FormojFieldSharpForm extends SharpForm
 
         unset(
             $data["max_length"], $data["rows_count"], $data["options"],
-            $data["max_options"], $data["multiple"],
+            $data["max_options"], $data["multiple"], $data["radios"],
             $data["max_size"], $data["accept"]
         );
 
@@ -197,6 +203,10 @@ class FormojFieldSharpForm extends SharpForm
         Field::findOrFail($id)->delete();
     }
 
+    /**
+     * @param $data
+     * @param array $attributeLabels
+     */
     protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels)
     {
         collect($data)

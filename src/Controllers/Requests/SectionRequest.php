@@ -45,7 +45,7 @@ class SectionRequest extends FormRequest
                             })
                     );
 
-                    if($field->fieldAttribute("multiple")) {
+                    if(!$field->fieldAttribute("radios") && $field->fieldAttribute("multiple")) {
                         $rules[] = "array";
 
                         if($field->fieldAttribute("max_options")) {

@@ -133,6 +133,7 @@ class FormojFormControllerTest extends FormojTestCase
         $field = factory(Field::class)->create([
             "type" => "select",
             "field_attributes->multiple" => false,
+            "field_attributes->radios" => true,
             "field_attributes->options" => ["A", "B", "C"],
             "section_id" => factory(Section::class)->create([
                 "form_id" => factory(Form::class)->create([
@@ -153,7 +154,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "identifier" => $field->identifier,
                         "helpText" => $field->help_text,
                         "required" => $field->required,
-                        "multiple" => false,
+                        "radios" => true,
                         "options" => [
                             ["id"=>1, "label"=>"A"],
                             ["id"=>2, "label"=>"B"],
@@ -170,6 +171,7 @@ class FormojFormControllerTest extends FormojTestCase
         $field = factory(Field::class)->create([
             "type" => "select",
             "field_attributes->multiple" => true,
+            "field_attributes->radios" => false,
             "field_attributes->max_options" => 2,
             "field_attributes->options" => ["A", "B", "C"],
             "section_id" => factory(Section::class)->create([
@@ -192,6 +194,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "helpText" => $field->help_text,
                         "required" => $field->required,
                         "multiple" => true,
+                        "radios" => false,
                         "max" => 2,
                         "options" => [
                             ["id"=>1, "label"=>"A"],

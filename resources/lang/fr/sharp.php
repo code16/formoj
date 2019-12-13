@@ -112,6 +112,9 @@ return [
             "multiple" => [
                 "text" => "Autoriser plusieurs réponses"
             ],
+            "radios" => [
+                "text" => "Afficher sous forme de boutons radio (contraint une seule réponse)"
+            ],
             "max_options" => [
                 "label" => "Nombre maximum de réponses"
             ],
