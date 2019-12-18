@@ -1,11 +1,18 @@
 import template from 'lodash/template';
 import * as i18n from '../lang';
 import { config } from "./config";
-import merge from 'lodash.merge';
 
-
-export function createI18nConfig(customs) {
-    return merge(i18n, customs);
+export function createI18nConfig(customs = {}) {
+    return {
+        ...i18n,
+        ...Object.entries(customs).reduce((res, [key, lang]) => ({
+            ...res,
+            [key]: {
+                ...i18n[key],
+                ...lang,
+            }
+        }), {}),
+    };
 }
 
 export function getDefaultLocale() {

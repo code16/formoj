@@ -2,12 +2,16 @@ const mix = require('laravel-mix');
 
 mix.js('src/index.js', 'dist/formoj.js')
     .webpackConfig({
+        plugins: [
+            // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)()
+        ],
         output: {
             libraryTarget:'umd'
         },
         externals: [
             'axios',
-            'core-js',
+            'vue2-dropzone',
+            /^core-js/,
         ],
         module: {
             rules: [

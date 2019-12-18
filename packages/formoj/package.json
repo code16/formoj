@@ -20,17 +20,21 @@
     "url": "https://github.com/code16/formoj/issues"
   },
   "homepage": "https://github.com/code16/formoj#readme",
-  "dependencies": {
+  "peerDependencies": {
     "axios": "^0.18.1",
-    "core-js": "^3.2.1",
-    "lodash.merge": "^4.6.1",
+    "core-js": "^3.0"
+  },
+  "dependencies": {
     "vue2-dropzone": "^3.6.0"
   },
   "devDependencies": {
+    "axios": "^0.18.1",
     "@babel/runtime": "^7.3.4",
     "@vue/cli": "^3.4.1",
     "laravel-mix": "^5.0.0",
     "vue": "^2.6.8",
-    "vue-template-compiler": "^2.6.8"
+    "core-js": "^3.2.1",
+    "vue-template-compiler": "^2.6.8",
+    "webpack-bundle-analyzer": "^3.6.0"
   }
 }
