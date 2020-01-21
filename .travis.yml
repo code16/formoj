@@ -25,7 +25,7 @@ matrix:
 before_install:
   - composer config discard-changes true
   - travis_retry composer self-update
-  - travis_retry composer require "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}" "phpunit/phpunit:7.5" --no-update --prefer-dist
+  - travis_retry composer require "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}" --no-update --prefer-dist
 
 install:
   - travis_retry composer update ${COMPOSER_FLAGS} --no-interaction --prefer-dist --no-suggest
