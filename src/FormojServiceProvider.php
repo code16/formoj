@@ -23,7 +23,7 @@ class FormojServiceProvider extends ServiceProvider
         ]);
 
         $this->publishes([
-            dirname(__DIR__) . '/lang' => resource_path('lang/vendor/formoj')
+            dirname(__DIR__) . '/resources/lang' => resource_path('lang/vendor/formoj')
         ], 'lang');
 
         $this->publishes([
