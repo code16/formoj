@@ -28,12 +28,12 @@
     "vue2-dropzone": "^3.6.0"
   },
   "devDependencies": {
-    "axios": "^0.18.1",
     "@babel/runtime": "^7.3.4",
     "@vue/cli": "^3.4.1",
-    "laravel-mix": "^5.0.0",
-    "vue": "^2.6.8",
+    "axios": "^0.18.1",
     "core-js": "^3.2.1",
+    "laravel-mix": "^5.0.4",
+    "vue": "^2.6.8",
     "vue-template-compiler": "^2.6.8",
     "webpack-bundle-analyzer": "^3.6.0"
   }
