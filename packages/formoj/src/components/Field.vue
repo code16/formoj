@@ -92,6 +92,7 @@
                     this.field.type === 'select'
                     && this.field.multiple
                     && typeof this.field.max === 'number'
+                    && this.field.max < this.field.options?.length
                 );
                 if(isMultipleSelectWithMax) {
                     return this.$t('field.help_text.select_max', { max:this.field.max });
