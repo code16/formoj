@@ -21,7 +21,7 @@ class FormojFormFilterHandler implements EntityListRequiredFilter
      */
     public function values()
     {
-        return Form::orderBy("title")
+        return Form::orderBy("id")
             ->get()
             ->mapWithKeys(function(Form $form) {
                 return [$form->id => "#" . $form->id . " - " . ($form->title ?: trans("formoj::sharp.forms.no_title"))];
@@ -33,7 +33,7 @@ class FormojFormFilterHandler implements EntityListRequiredFilter
      */
     public function defaultValue()
     {
-        return Form::orderBy("title")->first()->id ?? null;
+        return Form::orderBy("id", "desc")->first()->id ?? null;
     }
 
     /**
