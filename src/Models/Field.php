@@ -89,9 +89,10 @@ class Field extends Model
      * Example: f123 -> 123
      *
      * @param  mixed  $value
+     * @param  string|null  $field
      * @return \Illuminate\Database\Eloquent\Model|null
      */
-    public function resolveRouteBinding($value)
+    public function resolveRouteBinding($value, $field = null)
     {
         return $this->findOrFail(substr($value, 1));
     }
