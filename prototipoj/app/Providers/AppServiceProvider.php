@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Code16\Formoj\FormojServiceProvider;
+use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->app->make(Factory::class)
+            ->load(__DIR__ . '/../../../database/factories');
     }
 }
