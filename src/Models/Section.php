@@ -5,11 +5,15 @@ namespace Code16\Formoj\Models;
 use Code16\Formoj\Models\Creators\SelectFieldCreator;
 use Code16\Formoj\Models\Creators\TextareaFieldCreator;
 use Code16\Formoj\Models\Creators\TextFieldCreator;
+use Database\Factories\SectionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class Section extends Model
 {
+    use HasFactory;
+
     protected $table = "formoj_sections";
 
     protected $guarded = ["id"];
@@ -21,6 +25,16 @@ class Section extends Model
     protected $dates = [
         "created_at", "updated_at",
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return SectionFactory::new();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

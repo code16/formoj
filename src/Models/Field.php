@@ -2,10 +2,14 @@
 
 namespace Code16\Formoj\Models;
 
+use Database\Factories\FieldFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Field extends Model
 {
+    use HasFactory;
+
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
@@ -25,6 +29,16 @@ class Field extends Model
     protected $dates = [
         "created_at", "updated_at",
     ];
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return FieldFactory::new();
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

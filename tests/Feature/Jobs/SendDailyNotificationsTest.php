@@ -21,8 +21,8 @@ class SendDailyNotificationsTest extends FormojTestCase
     {
         Notification::fake();
 
-        $answers = factory(Answer::class, 4)->create([
-            "form_id" => factory(Form::class)->create([
+        $answers = Answer::factory()->count(4)->create([
+            "form_id" => Form::factory()->create([
                 "notifications_strategy" => Form::NOTIFICATION_STRATEGY_GROUPED,
                 "administrator_email" => "admin@example.org"
             ])
@@ -34,8 +34,8 @@ class SendDailyNotificationsTest extends FormojTestCase
         $outDatedAnswer->save(['timestamps' => false]);
 
         // Create answer for various forms without NOTIFICATION_STRATEGY_GROUPED
-        factory(Answer::class, 10)->create([
-            "form_id" => factory(Form::class)->create([
+        Answer::factory()->count(10)->create([
+            "form_id" => Form::factory()->create([
                 "notifications_strategy" => Form::NOTIFICATION_STRATEGY_EVERY,
                 "administrator_email" => "admin2@example.org"
             ])

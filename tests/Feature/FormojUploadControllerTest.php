@@ -19,20 +19,25 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
-            ])->id
+            ])->id,
+            "field_attributes" => [
+                //default attributes for upload type field
+                "max_size" => 4,
+                "accept" => ".jpeg,.jpg,.gif,.png,.pdf"
+            ]
         ]);
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
-                "file" => UploadedFile::fake()->image('image.jpg')
+                "file" => UploadedFile::fake()->image('image.jpg')->size(100)
             ])
             ->assertStatus(200)
             ->assertJson(["file" => "image.jpg"]);
@@ -45,13 +50,13 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
             "field_attributes->max_size" => 1,
             "field_attributes->accept" => ".jpeg",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -76,11 +81,11 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => Field::TYPE_TEXT,
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -101,22 +106,27 @@ class FormojUploadControllerTest extends FormojTestCase
 
         Storage::fake('local');
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
-            ])->id
+            ])->id,
+            "field_attributes" => [
+                //default attributes for upload type field
+                "max_size" => 4,
+                "accept" => ".jpeg,.jpg,.gif,.png,.pdf"
+            ]
         ]);
 
         UploadedFile::fake()->image('image.jpg')->storeAs("formoj/tmp/{$field->section->form_id}", "image.jpg", "local");
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
-                "file" => UploadedFile::fake()->image('image.jpg')
+                "file" => $file = UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(200)
             ->assertJson(["file" => "image-1.jpg"]);
