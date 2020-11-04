@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Field extends Model
 {
-
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";

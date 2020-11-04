@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class Section extends Model
 {
-
     protected $table = "formoj_sections";
 
     protected $guarded = ["id"];

@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Notification;
 
 class Form extends Model
 {
-
     const NOTIFICATION_STRATEGY_EVERY = "every";
     const NOTIFICATION_STRATEGY_GROUPED = "grouped";
     const NOTIFICATION_STRATEGY_NONE = "none";

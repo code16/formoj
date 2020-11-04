@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-
     protected $table = "formoj_answers";
 
     protected $guarded = ["id"];

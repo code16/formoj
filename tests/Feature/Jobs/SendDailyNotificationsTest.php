@@ -21,7 +21,7 @@ class SendDailyNotificationsTest extends FormojTestCase
     {
         Notification::fake();
 
-        $answers = factory(Answer::class,4)->create([
+        $answers = factory(Answer::class, 4)->create([
             "form_id" => factory(Form::class)->create([
                 "notifications_strategy" => Form::NOTIFICATION_STRATEGY_GROUPED,
                 "administrator_email" => "admin@example.org"

@@ -37,7 +37,7 @@ class FormojUploadControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
-                "file" => UploadedFile::fake()->image('image.jpg')->size(100)
+                "file" => UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(200)
             ->assertJson(["file" => "image.jpg"]);
@@ -126,7 +126,7 @@ class FormojUploadControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}/upload/f{$field->id}", [
-                "file" => $file = UploadedFile::fake()->image('image.jpg')
+                "file" => UploadedFile::fake()->image('image.jpg')
             ])
             ->assertStatus(200)
             ->assertJson(["file" => "image-1.jpg"]);
