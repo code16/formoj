@@ -19,11 +19,11 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -50,13 +50,13 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
             "field_attributes->max_size" => 1,
             "field_attributes->accept" => ".jpeg",
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -81,11 +81,11 @@ class FormojUploadControllerTest extends FormojTestCase
     {
         Storage::fake('local');
 
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => Field::TYPE_TEXT,
             "required" => true,
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -106,11 +106,11 @@ class FormojUploadControllerTest extends FormojTestCase
 
         Storage::fake('local');
 
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => Field::TYPE_UPLOAD,
             "required" => true,
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id

@@ -13,7 +13,8 @@
     "laravel/framework": "5.8.*|^6.0|^7.0|^8.0",
     "nesbot/carbon": "^2.0",
     "maatwebsite/excel": "^3.1",
-    "ext-zip": "*"
+    "ext-zip": "*",
+    "laravel/legacy-factories": "^1.1"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
@@ -25,9 +26,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Code16\\Formoj\\": "src/",
-      "Database\\Factories\\": "database/factories/",
-      "Database\\Seeders\\": "database/seeders/"
+      "Code16\\Formoj\\": "src/"
     }
   },
   "autoload-dev": {

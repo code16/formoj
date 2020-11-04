@@ -2,13 +2,10 @@
 
 namespace Code16\Formoj\Models;
 
-use Database\Factories\AnswerFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    use HasFactory;
 
     protected $table = "formoj_answers";
 
@@ -22,16 +19,6 @@ class Answer extends Model
     protected $dates = [
         "created_at", "updated_at",
     ];
-
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
-    {
-        return AnswerFactory::new();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

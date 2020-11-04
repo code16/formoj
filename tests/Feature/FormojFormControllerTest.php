@@ -22,10 +22,10 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_properly_formatted()
     {
-        $field = Field::factory()->create([
-            "section_id" => Section::factory()->create([
+        $field = factory(Field::class)->create([
+            "section_id" => factory(Section::class)->create([
                 "is_title_hidden" => true,
-                "form_id" => Form::factory()->create([
+                "form_id" => factory(Form::class)->create([
                     "is_title_hidden" => true,
                     "published_at" => null,
                     "unpublished_at" => null,
@@ -66,11 +66,11 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_a_text_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "text",
             "field_attributes->max_length" => 10,
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -97,12 +97,12 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_a_textarea_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "textarea",
             "field_attributes->max_length" => 10,
             "field_attributes->rows_count" => 12,
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -130,13 +130,13 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_a_single_select_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "select",
             "field_attributes->multiple" => false,
             "field_attributes->radios" => true,
             "field_attributes->options" => ["A", "B", "C"],
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -168,14 +168,14 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_a_multiple_select_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "select",
             "field_attributes->multiple" => true,
             "field_attributes->radios" => false,
             "field_attributes->max_options" => 2,
             "field_attributes->options" => ["A", "B", "C"],
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -209,10 +209,10 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_an_heading_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "heading",
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -236,12 +236,12 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_an_upload_field()
     {
-        $field = Field::factory()->create([
+        $field = factory(Field::class)->create([
             "type" => "upload",
             "field_attributes->max_size" => 4,
             "field_attributes->accept" => ".jpg,.gif",
-            "section_id" => Section::factory()->create([
-                "form_id" => Form::factory()->create([
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -269,7 +269,7 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_not_get_a_not_published_already_form()
     {
-        $form = Form::factory()->create([
+        $form = factory(Form::class)->create([
             "published_at" => now()->addHour(),
             "unpublished_at" => null,
         ]);
@@ -281,7 +281,7 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_not_get_a_to_be_published_in_the_future_form()
     {
-        $form = Form::factory()->create([
+        $form = factory(Form::class)->create([
             "published_at" => null,
             "unpublished_at" => now()->subHour(),
         ]);
@@ -293,7 +293,7 @@ class FormojFormControllerTest extends FormojTestCase
     /** @test */
     function we_can_get_a_form_with_valid_publish_dates()
     {
-        $form = Form::factory()->create([
+        $form = factory(Form::class)->create([
             "published_at" => now()->subHour(),
             "unpublished_at" => now()->addHour(),
         ]);

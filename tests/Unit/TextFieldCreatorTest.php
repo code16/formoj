@@ -15,7 +15,7 @@ class TextFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_default_text_field()
     {
-        (new TextFieldCreator(Section::factory()->create(), "test"))
+        (new TextFieldCreator(factory(Section::class)->create(), "test"))
             ->create();
 
         $this->assertDatabaseHas("formoj_fields", [
@@ -32,7 +32,7 @@ class TextFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_custom_text_field()
     {
-        (new TextFieldCreator(Section::factory()->create(), "test"))
+        (new TextFieldCreator(factory(Section::class)->create(), "test"))
             ->setRequired()
             ->setHelpText("help")
             ->setMaxLength(12)

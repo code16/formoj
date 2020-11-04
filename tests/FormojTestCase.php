@@ -2,6 +2,7 @@
 
 namespace Code16\Formoj\Tests;
 
+use Illuminate\Database\Eloquent\Factory;
 use Orchestra\Testbench\TestCase;
 
 class FormojTestCase extends TestCase
@@ -10,6 +11,9 @@ class FormojTestCase extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->app->make(Factory::class)
+            ->load(__DIR__ . '/../database/factories');
     }
 
     /**

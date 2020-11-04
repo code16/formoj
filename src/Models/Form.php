@@ -3,14 +3,11 @@
 namespace Code16\Formoj\Models;
 
 use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
-use Database\Factories\FormFactory;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Notification;
 
 class Form extends Model
 {
-    use HasFactory;
 
     const NOTIFICATION_STRATEGY_EVERY = "every";
     const NOTIFICATION_STRATEGY_GROUPED = "grouped";
@@ -25,16 +22,6 @@ class Form extends Model
     protected $casts = [
         "is_title_hidden" => "boolean",
     ];
-
-    /**
-     * Create a new factory instance for the model.
-     *
-     * @return \Illuminate\Database\Eloquent\Factories\Factory
-     */
-    protected static function newFactory()
-    {
-        return FormFactory::new();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

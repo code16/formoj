@@ -1,5 +1,9 @@
 <?php
 
+use App\User;
+use Code16\Formoj\Models\Field;
+use Code16\Formoj\Models\Form;
+use Code16\Formoj\Models\Section;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -11,23 +15,23 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\User::factory()->create([
+        factory(User::class)->create([
             "email" => "admin@example.com",
         ]);
 
-        foreach(\Code16\Formoj\Models\Form::factory()->count(5)->create() as $form) {
+        foreach(factory(Form::class, 5)->create() as $form) {
             for($k=1; $k<=rand(1, 4); $k++) {
-                $section = \Code16\Formoj\Models\Section::factory()->create([
+                $section = factory(Section::class)->create([
                     "title" => "Section $k",
                     "form_id" => $form->id
                 ]);
 
                 if(rand(0, 9) >= 6) {
-                    \Code16\Formoj\Models\Field::factory()->count(rand(1, 3))->create([
+                    factory(Field::class, rand(1, 3))->create([
                         "section_id" => $section->id
                     ]);
 
-                    \Code16\Formoj\Models\Field::factory()->create([
+                    factory(Field::class)->create([
                         "type" => "heading",
                         "required" => false,
                         "help_text" => null,
@@ -35,7 +39,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
 
-                \Code16\Formoj\Models\Field::factory()->count(rand(3, 8))->create([
+                factory(Field::class, rand(3, 8))->create([
                     "section_id" => $section->id
                 ]);
             }
