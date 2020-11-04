@@ -32,11 +32,11 @@ $factory->define(\Code16\Formoj\Models\Section::class, function (Faker $faker) {
 
 $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $attributes) {
     $type = $attributes["type"] ?? $faker->randomElement([
-        \Code16\Formoj\Models\Field::TYPE_TEXT,
-        \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
-        \Code16\Formoj\Models\Field::TYPE_SELECT,
-        \Code16\Formoj\Models\Field::TYPE_UPLOAD,
-    ]);
+            \Code16\Formoj\Models\Field::TYPE_TEXT,
+            \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
+            \Code16\Formoj\Models\Field::TYPE_SELECT,
+            \Code16\Formoj\Models\Field::TYPE_UPLOAD,
+        ]);
 
     $fieldAttributes = [];
 

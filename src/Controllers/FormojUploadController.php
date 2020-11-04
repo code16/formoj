@@ -23,6 +23,7 @@ class FormojUploadController
     /**
      * @param Form $form
      * @param Field $field
+     * @param UploadRequest $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Form $form, Field $field, UploadRequest $request)

@@ -27,7 +27,12 @@ class FormojUploadControllerTest extends FormojTestCase
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
-            ])->id
+            ])->id,
+            "field_attributes" => [
+                //default attributes for upload type field
+                "max_size" => 4,
+                "accept" => ".jpeg,.jpg,.gif,.png,.pdf"
+            ]
         ]);
 
         $this
@@ -109,7 +114,12 @@ class FormojUploadControllerTest extends FormojTestCase
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
-            ])->id
+            ])->id,
+            "field_attributes" => [
+                //default attributes for upload type field
+                "max_size" => 4,
+                "accept" => ".jpeg,.jpg,.gif,.png,.pdf"
+            ]
         ]);
 
         UploadedFile::fake()->image('image.jpg')->storeAs("formoj/tmp/{$field->section->form_id}", "image.jpg", "local");
