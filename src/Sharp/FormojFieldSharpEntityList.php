@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
+use Code16\Formoj\Models\Section;
 use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
 use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
@@ -64,10 +65,10 @@ class FormojFieldSharpEntityList extends SharpEntityList
      */
     function getListData(EntityListQueryParams $params)
     {
-        $section = $params->filterFor("formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue();
-
+        $section = $this->getCurrentSection($params);
+        
         $fields = Field::orderBy("order")
-            ->where("section_id", $section);
+            ->where("section_id", $section->id);
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {
@@ -106,5 +107,10 @@ class FormojFieldSharpEntityList extends SharpEntityList
         ];
 
         return $value ? ($types[$value] ?? null) : $types;
+    }
+
+    protected function getCurrentSection(EntityListQueryParams $params): Section
+    {
+        return $params->filterFor("formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue();
     }
 }

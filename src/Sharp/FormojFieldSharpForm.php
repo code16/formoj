@@ -155,18 +155,11 @@ class FormojFieldSharpForm extends SharpForm
             ->transform(Field::findOrFail($id));
     }
 
-    /**
-     * @param $id
-     * @param array $data
-     * @return mixed
-     */
     function update($id, array $data)
     {
         $field = $id
             ? Field::findOrFail($id)
-            : new Field([
-                "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
-            ]);
+            : $this->getFieldForCreation();
 
         $data["field_attributes"] = [];
 
@@ -195,18 +188,11 @@ class FormojFieldSharpForm extends SharpForm
         return $field->id;
     }
 
-    /**
-     * @param $id
-     */
     function delete($id)
     {
         Field::findOrFail($id)->delete();
     }
 
-    /**
-     * @param $data
-     * @param array $attributeLabels
-     */
     protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels)
     {
         collect($data)
@@ -219,13 +205,13 @@ class FormojFieldSharpForm extends SharpForm
     }
 
     /**
-     * @param string $value
+     * @param ?string $value
      * @param string $type
      * @return bool|int|string
      */
-    protected function castValue($value, $type)
+    protected function castValue(?string $value, string $type)
     {
-        if(strlen($value) == 0) {
+        if($value === null || strlen($value) == 0) {
             return null;
         }
 
@@ -237,5 +223,12 @@ class FormojFieldSharpForm extends SharpForm
         }
 
         return $value;
+    }
+
+    protected function getFieldForCreation(): Field
+    {
+        return new Field([
+            "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
+        ]);
     }
 }

@@ -14,6 +14,8 @@ class Form extends Model
 
     protected $table = "formoj_forms";
 
+    protected $guarded = ["id"];
+
     protected $dates = [
         "created_at", "updated_at", "published_at", "unpublished_at"
     ];
