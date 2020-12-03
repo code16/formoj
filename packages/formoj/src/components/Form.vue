@@ -9,7 +9,7 @@
         <div class="fj-form__content">
             <template v-if="currentSection">
                 <fj-section
-                    :fields="currentSection.fields"
+                    :fields="currentFields"
                     :title="currentSection.title"
                     :is-title-hidden="currentSection.isTitleHidden"
                     :description="currentSection.description"
@@ -21,7 +21,7 @@
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                 >
-                    <template slot="field" slot-scope="{ field }">
+                    <template v-slot:field="{ field }">
                         <fj-field
                             :id="fieldIdAttribute(field)"
                             :value="fieldValue(field)"
@@ -34,7 +34,7 @@
                             @clear="handleFieldClear(field)"
                         />
                     </template>
-                    <template slot="indication">
+                    <template v-slot:indication>
                         <template v-if="isIndicationVisible">{{ currentIndication }}</template>
                     </template>
                 </fj-section>
@@ -44,8 +44,10 @@
 </template>
 
 <script>
+    import pick from 'lodash/pick';
     import FjSection from './Section.vue';
     import FjField from './Field.vue';
+    import { isVisible } from "../util/visibility";
 
     export default {
         name: 'FjForm',
@@ -85,6 +87,14 @@
         },
 
         computed: {
+            currentFields() {
+                const fields = this.currentSection?.fields ?? [];
+                return fields.filter(field => isVisible(field, this.data));
+            },
+            visibleSections() {
+                return this.sections
+                    .filter(section => isVisible(section, this.data))
+            },
             currentSection() {
                 return this.sections[this.currentSectionIndex];
             },
@@ -92,13 +102,13 @@
                 return this.currentSectionIndex === 0;
             },
             isCurrentLast() {
-                return this.currentSectionIndex === this.sections.length - 1;
+                return this.currentSectionIndex === this.visibleSections.length - 1;
             },
             isIndicationVisible() {
                 return !this.isCurrentLast;
             },
             currentIndication() {
-                return `${this.currentSectionIndex + 1}/${this.sections.length}`;
+                return `${this.currentSectionIndex + 1}/${this.visibleSections.length}`;
             },
 
             classes() {
@@ -148,10 +158,16 @@
 
             handleFieldChanged(field, value) {
                 const fieldKey = this.fieldKey(field);
-                this.data = {
+                const data = {
                     ...this.data,
                     [fieldKey]: value,
                 };
+                // keep only visible fields
+                this.data = pick(data,
+                    this.sections.map(s => s.fields).flat()
+                        .filter(field => isVisible(field, data))
+                        .map(f => f.id)
+                );
             },
             handleFieldError(field, message) {
                 const fieldKey = this.fieldKey(field);

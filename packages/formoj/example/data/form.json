@@ -50,6 +50,9 @@
             "multiple": false,
             "radios": true,
             "label": "Genre",
+            "conditionalDisplay": {
+              "5": [1]
+            },
             "options": [
               {
                 "id": 1,
@@ -67,6 +70,9 @@
         "id": 2,
         "title": "Ma section 2",
         "description": "Deuxième questions",
+        "conditionalDisplay": {
+          "8": [1]
+        },
         "fields": [
           {
             "id": 2,
