@@ -3,7 +3,6 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
-use Code16\Formoj\Models\Section;
 use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
 use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
@@ -13,43 +12,31 @@ use Code16\Sharp\EntityList\SharpEntityList;
 
 class FormojFieldSharpEntityList extends SharpEntityList
 {
-    /**
-     * Build list containers using ->addDataContainer()
-     *
-     * @return void
-     */
-    function buildListDataContainers()
+    function buildListDataContainers(): void
     {
-        $this->addDataContainer(
-            EntityListDataContainer::make("type")
-                ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("label")
-                ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("help_text")
-                ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
-        );
+        $this
+            ->addDataContainer(
+                EntityListDataContainer::make("type")
+                    ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("label")
+                    ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("help_text")
+                    ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
+            );
     }
 
-    /**
-     * Build list layout using ->addColumn()
-     *
-     * @return void
-     */
-    function buildListLayout()
+    function buildListLayout(): void
     {
         $this->addColumn("type", 3, 5)
             ->addColumn("label", 5, 7)
             ->addColumnLarge("help_text", 4);
     }
 
-    /**
-     * Build list config
-     *
-     * @return void
-     */
-    function buildListConfig()
+    function buildListConfig(): void
     {
         $this
             ->addFilter("formoj_form", FormojFormFilterHandler::class)
@@ -57,18 +44,12 @@ class FormojFieldSharpEntityList extends SharpEntityList
             ->setReorderable(FormojFieldReorderHandler::class);
     }
 
-    /**
-     * Retrieve all rows data as array.
-     *
-     * @param EntityListQueryParams $params
-     * @return array
-     */
     function getListData(EntityListQueryParams $params)
     {
-        $section = $this->getCurrentSection($params);
+        $sectionId = $this->getCurrentSectionId($params);
         
         $fields = Field::orderBy("order")
-            ->where("section_id", $section->id);
+            ->where("section_id", $sectionId);
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {
@@ -94,9 +75,9 @@ class FormojFieldSharpEntityList extends SharpEntityList
 
     /**
      * @param string|null $value
-     * @return array
+     * @return array|string|null
      */
-    public static function fieldTypes($value = null)
+    public static function fieldTypes(?string $value = null)
     {
         $types = [
             Field::TYPE_TEXT => trans("formoj::sharp.fields.types." . Field::TYPE_TEXT),
@@ -109,7 +90,7 @@ class FormojFieldSharpEntityList extends SharpEntityList
         return $value ? ($types[$value] ?? null) : $types;
     }
 
-    protected function getCurrentSection(EntityListQueryParams $params): Section
+    protected function getCurrentSectionId(EntityListQueryParams $params): int
     {
         return $params->filterFor("formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue();
     }

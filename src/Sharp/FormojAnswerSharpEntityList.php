@@ -14,39 +14,26 @@ use Code16\Sharp\EntityList\SharpEntityList;
 class FormojAnswerSharpEntityList extends SharpEntityList
 {
 
-    /**
-     * Build list containers using ->addDataContainer()
-     *
-     * @return void
-     */
-    function buildListDataContainers()
+    function buildListDataContainers(): void
     {
-        $this->addDataContainer(
-            EntityListDataContainer::make("created_at")
-                ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("content")
-                ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
-        );
+        $this
+            ->addDataContainer(
+                EntityListDataContainer::make("created_at")
+                    ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("content")
+                    ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
+            );
     }
 
-    /**
-     * Build list layout using ->addColumn()
-     *
-     * @return void
-     */
-    function buildListLayout()
+    function buildListLayout(): void
     {
         $this->addColumn("created_at", 3, 5)
             ->addColumn("content", 9, 7);
     }
 
-    /**
-     * Build list config
-     *
-     * @return void
-     */
-    function buildListConfig()
+    function buildListConfig(): void
     {
         $this
             ->addFilter("formoj_form", FormojFormFilterHandler::class)
@@ -56,12 +43,6 @@ class FormojAnswerSharpEntityList extends SharpEntityList
             ->addInstanceCommand("download_answer_files", FormojAnswerDownloadFilesCommand::class);
     }
 
-    /**
-     * Retrieve all rows data as array.
-     *
-     * @param EntityListQueryParams $params
-     * @return array
-     */
     function getListData(EntityListQueryParams $params)
     {
         $answers = Answer::orderBy("created_at", "desc")

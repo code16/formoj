@@ -10,37 +10,32 @@ use Code16\Sharp\EntityList\SharpEntityList;
 class FormojFormSharpEntityList extends SharpEntityList
 {
 
-    /**
-     * Build list containers using ->addDataContainer()
-     *
-     * @return void
-     */
-    function buildListDataContainers()
+    function buildListDataContainers(): void
     {
-        $this->addDataContainer(
-            EntityListDataContainer::make("ref")
-                ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("title")
-                ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("description")
-                ->setLabel(trans("formoj::sharp.forms.list.columns.description_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("published_at")
-                ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
-        )->addDataContainer(
-            EntityListDataContainer::make("sections")
-                ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
-        );
+        $this
+            ->addDataContainer(
+                EntityListDataContainer::make("ref")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("title")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("description")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.description_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("published_at")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
+            )
+            ->addDataContainer(
+                EntityListDataContainer::make("sections")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
+            );
     }
 
-    /**
-     * Build list layout using ->addColumn()
-     *
-     * @return void
-     */
-    function buildListLayout()
+    function buildListLayout(): void
     {
         $this
             ->addColumn("ref", 1)
@@ -50,21 +45,10 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->addColumnLarge("sections", 3);
     }
 
-    /**
-     * Build list config
-     *
-     * @return void
-     */
-    function buildListConfig()
+    function buildListConfig(): void
     {
     }
 
-    /**
-     * Retrieve all rows data as array.
-     *
-     * @param EntityListQueryParams $params
-     * @return array
-     */
     function getListData(EntityListQueryParams $params)
     {
         return $this
@@ -104,11 +88,7 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->transform(Form::with("sections")->get());
     }
 
-    /**
-     * @param string|null $value
-     * @return array
-     */
-    public static function notificationStrategies($value = null)
+    public static function notificationStrategies(?string $value = null): ?array
     {
         $types = [
             Form::NOTIFICATION_STRATEGY_NONE => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_NONE),

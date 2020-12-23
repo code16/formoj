@@ -8,10 +8,7 @@ use Code16\Sharp\EntityList\Commands\ReorderHandler;
 class FormojFieldReorderHandler implements ReorderHandler
 {
 
-    /**
-     * @param array $ids
-     */
-    function reorder(array $ids)
+    function reorder(array $ids): void
     {
         Field::whereIn("id", $ids)
             ->get()
