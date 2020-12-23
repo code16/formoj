@@ -19,25 +19,15 @@ use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
 class AnswersExcelCollection extends DefaultValueBinder implements WithCustomValueBinder, FromCollection, WithHeadings, ShouldAutoSize, WithColumnFormatting
 {
-    /** @var Form */
-    protected $form;
+    protected Form $form;
+    protected Collection $answers;
 
-    /** @var Collection */
-    protected $answers;
-
-    /**
-     * @param Form $form
-     * @param $answers
-     */
-    public function __construct(Form $form, $answers)
+    public function __construct(Form $form, Collection $answers)
     {
         $this->form = $form;
         $this->answers = $answers;
     }
 
-    /**
-     * @return array
-     */
     public function headings(): array
     {
         return array_merge(
@@ -56,9 +46,6 @@ class AnswersExcelCollection extends DefaultValueBinder implements WithCustomVal
         );
     }
 
-    /**
-     * @return array
-     */
     public function columnFormats(): array
     {
         return [
@@ -66,10 +53,7 @@ class AnswersExcelCollection extends DefaultValueBinder implements WithCustomVal
         ];
     }
 
-    /**
-     * @return Collection
-     */
-    public function collection()
+    public function collection(): Collection
     {
         $missingAnswers = collect($this->headings())
             ->mapWithKeys(function($key) {

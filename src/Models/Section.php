@@ -5,8 +5,10 @@ namespace Code16\Formoj\Models;
 use Code16\Formoj\Models\Creators\SelectFieldCreator;
 use Code16\Formoj\Models\Creators\TextareaFieldCreator;
 use Code16\Formoj\Models\Creators\TextFieldCreator;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Section extends Model
 {
@@ -22,47 +24,33 @@ class Section extends Model
         "created_at", "updated_at",
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function form()
+    public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function fields()
+    public function fields(): HasMany
     {
         return $this->hasMany(Field::class)
             ->orderBy("order");
     }
 
-    /**
-     * @param string $label
-     * @return TextFieldCreator
-     */
-    public function newTextField($label)
+    public function newTextField(string $label): TextFieldCreator
     {
         return new TextFieldCreator($this, $label);
     }
 
-    /**
-     * @param string $label
-     * @return TextareaFieldCreator
-     */
-    public function newTextareaField($label)
+    public function newTextareaField(string $label): TextareaFieldCreator
     {
         return new TextareaFieldCreator($this, $label);
     }
 
     /**
      * @param string $label
-     * @param array|Collection $options
+     * @param array|Arrayable $options
      * @return SelectFieldCreator
      */
-    public function newSelectField($label, $options)
+    public function newSelectField(string $label, $options): SelectFieldCreator
     {
         return new SelectFieldCreator($this, $label, $options);
     }

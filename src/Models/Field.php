@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Field extends Model
 {
@@ -26,59 +27,41 @@ class Field extends Model
         "created_at", "updated_at",
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function section()
+    public function section(): BelongsTo
     {
         return $this->belongsTo(Section::class);
     }
 
     /**
      * @param string $attribute
-     * @return mixed|null
+     * @return string|int|null
      */
-    public function fieldAttribute($attribute)
+    public function fieldAttribute(string $attribute)
     {
         return $this->field_attributes[$attribute] ?? null;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTypeText()
+    public function isTypeText(): bool
     {
         return $this->type === static::TYPE_TEXT;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTypeTextarea()
+    public function isTypeTextarea(): bool
     {
         return $this->type === static::TYPE_TEXTAREA;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTypeSelect()
+    public function isTypeSelect(): bool
     {
         return $this->type === static::TYPE_SELECT;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTypeHeading()
+    public function isTypeHeading(): bool
     {
         return $this->type === static::TYPE_HEADING;
     }
 
-    /**
-     * @return bool
-     */
-    public function isTypeUpload()
+    public function isTypeUpload(): bool
     {
         return $this->type === static::TYPE_UPLOAD;
     }
