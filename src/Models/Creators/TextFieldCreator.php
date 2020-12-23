@@ -6,33 +6,21 @@ use Code16\Formoj\Models\Field;
 
 class TextFieldCreator extends FieldCreator
 {
+    protected ?int $maxLength = null;
 
-    /** @var string|null */
-    protected $maxLength = null;
-
-    /**
-     * @return string
-     */
-    protected function getType()
+    protected function getType(): string
     {
         return Field::TYPE_TEXT;
     }
 
-    /**
-     * @param string $maxLength
-     * @return $this
-     */
-    public function setMaxLength($maxLength)
+    public function setMaxLength(int $maxLength): self
     {
         $this->maxLength = $maxLength;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    protected function getFieldAttributes()
+    protected function getFieldAttributes(): array
     {
         return [
             "max_length" => $this->maxLength

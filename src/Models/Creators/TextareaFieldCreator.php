@@ -6,33 +6,21 @@ use Code16\Formoj\Models\Field;
 
 class TextareaFieldCreator extends TextFieldCreator
 {
+    protected int $rowsCount = 3;
 
-    /** @var int */
-    protected $rowsCount = 3;
-
-    /**
-     * @return string
-     */
-    protected function getType()
+    protected function getType(): string
     {
         return Field::TYPE_TEXTAREA;
     }
 
-    /**
-     * @param int $rowsCount
-     * @return $this
-     */
-    public function setRowsCount($rowsCount)
+    public function setRowsCount(int $rowsCount): self
     {
         $this->$rowsCount = $rowsCount;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    protected function getFieldAttributes()
+    protected function getFieldAttributes(): array
     {
         return [
             "max_length" => $this->maxLength,
