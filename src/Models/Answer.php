@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Answer extends Model
 {
@@ -10,7 +11,6 @@ class Answer extends Model
 
     protected $guarded = ["id"];
 
-    /** @var array */
     protected $casts = [
         'content' => 'json',
     ];
@@ -19,19 +19,12 @@ class Answer extends Model
         "created_at", "updated_at",
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function form()
+    public function form(): BelongsTo
     {
         return $this->belongsTo(Form::class);
     }
 
-    /**
-     * @param string $attribute
-     * @return mixed|null
-     */
-    public function content($attribute)
+    public function content(string $attribute): ?string
     {
         return $this->content[$attribute] ?? null;
     }

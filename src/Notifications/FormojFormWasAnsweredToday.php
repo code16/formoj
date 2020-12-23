@@ -13,39 +13,20 @@ class FormojFormWasAnsweredToday extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    /** @var Form */
-    public $form;
+    public Form $form;
+    public Collection $answers;
 
-    /** @var Collection */
-    public $answers;
-
-    /**
-     * @param Form $form
-     * @param Collection $answers
-     */
-    public function __construct(Form $form, $answers)
+    public function __construct(Form $form, Collection $answers)
     {
         $this->form = $form;
         $this->answers = $answers;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @param  mixed  $notifiable
-     * @return array
-     */
     public function via($notifiable)
     {
         return ['mail'];
     }
 
-    /**
-     * Get the mail representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return \Illuminate\Notifications\Messages\MailMessage
-     */
     public function toMail($notifiable)
     {
         $message = (new MailMessage)

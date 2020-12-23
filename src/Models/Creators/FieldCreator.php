@@ -7,71 +7,45 @@ use Code16\Formoj\Models\Section;
 
 abstract class FieldCreator
 {
-    /** @var Section */
-    protected $section;
+    protected Section $section;
+    protected string $label;
+    protected ?string $helpText = null;
+    protected bool $required = false;
 
-    /** @var string */
-    protected $label;
-
-    /** @var string */
-    protected $helpText = null;
-
-    /** @var bool */
-    protected $required = false;
-
-    /**
-     * @param Section $section
-     * @param $label
-     */
-    public function __construct(Section $section, $label)
+    public function __construct(Section $section, string $label)
     {
         $this->label = $label;
         $this->section = $section;
     }
 
-    /**
-     * @param bool $required
-     * @return $this
-     */
-    public function setRequired(bool $required = true)
+    public function setRequired(bool $required = true): self
     {
         $this->required = $required;
 
         return $this;
     }
 
-    /**
-     * @param string $helpText
-     * @return $this
-     */
-    public function setHelpText($helpText)
+    public function setHelpText(string $helpText): self
     {
         $this->helpText = $helpText;
 
         return $this;
     }
 
-    /**
-     * @return Field
-     */
-    public function create()
+    public function create(): Field
     {
-        return $this->section->fields()->create([
-            "help_text" => $this->helpText,
-            "label" => $this->label,
-            "required" => $this->required,
-            "type" => $this->getType(),
-            "field_attributes" => $this->getFieldAttributes()
-        ]);
+        return $this->section
+            ->fields()
+            ->create([
+                "help_text" => $this->helpText,
+                "label" => $this->label,
+                "required" => $this->required,
+                "type" => $this->getType(),
+                "field_attributes" => $this->getFieldAttributes()
+            ]);
     }
 
-    /**
-     * @return string
-     */
-    abstract protected function getType();
+    abstract protected function getType(): string;
 
-    /**
-     * @return array
-     */
-    abstract protected function getFieldAttributes();
+    abstract protected function getFieldAttributes(): array;
 }

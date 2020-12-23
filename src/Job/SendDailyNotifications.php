@@ -13,9 +13,6 @@ class SendDailyNotifications
 {
     use Dispatchable;
 
-    /**
-     * @param Carbon $day
-     */
     public function handle(Carbon $day)
     {
         Answer::whereDate("created_at", $day->format('Y-m-d'))

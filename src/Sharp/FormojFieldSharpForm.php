@@ -18,121 +18,120 @@ class FormojFieldSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
-    /**
-     * Build form fields using ->addField()
-     *
-     * @return void
-     */
-    function buildFormFields()
+    function buildFormFields(): void
     {
-        $this->addField(
-            SharpFormTextField::make("label")
-                ->setLabel(trans("formoj::sharp.fields.fields.label.label"))
-        )->addField(
-            SharpFormTextField::make("identifier")
-                ->setLabel(trans("formoj::sharp.fields.fields.identifier.label"))
-                ->setHelpMessage(trans("formoj::sharp.fields.fields.identifier.help_text"))
-        )->addField(
-            SharpFormMarkdownField::make("help_text")
-                ->setLabel(trans("formoj::sharp.fields.fields.help_text.label"))
-                ->setToolbar([
-                    SharpFormMarkdownField::B, SharpFormMarkdownField::I,
-                    SharpFormMarkdownField::SEPARATOR,
-                    SharpFormMarkdownField::A,
-                ])
-                ->setHeight(200)
-                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
-        )->addField(
-            SharpFormCheckField::make("required", trans("formoj::sharp.fields.fields.required.text"))
-                ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
-        )->addField(
-            SharpFormSelectField::make("type", FormojFieldSharpEntityList::fieldTypes())
-                ->setLabel(trans("formoj::sharp.fields.fields.type.label"))
-                ->setDisplayAsDropdown()
-        )->addField(
-            SharpFormTextField::make("max_length")
-                ->setLabel(trans("formoj::sharp.fields.fields.max_length.label"))
-                ->setHelpMessage(trans("formoj::sharp.fields.fields.max_length.help_text"))
-                ->addConditionalDisplay("type", [Field::TYPE_TEXT, Field::TYPE_TEXTAREA])
-        )->addField(
-            SharpFormTextField::make("rows_count")
-                ->setLabel(trans("formoj::sharp.fields.fields.rows_count.label"))
-                ->addConditionalDisplay("type", Field::TYPE_TEXTAREA)
-        )->addField(
-            SharpFormCheckField::make("multiple", trans("formoj::sharp.fields.fields.multiple.text"))
-                ->addConditionalDisplay("type", Field::TYPE_SELECT)
-                ->addConditionalDisplay("!radios")
-        )->addField(
-            SharpFormCheckField::make("radios", trans("formoj::sharp.fields.fields.radios.text"))
-                ->addConditionalDisplay("type", Field::TYPE_SELECT)
-        )->addField(
-            SharpFormTextField::make("max_options")
-                ->setLabel(trans("formoj::sharp.fields.fields.max_options.label"))
-                ->addConditionalDisplay("type", Field::TYPE_SELECT)
-                ->addConditionalDisplay("multiple")
-                ->addConditionalDisplay("!radios")
-        )->addField(
-            SharpFormListField::make("options")
-                ->setLabel(trans("formoj::sharp.fields.fields.options.label"))
-                ->setAddable()->setAddText(trans("formoj::sharp.fields.fields.options.add_label"))
-                ->setRemovable()
-                ->setSortable()
-                ->addItemField(
-                    SharpFormTextField::make("label")
-                )
-                ->addConditionalDisplay("type", Field::TYPE_SELECT)
-        )->addField(
-            SharpFormTextField::make("max_size")
-                ->setLabel(trans("formoj::sharp.fields.fields.max_size.label"))
-                ->setHelpMessage(trans("formoj::sharp.fields.fields.max_size.help_text"))
-                ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
-        )->addField(
-            SharpFormTextField::make("accept")
-                ->setLabel(trans("formoj::sharp.fields.fields.accept.label"))
-                ->setPlaceholder("Ex: .jpeg,.gif,.png")
-                ->setHelpMessage(trans("formoj::sharp.fields.fields.accept.help_text"))
-                ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
-        );
+        $this
+            ->addField(
+                SharpFormTextField::make("label")
+                    ->setLabel(trans("formoj::sharp.fields.fields.label.label"))
+            )
+            ->addField(
+                SharpFormTextField::make("identifier")
+                    ->setLabel(trans("formoj::sharp.fields.fields.identifier.label"))
+                    ->setHelpMessage(trans("formoj::sharp.fields.fields.identifier.help_text"))
+            )
+            ->addField(
+                SharpFormMarkdownField::make("help_text")
+                    ->setLabel(trans("formoj::sharp.fields.fields.help_text.label"))
+                    ->setToolbar([
+                        SharpFormMarkdownField::B, SharpFormMarkdownField::I,
+                        SharpFormMarkdownField::SEPARATOR,
+                        SharpFormMarkdownField::A,
+                    ])
+                    ->setHeight(200)
+                    ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
+            )
+            ->addField(
+                SharpFormCheckField::make("required", trans("formoj::sharp.fields.fields.required.text"))
+                    ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
+            )
+            ->addField(
+                SharpFormSelectField::make("type", FormojFieldSharpEntityList::fieldTypes())
+                    ->setLabel(trans("formoj::sharp.fields.fields.type.label"))
+                    ->setDisplayAsDropdown()
+            )
+            ->addField(
+                SharpFormTextField::make("max_length")
+                    ->setLabel(trans("formoj::sharp.fields.fields.max_length.label"))
+                    ->setHelpMessage(trans("formoj::sharp.fields.fields.max_length.help_text"))
+                    ->addConditionalDisplay("type", [Field::TYPE_TEXT, Field::TYPE_TEXTAREA])
+            )
+            ->addField(
+                SharpFormTextField::make("rows_count")
+                    ->setLabel(trans("formoj::sharp.fields.fields.rows_count.label"))
+                    ->addConditionalDisplay("type", Field::TYPE_TEXTAREA)
+            )
+            ->addField(
+                SharpFormCheckField::make("multiple", trans("formoj::sharp.fields.fields.multiple.text"))
+                    ->addConditionalDisplay("type", Field::TYPE_SELECT)
+                    ->addConditionalDisplay("!radios")
+            )
+            ->addField(
+                SharpFormCheckField::make("radios", trans("formoj::sharp.fields.fields.radios.text"))
+                    ->addConditionalDisplay("type", Field::TYPE_SELECT)
+            )
+            ->addField(
+                SharpFormTextField::make("max_options")
+                    ->setLabel(trans("formoj::sharp.fields.fields.max_options.label"))
+                    ->addConditionalDisplay("type", Field::TYPE_SELECT)
+                    ->addConditionalDisplay("multiple")
+                    ->addConditionalDisplay("!radios")
+            )
+            ->addField(
+                SharpFormListField::make("options")
+                    ->setLabel(trans("formoj::sharp.fields.fields.options.label"))
+                    ->setAddable()->setAddText(trans("formoj::sharp.fields.fields.options.add_label"))
+                    ->setRemovable()
+                    ->setSortable()
+                    ->addItemField(
+                        SharpFormTextField::make("label")
+                    )
+                    ->addConditionalDisplay("type", Field::TYPE_SELECT)
+            )
+            ->addField(
+                SharpFormTextField::make("max_size")
+                    ->setLabel(trans("formoj::sharp.fields.fields.max_size.label"))
+                    ->setHelpMessage(trans("formoj::sharp.fields.fields.max_size.help_text"))
+                    ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
+            )
+            ->addField(
+                SharpFormTextField::make("accept")
+                    ->setLabel(trans("formoj::sharp.fields.fields.accept.label"))
+                    ->setPlaceholder("Ex: .jpeg,.gif,.png")
+                    ->setHelpMessage(trans("formoj::sharp.fields.fields.accept.help_text"))
+                    ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
+            );
     }
 
-    /**
-     * Build form layout using ->addTab() or ->addColumn()
-     *
-     * @return void
-     */
-    function buildFormLayout()
+    function buildFormLayout(): void
     {
-        $this->addColumn(6, function (FormLayoutColumn $column) {
-            $column
-                ->withFieldset(trans("formoj::sharp.fields.fields.fieldsets.identifiers"), function (FormLayoutFieldset $fieldset) {
-                    $fieldset->withSingleField("label")
-                        ->withSingleField("identifier");
-                })
-                ->withSingleField("type")
-                ->withSingleField("required")
-                ->withSingleField("help_text");
-
-        })->addColumn(6, function (FormLayoutColumn $column) {
-            $column
-                ->withSingleField("max_size")
-                ->withSingleField("accept")
-                ->withSingleField("max_length")
-                ->withSingleField("rows_count")
-                ->withSingleField("options", function(FormLayoutColumn $column) {
-                    $column->withSingleField("label");
-                })
-                ->withSingleField("radios")
-                ->withSingleField("multiple")
-                ->withSingleField("max_options");
-        });
+        $this
+            ->addColumn(6, function (FormLayoutColumn $column) {
+                $column
+                    ->withFieldset(trans("formoj::sharp.fields.fields.fieldsets.identifiers"), function (FormLayoutFieldset $fieldset) {
+                        $fieldset->withSingleField("label")
+                            ->withSingleField("identifier");
+                    })
+                    ->withSingleField("type")
+                    ->withSingleField("required")
+                    ->withSingleField("help_text");
+    
+            })
+            ->addColumn(6, function (FormLayoutColumn $column) {
+                $column
+                    ->withSingleField("max_size")
+                    ->withSingleField("accept")
+                    ->withSingleField("max_length")
+                    ->withSingleField("rows_count")
+                    ->withSingleField("options", function(FormLayoutColumn $column) {
+                        $column->withSingleField("label");
+                    })
+                    ->withSingleField("radios")
+                    ->withSingleField("multiple")
+                    ->withSingleField("max_options");
+            });
     }
 
-    /**
-     * Retrieve a Model for the form and pack all its data as JSON.
-     *
-     * @param $id
-     * @return array
-     */
     function find($id): array
     {
         foreach(["max_length", "rows_count", "max_options", "radios", "multiple", "max_size", "accept"] as $attribute) {
@@ -188,12 +187,12 @@ class FormojFieldSharpForm extends SharpForm
         return $field->id;
     }
 
-    function delete($id)
+    function delete($id): void
     {
         Field::findOrFail($id)->delete();
     }
 
-    protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels)
+    protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels): void
     {
         collect($data)
             ->filter(function ($value, $attribute) use($attributeLabels) {

@@ -11,23 +11,6 @@ use Illuminate\Validation\Rule;
 
 class FormojFieldSharpValidator extends FormRequest
 {
-    use WithSharpContext;
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
-    {
-        return true;
-    }
-
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
@@ -44,7 +27,7 @@ class FormojFieldSharpValidator extends FormRequest
                             ->pluck("id")
                             ->all()
                     )
-                    ->ignore($this->context()->instanceId())
+                    ->ignore(currentSharpRequest()->instanceId())
             ],
             'type' => 'required',
             'max_length' => 'integer|nullable',

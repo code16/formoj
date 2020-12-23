@@ -3,51 +3,37 @@
 namespace Code16\Formoj\Sharp\Filters;
 
 use Code16\Formoj\Models\Form;
-use Code16\Sharp\EntityList\EntityListRequiredFilter;
+use Code16\Sharp\EntityList\EntityListSelectRequiredFilter;
 
-class FormojFormFilterHandler implements EntityListRequiredFilter
+class FormojFormFilterHandler implements EntityListSelectRequiredFilter
 {
 
-    /**
-     * @return string
-     */
     public function label()
     {
         return "formulaire";
     }
 
-    /**
-     * @return array
-     */
-    public function values()
+    public function values(): array
     {
         return Form::orderBy("id")
             ->get()
             ->mapWithKeys(function(Form $form) {
                 return [$form->id => "#" . $form->id . " - " . ($form->title ?: trans("formoj::sharp.forms.no_title"))];
-            });
+            })
+            ->toArray();
     }
 
-    /**
-     * @return string|int
-     */
     public function defaultValue()
     {
         return Form::orderBy("id", "desc")->first()->id ?? null;
     }
 
-    /**
-     * @return bool
-     */
     public function isMaster(): bool
     {
         return true;
     }
 
-    /**
-     * @return bool
-     */
-    public function retainValueInSession()
+    public function retainValueInSession(): bool
     {
         return true;
     }

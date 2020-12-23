@@ -12,21 +12,11 @@ class ExportAnswersToXls
 {
     use Dispatchable;
 
-    /** @var Form */
-    protected $form;
+    protected Form $form;
+    protected Collection $answers;
+    protected string $fileName;
 
-    /** @var Collection */
-    protected $answers;
-
-    /** @var string */
-    protected $fileName;
-
-    /**
-     * @param Form $form
-     * @param string $fileName
-     * @param Collection|null $answers
-     */
-    public function __construct($form, $fileName, $answers = null)
+    public function __construct(Form $form, string $fileName, ?Collection $answers = null)
     {
         $this->form = $form;
         $this->fileName = $fileName;

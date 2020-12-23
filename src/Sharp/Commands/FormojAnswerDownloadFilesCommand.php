@@ -12,20 +12,11 @@ use ZipArchive;
 class FormojAnswerDownloadFilesCommand extends InstanceCommand
 {
 
-    /**
-     * @return string
-     */
     public function label(): string
     {
         return trans("formoj::sharp.answers.commands.download_files");
     }
 
-    /**
-     * @param string $instanceId
-     * @param array $data
-     * @return array
-     * @throws SharpApplicativeException
-     */
     public function execute($instanceId, array $data = []): array
     {
         $answer = Answer::with("form", "form.sections", "form.sections.fields")
@@ -66,11 +57,7 @@ class FormojAnswerDownloadFilesCommand extends InstanceCommand
         }
     }
 
-    /**
-     * @param Answer $answer
-     * @return string
-     */
-    private function createArchive(Answer $answer)
+    private function createArchive(Answer $answer): string
     {
         $archiveFilePath = config("formoj.upload.path") . "/archive-" . $answer->id . ".zip";
 

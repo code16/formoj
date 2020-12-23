@@ -11,30 +11,18 @@ use Maatwebsite\Excel\Excel;
 
 class FormojAnswerExportCommand extends EntityCommand
 {
-    /** @var Excel */
-    protected $excel;
+    protected Excel $excel;
 
-    /**
-     * @param Excel $excel
-     */
     public function __construct(Excel $excel)
     {
         $this->excel = $excel;
     }
 
-    /**
-     * @return string
-     */
     public function label(): string
     {
         return trans("formoj::sharp.answers.commands.export");
     }
 
-    /**
-     * @param EntityListQueryParams $params
-     * @param array $data
-     * @return array
-     */
     public function execute(EntityListQueryParams $params, array $data = []): array
     {
         $formId = $params->filterFor("formoj_form") ?: app(FormojSectionFilterHandler::class)->currentFormId();

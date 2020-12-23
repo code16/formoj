@@ -6,47 +6,29 @@ use Code16\Formoj\Models\Field;
 
 class UploadFieldCreator extends FieldCreator
 {
+    protected int $maxSize = 8;
+    protected ?array $accept = null;
 
-    /** @var int */
-    protected $maxSize = 8;
-
-    /** @var array|null */
-    protected $accept = null;
-
-    /**
-     * @return string
-     */
-    protected function getType()
+    protected function getType(): string
     {
         return Field::TYPE_UPLOAD;
     }
 
-    /**
-     * @param string $maxSize
-     * @return $this
-     */
-    public function setMaxSize($maxSize)
+    public function setMaxSize(int $maxSize): self
     {
         $this->maxSize = $maxSize;
 
         return $this;
     }
 
-    /**
-     * @param array $accept
-     * @return $this
-     */
-    public function setAccept($accept)
+    public function setAccept(array $accept): self
     {
         $this->accept = $accept;
 
         return $this;
     }
 
-    /**
-     * @return array
-     */
-    protected function getFieldAttributes()
+    protected function getFieldAttributes(): array
     {
         return [
             "max_size" => $this->maxSize,

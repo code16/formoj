@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         factory(User::class)->create([
-            "email" => "admin@example.com",
+            "email" => "admin@example.org",
         ]);
 
         foreach(factory(Form::class, 5)->create() as $form) {

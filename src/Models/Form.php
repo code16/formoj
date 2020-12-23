@@ -3,7 +3,9 @@
 namespace Code16\Formoj\Models;
 
 use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Notification;
 
 class Form extends Model
@@ -24,44 +26,29 @@ class Form extends Model
         "is_title_hidden" => "boolean",
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sections()
+    public function sections(): HasMany
     {
         return $this->hasMany(Section::class)
             ->orderBy("order");
     }
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function answers()
+    public function answers(): HasMany
     {
         return $this->hasMany(Answer::class)
             ->orderBy("created_at");
     }
 
-    /**
-     * @return bool
-     */
-    public function isNotPublishedYet()
+    public function isNotPublishedYet(): bool
     {
         return $this->published_at && $this->published_at->isFuture();
     }
 
-    /**
-     * @return bool
-     */
-    public function isNoMorePublished()
+    public function isNoMorePublished(): bool
     {
         return $this->unpublished_at && $this->unpublished_at->isPast();
     }
 
-    /**
-     * @return string
-     */
-    public function getLabel()
+    public function getLabel(): string
     {
         if($this->title) {
             return sprintf("%s (#%s)", $this->title, $this->id);
@@ -70,11 +57,7 @@ class Form extends Model
         return '#' . $this->id;
     }
 
-    /**
-     * @param $id
-     * @return Field|null
-     */
-    public function findField($id)
+    public function findField($id): ?Field
     {
         if($field = Field::find($id)) {
             return in_array($field->section_id, $this->sections->pluck("id")->all())
@@ -85,21 +68,16 @@ class Form extends Model
         return null;
     }
 
-    /**
-     * @param string $title
-     * @param string|null $description
-     * @return Section
-     */
-    public function createSection($title, $description = null)
+    public function createSection(string $title, ?string $description = null): Section
     {
         return $this->sections()->create(compact('title', 'description'));
     }
 
     /**
-     * @param $data
+     * @param array|Arrayable $data
      * @return Answer
      */
-    public function storeNewAnswer($data)
+    public function storeNewAnswer($data): Answer
     {
         $answer = Answer::create([
             "form_id" => $this->id,
