@@ -5,6 +5,12 @@ use Code16\Formoj\Models\Form;
 
 return [
 
+    'entities' => [
+        'form' => "Formulaire",
+        'section' => "Section",
+        'field' => "Champ",
+    ],
+
     'forms' => [
         'no_title' => "(sans titre)",
         'notification_strategies' => [
@@ -75,6 +81,20 @@ return [
                 ]
             ]
         ]
+    ],
+
+    'sections' => [
+        "list" => [
+            "columns" => [
+                "title_label" => "Titre",
+                "description_label" => "Description",
+            ],
+            "data" => [
+                "title" => [
+                    "is_hidden" => "Masqué",
+                ]
+            ]
+        ],
     ],
 
     'fields' => [

@@ -59,28 +59,7 @@ class FormojFormSharpEntityList extends SharpEntityList
                 return $instance->title ?: "<em>" . trans("formoj::sharp.forms.no_title") . "</em>";
             })
             ->setCustomTransformer("published_at", function($value, $instance) {
-                if($instance->published_at) {
-                    if($instance->unpublished_at) {
-                        return sprintf(
-                            trans("formoj::sharp.forms.list.data.dates.both"),
-                            $instance->published_at->isoFormat("LLL"),
-                            $instance->unpublished_at->isoFormat("LLL")
-                        );
-                    }
-                    return sprintf(
-                        trans("formoj::sharp.forms.list.data.dates.from"),
-                        $instance->published_at->isoFormat("LLL")
-                    );
-                }
-
-                if($instance->unpublished_at) {
-                    return sprintf(
-                        trans("formoj::sharp.forms.list.data.dates.to"),
-                        $instance->unpublished_at->isoFormat("LLL")
-                    );
-                }
-
-                return "";
+                return static::publicationDates($instance);
             })
             ->setCustomTransformer("sections", function($value, $instance) {
                 return $instance->sections->pluck("title")->implode("<br>");
@@ -88,7 +67,11 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->transform(Form::with("sections")->get());
     }
 
-    public static function notificationStrategies(?string $value = null): ?array
+    /**
+     * @param string|null $value
+     * @return array|string|null
+     */
+    public static function notificationStrategies(?string $value = null)
     {
         $types = [
             Form::NOTIFICATION_STRATEGY_NONE => trans("formoj::sharp.forms.notification_strategies." . Form::NOTIFICATION_STRATEGY_NONE),
@@ -97,5 +80,31 @@ class FormojFormSharpEntityList extends SharpEntityList
         ];
 
         return $value ? ($types[$value] ?? null) : $types;
+    }
+
+    public static function publicationDates(Form $form): string
+    {
+        if($form->published_at) {
+            if($form->unpublished_at) {
+                return sprintf(
+                    trans("formoj::sharp.forms.list.data.dates.both"),
+                    $form->published_at->isoFormat("LLL"),
+                    $form->unpublished_at->isoFormat("LLL")
+                );
+            }
+            return sprintf(
+                trans("formoj::sharp.forms.list.data.dates.from"),
+                $form->published_at->isoFormat("LLL")
+            );
+        }
+
+        if($form->unpublished_at) {
+            return sprintf(
+                trans("formoj::sharp.forms.list.data.dates.to"),
+                $form->unpublished_at->isoFormat("LLL")
+            );
+        }
+
+        return "";
     }
 }

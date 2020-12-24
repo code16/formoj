@@ -10,7 +10,7 @@ class FormojSectionFilterHandler implements EntityListSelectRequiredFilter
 
     public function label(): string
     {
-        return "section";
+        return trans("formoj::sharp.entities.section");
     }
 
     public function values(): array

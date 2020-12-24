@@ -10,7 +10,7 @@ class FormojFormFilterHandler implements EntityListSelectRequiredFilter
 
     public function label()
     {
-        return "formulaire";
+        return trans("formoj::sharp.entities.form");
     }
 
     public function values(): array

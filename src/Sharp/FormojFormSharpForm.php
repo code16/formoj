@@ -6,10 +6,8 @@ use Code16\Formoj\Models\Form;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
-use Code16\Sharp\Form\Fields\SharpFormListField;
 use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
-use Code16\Sharp\Form\Fields\SharpFormTextareaField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Layout\FormLayoutFieldset;
@@ -63,25 +61,6 @@ class FormojFormSharpForm extends SharpForm
                     ->setDisplayFormat("DD/MM/YYYY HH:mm")
             )
             ->addField(
-                SharpFormListField::make("sections")
-                    ->setLabel(trans("formoj::sharp.forms.fields.sections.label"))
-                    ->setAddable()->setAddText(trans("formoj::sharp.forms.fields.sections.add_label"))
-                    ->setRemovable()
-                    ->setSortable()->setOrderAttribute("order")
-                    ->addItemField(
-                        SharpFormTextField::make("title")
-                            ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
-                    )
-                    ->addItemField(
-                        SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.sections.fields.is_title_hidden.label"))
-                    )
-                    ->addItemField(
-                        SharpFormTextareaField::make("description")
-                            ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
-                            ->setRowCount(3)
-                    )
-            )
-            ->addField(
                 SharpFormTextField::make("administrator_email")
                     ->setLabel(trans("formoj::sharp.forms.fields.administrator_email.label"))
             )
@@ -104,8 +83,7 @@ class FormojFormSharpForm extends SharpForm
                     ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.dates"), function (FormLayoutFieldset $fieldset) {
                         $fieldset->withFields("published_at|6", "unpublished_at|6");
                     })
-                    ->withSingleField("description")
-                    ->withSingleField("success_message");
+                    ->withSingleField("description");
     
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
@@ -114,18 +92,13 @@ class FormojFormSharpForm extends SharpForm
                         $fieldset->withSingleField("notifications_strategy")
                             ->withSingleField("administrator_email");
                     })
-                    ->withSingleField("sections", function(FormLayoutColumn $column) {
-                        $column
-                            ->withSingleField("title")
-                            ->withSingleField("is_title_hidden")
-                            ->withSingleField("description");
-                    });
+                    ->withSingleField("success_message");
             });
     }
 
     function find($id): array
     {
-        return $this->transform(Form::with("sections")->findOrFail($id));
+        return $this->transform(Form::findOrFail($id));
     }
 
     function update($id, array $data)

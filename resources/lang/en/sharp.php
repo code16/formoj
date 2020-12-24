@@ -4,6 +4,12 @@ use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Form;
 
 return [
+    
+    'entities' => [
+        'form' => "Form",
+        'section' => "Section",
+        'field' => "Field",
+    ],
 
     'forms' => [
         'no_title' => "(without title)",
@@ -75,6 +81,20 @@ return [
                 ]
             ]
         ]
+    ],
+
+    'sections' => [
+        "list" => [
+            "columns" => [
+                "title_label" => "Title",
+                "description_label" => "Description",
+            ],
+            "data" => [
+                "title" => [
+                    "is_hidden" => "Hidden",
+                ]
+            ]
+        ],
     ],
 
     'fields' => [
