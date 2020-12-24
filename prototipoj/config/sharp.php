@@ -4,6 +4,7 @@ return [
 
     "name" => "Prototipoj",
 
+    "display_breadcrumb" => true,
     "locale" => env("SHARP_LOCALE", "fr_FR.UTF-8"),
 
     "entities" => [

@@ -3,7 +3,6 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
-use Code16\Formoj\Sharp\Commands\FormojAnswerDownloadFilesCommand;
 use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
@@ -35,8 +34,7 @@ class FormojAnswerSharpEntityList extends SharpEntityList
     {
         $this
             ->setPaginated()
-            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class)
-            ->addInstanceCommand("download_answer_files", FormojAnswerDownloadFilesCommand::class);
+            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class);
     }
 
     function getListData(EntityListQueryParams $params)

@@ -9,6 +9,8 @@ use Code16\Formoj\Sharp\Commands\FormojAnswerViewCommand;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FormojReplySharpEntityList extends SharpEntityList
 {
@@ -53,10 +55,59 @@ class FormojReplySharpEntityList extends SharpEntityList
                         return (object)[
                             "id" => uniqid(),
                             "label" => $label,
-                            "value" => $value
+                            "value" => $this->formatValue($value, $label)
                         ];
                     })
                     ->values()
             );
+    }
+    
+    private function formatValue($value, $label): string
+    {
+        if(is_array($value)) {
+            return collect($value)
+                ->map(function($item) {
+                    return "- {$item}";
+                })
+                ->implode("<br>");
+        }
+        
+        if($this->seemsToBeAFile($value)) {
+            return sprintf(
+                '<a href="%s">%s</a>',
+                route("code16.sharp.api.show.download", [
+                    "fieldKey" => "file", 
+                    "entityKey" => "formoj_answer", 
+                    "instanceId" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
+                    "fileName" => $value
+                ]),
+                $value
+            );
+        }
+        
+        return $value;
+    }
+
+    private function isFile( $value)
+    {
+        return Str::endsWith($value, ".jpg");
+    }
+
+    private function seemsToBeAFile(string $value): bool
+    {
+        if(preg_match('/^[\w,\s-]+\.[A-Za-z]{3}$/', $value)) {
+            return Storage::disk(config("formoj.storage.disk"))
+                ->exists(
+                    sprintf(
+                        "%s/%s/answers/%s/%s", 
+                        config("formoj.storage.path"),
+                        currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")->instanceId(),
+                        currentSharpRequest()->instanceId(),
+                        $value
+                    )
+                );
+        }
+        
+        return false;
     }
 }
