@@ -4,6 +4,13 @@ use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Form;
 
 return [
+    
+    'entities' => [
+        'form' => "Form",
+        'section' => "Section",
+        'field' => "Field",
+        'answer' => "Answer",
+    ],
 
     'forms' => [
         'no_title' => "(without title)",
@@ -28,21 +35,6 @@ return [
             "unpublished_at" => [
                 "label" => "to"
             ],
-            "sections" => [
-                "label" => "Sections",
-                "add_label" => "Add a section",
-                "fields" => [
-                    "title" => [
-                        "label" => "Title"
-                    ],
-                    "is_title_hidden" => [
-                        "label" => "Hide section title"
-                    ],
-                    "description" => [
-                        "label" => "Description"
-                    ]
-                ]
-            ],
             "success_message" => [
                 "label" => "Message displayed after posting the form",
                 "help_text" => "This text witl be shown to the user when posting his answer. If let blank, a standard message will be used.",
@@ -66,6 +58,7 @@ return [
                 "description_label" => "Description",
                 "published_at_label" => "publication dates",
                 "sections_label" => "Sections",
+                "answers_label" => "Answers",
             ],
             "data" => [
                 "dates" => [
@@ -75,6 +68,34 @@ return [
                 ]
             ]
         ]
+    ],
+
+    'sections' => [
+        "list" => [
+            "columns" => [
+                "title_label" => "Title",
+                "description_label" => "Description",
+            ],
+            "data" => [
+                "title" => [
+                    "is_hidden" => "Hidden",
+                ]
+            ]
+        ],
+        "fields" => [
+            "title" => [
+                "label" => "Title"
+            ],
+            "is_title_hidden" => [
+                "label" => "Hide title"
+            ],
+            "description" => [
+                "label" => "Description"
+            ],
+            "fields" => [
+                "label" => "Fields"
+            ]
+        ],
     ],
 
     'fields' => [
@@ -160,14 +181,27 @@ return [
                 ]
             ]
         ],
+        'fields' => [
+            'replies' => [
+                'label' => 'Content'
+            ]
+        ],
         'commands' => [
-            'view' => "View this answer",
             'export' => "Export answers (XLS)",
             'download_files' => "Download answer attachments",
         ],
         'errors' => [
             'no_file_to_download' => "This answer does not contains any File attachment.",
         ]
+    ],
+
+    'replies' => [
+        "list" => [
+            "columns" => [
+                "label_label" => "Field",
+                "value_label" => "Value",
+            ],
+        ],
     ]
 
 ];
