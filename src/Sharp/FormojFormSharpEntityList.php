@@ -6,6 +6,7 @@ use Code16\Formoj\Models\Form;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Database\Eloquent\Builder;
 
 class FormojFormSharpEntityList extends SharpEntityList
 {
@@ -16,10 +17,12 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->addDataContainer(
                 EntityListDataContainer::make("ref")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
+                    ->setSortable()
             )
             ->addDataContainer(
                 EntityListDataContainer::make("title")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
+                    ->setSortable()
             )
             ->addDataContainer(
                 EntityListDataContainer::make("description")
@@ -28,6 +31,7 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->addDataContainer(
                 EntityListDataContainer::make("published_at")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
+                    ->setSortable()
             )
             ->addDataContainer(
                 EntityListDataContainer::make("sections")
@@ -47,10 +51,24 @@ class FormojFormSharpEntityList extends SharpEntityList
 
     function buildListConfig(): void
     {
+        $this->setPaginated()
+            ->setDefaultSort("ref", "desc")
+            ->setSearchable();
     }
 
     function getListData(EntityListQueryParams $params)
     {
+        $forms = Form::with("sections")
+            ->orderBy(static::convertSortedBy($params->sortedBy()), $params->sortedDir())
+            ->when($params->hasSearch(), function (Builder $query) use ($params) {
+                foreach ($params->searchWords() as $word) {
+                    $query->where(function ($query) use ($word) {
+                        $query->orWhere("title", "like", $word)
+                            ->orWhere('id', 'like', $word);
+                    });
+                }
+            });
+        
         return $this
             ->setCustomTransformer("ref", function($value, $instance) {
                 return "<strong>#{$instance->id}</strong>";
@@ -64,7 +82,7 @@ class FormojFormSharpEntityList extends SharpEntityList
             ->setCustomTransformer("sections", function($value, $instance) {
                 return $instance->sections->pluck("title")->implode("<br>");
             })
-            ->transform(Form::with("sections")->get());
+            ->transform($forms->paginate(40));
     }
 
     /**
@@ -106,5 +124,13 @@ class FormojFormSharpEntityList extends SharpEntityList
         }
 
         return "";
+    }
+
+    private static function convertSortedBy(string $sortedBy)
+    {
+        if(in_array($sortedBy, ["title", "published_at"])) {
+            return $sortedBy;
+        }
+        return "id";
     }
 }

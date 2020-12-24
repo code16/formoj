@@ -68,12 +68,20 @@ class FormojFormSharpShow extends SharpShow
             })
             ->addEntityListSection("sections");
     }
+    
+    public function buildShowConfig(): void
+    {
+        $this->setBreadcrumbCustomLabelAttribute("breadcrumb");
+    }
 
     function find($id): array
     {
         return $this
             ->setCustomTransformer("ref", function($value, $form) {
                 return "#{$form->id}";
+            })
+            ->setCustomTransformer("breadcrumb", function($value, $form) {
+                return trans("formoj::sharp.entities.form") . " #{$form->id}";
             })
             ->setCustomTransformer("published_at", function($value, $instance) {
                 return FormojFormSharpEntityList::publicationDates($instance);
