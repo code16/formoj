@@ -4,10 +4,8 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Sharp\Commands\FormojAnswerDownloadFilesCommand;
-use Code16\Sharp\Form\Eloquent\Uploads\Transformers\SharpUploadModelFormAttributeTransformer;
 use Code16\Sharp\Show\Fields\SharpShowEntityListField;
 use Code16\Sharp\Show\Fields\SharpShowFileField;
-use Code16\Sharp\Show\Fields\SharpShowListField;
 use Code16\Sharp\Show\Fields\SharpShowTextField;
 use Code16\Sharp\Show\Layout\ShowLayoutColumn;
 use Code16\Sharp\Show\Layout\ShowLayoutSection;

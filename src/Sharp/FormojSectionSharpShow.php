@@ -49,9 +49,17 @@ class FormojSectionSharpShow extends SharpShow
             ->addEntityListSection("fields");
     }
 
+    public function buildShowConfig(): void
+    {
+        $this->setBreadcrumbCustomLabelAttribute("breadcrumb");
+    }
+
     function find($id): array
     {
         return $this
+            ->setCustomTransformer("breadcrumb", function($value, $instance) {
+                return $instance->title;
+            })
             ->setCustomTransformer("title", function($value, $instance) {
                 return FormojSectionSharpEntityList::transformTitle($instance);
             })

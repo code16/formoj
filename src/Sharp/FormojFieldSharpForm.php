@@ -3,7 +3,6 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
-use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
