@@ -9,6 +9,7 @@ return [
         'form' => "Formulaire",
         'section' => "Section",
         'field' => "Champ",
+        'answer' => "Réponse",
     ],
 
     'forms' => [
@@ -57,6 +58,7 @@ return [
                 "description_label" => "Description",
                 "published_at_label" => "Dates publication",
                 "sections_label" => "Sections",
+                "answers_label" => "Réponses",
             ],
             "data" => [
                 "dates" => [
@@ -179,14 +181,27 @@ return [
                 ]
             ]
         ],
+        'fields' => [
+            'replies' => [
+                'label' => 'Contenu'
+            ]
+        ],
         'commands' => [
-            'view' => "Visualiser cette réponse",
             'export' => "Exporter les réponses au format XLS",
             'download_files' => "Télécharger les fichiers joints de cette réponse",
         ],
         'errors' => [
             'no_file_to_download' => "Cette réponse en contient aucun fichier en pièce jointe.",
         ]
+    ],
+
+    'replies' => [
+        "list" => [
+            "columns" => [
+                "label_label" => "Champ",
+                "value_label" => "Valeur",
+            ],
+        ],
     ]
 
 ];

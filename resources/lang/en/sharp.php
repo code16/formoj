@@ -9,6 +9,7 @@ return [
         'form' => "Form",
         'section' => "Section",
         'field' => "Field",
+        'answer' => "Answer",
     ],
 
     'forms' => [
@@ -57,6 +58,7 @@ return [
                 "description_label" => "Description",
                 "published_at_label" => "publication dates",
                 "sections_label" => "Sections",
+                "answers_label" => "Answers",
             ],
             "data" => [
                 "dates" => [
@@ -179,14 +181,27 @@ return [
                 ]
             ]
         ],
+        'fields' => [
+            'replies' => [
+                'label' => 'Content'
+            ]
+        ],
         'commands' => [
-            'view' => "View this answer",
             'export' => "Export answers (XLS)",
             'download_files' => "Download answer attachments",
         ],
         'errors' => [
             'no_file_to_download' => "This answer does not contains any File attachment.",
         ]
+    ],
+
+    'replies' => [
+        "list" => [
+            "columns" => [
+                "label_label" => "Field",
+                "value_label" => "Value",
+            ],
+        ],
     ]
 
 ];

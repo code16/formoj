@@ -2,11 +2,11 @@
 
 namespace Code16\Formoj\Sharp\Policies;
 
-class FormojAnswerSharpPolicy
+class FormojReplySharpPolicy
 {
     public function view($user)
     {
-        return true;
+        return false;
     }
 
     public function create($user)

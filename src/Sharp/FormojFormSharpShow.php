@@ -45,6 +45,13 @@ class FormojFormSharpShow extends SharpShow
                     ->hideFilterWithValue("formoj_form", function($instanceId) {
                         return $instanceId;
                     })
+            )
+            ->addField(
+                SharpShowEntityListField::make("answers", "formoj_answer")
+                    ->setLabel(trans("formoj::sharp.forms.list.columns.answers_label"))
+                    ->hideFilterWithValue("formoj_form", function($instanceId) {
+                        return $instanceId;
+                    })
             );
     }
 
@@ -66,7 +73,8 @@ class FormojFormSharpShow extends SharpShow
                             ->withSingleField("success_message");
                     });
             })
-            ->addEntityListSection("sections");
+            ->addEntityListSection("sections")
+            ->addEntityListSection("answers");
     }
     
     public function buildShowConfig(): void
