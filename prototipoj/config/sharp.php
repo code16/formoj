@@ -7,43 +7,44 @@ return [
     "locale" => env("SHARP_LOCALE", "fr_FR.UTF-8"),
 
     "entities" => [
-        "form" => [
+        "formoj_form" => [
+            "label" => "Form",
             "list" => \Code16\Formoj\Sharp\FormojFormSharpEntityList::class,
+            "show" => \Code16\Formoj\Sharp\FormojFormSharpShow::class,
             "form" => \Code16\Formoj\Sharp\FormojFormSharpForm::class,
             "validator" => \Code16\Formoj\Sharp\FormojFormSharpValidator::class,
         ],
-        "field" => [
+        "formoj_section" => [
+            "label" => "Section",
+            "list" => \Code16\Formoj\Sharp\FormojSectionSharpEntityList::class,
+            "form" => \Code16\Formoj\Sharp\FormojSectionSharpForm::class,
+            "show" => \Code16\Formoj\Sharp\FormojSectionSharpShow::class,
+            "validator" => \Code16\Formoj\Sharp\FormojSectionSharpValidator::class,
+        ],
+        "formoj_field" => [
+            "label" => "Field",
             "list" => \Code16\Formoj\Sharp\FormojFieldSharpEntityList::class,
             "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
             "validator" => \Code16\Formoj\Sharp\FormojFieldSharpValidator::class,
         ],
-        "answer" => [
+        "formoj_answer" => [
+            "label" => "Answer",
             "list" => \Code16\Formoj\Sharp\FormojAnswerSharpEntityList::class,
+            "show" => \Code16\Formoj\Sharp\FormojAnswerSharpShow::class,
             "policy" => \Code16\Formoj\Sharp\Policies\FormojAnswerSharpPolicy::class,
+        ],
+        "formoj_reply" => [
+            "list" => \Code16\Formoj\Sharp\FormojReplySharpEntityList::class,
+            "policy" => \Code16\Formoj\Sharp\Policies\FormojReplySharpPolicy::class,
         ],
     ],
 
     "menu" => [
         [
+            "entity" => "formoj_form",
             "label" => "Formulaires",
-            "entities" => [
-                [
-                    "entity" => "form",
-                    "label" => "Formulaires",
-                    "icon" => "fa-list-alt"
-                ],
-                [
-                    "entity" => "field",
-                    "label" => "Champs",
-                    "icon" => "fa-square-o"
-                ],
-                [
-                    "entity" => "answer",
-                    "label" => "Réponses",
-                    "icon" => "fa-envelope-o"
-                ],
-            ]
-        ]
+            "icon" => "fa-list-alt"
+        ],
     ],
 
     "uploads" => [
