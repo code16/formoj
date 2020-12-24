@@ -3,8 +3,6 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
-use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
-use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
@@ -38,18 +36,13 @@ class FormojFieldSharpEntityList extends SharpEntityList
 
     function buildListConfig(): void
     {
-        $this
-            ->addFilter("formoj_form", FormojFormFilterHandler::class)
-            ->addFilter("formoj_section", FormojSectionFilterHandler::class)
-            ->setReorderable(FormojFieldReorderHandler::class);
+        $this->setReorderable(FormojFieldReorderHandler::class);
     }
 
     function getListData(EntityListQueryParams $params)
     {
-        $sectionId = $this->getCurrentSectionId($params);
-        
         $fields = Field::orderBy("order")
-            ->where("section_id", $sectionId);
+            ->where("section_id", $params->filterFor("formoj_section"));
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {
@@ -88,10 +81,5 @@ class FormojFieldSharpEntityList extends SharpEntityList
         ];
 
         return $value ? ($types[$value] ?? null) : $types;
-    }
-
-    protected function getCurrentSectionId(EntityListQueryParams $params): int
-    {
-        return $params->filterFor("formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue();
     }
 }

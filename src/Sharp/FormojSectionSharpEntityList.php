@@ -40,43 +40,23 @@ class FormojSectionSharpEntityList extends SharpEntityList
     function getListData(EntityListQueryParams $params)
     {
         $sections = Section::orderBy("order")
-            ->where("form_id", $params->filterFor("form"));
+            ->where("form_id", $params->filterFor("formoj_form"));
 
         return $this
             ->setCustomTransformer("title", function($value, $instance) {
-                return sprintf(
-                    '<div>%s</div><div><small>%s</small></div>',
-                    $value,
-                    $instance->is_title_hidden 
-                        ? trans("formoj::sharp.sections.list.data.title.is_hidden")
-                        : ""
-                );
-            })
-            ->setCustomTransformer("type", function($value, $instance) {
-                return static::fieldTypes($value);
+                return static::transformTitle($instance);
             })
             ->transform($sections->get());
     }
 
-    /**
-     * @param string|null $value
-     * @return array|string|null
-     */
-    public static function fieldTypes(?string $value = null)
+    public static function transformTitle(Section $section): string
     {
-        $types = [
-            Field::TYPE_TEXT => trans("formoj::sharp.fields.types." . Field::TYPE_TEXT),
-            Field::TYPE_TEXTAREA => trans("formoj::sharp.fields.types." . Field::TYPE_TEXTAREA),
-            Field::TYPE_SELECT => trans("formoj::sharp.fields.types." . Field::TYPE_SELECT),
-            Field::TYPE_HEADING => trans("formoj::sharp.fields.types." . Field::TYPE_HEADING),
-            Field::TYPE_UPLOAD => trans("formoj::sharp.fields.types." . Field::TYPE_UPLOAD),
-        ];
-
-        return $value ? ($types[$value] ?? null) : $types;
-    }
-
-    protected function getCurrentSectionId(EntityListQueryParams $params): int
-    {
-        return $params->filterFor("formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue();
+        return sprintf(
+            '<div>%s</div><div><small>%s</small></div>',
+            $section->title,
+            $section->is_title_hidden
+                ? trans("formoj::sharp.sections.list.data.title.is_hidden")
+                : ""
+        );
     }
 }

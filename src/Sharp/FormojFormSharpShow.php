@@ -42,7 +42,7 @@ class FormojFormSharpShow extends SharpShow
             ->addField(
                 SharpShowEntityListField::make("sections", "formoj_section")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
-                    ->hideFilterWithValue("form", function($instanceId) {
+                    ->hideFilterWithValue("formoj_form", function($instanceId) {
                         return $instanceId;
                     })
             );

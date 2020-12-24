@@ -19,14 +19,14 @@ class FormojSectionSharpForm extends SharpForm
         $this
             ->addField(
                 SharpFormTextField::make("title")
-                    ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.title.label"))
+                    ->setLabel(trans("formoj::sharp.sections.fields.title.label"))
             )
             ->addField(
-                SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.sections.fields.is_title_hidden.label"))
+                SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.sections.fields.is_title_hidden.label"))
             )
             ->addField(
                 SharpFormTextareaField::make("description")
-                    ->setLabel(trans("formoj::sharp.forms.fields.sections.fields.description.label"))
+                    ->setLabel(trans("formoj::sharp.sections.fields.description.label"))
                     ->setRowCount(3)
             );
     }

@@ -34,21 +34,6 @@ return [
             "unpublished_at" => [
                 "label" => "au"
             ],
-            "sections" => [
-                "label" => "Sections",
-                "add_label" => "Ajouter une section",
-                "fields" => [
-                    "title" => [
-                        "label" => "Titre"
-                    ],
-                    "is_title_hidden" => [
-                        "label" => "Masquer le titre de la section"
-                    ],
-                    "description" => [
-                        "label" => "Description"
-                    ]
-                ]
-            ],
             "success_message" => [
                 "label" => "Message affiché en fin de saisie du formulaire",
                 "help_text" => "Ce texte sera affiché à l'utilisateur au moment de la validation de sa réponse. S'il est laissé vide, un message standard le remplacera.",
@@ -94,6 +79,20 @@ return [
                     "is_hidden" => "Masqué",
                 ]
             ]
+        ],
+        "fields" => [
+            "title" => [
+                "label" => "Titre"
+            ],
+            "is_title_hidden" => [
+                "label" => "Masquer le titre"
+            ],
+            "description" => [
+                "label" => "Description"
+            ],
+            "fields" => [
+                "label" => "Champs"
+            ],
         ],
     ],
 

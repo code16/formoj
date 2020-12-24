@@ -34,21 +34,6 @@ return [
             "unpublished_at" => [
                 "label" => "to"
             ],
-            "sections" => [
-                "label" => "Sections",
-                "add_label" => "Add a section",
-                "fields" => [
-                    "title" => [
-                        "label" => "Title"
-                    ],
-                    "is_title_hidden" => [
-                        "label" => "Hide section title"
-                    ],
-                    "description" => [
-                        "label" => "Description"
-                    ]
-                ]
-            ],
             "success_message" => [
                 "label" => "Message displayed after posting the form",
                 "help_text" => "This text witl be shown to the user when posting his answer. If let blank, a standard message will be used.",
@@ -93,6 +78,20 @@ return [
                 "title" => [
                     "is_hidden" => "Hidden",
                 ]
+            ]
+        ],
+        "fields" => [
+            "title" => [
+                "label" => "Title"
+            ],
+            "is_title_hidden" => [
+                "label" => "Hide title"
+            ],
+            "description" => [
+                "label" => "Description"
+            ],
+            "fields" => [
+                "label" => "Fields"
             ]
         ],
     ],

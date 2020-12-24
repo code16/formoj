@@ -158,7 +158,10 @@ class FormojFieldSharpForm extends SharpForm
     {
         $field = $id
             ? Field::findOrFail($id)
-            : $this->getFieldForCreation();
+            : new Field([
+                "section_id" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
+                "order" => 100
+            ]);
 
         $data["field_attributes"] = [];
 
@@ -222,12 +225,5 @@ class FormojFieldSharpForm extends SharpForm
         }
 
         return $value;
-    }
-
-    protected function getFieldForCreation(): Field
-    {
-        return new Field([
-            "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
-        ]);
     }
 }
