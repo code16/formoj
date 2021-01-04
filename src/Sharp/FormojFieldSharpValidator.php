@@ -21,7 +21,10 @@ class FormojFieldSharpValidator extends FormRequest
                 Rule::unique('formoj_fields', 'identifier')
                     ->whereIn("section_id",
                         Section::select("id")
-                            ->where("form_id", session("_sharp_retained_filter_formoj_form") ?: app(FormojFormFilterHandler::class)->defaultValue())
+                            ->where("form_id", 
+                                Section::find(currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId())
+                                    ->form_id
+                            )
                             ->pluck("id")
                             ->all()
                     )
