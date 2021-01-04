@@ -68,6 +68,8 @@ class FormojFormSharpEntityList extends SharpEntityList
                     });
                 }
             });
+
+        $this->addAdditionalWhereClauses($forms);
         
         return $this
             ->setCustomTransformer("ref", function($value, $instance) {
@@ -132,5 +134,10 @@ class FormojFormSharpEntityList extends SharpEntityList
             return $sortedBy;
         }
         return "id";
+    }
+
+    protected function addAdditionalWhereClauses(Builder &$query): Builder
+    {
+        return $query;
     }
 }
