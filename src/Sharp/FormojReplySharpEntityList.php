@@ -37,7 +37,9 @@ class FormojReplySharpEntityList extends SharpEntityList
 
     function getListData(EntityListQueryParams $params)
     {
-        $answer = Answer::findOrFail($params->filterFor("formoj_answer"));
+        if(!$answer = Answer::find($params->filterFor("formoj_answer"))) {
+            return [];
+        }
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {
