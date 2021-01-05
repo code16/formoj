@@ -58,7 +58,7 @@ class FormojReplySharpEntityList extends SharpEntityList
                     ->values()
             );
     }
-    
+
     private function formatValue($value, $label): string
     {
         if(is_array($value)) {
@@ -68,21 +68,21 @@ class FormojReplySharpEntityList extends SharpEntityList
                 })
                 ->implode("<br>");
         }
-        
-        if($this->seemsToBeAFile($value)) {
+
+        if($value !== null && $this->seemsToBeAFile($value)) {
             return sprintf(
                 '<a href="%s">%s</a>',
                 route("code16.sharp.api.show.download", [
-                    "fieldKey" => "file", 
-                    "entityKey" => "formoj_answer", 
+                    "fieldKey" => "file",
+                    "entityKey" => "formoj_answer",
                     "instanceId" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
                     "fileName" => $value
                 ]),
                 $value
             );
         }
-        
-        return $value;
+
+        return $value ?: "";
     }
 
     private function isFile( $value)
@@ -96,7 +96,7 @@ class FormojReplySharpEntityList extends SharpEntityList
             return Storage::disk(config("formoj.storage.disk"))
                 ->exists(
                     sprintf(
-                        "%s/%s/answers/%s/%s", 
+                        "%s/%s/answers/%s/%s",
                         config("formoj.storage.path"),
                         currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")->instanceId(),
                         currentSharpRequest()->instanceId(),
@@ -104,7 +104,7 @@ class FormojReplySharpEntityList extends SharpEntityList
                     )
                 );
         }
-        
+
         return false;
     }
 }
