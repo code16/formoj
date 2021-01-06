@@ -5,6 +5,13 @@ use Code16\Formoj\Models\Form;
 
 return [
 
+    'entities' => [
+        'form' => "Formulaire",
+        'section' => "Section",
+        'field' => "Champ",
+        'answer' => "Réponse",
+    ],
+
     'forms' => [
         'no_title' => "(sans titre)",
         'notification_strategies' => [
@@ -27,21 +34,6 @@ return [
             ],
             "unpublished_at" => [
                 "label" => "au"
-            ],
-            "sections" => [
-                "label" => "Sections",
-                "add_label" => "Ajouter une section",
-                "fields" => [
-                    "title" => [
-                        "label" => "Titre"
-                    ],
-                    "is_title_hidden" => [
-                        "label" => "Masquer le titre de la section"
-                    ],
-                    "description" => [
-                        "label" => "Description"
-                    ]
-                ]
             ],
             "success_message" => [
                 "label" => "Message affiché en fin de saisie du formulaire",
@@ -66,6 +58,7 @@ return [
                 "description_label" => "Description",
                 "published_at_label" => "Dates publication",
                 "sections_label" => "Sections",
+                "answers_label" => "Réponses",
             ],
             "data" => [
                 "dates" => [
@@ -75,6 +68,34 @@ return [
                 ]
             ]
         ]
+    ],
+
+    'sections' => [
+        "list" => [
+            "columns" => [
+                "title_label" => "Titre",
+                "description_label" => "Description",
+            ],
+            "data" => [
+                "title" => [
+                    "is_hidden" => "Masqué",
+                ]
+            ]
+        ],
+        "fields" => [
+            "title" => [
+                "label" => "Titre"
+            ],
+            "is_title_hidden" => [
+                "label" => "Masquer le titre"
+            ],
+            "description" => [
+                "label" => "Description"
+            ],
+            "fields" => [
+                "label" => "Champs"
+            ],
+        ],
     ],
 
     'fields' => [
@@ -160,14 +181,27 @@ return [
                 ]
             ]
         ],
+        'fields' => [
+            'replies' => [
+                'label' => 'Contenu'
+            ]
+        ],
         'commands' => [
-            'view' => "Visualiser cette réponse",
             'export' => "Exporter les réponses au format XLS",
             'download_files' => "Télécharger les fichiers joints de cette réponse",
         ],
         'errors' => [
             'no_file_to_download' => "Cette réponse en contient aucun fichier en pièce jointe.",
         ]
+    ],
+
+    'replies' => [
+        "list" => [
+            "columns" => [
+                "label_label" => "Champ",
+                "value_label" => "Valeur",
+            ],
+        ],
     ]
 
 ];

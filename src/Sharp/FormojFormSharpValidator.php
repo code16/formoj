@@ -11,8 +11,6 @@ class FormojFormSharpValidator extends FormRequest
         return [
             'published_at' => 'date|nullable',
             'unpublished_at' => 'date|after:published_at|nullable',
-            'sections' => 'required',
-            'sections.*.title' => 'required',
             'administrator_email' => 'required_unless:notifications_strategy,none|email|nullable'
         ];
     }

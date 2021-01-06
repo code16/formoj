@@ -3,10 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
-use Code16\Formoj\Sharp\Commands\FormojAnswerDownloadFilesCommand;
 use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
-use Code16\Formoj\Sharp\Commands\FormojAnswerViewCommand;
-use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
 use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
 use Code16\Sharp\EntityList\EntityListQueryParams;
 use Code16\Sharp\EntityList\SharpEntityList;
@@ -36,11 +33,8 @@ class FormojAnswerSharpEntityList extends SharpEntityList
     function buildListConfig(): void
     {
         $this
-            ->addFilter("formoj_form", FormojFormFilterHandler::class)
             ->setPaginated()
-            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class)
-            ->addInstanceCommand("view_answer", FormojAnswerViewCommand::class)
-            ->addInstanceCommand("download_answer_files", FormojAnswerDownloadFilesCommand::class);
+            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class);
     }
 
     function getListData(EntityListQueryParams $params)
@@ -61,6 +55,6 @@ class FormojAnswerSharpEntityList extends SharpEntityList
                     ->take(3)
                     ->implode("<br>");
             })
-            ->transform($answers->paginate(50));
+            ->transform($answers->paginate(40));
     }
 }

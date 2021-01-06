@@ -4,8 +4,6 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Section;
-use Code16\Formoj\Sharp\Filters\FormojFormFilterHandler;
-use Code16\Sharp\Http\WithSharpContext;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -23,7 +21,10 @@ class FormojFieldSharpValidator extends FormRequest
                 Rule::unique('formoj_fields', 'identifier')
                     ->whereIn("section_id",
                         Section::select("id")
-                            ->where("form_id", session("_sharp_retained_filter_formoj_form") ?: app(FormojFormFilterHandler::class)->defaultValue())
+                            ->where("form_id", 
+                                Section::find(currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId())
+                                    ->form_id
+                            )
                             ->pluck("id")
                             ->all()
                     )

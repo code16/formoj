@@ -3,7 +3,6 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
-use Code16\Formoj\Sharp\Filters\FormojSectionFilterHandler;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
@@ -158,7 +157,10 @@ class FormojFieldSharpForm extends SharpForm
     {
         $field = $id
             ? Field::findOrFail($id)
-            : $this->getFieldForCreation();
+            : new Field([
+                "section_id" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
+                "order" => 100
+            ]);
 
         $data["field_attributes"] = [];
 
@@ -222,12 +224,5 @@ class FormojFieldSharpForm extends SharpForm
         }
 
         return $value;
-    }
-
-    protected function getFieldForCreation(): Field
-    {
-        return new Field([
-            "section_id" => session("_sharp_retained_filter_formoj_section") ?: app(FormojSectionFilterHandler::class)->defaultValue()
-        ]);
     }
 }
