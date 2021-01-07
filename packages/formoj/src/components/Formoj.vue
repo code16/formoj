@@ -8,6 +8,7 @@
             </template>
             <template v-if="ready && !isFinished">
                 <fj-form
+                    v-model="data"
                     :title="form.title"
                     :is-title-hidden="form.isTitleHidden"
                     :description="form.description"
@@ -59,6 +60,7 @@
             return {
                 ready: false,
                 form: null,
+                data: null,
                 isLoading: false,
                 isFinished: false,
 
@@ -86,30 +88,45 @@
         },
         methods: {
             $t,
-            handleFormSubmitted(data) {
+            /**
+             * @public
+             */
+            submit({ showSuccess=true } = {}) {
                 this.isLoading = true;
                 this.resetAlert();
                 this.resetValidation();
-                postForm(this.config.apiBaseUrl, { formId: this.formId, data })
-                    .then(response => {
-                        this.showAlert({
-                            message: response.data.message,
-                            type: 'success',
-                        });
-                        this.isFinished = true;
-                    })
-                    .catch(this.handleValidationError)
-                    .catch(this.handleUnauthorizedError)
-                    .catch(() => {
-                        this.showAlert({
-                            message: this.$t('form.error.post'),
-                            type: 'error',
-                        });
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
-                        this.scrollTop();
-                    });
+                return new Promise((resolve, reject) => {
+                    postForm(this.config.apiBaseUrl, { formId: this.formId, data: this.data })
+                        .then(response => {
+                            if (showSuccess) {
+                                this.showAlert({
+                                    message: response.data.message,
+                                    type: 'success',
+                                });
+                            }
+                            this.isFinished = true;
+                        })
+                        .catch(error => {
+                            reject(error);
+                            return Promise.reject(error);
+                        })
+                        .catch(this.handleValidationError)
+                        .catch(this.handleUnauthorizedError)
+                        .catch(() => {
+                            this.showAlert({
+                                message: this.$t('form.error.post'),
+                                type: 'error',
+                            });
+                        })
+                        .finally(() => {
+                            this.isLoading = false;
+                            this.scrollTop();
+                        })
+                });
+            },
+            handleFormSubmitted() {
+                this.submit()
+                    .catch(() => {});
             },
             handleNextSectionRequested(e, currentSection, data) {
                 const sectionId = currentSection.id;

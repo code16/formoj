@@ -152,6 +152,7 @@
                     ...this.data,
                     [fieldKey]: value,
                 };
+                this.$emit('input', { ...this.data });
             },
             handleFieldError(field, message) {
                 const fieldKey = this.fieldKey(field);
