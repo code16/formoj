@@ -10,7 +10,6 @@
                 <fj-form
                     v-model="data"
                     :title="form.title"
-                    :is-title-hidden="form.isTitleHidden"
                     :description="form.description"
                     :sections="form.sections"
                     :form-id="form.id"
@@ -18,6 +17,7 @@
                     :errors="validationErrors"
                     :appearance="appearance"
                     :show-submit="showSubmit"
+                    :show-title="!form.isTitleHidden"
                     :is-loading="isLoading"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"

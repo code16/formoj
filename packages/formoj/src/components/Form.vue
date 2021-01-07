@@ -1,11 +1,19 @@
 <template>
     <div class="fj-form" :class="classes">
-        <div class="fj-form__header" v-if="description || (title && !isTitleHidden)">
-            <slot name="header">
-                <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
-                <div class="fj-form__description">{{ description }}</div>
-            </slot>
-        </div>
+
+        <template v-if="showHeader">
+            <div class="fj-form__header">
+                <slot name="header">
+                    <template v-if="showTitle && title">
+                        <h3 class="fj-form__title">{{ title }}</h3>
+                    </template>
+                    <template v-if="description">
+                        <div class="fj-form__description">{{ description }}</div>
+                    </template>
+                </slot>
+            </div>
+        </template>
+
         <div class="fj-form__content">
             <template v-if="currentSection">
                 <fj-section
@@ -58,7 +66,6 @@
 
         props: {
             title: String,
-            isTitleHidden: Boolean,
             description: String,
             sections: Array,
             formId: Number,
@@ -66,6 +73,7 @@
             errors: Object,
             appearance: String,
             isLoading: Boolean,
+            showTitle: Boolean,
             showSubmit: {
                 type: Boolean,
                 default: true,
@@ -105,7 +113,9 @@
             currentIndication() {
                 return `${this.currentSectionIndex + 1}/${this.sections.length}`;
             },
-
+            showHeader() {
+                return !!(this.title && this.showTitle || this.description);
+            },
             classes() {
                 return {
                     [`fj-form--${this.appearance}`]: !!this.appearance,
