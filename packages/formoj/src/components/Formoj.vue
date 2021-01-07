@@ -17,6 +17,7 @@
                     :index.sync="currentSectionIndex"
                     :errors="validationErrors"
                     :appearance="appearance"
+                    :show-submit="showSubmit"
                     :is-loading="isLoading"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
@@ -55,6 +56,10 @@
                 required: true,
             },
             appearance: String,
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
         },
         data() {
             return {
@@ -105,6 +110,7 @@
                                 });
                             }
                             this.isFinished = true;
+                            resolve(response.data);
                         })
                         .catch(error => {
                             reject(error);

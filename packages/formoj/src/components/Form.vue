@@ -16,6 +16,7 @@
                     :is-first="isCurrentFirst"
                     :is-last="isCurrentLast"
                     :is-loading="isLoading"
+                    :show-submit="showSubmit"
                     :key="currentSection.id"
                     @submit="handleSubmit"
                     @next="handleNextSectionRequested"
@@ -65,6 +66,10 @@
             errors: Object,
             appearance: String,
             isLoading: Boolean,
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
         },
 
         data() {
