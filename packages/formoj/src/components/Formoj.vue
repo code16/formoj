@@ -109,11 +109,13 @@
                                     type: 'success',
                                 });
                                 this.isFinished = true;
+                                this.scrollTop();
                             }
                             resolve(response.data);
                         })
                         .catch(error => {
                             reject(error);
+                            this.scrollTop();
                             return Promise.reject(error);
                         })
                         .catch(this.handleValidationError)
@@ -126,7 +128,6 @@
                         })
                         .finally(() => {
                             this.isLoading = false;
-                            this.scrollTop();
                         })
                 });
             },
@@ -211,7 +212,7 @@
             },
 
             scrollTop() {
-                const top = this.$el.getBoundingClientRect().y + pageYOffset - this.config.scrollOffset;
+                const top = this.$el.getBoundingClientRect().top + pageYOffset - this.config.scrollOffset;
                 smoothScroll(0, top);
             },
 
