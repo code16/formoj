@@ -108,8 +108,8 @@
                                     message: response.data.message,
                                     type: 'success',
                                 });
+                                this.isFinished = true;
                             }
-                            this.isFinished = true;
                             resolve(response.data);
                         })
                         .catch(error => {
