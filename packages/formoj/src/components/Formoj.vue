@@ -50,7 +50,7 @@
         },
         props: {
             formId: {
-                type: String,
+                type: [String, Number],
                 required: true,
             },
             appearance: String,
