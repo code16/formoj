@@ -72,41 +72,63 @@ class FormojReplySharpEntityList extends SharpEntityList
         }
 
         if($value !== null && $this->seemsToBeAFile($value)) {
-            return sprintf(
-                '<a href="%s">%s</a>',
-                route("code16.sharp.api.show.download", [
-                    "fieldKey" => "file",
-                    "entityKey" => "formoj_answer",
-                    "instanceId" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
-                    "fileName" => $value
-                ]),
-                $value
-            );
+            return $this->buildSharpDownloadFileLink($value);
         }
 
         return $value ?: "";
     }
 
-    private function isFile( $value)
-    {
-        return Str::endsWith($value, ".jpg");
-    }
-
     private function seemsToBeAFile(string $value): bool
     {
-        if(preg_match('/^[\w,\s-]+\.[A-Za-z]{3}$/', $value)) {
-            return Storage::disk(config("formoj.storage.disk"))
-                ->exists(
-                    sprintf(
-                        "%s/%s/answers/%s/%s",
-                        config("formoj.storage.path"),
-                        currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")->instanceId(),
-                        currentSharpRequest()->instanceId(),
-                        $value
-                    )
-                );
+        if(preg_match('/^.+\.[A-Za-z]{3}$/U', $value)) {
+            if(($formId = $this->getCurrentFormId()) && ($answerId = $this->getCurrentAnswerId())) {
+                return Storage::disk(config("formoj.storage.disk"))
+                    ->exists(
+                        sprintf(
+                            "%s/%s/answers/%s/%s",
+                            config("formoj.storage.path"),
+                            $formId,
+                            $answerId,
+                            $value
+                        )
+                    );
+            }
+            
+            return false;
         }
 
         return false;
+    }
+
+    protected function getCurrentFormId(): ?string
+    {
+        if($formShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")) {
+            return $formShow->instanceId();
+        }
+        
+        return null;
+    }
+
+    protected function getCurrentAnswerId(): ?string
+    {
+        if($answerShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_answer")) {
+            return $answerShow->instanceId();
+        }
+        
+        return null;
+    }
+
+    protected function buildSharpDownloadFileLink(string $fileName): string
+    {
+        return sprintf(
+            '<a href="%s">%s</a>',
+            route("code16.sharp.api.show.download", [
+                "fieldKey" => "file",
+                "entityKey" => "formoj_answer",
+                "instanceId" => $this->getCurrentAnswerId(),
+                "fileName" => $fileName
+            ]),
+            $fileName
+        );
     }
 }

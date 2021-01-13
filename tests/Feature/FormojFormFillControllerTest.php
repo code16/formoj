@@ -272,6 +272,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_move_uploads_and_store_filename_with_the_answer()
     {
+        $this->withoutExceptionHandling();
         Storage::fake('local');
 
         $this->withoutNotifications();
