@@ -33,11 +33,12 @@ class FormojFormFillControllerTest extends FormojTestCase
                 "form_id" => factory(Form::class)->create([
                     "published_at" => null,
                     "unpublished_at" => null,
+                    "success_message" => "OK!"
                 ])->id
             ])->id
         ]);
 
-        $this
+        $response = $this
             ->postJson("/formoj/api/form/{$field->section->form_id}", [
                 "f" . $field->id => $answer,
             ])
@@ -48,6 +49,13 @@ class FormojFormFillControllerTest extends FormojTestCase
             "content" => json_encode([
                 $field->identifier => $answer
             ])
+        ]);
+        
+        $answer = Answer::where("form_id", $field->section->form_id)->first();
+        
+        $response->assertJson([
+            "answer_id" => $answer->id,
+            "message" => "OK!"
         ]);
     }
 
