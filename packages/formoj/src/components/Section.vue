@@ -73,7 +73,10 @@
             isFirst: Boolean,
             isLast: Boolean,
             isLoading: Boolean,
-            showSubmit: Boolean,
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
             showCancel: Boolean,
         },
 
