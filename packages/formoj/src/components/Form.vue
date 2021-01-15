@@ -28,6 +28,7 @@
                     :show-cancel="showCancel"
                     :key="currentSection.id"
                     @submit="handleSubmit"
+                    @cancel="handleCancel"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                 >
@@ -184,6 +185,9 @@
             },
             handleSubmit() {
                 this.$emit('submit', this.data);
+            },
+            handleCancel() {
+                this.$emit('cancel');
             },
         },
     }

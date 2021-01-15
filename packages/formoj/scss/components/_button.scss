@@ -1,0 +1,7 @@
+.fj-button {
+  display: inline-flex;
+  align-items: center;
+  > .fj-icon:first-child {
+    margin-right: .25em;
+  }
+}

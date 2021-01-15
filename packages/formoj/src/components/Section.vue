@@ -25,12 +25,13 @@
                 </div>
                 <div class="fj-section__buttons">
                     <template v-if="showCancel">
-                        <button class="fj-button fj-button--light fj-section__button" @click="handleCancelButtonClicked">
-                            {{ $t('section.button.next') }}
+                        <button class="fj-button fj-button--light fj-section__button" style="margin-right: .5rem" @click="handleCancelButtonClicked">
+                            {{ $t('section.button.cancel') }}
                         </button>
                     </template>
                     <template v-if="!isFirst">
                         <button class="fj-button fj-button--light fj-section__button" :disabled="isLoading" @click="handlePreviousButtonClicked">
+                            <span class="fj-icon" style="opacity: .5">&lsaquo;</span>
                             {{ $t('section.button.previous') }}
                         </button>
                     </template>

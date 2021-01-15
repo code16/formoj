@@ -18,9 +18,11 @@
                     :appearance="appearance"
                     :show-submit="showSubmit"
                     :show-title="!form.isTitleHidden"
+                    :show-cancel="showCancel"
                     :is-loading="isLoading"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
+                    @cancel="handleCancelClicked"
                     @submit="handleFormSubmitted"
                     @error="handleFormFieldError"
                     @clear="handleFormFieldClear"
@@ -60,6 +62,7 @@
                 type: Boolean,
                 default: true,
             },
+            showCancel: Boolean,
         },
         data() {
             return {
@@ -160,6 +163,9 @@
             },
             handlePreviousSectionRequested() {
                 this.scrollTop();
+            },
+            handleCancelClicked() {
+                this.$emit('cancel');
             },
 
             handleValidationError(error) {
