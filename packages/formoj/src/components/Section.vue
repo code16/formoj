@@ -2,8 +2,12 @@
     <div class="fj-section">
         <div class="fj-section__header">
             <slot name="header">
-                <h4 class="fj-section__title" v-if="!isTitleHidden">{{ title }}</h4>
-                <div class="fj-section__description">{{ description }}</div>
+                <template v-if="showTitle && title">
+                    <h4 class="fj-section__title">{{ title }}</h4>
+                </template>
+                <template v-if="description">
+                    <div class="fj-section__description">{{ description }}</div>
+                </template>
             </slot>
         </div>
         <div class="fj-section__fields">
@@ -14,28 +18,36 @@
             </template>
         </div>
 
-        <div class="fj-section__footer">
-            <div class="fj-section__indication">
-                <slot name="indication"/>
+        <template v-if="showFooter">
+            <div class="fj-section__footer">
+                <div class="fj-section__indication">
+                    <slot name="indication"/>
+                </div>
+                <div class="fj-section__buttons">
+                    <template v-if="showCancel">
+                        <button class="fj-button fj-button--light fj-section__button" style="margin-right: .5rem" @click="handleCancelButtonClicked">
+                            {{ $t('section.button.cancel') }}
+                        </button>
+                    </template>
+                    <template v-if="!isFirst">
+                        <button class="fj-button fj-button--light fj-section__button" :disabled="isLoading" @click="handlePreviousButtonClicked">
+                            <span class="fj-icon" style="opacity: .5">&lsaquo;</span>
+                            {{ $t('section.button.previous') }}
+                        </button>
+                    </template>
+                    <template v-if="isLast">
+                        <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleSubmitButtonClicked">
+                            {{ $t('section.button.submit') }}
+                        </button>
+                    </template>
+                    <template v-else-if="showSubmit">
+                        <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleNextButtonClicked">
+                            {{ $t('section.button.next') }}
+                        </button>
+                    </template>
+                </div>
             </div>
-            <div class="fj-section__buttons">
-                <template v-if="!isFirst">
-                    <button class="fj-button fj-button--light fj-section__button" :disabled="isLoading" @click="handlePreviousButtonClicked">
-                        {{ $t('section.button.previous') }}
-                    </button>
-                </template>
-                <template v-if="isLast">
-                    <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleSubmitButtonClicked">
-                        {{ $t('section.button.submit') }}
-                    </button>
-                </template>
-                <template v-else>
-                    <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleNextButtonClicked">
-                        {{ $t('section.button.next') }}
-                    </button>
-                </template>
-            </div>
-        </div>
+        </template>
     </div>
 </template>
 
@@ -53,15 +65,32 @@
         props: {
             fields: Array,
             title: String,
-            isTitleHidden: Boolean,
+            showTitle: {
+                type: Boolean,
+                default: true,
+            },
             description: String,
             isFirst: Boolean,
             isLast: Boolean,
             isLoading: Boolean,
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
+            showCancel: Boolean,
+        },
+
+        computed: {
+            showFooter() {
+                return !!this.$slots.indication || !this.isFirst || this.showSubmit;
+            },
         },
 
         methods: {
             $t,
+            handleCancelButtonClicked() {
+                this.$emit('cancel');
+            },
             handleSubmitButtonClicked() {
                 this.$emit('submit');
             },

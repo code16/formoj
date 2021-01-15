@@ -8,17 +8,21 @@
             </template>
             <template v-if="ready && !isFinished">
                 <fj-form
+                    v-model="data"
                     :title="form.title"
-                    :is-title-hidden="form.isTitleHidden"
                     :description="form.description"
                     :sections="form.sections"
                     :form-id="form.id"
                     :index.sync="currentSectionIndex"
                     :errors="validationErrors"
                     :appearance="appearance"
+                    :show-submit="showSubmit"
+                    :show-title="!form.isTitleHidden"
+                    :show-cancel="showCancel"
                     :is-loading="isLoading"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
+                    @cancel="handleCancelClicked"
                     @submit="handleFormSubmitted"
                     @error="handleFormFieldError"
                     @clear="handleFormFieldClear"
@@ -39,7 +43,7 @@
     import {getForm, postForm, postSection} from "../api";
     import {config} from "../util/config";
     import {getValidationErrors} from "../util/validation";
-    import {smoothScroll} from "../util/css";
+    import { isInsideModal, smoothScroll } from "../util/css";
     import {$t} from "../util/i18n";
 
     export default {
@@ -54,11 +58,17 @@
                 required: true,
             },
             appearance: String,
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
+            showCancel: Boolean,
         },
         data() {
             return {
                 ready: false,
                 form: null,
+                data: null,
                 isLoading: false,
                 isFinished: false,
 
@@ -86,30 +96,47 @@
         },
         methods: {
             $t,
-            handleFormSubmitted(data) {
+            /**
+             * @public
+             */
+            submit({ showSuccess=true } = {}) {
                 this.isLoading = true;
                 this.resetAlert();
                 this.resetValidation();
-                postForm(this.config.apiBaseUrl, { formId: this.formId, data })
-                    .then(response => {
-                        this.showAlert({
-                            message: response.data.message,
-                            type: 'success',
-                        });
-                        this.isFinished = true;
-                    })
-                    .catch(this.handleValidationError)
-                    .catch(this.handleUnauthorizedError)
-                    .catch(() => {
-                        this.showAlert({
-                            message: this.$t('form.error.post'),
-                            type: 'error',
-                        });
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
-                        this.scrollTop();
-                    });
+                return new Promise((resolve, reject) => {
+                    postForm(this.config.apiBaseUrl, { formId: this.formId, data: this.data })
+                        .then(response => {
+                            if (showSuccess) {
+                                this.showAlert({
+                                    message: response.data.message,
+                                    type: 'success',
+                                });
+                                this.isFinished = true;
+                                this.scrollTop();
+                            }
+                            resolve(response.data);
+                        })
+                        .catch(error => {
+                            reject(error);
+                            this.scrollTop();
+                            return Promise.reject(error);
+                        })
+                        .catch(this.handleValidationError)
+                        .catch(this.handleUnauthorizedError)
+                        .catch(() => {
+                            this.showAlert({
+                                message: this.$t('form.error.post'),
+                                type: 'error',
+                            });
+                        })
+                        .finally(() => {
+                            this.isLoading = false;
+                        })
+                });
+            },
+            handleFormSubmitted() {
+                this.submit()
+                    .catch(() => {});
             },
             handleNextSectionRequested(e, currentSection, data) {
                 const sectionId = currentSection.id;
@@ -136,6 +163,9 @@
             },
             handlePreviousSectionRequested() {
                 this.scrollTop();
+            },
+            handleCancelClicked() {
+                this.$emit('cancel');
             },
 
             handleValidationError(error) {
@@ -188,7 +218,11 @@
             },
 
             scrollTop() {
-                const top = this.$el.getBoundingClientRect().y + pageYOffset - this.config.scrollOffset;
+                if(isInsideModal(this.$el)) {
+                    this.$el.scrollIntoView();
+                    return;
+                }
+                const top = this.$el.getBoundingClientRect().top + pageYOffset - this.config.scrollOffset;
                 smoothScroll(0, top);
             },
 

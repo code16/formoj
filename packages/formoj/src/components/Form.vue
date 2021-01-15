@@ -1,23 +1,34 @@
 <template>
     <div class="fj-form" :class="classes">
-        <div class="fj-form__header" v-if="description || (title && !isTitleHidden)">
-            <slot name="header">
-                <h3 class="fj-form__title" v-if="!isTitleHidden">{{ title }}</h3>
-                <div class="fj-form__description">{{ description }}</div>
-            </slot>
-        </div>
+
+        <template v-if="showHeader">
+            <div class="fj-form__header">
+                <slot name="header">
+                    <template v-if="showTitle && title">
+                        <h3 class="fj-form__title">{{ title }}</h3>
+                    </template>
+                    <template v-if="description">
+                        <div class="fj-form__description">{{ description }}</div>
+                    </template>
+                </slot>
+            </div>
+        </template>
+
         <div class="fj-form__content">
             <template v-if="currentSection">
                 <fj-section
                     :fields="currentSection.fields"
                     :title="currentSection.title"
-                    :is-title-hidden="currentSection.isTitleHidden"
+                    :show-title="!currentSection.isTitleHidden"
                     :description="currentSection.description"
                     :is-first="isCurrentFirst"
                     :is-last="isCurrentLast"
                     :is-loading="isLoading"
+                    :show-submit="showSubmit"
+                    :show-cancel="showCancel"
                     :key="currentSection.id"
                     @submit="handleSubmit"
+                    @cancel="handleCancel"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                 >
@@ -57,7 +68,6 @@
 
         props: {
             title: String,
-            isTitleHidden: Boolean,
             description: String,
             sections: Array,
             formId: Number,
@@ -65,6 +75,15 @@
             errors: Object,
             appearance: String,
             isLoading: Boolean,
+            showTitle: {
+                type: Boolean,
+                default: true,
+            },
+            showSubmit: {
+                type: Boolean,
+                default: true,
+            },
+            showCancel: Boolean,
         },
 
         data() {
@@ -100,7 +119,9 @@
             currentIndication() {
                 return `${this.currentSectionIndex + 1}/${this.sections.length}`;
             },
-
+            showHeader() {
+                return !!(this.title && this.showTitle || this.description);
+            },
             classes() {
                 return {
                     [`fj-form--${this.appearance}`]: !!this.appearance,
@@ -152,6 +173,7 @@
                     ...this.data,
                     [fieldKey]: value,
                 };
+                this.$emit('input', { ...this.data });
             },
             handleFieldError(field, message) {
                 const fieldKey = this.fieldKey(field);
@@ -163,6 +185,9 @@
             },
             handleSubmit() {
                 this.$emit('submit', this.data);
+            },
+            handleCancel() {
+                this.$emit('cancel');
             },
         },
     }
