@@ -6,6 +6,7 @@ export default {
     'form.error.post.invalid': `Il y a une ou plusieurs erreurs dans le formulaire.`,
     'section.button.next': 'Suivant',
     'section.button.previous': 'Précédent',
+    'section.button.cancel': 'Annuler',
     'section.button.submit': 'Envoyer',
     'field.select.placeholder': 'Choisir...',
     'field.upload.browse': 'Parcourir...',

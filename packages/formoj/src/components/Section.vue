@@ -20,6 +20,11 @@
                     <slot name="indication"/>
                 </div>
                 <div class="fj-section__buttons">
+                    <template v-if="showCancel">
+                        <button class="fj-button fj-button--light fj-section__button" @click="handleCancelButtonClicked">
+                            {{ $t('section.button.next') }}
+                        </button>
+                    </template>
                     <template v-if="!isFirst">
                         <button class="fj-button fj-button--light fj-section__button" :disabled="isLoading" @click="handlePreviousButtonClicked">
                             {{ $t('section.button.previous') }}
@@ -30,7 +35,7 @@
                             {{ $t('section.button.submit') }}
                         </button>
                     </template>
-                    <template v-else>
+                    <template v-else-if="showSubmit">
                         <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleNextButtonClicked">
                             {{ $t('section.button.next') }}
                         </button>
@@ -61,6 +66,7 @@
             isLast: Boolean,
             isLoading: Boolean,
             showSubmit: Boolean,
+            showCancel: Boolean,
         },
 
         computed: {
@@ -71,6 +77,9 @@
 
         methods: {
             $t,
+            handleCancelButtonClicked() {
+                this.$emit('cancel');
+            },
             handleSubmitButtonClicked() {
                 this.$emit('submit');
             },

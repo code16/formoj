@@ -25,6 +25,7 @@
                     :is-last="isCurrentLast"
                     :is-loading="isLoading"
                     :show-submit="showSubmit"
+                    :show-cancel="showCancel"
                     :key="currentSection.id"
                     @submit="handleSubmit"
                     @next="handleNextSectionRequested"
@@ -78,6 +79,7 @@
                 type: Boolean,
                 default: true,
             },
+            showCancel: Boolean,
         },
 
         data() {

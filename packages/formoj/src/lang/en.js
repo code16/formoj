@@ -6,6 +6,7 @@ export default {
     'form.error.post.invalid': `Some fields in the form are invalid.`,
     'section.button.next': 'Next',
     'section.button.previous': 'Previous',
+    'section.button.cancel': 'Cancel',
     'section.button.submit': 'Submit',
     'field.select.placeholder': 'Choose...',
     'field.upload.browse': 'Browse...',
