@@ -19,7 +19,7 @@
                 <fj-section
                     :fields="currentSection.fields"
                     :title="currentSection.title"
-                    :is-title-hidden="currentSection.isTitleHidden"
+                    :show-title="!currentSection.isTitleHidden"
                     :description="currentSection.description"
                     :is-first="isCurrentFirst"
                     :is-last="isCurrentLast"
@@ -74,7 +74,10 @@
             errors: Object,
             appearance: String,
             isLoading: Boolean,
-            showTitle: Boolean,
+            showTitle: {
+                type: Boolean,
+                default: true,
+            },
             showSubmit: {
                 type: Boolean,
                 default: true,

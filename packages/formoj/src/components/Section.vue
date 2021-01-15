@@ -2,8 +2,12 @@
     <div class="fj-section">
         <div class="fj-section__header">
             <slot name="header">
-                <h4 class="fj-section__title" v-if="!isTitleHidden">{{ title }}</h4>
-                <div class="fj-section__description">{{ description }}</div>
+                <template v-if="showTitle && title">
+                    <h4 class="fj-section__title">{{ title }}</h4>
+                </template>
+                <template v-if="description">
+                    <div class="fj-section__description">{{ description }}</div>
+                </template>
             </slot>
         </div>
         <div class="fj-section__fields">
@@ -60,7 +64,10 @@
         props: {
             fields: Array,
             title: String,
-            isTitleHidden: Boolean,
+            showTitle: {
+                type: Boolean,
+                default: true,
+            },
             description: String,
             isFirst: Boolean,
             isLast: Boolean,
