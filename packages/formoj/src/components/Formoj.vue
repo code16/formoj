@@ -41,7 +41,7 @@
     import {getForm, postForm, postSection} from "../api";
     import {config} from "../util/config";
     import {getValidationErrors} from "../util/validation";
-    import {smoothScroll} from "../util/css";
+    import { isInsideModal, smoothScroll } from "../util/css";
     import {$t} from "../util/i18n";
 
     export default {
@@ -212,6 +212,10 @@
             },
 
             scrollTop() {
+                if(isInsideModal(this.$el)) {
+                    this.$el.scrollIntoView();
+                    return;
+                }
                 const top = this.$el.getBoundingClientRect().top + pageYOffset - this.config.scrollOffset;
                 smoothScroll(0, top);
             },
