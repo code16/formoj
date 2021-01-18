@@ -63,6 +63,10 @@
                 default: true,
             },
             showCancel: Boolean,
+            showSuccess: {
+                type: Boolean,
+                default: true,
+            },
         },
         data() {
             return {
@@ -135,8 +139,13 @@
                 });
             },
             handleFormSubmitted() {
-                this.submit()
-                    .catch(() => {});
+                this.submit({
+                    showSuccess: this.showSuccess,
+                })
+                .then(data => {
+                    this.$emit('success', data)
+                })
+                .catch(() => {});
             },
             handleNextSectionRequested(e, currentSection, data) {
                 const sectionId = currentSection.id;
