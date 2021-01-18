@@ -1,6 +1,6 @@
 {
   "name": "formoj",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "Customisable forms renderer",
   "main": "dist/formoj.js",
   "types": "src/index.js",
