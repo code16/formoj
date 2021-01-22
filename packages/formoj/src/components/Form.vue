@@ -114,7 +114,7 @@
                 return this.currentSectionIndex === this.sections.length - 1;
             },
             isIndicationVisible() {
-                return !this.isCurrentLast;
+                return this.sections.length > 1;
             },
             currentIndication() {
                 return `${this.currentSectionIndex + 1}/${this.sections.length}`;

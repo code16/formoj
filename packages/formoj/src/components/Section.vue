@@ -32,17 +32,20 @@
                     <template v-if="!isFirst">
                         <button class="fj-button fj-button--light fj-section__button" :disabled="isLoading" @click="handlePreviousButtonClicked">
                             <span class="fj-icon" style="opacity: .5">&lsaquo;</span>
-                            {{ $t('section.button.previous') }}
+                            <span>{{ $t('section.button.previous') }}</span>
                         </button>
                     </template>
                     <template v-if="isLast">
-                        <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleSubmitButtonClicked">
-                            {{ $t('section.button.submit') }}
-                        </button>
+                        <template v-if="showSubmit">
+                            <button class="fj-button fj-button--primary fj-section__button fj-section__button--submit" :disabled="isLoading" @click="handleSubmitButtonClicked">
+                                <span>{{ $t('section.button.submit') }}</span>
+                            </button>
+                        </template>
                     </template>
-                    <template v-else-if="showSubmit">
+                    <template v-else>
                         <button class="fj-button fj-button--primary fj-section__button" :disabled="isLoading" @click="handleNextButtonClicked">
-                            {{ $t('section.button.next') }}
+                            <span>{{ $t('section.button.next') }}</span>
+                            <span class="fj-icon">&rsaquo;</span>
                         </button>
                     </template>
                 </div>
@@ -82,7 +85,7 @@
 
         computed: {
             showFooter() {
-                return !!this.$slots.indication || !this.isFirst || this.showSubmit;
+                return !!this.$slots.indication || this.showSubmit;
             },
         },
 

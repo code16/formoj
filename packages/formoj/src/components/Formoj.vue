@@ -67,6 +67,7 @@
                 type: Boolean,
                 default: true,
             },
+            loading: Boolean,
         },
         data() {
             return {
@@ -95,7 +96,7 @@
                 }
             },
             isLoadingVisible() {
-                return this.isLoading;
+                return this.isLoading || this.loading;
             },
         },
         methods: {
@@ -139,6 +140,11 @@
                 });
             },
             handleFormSubmitted() {
+                const event = { preventDefault() { this.defaultPrevented = true } };
+                this.$emit('submit', event);
+                if(event.defaultPrevented) {
+                    return;
+                }
                 this.submit({
                     showSuccess: this.showSuccess,
                 })

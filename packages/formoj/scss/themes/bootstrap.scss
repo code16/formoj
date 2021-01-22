@@ -88,6 +88,12 @@ $formoj-select-appearance: 'default' !default;
   }
   &__button {
     @extend .btn-lg;
+    &--submit {
+      > span {
+        margin-left: .25em;
+        margin-right: .25em;
+      }
+    }
   }
 }
 
