@@ -38,7 +38,7 @@
                     <template v-if="isLast">
                         <template v-if="showSubmit">
                             <button class="fj-button fj-button--primary fj-section__button fj-section__button--submit" :disabled="isLoading" @click="handleSubmitButtonClicked">
-                                <span>{{ $t('section.button.submit') }}</span>
+                                <span>{{ submitButtonLabel || $t('section.button.submit') }}</span>
                             </button>
                         </template>
                     </template>
@@ -81,6 +81,7 @@
                 default: true,
             },
             showCancel: Boolean,
+            submitButtonLabel: String,
         },
 
         computed: {

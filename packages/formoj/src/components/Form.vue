@@ -25,6 +25,7 @@
                     :is-last="isCurrentLast"
                     :is-loading="isLoading"
                     :show-submit="showSubmit"
+                    :submit-button-label="submitButtonLabel"
                     :show-cancel="showCancel"
                     :key="currentSection.id"
                     @submit="handleSubmit"
@@ -83,6 +84,7 @@
                 type: Boolean,
                 default: true,
             },
+            submitButtonLabel: String,
             showCancel: Boolean,
         },
 

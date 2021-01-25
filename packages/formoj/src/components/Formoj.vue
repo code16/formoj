@@ -17,6 +17,7 @@
                     :errors="validationErrors"
                     :appearance="appearance"
                     :show-submit="showSubmit"
+                    :submit-button-label="submitButtonLabel"
                     :show-title="!form.isTitleHidden"
                     :show-cancel="showCancel"
                     :is-loading="isLoading"
@@ -62,6 +63,7 @@
                 type: Boolean,
                 default: true,
             },
+            submitButtonLabel: String,
             showCancel: Boolean,
             showSuccess: {
                 type: Boolean,
