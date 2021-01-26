@@ -42,7 +42,7 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
 
     if($type == \Code16\Formoj\Models\Field::TYPE_SELECT) {
         for($i=0; $i<rand(3, 12); $i++) {
-            $fieldAttributes["options"][] = $faker->unique()->word;
+            $fieldAttributes["options"][] = $faker->word;
         }
         if($faker->boolean(40)) {
             $fieldAttributes["multiple"] = true;
