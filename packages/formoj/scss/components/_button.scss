@@ -1,0 +1,10 @@
+.fj-button {
+  display: inline-flex;
+  align-items: center;
+  > .fj-icon:first-child {
+    margin-right: .25em;
+  }
+  > .fj-icon:last-child {
+    margin-left: .375em;
+  }
+}
