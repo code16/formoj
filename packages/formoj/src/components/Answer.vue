@@ -1,5 +1,5 @@
 <template>
-    <div class="formoj formoj--answer">
+    <div class="formoj formoj--answer fj-answer" :class="classes">
         <div class="formoj__content">
             <template v-if="errorMessage">
                 <div class="formoj__alert-wrapper">
@@ -11,7 +11,7 @@
             </template>
             <template v-if="ready">
                 <dl style="margin-bottom: 0">
-                    <template v-for="(value, key) in answer.content">
+                    <template v-for="(value, key) in filteredData">
                         <dt>{{ label(key) }}</dt>
                         <dd>
                             <template v-if="isList(value)">
@@ -48,7 +48,8 @@
             answerId: {
                 type: [String, Number],
                 required: true,
-            }
+            },
+            showEmpty: Boolean,
         },
         data() {
             return {
@@ -60,6 +61,22 @@
         },
         computed: {
             config,
+            classes() {
+                return {
+                    'formoj--empty': !this.ready,
+                }
+            },
+            filteredData() {
+                return Object.fromEntries(
+                    Object.entries(this.answer.content)
+                        .filter(([key, value]) => {
+                            if(!this.showEmpty && (value == null || value === '')) {
+                                return false;
+                            }
+                            return true;
+                        })
+                )
+            },
         },
         methods: {
             $t,
