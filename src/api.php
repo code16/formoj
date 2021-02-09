@@ -18,5 +18,6 @@ Route::group([
     Route::post('/form/{form}', 'FormojFormFillController@store');
 
     Route::post('/form/{form}/upload/{field}', 'FormojUploadController@store');
-
+    
+    Route::get('/answer/{answer}', 'FormojAnswerController@show');
 });

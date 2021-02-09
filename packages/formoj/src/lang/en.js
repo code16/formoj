@@ -1,5 +1,6 @@
 
 export default {
+    'answer.error.get': `Can't access to this answer for the moment.`,
     'form.error.get': `Can't access to the form for the moment.`,
     'form.error.post': `An error as occured while sending the form.`,
     'form.error.post.unauthorized': `This form is not available anymore.`,

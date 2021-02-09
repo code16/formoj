@@ -16,3 +16,8 @@ export function postForm(baseUrl, { formId, data }) {
 export function postUploadUrl(baseUrl, { formId, fieldId }) {
     return `${baseUrl}/form/${formId}/upload/${fieldId}`;
 }
+
+export function getAnswer(baseUrl, { answerId }) {
+    return axios.get(`${baseUrl}/answer/${answerId}`)
+        .then(response => response.data.data);
+}
