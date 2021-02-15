@@ -15,19 +15,23 @@ class AnswerResource extends JsonResource
      */
     public function toArray($request)
     {
+        $formFields = Field::whereIn('identifier', collect($this->content)->keys())
+            ->get();
+        
         return [
             'id' => $this->id,
             'content' => $this->content,
-            'fields' => collect($this->content)->map(function($value, $identifier) {
-                if(!$field = Field::where('identifier', $identifier)->first()) {
-                    return null;
-                }
-                return [
-                    'key' => $field->identifier,
-                    'label' => $field->label,
-                    'type' => $field->type,
-                ];
-            })->values()
+            'fields' => collect($this->content)
+                ->map(function($value, $identifier) use($formFields) {
+                    $field = $formFields->where('identifier', $identifier)->first();
+                    
+                    return [
+                        'key' => $identifier,
+                        'label' => $field->label ?? $identifier,
+                        'type' => $field->type ?? "text",
+                    ];
+                })
+                ->values()
         ];
     }
 }
