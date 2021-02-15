@@ -70,7 +70,7 @@
                 return Object.fromEntries(
                     Object.entries(this.answer.content)
                         .filter(([key, value]) => {
-                            if(!this.showEmpty && (value == null || value === '')) {
+                            if(!this.showEmpty && (value == null || value === '' || value?.length === 0)) {
                                 return false;
                             }
                             return true;
