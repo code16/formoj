@@ -53,36 +53,25 @@ class FormojAnswerControllerTest extends FormojTestCase
     }
 
     /** @test */
-    function we_get_a_default_if_the_field_is_no_longer_present()
+    function we_allow_missing_fields()
     {
-        $field = factory(Field::class)->create([
-            "label" => "Field label",
-            "identifier" => "field_1",
-            "type" => "select",
-        ]);
-
         $answer = factory(Answer::class)->create([
             'content' => [
-                "field_2" => "some answer" // Another (missing) field
-            ],
-            'form_id' => $field->section->form_id
+                "some_field" => "some answer" // a missing field
+            ]
         ]);
-
+        
         $this->get("/formoj/api/answer/{$answer->id}")
             ->assertStatus(200)
             ->assertJson([
                 "data" => [
                     "content" => [
-                        "field_2" => "some answer"
+                        "some_field" => "some answer"
                     ],
                     "fields" => [
-                        [
-                            "key" => "field_2",
-                            "label" => "field_2",
-                            "type" => "text"
-                        ]
                     ]
                 ]
-            ]);
+            ])
+            ->assertJsonCount(0, "data.fields");
     }
 }
