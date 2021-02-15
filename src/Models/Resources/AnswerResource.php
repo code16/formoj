@@ -25,12 +25,15 @@ class AnswerResource extends JsonResource
                 ->map(function($value, $identifier) use($formFields) {
                     $field = $formFields->where('identifier', $identifier)->first();
                     
-                    return [
-                        'key' => $identifier,
-                        'label' => $field->label ?? $identifier,
-                        'type' => $field->type ?? "text",
-                    ];
+                    return $field 
+                        ? [
+                            'key' => $identifier,
+                            'label' => $field->label,
+                            'type' => $field->type,
+                        ]
+                        : null;
                 })
+                ->filter()
                 ->values()
         ];
     }
