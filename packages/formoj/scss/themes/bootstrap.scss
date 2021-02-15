@@ -9,7 +9,8 @@ $formoj-radio-appearance: 'default' !default;
 $formoj-select-appearance: 'default' !default;
 
 .formoj--empty,
-.formoj--finished
+.formoj--finished,
+.formoj--answer
 {
   @extend .card;
   // prevent loading to overlay to overflow border radius

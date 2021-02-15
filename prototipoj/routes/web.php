@@ -1,4 +1,5 @@
 <?php
 
-Route::get('/', 'FormController@index');
+Route::get('/', 'HomeController@index');
 Route::get('/forms/{form}', 'FormController@show');
+Route::get('/answers/{answer}', 'AnswerController@show');
