@@ -43,7 +43,7 @@ return [
     "menu" => [
         [
             "entity" => "formoj_form",
-            "label" => "Formulaires",
+            "label" => "Forms",
             "icon" => "fa-list-alt"
         ],
     ],

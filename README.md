@@ -5,13 +5,13 @@ Formoj for Laravel is a form generator package.
 ![](/docs/img/formoj.png)  
 *Example of a Formoj form (with de default style).*
 
-I guess you can picture it like a small Google Form but with full control on it. Formoj takes care of the form storage and display, allows an administrator to manage forms (notifications, export answers in XLS format) and, of course, stores answers.
+You can picture it like a small Google Form but with full control on it. Formoj takes care of the form storage and display, allows an administrator to manage forms (notifications, export answers in XLS format) and, of course, stores answers.
 
 The project is separated in 3 modules:
 
  - the Vue-based front package, which is a distinct NPM package (see installation instructions below)
  - the backend code: models and migrations, controllers, jobs, notifications, ...
- - and finally an optional [Sharp-based](https://github.com/code16/sharp) administration tool, to manage forms, sections, fields and export answers. 
+ - and finally an optional [Sharp-based](https://sharp.code16.fr) administration tool, to manage forms, sections, fields and export answers. 
 
 ## Installation
 
@@ -51,7 +51,7 @@ Vue.use(Formoj, {
 
 ### Laravel module
 
-Formoj requires Laravel 5.8+, and Carbon 2.0+.
+Formoj requires Laravel 7+, Carbon 2.0+, and maatwebsite/excel 3.1+.
 
 Install the package via composer:
 
@@ -61,19 +61,19 @@ composer require code16/formoj
 
 Then run this to create the needed tables in the database:
 
-```php
+```shell
 php artisan migrate
 ```
 
 You may publish the config file:
 
-```php
+```shell
 php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="config"
 ```
 
 And the lang file, if you need to update or add a translation (consider a PR in this case):
 
-```php
+```shell
 php artisan vendor:publish --provider="Code16\Formoj\FormojServiceProvider" --tag="lang"
 ```
 
@@ -85,29 +85,46 @@ Warning: when updating Formoj with `composer update code16/formoj`, **be sure to
 
 ### With Sharp
 
-If your project is already using [Sharp for Laravel](https://github.com/code16/sharp), great. If not, and if you want to use it with Formoj, first [install the package](https://github.com/code16/sharp#installation).
+If your project is already using [Sharp 6 for Laravel](https://code16.sharp.fr), great. If not, and if you want to use it with Formoj, first [install the package](https://sharp.code16.fr/docs/guide/#installation).
 
 Then we need to configure Formoj in `config/sharp.php`:
 
 ```php
 return [
+    // config/sharp.php
 
-    [...]
+    [...],
 
     "entities" => [
-        "form" => [
+        "formoj_form" => [
+            "label" => "Form",
             "list" => \Code16\Formoj\Sharp\FormojFormSharpEntityList::class,
+            "show" => \Code16\Formoj\Sharp\FormojFormSharpShow::class,
             "form" => \Code16\Formoj\Sharp\FormojFormSharpForm::class,
             "validator" => \Code16\Formoj\Sharp\FormojFormSharpValidator::class,
         ],
-        "field" => [
+        "formoj_section" => [
+            "label" => "Section",
+            "list" => \Code16\Formoj\Sharp\FormojSectionSharpEntityList::class,
+            "form" => \Code16\Formoj\Sharp\FormojSectionSharpForm::class,
+            "show" => \Code16\Formoj\Sharp\FormojSectionSharpShow::class,
+            "validator" => \Code16\Formoj\Sharp\FormojSectionSharpValidator::class,
+        ],
+        "formoj_field" => [
+            "label" => "Field",
             "list" => \Code16\Formoj\Sharp\FormojFieldSharpEntityList::class,
             "form" => \Code16\Formoj\Sharp\FormojFieldSharpForm::class,
             "validator" => \Code16\Formoj\Sharp\FormojFieldSharpValidator::class,
         ],
-        "answer" => [
+        "formoj_answer" => [
+            "label" => "Answer",
             "list" => \Code16\Formoj\Sharp\FormojAnswerSharpEntityList::class,
+            "show" => \Code16\Formoj\Sharp\FormojAnswerSharpShow::class,
             "policy" => \Code16\Formoj\Sharp\Policies\FormojAnswerSharpPolicy::class,
+        ],
+        "formoj_reply" => [
+            "list" => \Code16\Formoj\Sharp\FormojReplySharpEntityList::class,
+            "policy" => \Code16\Formoj\Sharp\Policies\FormojReplySharpPolicy::class,
         ],
     ],
 
@@ -116,20 +133,10 @@ return [
             "label" => "Formoj",
             "entities" => [
                 [
-                    "entity" => "form",
+                    "entity" => "formoj_form",
                     "label" => "Forms",
                     "icon" => "fa-list-alt"
-                ],
-                [
-                    "entity" => "field",
-                    "label" => "Fields",
-                    "icon" => "fa-square-o"
-                ],
-                [
-                    "entity" => "answer",
-                    "label" => "Answers",
-                    "icon" => "fa-envelope-o"
-                ],
+                ]
             ]
         ]
     ],
@@ -138,13 +145,19 @@ return [
 ];
 ```
 
+You can of course adapt this, depending on your needs: use our own subclasses, tweak the menu... 
+
 This will add a full Formoj administration in Sharp:
 
-![](/docs/img/form.png)
+![](/docs/img/sharp-01.png)
 
-![](/docs/img/fields.png)
+![](/docs/img/sharp-02.png)
 
-![](/docs/img/answers.png)
+![](/docs/img/sharp-03.png)
+
+![](/docs/img/sharp-04.png)
+
+![](/docs/img/sharp-05.png)
 
 ### Without Sharp
 
