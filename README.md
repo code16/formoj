@@ -1,4 +1,4 @@
-![Formoj for Laravel](docs/img/logo.png)
+![Formoj for Laravel](docs/img/logo-v2.png)
 
 Formoj for Laravel is a form generator package.
 
