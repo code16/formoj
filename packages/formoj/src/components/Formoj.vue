@@ -16,6 +16,7 @@
                     :index.sync="currentSectionIndex"
                     :errors="validationErrors"
                     :appearance="appearance"
+                    :large-buttons="largeButtons"
                     :show-submit="showSubmit"
                     :submit-button-label="submitButtonLabel"
                     :show-title="!form.isTitleHidden"
@@ -70,6 +71,10 @@
                 default: true,
             },
             loading: Boolean,
+            largeButtons: {
+                type: Boolean,
+                default: true,
+            }
         },
         data() {
             return {

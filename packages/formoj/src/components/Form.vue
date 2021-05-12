@@ -86,6 +86,11 @@
             },
             submitButtonLabel: String,
             showCancel: Boolean,
+
+            largeButtons: {
+                type: Boolean,
+                default: true,
+            },
         },
 
         data() {
@@ -127,6 +132,7 @@
             classes() {
                 return {
                     [`fj-form--${this.appearance}`]: !!this.appearance,
+                    'fj-form--buttons-large': this.largeButtons,
                 };
             },
         },
