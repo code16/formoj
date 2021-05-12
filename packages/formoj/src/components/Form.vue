@@ -31,6 +31,7 @@
                         >
                             <template slot="field" slot-scope="{ field }">
                                 <fj-field
+                                    inner
                                     v-bind="fieldProps(field)"
                                     v-on="fieldListeners(field)"
                                 />

@@ -1,5 +1,5 @@
 <template>
-    <div class="fj-heading">
+    <div class="fj-heading" :class="classes">
         <h5 class="fj-heading__title">{{ text }}</h5>
     </div>
 </template>
@@ -10,9 +10,15 @@
 
         props: {
             content: String,
+            inner: Boolean,
         },
 
         computed: {
+            classes() {
+                return {
+                    'fj-heading--inner': this.inner,
+                }
+            },
             text() {
                 return this.content;
             }
