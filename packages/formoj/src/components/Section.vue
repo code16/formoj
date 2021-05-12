@@ -25,7 +25,7 @@
                 </div>
                 <div class="fj-section__buttons">
                     <template v-if="showCancel">
-                        <button class="fj-button fj-button--light fj-section__button" style="margin-right: .5rem" @click="handleCancelButtonClicked">
+                        <button class="fj-button fj-button--light fj-section__button" style="margin-right: .375em" @click="handleCancelButtonClicked">
                             {{ $t('section.button.cancel') }}
                         </button>
                     </template>

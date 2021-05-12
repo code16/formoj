@@ -18,7 +18,8 @@ $formoj-select-appearance: 'default' !default;
   .formoj__content {
     @extend .card-body;
     display: flex;
-    align-items: center;
+    justify-content: center;
+    flex-direction: column;
   }
   .formoj__alert-wrapper {
     width: 100%;
@@ -75,6 +76,11 @@ $formoj-select-appearance: 'default' !default;
       }
     }
   }
+  &--buttons-large {
+    .fj-section__button {
+      @extend .btn-lg;
+    }
+  }
   @if($formoj-form-appearance == 'card') {
     @extend .fj-form--card;
   }
@@ -88,7 +94,6 @@ $formoj-select-appearance: 'default' !default;
     color: $text-muted;
   }
   &__button {
-    @extend .btn-lg;
     &--submit {
       > span {
         margin-left: .25em;

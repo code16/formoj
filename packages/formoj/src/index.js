@@ -1,6 +1,6 @@
 import './polyfill';
 import Formoj from './components/Formoj.vue';
-import Answer from './components/Answer';
+import FormojAnswer from './components/Answer';
 import Form from './components/Form.vue';
 import { createConfig } from "./util/config";
 import { versionNumber } from "./util/version";
@@ -8,7 +8,7 @@ import { versionNumber } from "./util/version";
 export default {
     install(Vue, config={}) {
         Vue.component('formoj', Formoj);
-        Vue.component('formoj-answer', Answer);
+        Vue.component('formoj-answer', FormojAnswer);
         Vue.component('fj-form', Form);
         // use Vue.observable 2.6 feature
         if(versionNumber(Vue.version) >= 2.6) {
@@ -21,5 +21,6 @@ export default {
 
 export {
     Formoj,
+    FormojAnswer,
     Form,
 }

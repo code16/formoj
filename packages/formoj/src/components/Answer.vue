@@ -1,5 +1,5 @@
 <template>
-    <div class="formoj formoj--answer fj-answer" :class="classes">
+    <div class="formoj formoj--answer" :class="classes">
         <div class="formoj__content">
             <template v-if="errorMessage">
                 <div class="formoj__alert-wrapper">
@@ -10,23 +10,32 @@
                 <fj-loading />
             </template>
             <template v-if="ready">
-                <dl style="margin-bottom: 0">
-                    <template v-for="(value, key) in filteredData">
-                        <dt>{{ label(key) }}</dt>
-                        <dd>
-                            <template v-if="isList(value)">
-                                <ul>
-                                    <template v-for="item in value">
-                                        <li>{{ item }}</li>
+                <div class="fj-answer">
+                    <div class="fj-answer__content">
+                        <dl style="margin-bottom: 0">
+                            <template v-for="(value, key) in filteredData">
+                                <dt>{{ label(key) }}</dt>
+                                <dd>
+                                    <template v-if="isList(value)">
+                                        <ul>
+                                            <template v-for="item in value">
+                                                <li>{{ item }}</li>
+                                            </template>
+                                        </ul>
                                     </template>
-                                </ul>
+                                    <template v-else>
+                                        {{ value }}
+                                    </template>
+                                </dd>
                             </template>
-                            <template v-else>
-                                {{ value }}
-                            </template>
-                        </dd>
+                        </dl>
+                    </div>
+                    <template v-if="$slots.footer">
+                        <div class="fj-answer__footer">
+                            <slot name="footer" />
+                        </div>
                     </template>
-                </dl>
+                </div>
             </template>
         </div>
     </div>
