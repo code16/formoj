@@ -118,34 +118,38 @@
                 this.resetAlert();
                 this.resetValidation();
                 return new Promise((resolve, reject) => {
-                    postForm(this.config.apiBaseUrl, { formId: this.formId, data: this.data })
-                        .then(response => {
-                            if (showSuccess) {
-                                this.showAlert({
-                                    message: response.data.message,
-                                    type: 'success',
-                                });
-                                this.isFinished = true;
-                                this.scrollTop();
-                            }
-                            resolve(response.data);
-                        })
-                        .catch(error => {
-                            reject(error);
-                            this.scrollTop();
-                            return Promise.reject(error);
-                        })
-                        .catch(this.handleValidationError)
-                        .catch(this.handleUnauthorizedError)
-                        .catch(() => {
+                    postForm(this.config.apiBaseUrl, {
+                        formId: this.formId,
+                        data: this.data,
+                        validateAll: this.stackSections,
+                    })
+                    .then(response => {
+                        if (showSuccess) {
                             this.showAlert({
-                                message: this.$t('form.error.post'),
-                                type: 'error',
+                                message: response.data.message,
+                                type: 'success',
                             });
-                        })
-                        .finally(() => {
-                            this.isLoading = false;
-                        })
+                            this.isFinished = true;
+                            this.scrollTop();
+                        }
+                        resolve(response.data);
+                    })
+                    .catch(error => {
+                        reject(error);
+                        this.scrollTop();
+                        return Promise.reject(error);
+                    })
+                    .catch(this.handleValidationError)
+                    .catch(this.handleUnauthorizedError)
+                    .catch(() => {
+                        this.showAlert({
+                            message: this.$t('form.error.post'),
+                            type: 'error',
+                        });
+                    })
+                    .finally(() => {
+                        this.isLoading = false;
+                    })
                 });
             },
             handleFormSubmitted() {
