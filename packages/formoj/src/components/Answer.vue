@@ -30,9 +30,9 @@
                             </template>
                         </dl>
                     </div>
-                    <template v-if="$slots.append">
+                    <template v-if="$slots.footer">
                         <div class="fj-answer__footer">
-                            <slot name="append" />
+                            <slot name="footer" />
                         </div>
                     </template>
                 </div>
