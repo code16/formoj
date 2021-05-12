@@ -12,6 +12,8 @@ class FormRequest extends SectionRequest
      */
     protected function currentSectionFields()
     {
-        return $this->form->sections->last()->fields;
+        return $this->query("validate_all", 0) 
+            ? $this->form->sections->pluck('fields')->flatten()
+            : $this->form->sections->last()->fields;
     }
 }

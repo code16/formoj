@@ -369,4 +369,44 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         Notification::assertNotSentTo(new AnonymousNotifiable, FormojFormWasJustAnswered::class);
     }
+
+    /** @test */
+    function all_sections_of_the_form_are_validated_if_validate_all_argument_is_passed()
+    {
+        $this->withoutNotifications();
+        
+        $form = factory(Form::class)
+            ->create([
+                "published_at" => null,
+                "unpublished_at" => null,
+            ]);
+
+        $field1 = factory(Field::class)->create([
+            "type" => "text",
+            "required" => true,
+            "section_id" => factory(Section::class)
+                ->create([
+                    "form_id" => $form->id
+                ])
+                ->id
+        ]);
+
+        $field2 = factory(Field::class)->create([
+            "type" => "text",
+            "required" => true,
+            "section_id" => factory(Section::class)
+                ->create([
+                    "form_id" => $form->id
+                ])
+                ->id
+        ]);
+
+        $this
+            ->postJson("/formoj/api/form/{$form->id}?validate_all=1", [
+                "f{$field1->id}" => "",
+                "f{$field2->id}" => "",
+            ])
+            ->assertStatus(422)
+            ->assertJsonValidationErrors(["f{$field1->id}", "f{$field2->id}"]);
+    }
 }
