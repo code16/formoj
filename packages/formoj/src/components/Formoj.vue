@@ -22,6 +22,7 @@
                     :show-title="!form.isTitleHidden"
                     :show-cancel="showCancel"
                     :is-loading="isLoading"
+                    :stack-sections="stackSections"
                     @next="handleNextSectionRequested"
                     @previous="handlePreviousSectionRequested"
                     @cancel="handleCancelClicked"
@@ -74,7 +75,8 @@
             largeButtons: {
                 type: Boolean,
                 default: true,
-            }
+            },
+            stackSections: Boolean,
         },
         data() {
             return {
