@@ -23,14 +23,6 @@ class ExportAnswersToXls
         $this->answers = $answers ?: $form->answers;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @param Excel $excel
-     * @return void
-     * @throws \PhpOffice\PhpSpreadsheet\Exception
-     * @throws \PhpOffice\PhpSpreadsheet\Writer\Exception
-     */
     public function handle(Excel $excel)
     {
         $excel->store(

@@ -15,13 +15,10 @@ class Form extends Model
     const NOTIFICATION_STRATEGY_NONE = "none";
 
     protected $table = "formoj_forms";
-
     protected $guarded = ["id"];
-
     protected $dates = [
         "created_at", "updated_at", "published_at", "unpublished_at"
     ];
-
     protected $casts = [
         "is_title_hidden" => "boolean",
     ];

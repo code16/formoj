@@ -9,23 +9,13 @@ use Illuminate\Filesystem\FilesystemManager;
 
 class FormojUploadController
 {
-    /** @var FilesystemManager */
-    protected $fileSystem;
+    protected FilesystemManager $fileSystem;
 
-    /**
-     * @param FilesystemManager $fileSystem
-     */
     public function __construct(FilesystemManager $fileSystem)
     {
         $this->fileSystem = $fileSystem;
     }
 
-    /**
-     * @param Form $form
-     * @param Field $field
-     * @param UploadRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Form $form, Field $field, UploadRequest $request)
     {
         $path = $request
@@ -39,11 +29,6 @@ class FormojUploadController
         return response()->json(["file" => basename($path)]);
     }
 
-    /**
-     * @param $file
-     * @param string $folder
-     * @return string
-     */
     protected function getStoreFileName($file, $folder): string
     {
         $filename = $file->getClientOriginalName();
@@ -51,7 +36,7 @@ class FormojUploadController
 
         for($k=1; $disk->exists("/$folder/$filename"); $k++) {
             $filename = explode(".", $file->getClientOriginalName())[0]
-                . "-" . $k . "."
+                . "-{$k}."
                 . $file->getClientOriginalExtension();
         }
 

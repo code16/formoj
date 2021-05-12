@@ -6,33 +6,24 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UploadRequest extends FormRequest
 {
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return !$this->form->isNotPublishedYet()
             && !$this->form->isNoMorePublished()
             && $this->field->isTypeUpload();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return [
-            "file" => array_merge([
-                "file",
-                "max:" . ($this->field->fieldAttribute("max_size") * 1024)
-            ], $this->field->fieldAttribute("accept")
-                ? ["mimes:" . $this->formatExtensions($this->field->fieldAttribute("accept"))]
-                : []
+            "file" => array_merge(
+                [
+                    "file",
+                    "max:" . ($this->field->fieldAttribute("max_size") * 1024)
+                ], 
+                $this->field->fieldAttribute("accept")
+                    ? ["mimes:" . $this->formatExtensions($this->field->fieldAttribute("accept"))]
+                    : []
             )
         ];
     }

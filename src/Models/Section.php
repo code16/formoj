@@ -13,15 +13,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Section extends Model
 {
     protected $table = "formoj_sections";
-
     protected $guarded = ["id"];
-
     protected $casts = [
         "is_title_hidden" => "boolean",
-    ];
-
-    protected $dates = [
-        "created_at", "updated_at",
     ];
 
     public function form(): BelongsTo

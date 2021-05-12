@@ -14,17 +14,10 @@ class Field extends Model
     const TYPE_UPLOAD = "upload";
 
     protected $table = "formoj_fields";
-
     protected $guarded = ["id"];
-
-    /** @var array */
     protected $casts = [
         'field_attributes' => 'json',
         'required' => 'boolean',
-    ];
-
-    protected $dates = [
-        "created_at", "updated_at",
     ];
 
     public function section(): BelongsTo

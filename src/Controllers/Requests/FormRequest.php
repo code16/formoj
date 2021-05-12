@@ -6,11 +6,7 @@ use Illuminate\Support\Collection;
 
 class FormRequest extends SectionRequest
 {
-
-    /**
-     * @return Collection
-     */
-    protected function currentSectionFields()
+    protected function currentSectionFields(): Collection
     {
         return $this->form->sections->last()->fields;
     }

@@ -9,23 +9,12 @@ use Illuminate\Validation\Rule;
 
 class SectionRequest extends FormRequest
 {
-
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function authorize(): bool
     {
         return !$this->form->isNotPublishedYet() && !$this->form->isNoMorePublished();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function rules(): array
     {
         return $this
             ->currentSectionFields()
@@ -61,10 +50,7 @@ class SectionRequest extends FormRequest
             ->all();
     }
 
-    /**
-     * @return Collection
-     */
-    protected function currentSectionFields()
+    protected function currentSectionFields(): Collection
     {
         return $this->section->fields;
     }

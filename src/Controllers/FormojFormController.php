@@ -7,11 +7,6 @@ use Code16\Formoj\Models\Resources\FormResource;
 
 class FormojFormController
 {
-
-    /**
-     * @param Form $form
-     * @return FormResource
-     */
     public function show(Form $form)
     {
         if($form->isNotPublishedYet()) {

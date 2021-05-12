@@ -9,11 +9,6 @@ use Illuminate\Support\Facades\Storage;
 
 class FormojFormFillController
 {
-    /**
-     * @param Form $form
-     * @param FormRequest $request
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function store(Form $form, FormRequest $request)
     {
         $answer = $form->storeNewAnswer($request->all());
@@ -25,12 +20,7 @@ class FormojFormFillController
             "message" => $form->success_message ?: trans("formoj::form.success_message")
         ]);
     }
-
-    /**
-     * @param Form $form
-     * @param array $data
-     * @param Answer $answer
-     */
+    
     protected function moveFormUploads(Form $form, array $data, Answer $answer)
     {
         collect($data)
