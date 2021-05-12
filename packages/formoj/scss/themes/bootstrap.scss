@@ -74,6 +74,12 @@ $formoj-select-appearance: 'default' !default;
         right: 0;
         border-top: $formoj-heading-border-width solid $formoj-heading-border-color;
       }
+      &--inner {
+        border-bottom: 0;
+        &::after {
+          display: none;
+        }
+      }
     }
   }
   &--buttons-large {

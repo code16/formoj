@@ -1,17 +1,17 @@
 .fj-field {
-  &--required {
-    .fj-field__label {
-      &::after {
-        content: "\A0*";
-      }
-    }
-  }
-
   &__label {
     margin-bottom: $formoj-label-margin-bottom;
     font-weight: bold;
   }
   &__help {
     font-size: 80%;
+  }
+
+  &--required {
+    .fj-field__label {
+      &::after {
+        content: "\A0*";
+      }
+    }
   }
 }

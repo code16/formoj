@@ -12,6 +12,7 @@
             :form-id="formId"
             :value="value"
             :name="name"
+            :inner="inner"
             v-bind="props"
             @input="handleInput"
             @error="handleError"
@@ -44,6 +45,8 @@
             },
             formId: Number,
             error: String,
+            // when sections are stacked
+            inner: Boolean,
         },
 
         computed: {
