@@ -18,7 +18,7 @@
             </template>
         </div>
 
-        <template v-if="showFooter">
+        <template v-if="footerVisible">
             <div class="fj-section__footer">
                 <div class="fj-section__indication">
                     <slot name="indication"/>
@@ -82,11 +82,15 @@
             },
             showCancel: Boolean,
             submitButtonLabel: String,
+            showFooter: {
+                type: Boolean,
+                default: true,
+            }
         },
 
         computed: {
-            showFooter() {
-                return !!this.$slots.indication || this.showSubmit;
+            footerVisible() {
+                return this.showFooter && (!!this.$slots.indication || this.showSubmit);
             },
         },
 
