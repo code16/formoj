@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/code16/formoj#readme",
   "peerDependencies": {
-    "axios": "^0.18.1",
+    "axios": "*",
     "core-js": "^3.0"
   },
   "dependencies": {
