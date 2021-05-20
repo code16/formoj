@@ -1,6 +1,6 @@
 <template>
-    <select class="fj-select" :value="value" @change="handleChanged">
-        <option value="" selected>{{ $t('field.select.placeholder') }}</option>
+    <select class="fj-select" v-model="selected" @change="handleChanged">
+        <option value="">{{ $t('field.select.placeholder') }}</option>
         <template v-for="option in options">
             <option :value="option.id" :key="option.id">{{ option.label }}</option>
         </template>
@@ -14,14 +14,30 @@
         name: 'FjSelect',
 
         props: {
-            value: String,
+            value: [String, Number],
             options: Array,
+        },
+
+        data() {
+            return {
+                selected: null,
+            }
+        },
+
+        watch: {
+            value: {
+                immediate: true,
+                handler: 'handleValueChanged',
+            },
         },
 
         methods: {
             $t,
             handleChanged(e) {
                 this.$emit('input', e.target.value);
+            },
+            handleValueChanged() {
+                this.selected = this.value ?? '';
             },
         },
     }

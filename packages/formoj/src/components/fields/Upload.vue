@@ -43,6 +43,7 @@
 
         props: {
             id: String,
+            value: Object,
             accept: String,
             maxSize: Number,
             formId: Number,
@@ -54,6 +55,13 @@
                 file: null,
                 isUploading: false,
                 progress: null,
+            }
+        },
+
+        watch: {
+            value: {
+                immediate: true,
+                handler: 'handleValueChanged',
             }
         },
 
@@ -90,6 +98,15 @@
 
         methods: {
             $t,
+            handleValueChanged() {
+                if(this.value) {
+                    this.file = {
+                        name: this.value.file,
+                    }
+                } else {
+                    this.file = null;
+                }
+            },
             handleFileAdded(file) {
                 this.file = file;
             },

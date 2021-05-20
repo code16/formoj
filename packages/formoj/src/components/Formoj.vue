@@ -43,9 +43,9 @@
     import FjAlert from './Alert';
     import FjLoading from './Loading';
 
-    import {getForm, postForm, postSection} from "../api";
-    import {config} from "../util/config";
-    import {getValidationErrors} from "../util/validation";
+    import { getAnswer, getForm, postForm, postSection } from "../api";
+    import { config } from "../util/config";
+    import { getValidationErrors } from "../util/validation";
     import { isInsideModal, smoothScroll } from "../util/css";
     import {$t} from "../util/i18n";
 
@@ -60,6 +60,7 @@
                 type: [String, Number],
                 required: true,
             },
+            answerId: [String, Number],
             appearance: String,
             showSubmit: {
                 type: Boolean,
@@ -82,6 +83,7 @@
             return {
                 ready: false,
                 form: null,
+                answer: null,
                 data: null,
                 isLoading: false,
                 isFinished: false,
@@ -120,6 +122,7 @@
                 return new Promise((resolve, reject) => {
                     postForm(this.config.apiBaseUrl, {
                         formId: this.formId,
+                        answerId: this.answerId,
                         data: this.data,
                         validateAll: this.stackSections,
                     })
@@ -266,24 +269,71 @@
                 this.validationErrors = null;
             },
 
+            getFieldValueFromAnswer(field, value) {
+                if(field.type === 'upload') {
+                    return {
+                        file: value,
+                    }
+                }
+                if(field.type === 'select') {
+                    if(field.multiple) {
+                        return value
+                            ?.map(v => field.options.find(option => option.label === v)?.id)
+                            .filter(v => !!v);
+                    }
+                    return field.options.find(option => option.label === value)?.id;
+                }
+                return value;
+            },
+            getDataFromAnswer(form, answer) {
+                const fields = form.sections.map(section => section.fields ?? []).flat();
+
+                return Object.entries(answer.content ?? {})
+                    .reduce((res, [name, value]) => {
+                        const field = fields.find(field => field.name === name);
+                        return field ? {
+                            ...res,
+                            [field.id]: this.getFieldValueFromAnswer(field, value),
+                        } : res;
+                    }, {})
+            },
+
             async init() {
                 this.isLoading = true;
                 this.resetAlert();
-                getForm(this.config.apiBaseUrl, { formId: this.formId })
-                    .then(form => {
-                        this.form = form;
-                        this.ready = true;
-                    })
-                    .catch(this.handleNotAvailableError)
-                    .catch(() => {
-                        this.showAlert({
-                            message: this.$t('form.error.get'),
-                            type: 'error',
-                        });
-                    })
-                    .finally(() => {
-                        this.isLoading = false;
-                    });
+
+                [this.form, this.answer] = await Promise.all([
+                    getForm(this.config.apiBaseUrl, { formId: this.formId })
+                        .catch(this.handleNotAvailableError)
+                        .catch(error => {
+                            this.showAlert({
+                                message: this.$t('form.error.get'),
+                                type: 'error',
+                            });
+                            return Promise.reject(error);
+                        }),
+                    this.answerId
+                        ? getAnswer(this.config.apiBaseUrl, { answerId: this.answerId })
+                            .catch(error => {
+                                this.showAlert({
+                                    message: this.$t('answer.error.get'),
+                                    type: 'error',
+                                })
+                                return Promise.reject(error);
+                            })
+                        : null
+                ])
+                .finally(() => {
+                    this.isLoading = false;
+                });
+
+                if(this.answer) {
+                    this.data = {
+                        ...this.getDataFromAnswer(this.form, this.answer),
+                    }
+                }
+
+                this.ready = true;
             }
         },
         created() {
