@@ -7,6 +7,11 @@
     white-space: pre-line;
   }
 
+  &__empty {
+    color: #666;
+    font-style: italic;
+  }
+
   &__footer {
     margin-top: 1.5rem;
   }

@@ -1,6 +1,7 @@
 
 export default {
     'answer.error.get': `Impossible d'accéder à cette réponse pour le moment.`,
+    'answer.empty': `Formulaire vide`,
     'form.error.get': `Impossible d'accéder au formulaire pour le moment.`,
     'form.error.post': `Une erreur est survenue lors de l'envoi du formulaire.`,
     'form.error.post.unauthorized': `Ce formulaire n'est plus disponible.`,

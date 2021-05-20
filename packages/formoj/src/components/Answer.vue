@@ -12,24 +12,31 @@
             <template v-if="ready">
                 <div class="fj-answer">
                     <div class="fj-answer__content">
-                        <dl style="margin-bottom: 0">
-                            <template v-for="(value, name) in filteredData">
-                                <dt>{{ label(name) }}</dt>
-                                <dd>
-                                    <template v-if="isList(value)">
-                                        <ul>
-                                            <template v-for="item in value">
-                                                <li>{{ item }}</li>
-                                            </template>
-                                        </ul>
-                                    </template>
-                                    <template v-else>
-                                        <!-- must be single line -->
-                                        <div class="fj-answer__text">{{ value }}</div>
-                                    </template>
-                                </dd>
-                            </template>
-                        </dl>
+                        <template v-if="isEmpty">
+                            <div class="fj-answer__empty">
+                                {{ $t('answer.empty') }}
+                            </div>
+                        </template>
+                        <template v-else>
+                            <dl style="margin-bottom: 0">
+                                <template v-for="(value, name) in filteredData">
+                                    <dt>{{ label(name) }}</dt>
+                                    <dd>
+                                        <template v-if="isList(value)">
+                                            <ul>
+                                                <template v-for="item in value">
+                                                    <li>{{ item }}</li>
+                                                </template>
+                                            </ul>
+                                        </template>
+                                        <template v-else>
+                                            <!-- must be single line -->
+                                            <div class="fj-answer__text">{{ value }}</div>
+                                        </template>
+                                    </dd>
+                                </template>
+                            </dl>
+                        </template>
                     </div>
                     <template v-if="$slots.footer">
                         <div class="fj-answer__footer">
@@ -75,6 +82,9 @@
                 return {
                     'formoj--empty': !this.ready,
                 }
+            },
+            isEmpty() {
+                return Object.keys(this.answer.content).length === 0;
             },
             filteredData() {
                 return Object.fromEntries(
