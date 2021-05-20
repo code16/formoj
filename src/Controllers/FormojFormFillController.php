@@ -20,6 +20,18 @@ class FormojFormFillController
             "message" => $form->success_message ?: trans("formoj::form.success_message")
         ]);
     }
+
+    public function update(Form $form, Answer $answer, FormRequest $request)
+    {
+        $answer->fillWithData($request->all())->save();
+
+        $this->moveFormUploads($form, $request->all(), $answer);
+
+        return response()->json([
+            "answer_id" => $answer->id,
+            "message" => $form->success_message ?: trans("formoj::form.success_message")
+        ]);
+    }
     
     protected function moveFormUploads(Form $form, array $data, Answer $answer)
     {

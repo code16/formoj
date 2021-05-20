@@ -76,54 +76,13 @@ class Form extends Model
      */
     public function storeNewAnswer($data): Answer
     {
-        $answer = Answer::create([
+        $answer = new Answer([
             "form_id" => $this->id,
-            "content" => collect($data)
-
-                // Map to fields
-                ->map(function($value, $id) {
-                    return [
-                        "field" => $this->findField(substr($id, 1)),
-                        "value" => $value
-                    ];
-                })
-
-                // Filter out unexpected fields
-                ->filter(function($fieldAndValue) {
-                    return !is_null($fieldAndValue["field"])
-                        && !$fieldAndValue["field"]->isTypeHeading();
-                })
-
-                // Extract value (select and upload cases)
-                ->mapWithKeys(function($fieldAndValue) {
-                    $value = $fieldAndValue["value"];
-                    $field = $fieldAndValue["field"];
-
-                    if($field->isTypeSelect()) {
-                        if($field->fieldAttribute("multiple")) {
-                            $value = collect($value)
-                                ->map(function($value) use($field) {
-                                    return $field->fieldAttribute("options")[$value - 1] ?? null;
-                                })
-                                ->filter(function($value) {
-                                    return !is_null($value);
-                                })
-                                ->all();
-
-                        } else {
-                            $value = $field->fieldAttribute("options")[$value - 1] ?? '';
-                        }
-
-                    } elseif($field->isTypeUpload()) {
-                        $value = $value['file'] ?? null;
-                    }
-
-                    return [$field->identifier => $value];
-                })
-                ->all()
         ]);
+        
+        $answer->fillWithData($data)->save();
 
-        return tap($answer, function($answer) {
+        return tap($answer, function(Answer $answer) {
             if($this->notifications_strategy == self::NOTIFICATION_STRATEGY_EVERY) {
                 Notification::route('mail', $this->administrator_email)
                     ->notify(new FormojFormWasJustAnswered($answer));

@@ -168,6 +168,46 @@ class FormojFormFillControllerTest extends FormojTestCase
     }
 
     /** @test */
+    function we_can_update_an_existing_answer()
+    {
+        $this->withoutExceptionHandling();
+        $this->withoutNotifications();
+
+        $field = factory(Field::class)->create([
+            "identifier" => "field_1",
+            "type" => "text",
+            "section_id" => factory(Section::class)->create([
+                "form_id" => factory(Form::class)->create([
+                    "published_at" => null,
+                    "unpublished_at" => null,
+                ])->id
+            ])->id
+        ]);
+
+        $answer = factory(Answer::class)->create([
+            'content' => [
+                "field_1" => "old value"
+            ],
+            'form_id' => $field->section->form_id
+        ]);
+        
+        $this
+            ->postJson("/formoj/api/form/{$answer->form_id}/answer/{$answer->id}", [
+                "f" . $field->id => "new value",
+            ])
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas("formoj_answers", [
+            "form_id" => $field->section->form_id,
+            "content" => json_encode([
+                $field->identifier => "new value",
+            ])
+        ]);
+        
+        $this->assertCount(1, $field->section->form->answers);
+    }
+
+    /** @test */
     function we_dont_store_headings_with_the_answer()
     {
         $this->withoutNotifications();
