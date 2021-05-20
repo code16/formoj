@@ -26,7 +26,10 @@ class FormojUploadController
                 config("formoj.upload.disk")
             );
 
-        return response()->json(["file" => basename($path)]);
+        return response()->json([
+            "file" => basename($path), 
+            "uploaded" => true
+        ]);
     }
 
     protected function getStoreFileName($file, $folder): string

@@ -9,8 +9,8 @@ export function postSection(baseUrl, { formId, sectionId, data }) {
     return axios.post(`${baseUrl}/form/${formId}/validate/${sectionId}`,  { ...data });
 }
 
-export function postForm(baseUrl, { formId, validateAll, data }) {
-    return axios.post(`${baseUrl}/form/${formId}`, { ...data }, {
+export function postForm(baseUrl, { formId, answerId, validateAll, data }) {
+    return axios.post(`${baseUrl}/form/${formId}${answerId ? `/answer/${answerId}` : ''}`, { ...data }, {
         params: {
             validate_all: validateAll ? '1' : undefined,
         }

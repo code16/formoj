@@ -20,14 +20,30 @@ class FormojFormFillController
             "message" => $form->success_message ?: trans("formoj::form.success_message")
         ]);
     }
+
+    public function update(Form $form, Answer $answer, FormRequest $request)
+    {
+        $answer->fillWithData($request->all())->save();
+
+        $this->moveFormUploads($form, $request->all(), $answer);
+
+        return response()->json([
+            "answer_id" => $answer->id,
+            "message" => $form->success_message ?: trans("formoj::form.success_message")
+        ]);
+    }
     
     protected function moveFormUploads(Form $form, array $data, Answer $answer)
     {
         collect($data)
             ->filter(function ($value, $key) use ($form) {
+                if(!is_array($value) || ($value["uploaded"] ?? false)) {
+                    return false;
+                }
+                
                 $field = $form->findField(substr($key, 1));
 
-                return $field ? $field->isTypeUpload() : false;
+                return  $field && $field->isTypeUpload();
             })
             ->each(function ($value) use ($form, $answer) {
                 $filename = $value["file"];

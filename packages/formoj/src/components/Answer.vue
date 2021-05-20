@@ -13,8 +13,8 @@
                 <div class="fj-answer">
                     <div class="fj-answer__content">
                         <dl style="margin-bottom: 0">
-                            <template v-for="(value, key) in filteredData">
-                                <dt>{{ label(key) }}</dt>
+                            <template v-for="(value, name) in filteredData">
+                                <dt>{{ label(name) }}</dt>
                                 <dd>
                                     <template v-if="isList(value)">
                                         <ul>
@@ -24,7 +24,8 @@
                                         </ul>
                                     </template>
                                     <template v-else>
-                                        {{ value }}
+                                        <!-- must be single line -->
+                                        <div class="fj-answer__text">{{ value }}</div>
                                     </template>
                                 </dd>
                             </template>
@@ -78,7 +79,7 @@
             filteredData() {
                 return Object.fromEntries(
                     Object.entries(this.answer.content)
-                        .filter(([key, value]) => {
+                        .filter(([name, value]) => {
                             if(!this.showEmpty && (value == null || value === '' || value?.length === 0)) {
                                 return false;
                             }
@@ -89,14 +90,14 @@
         },
         methods: {
             $t,
-            field(key) {
-                return this.answer.fields.find(field => field.key === key);
+            field(name) {
+                return this.answer.fields.find(field => field.name === name);
             },
             isList(value) {
                 return Array.isArray(value);
             },
-            label(key) {
-                return this.field(key)?.label ?? key;
+            label(fieldName) {
+                return this.field(fieldName)?.label ?? fieldName;
             },
             async init() {
                 this.loading = true;

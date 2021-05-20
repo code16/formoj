@@ -85,6 +85,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => "f" . $field->id,
                         "type" => "text",
                         "label" => $field->label,
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "helpText" => $field->help_text,
                         "required" => $field->required,
@@ -117,6 +118,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => "f" . $field->id,
                         "type" => "textarea",
                         "label" => $field->label,
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "helpText" => $field->help_text,
                         "required" => $field->required,
@@ -151,6 +153,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => "f" . $field->id,
                         "type" => "select",
                         "label" => $field->label,
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "helpText" => $field->help_text,
                         "required" => $field->required,
@@ -190,6 +193,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "id" => "f" . $field->id,
                         "type" => "select",
                         "label" => $field->label,
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "helpText" => $field->help_text,
                         "required" => $field->required,
@@ -226,6 +230,7 @@ class FormojFormControllerTest extends FormojTestCase
                     [
                         "id" => "f" . $field->id,
                         "type" => "heading",
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "content" => $field->label,
                     ]
@@ -255,6 +260,7 @@ class FormojFormControllerTest extends FormojTestCase
                     [
                         "id" => "f" . $field->id,
                         "type" => "upload",
+                        "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "label" => $field->label,
                         "helpText" => $field->help_text,

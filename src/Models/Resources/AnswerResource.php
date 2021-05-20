@@ -17,11 +17,13 @@ class AnswerResource extends JsonResource
             'content' => $this->content,
             'fields' => collect($this->content)
                 ->map(function($value, $identifier) use($formFields) {
+                    /** @var Field $field */
                     $field = $formFields->where('identifier', $identifier)->first();
                     
-                    return $field 
+                    return $field
                         ? [
-                            'key' => $identifier,
+                            'id' => $field->getFrontId(),
+                            'name' => $identifier,
                             'label' => $field->label,
                             'type' => $field->type,
                         ]

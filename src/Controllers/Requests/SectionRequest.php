@@ -44,7 +44,7 @@ class SectionRequest extends FormRequest
                 }
 
                 return [
-                    "f" . $field->id => $rules
+                    $field->getFrontId() => $rules
                 ];
             })
             ->all();

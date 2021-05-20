@@ -43,7 +43,7 @@ class FormojAnswerControllerTest extends FormojTestCase
                     ],
                     "fields" => [
                         [
-                            "key" => "field_1",
+                            "name" => "field_1",
                             "label" => "Field label",
                             "type" => "select"
                         ]

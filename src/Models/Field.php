@@ -58,6 +58,11 @@ class Field extends Model
     {
         return $this->type === static::TYPE_UPLOAD;
     }
+    
+    public function getFrontId(): string
+    {
+        return "f" . $this->id;
+    }
 
     /**
      * Retrieve the model for a bound value.

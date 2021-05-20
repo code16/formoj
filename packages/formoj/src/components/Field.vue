@@ -65,8 +65,9 @@
                 return isContentOnly(this.field.type);
             },
             props() {
+                const { key, ...field } = this.field;
                 return {
-                    ...this.field,
+                    ...field,
                     // send the label only if no label is displayed here
                     label: this.isContentOnly ? this.field.label : undefined,
                     helpText: undefined,

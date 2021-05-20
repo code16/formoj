@@ -108,6 +108,7 @@
         },
 
         props: {
+            value: Object,
             title: String,
             description: String,
             sections: Array,
@@ -136,7 +137,7 @@
 
         data() {
             return {
-                data: null,
+                data: this.value ? { ...this.value } : null,
 
                 message: null,
                 messageType: null,
