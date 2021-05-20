@@ -37,9 +37,13 @@ class FormojFormFillController
     {
         collect($data)
             ->filter(function ($value, $key) use ($form) {
+                if(!is_array($value) || ($value["uploaded"] ?? false)) {
+                    return false;
+                }
+                
                 $field = $form->findField(substr($key, 1));
 
-                return $field ? $field->isTypeUpload() : false;
+                return  $field && $field->isTypeUpload();
             })
             ->each(function ($value) use ($form, $answer) {
                 $filename = $value["file"];
