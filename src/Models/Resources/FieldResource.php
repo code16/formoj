@@ -2,15 +2,20 @@
 
 namespace Code16\Formoj\Models\Resources;
 
+use Code16\Formoj\Models\Field;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Field
+ */
 class FieldResource extends JsonResource
 {
     public function toArray($request)
     {
         return [
-            'id' => "f" . $this->id,
+            'id' => $this->getFrontId(),
             'type' => $this->type,
+            'name' => $this->identifier,
             'identifier' => $this->identifier,
             'label' => $this->when(
                 !$this->isTypeHeading(),
