@@ -2,7 +2,6 @@ $formoj-label-margin-bottom: $label-margin-bottom !default;
 
 @import '../formoj';
 
-$formoj-form-appearance: 'card' !default;
 $formoj-loading-appearance: 'spinner' !default;
 $formoj-check-appearance: 'default' !default;
 $formoj-radio-appearance: 'default' !default;
@@ -10,19 +9,24 @@ $formoj-select-appearance: 'default' !default;
 
 .formoj--empty,
 .formoj--finished,
-.formoj--answer
 {
-  @extend .card;
-  // prevent loading to overlay to overflow border radius
-  overflow: hidden;
   .formoj__content {
-    @extend .card-body;
     display: flex;
     justify-content: center;
     flex-direction: column;
   }
   .formoj__alert-wrapper {
     width: 100%;
+  }
+
+  &.formoj--appearance-card {
+    @extend .card;
+    // prevent loading to overlay to overflow border radius
+    overflow: hidden;
+
+    .formoj__content {
+      @extend .card-body;
+    }
   }
 }
 
@@ -52,11 +56,29 @@ $formoj-select-appearance: 'default' !default;
   }
 }
 
+.fj-answer {
+  &--card {
+    @extend .card;
+    .fj-answer__content {
+      @extend .card-body;
+    }
+  }
+}
+
 .fj-form {
+
+  &__header {
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding-bottom: 1rem;
+  }
+
   &--card {
     @extend .card;
     .fj-form__header {
       @extend .card-header;
+    }
+    .fj-form__title {
+      margin-bottom: .25em;
     }
     .fj-form__content {
       @extend .card-body;
@@ -86,9 +108,6 @@ $formoj-select-appearance: 'default' !default;
     .fj-section__button {
       @extend .btn-lg;
     }
-  }
-  @if($formoj-form-appearance == 'card') {
-    @extend .fj-form--card;
   }
 }
 

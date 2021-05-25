@@ -115,7 +115,10 @@
             formId: Number,
             index: Number,
             errors: Object,
-            appearance: String,
+            appearance: {
+                type: String,
+                default: 'card',
+            },
             isLoading: Boolean,
             showTitle: {
                 type: Boolean,

@@ -1,5 +1,5 @@
 <template>
-    <div class="formoj formoj--answer" :class="classes">
+    <div class="formoj" :class="classes">
         <div class="formoj__content">
             <template v-if="errorMessage">
                 <div class="formoj__alert-wrapper">
@@ -10,7 +10,7 @@
                 <fj-loading />
             </template>
             <template v-if="ready">
-                <div class="fj-answer">
+                <div class="fj-answer" :class="answerClasses">
                     <div class="fj-answer__content">
                         <template v-if="isEmpty">
                             <div class="fj-answer__empty">
@@ -67,6 +67,10 @@
                 required: true,
             },
             showEmpty: Boolean,
+            appearance: {
+                type: String,
+                default: 'card',
+            },
         },
         data() {
             return {
@@ -81,6 +85,12 @@
             classes() {
                 return {
                     'formoj--empty': !this.ready,
+                    [`formoj--appearance-${this.appearance}`]: !!this.appearance,
+                }
+            },
+            answerClasses() {
+                return {
+                    [`fj-answer--${this.appearance}`]: !!this.appearance,
                 }
             },
             isEmpty() {

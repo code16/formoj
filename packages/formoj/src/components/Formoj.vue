@@ -104,6 +104,7 @@
                 return {
                     'formoj--empty': !this.ready,
                     'formoj--finished': this.isFinished,
+                    [`formoj--appearance-${this.appearance}`]: !!this.appearance,
                 }
             },
             isLoadingVisible() {
