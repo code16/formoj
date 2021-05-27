@@ -1,6 +1,6 @@
 {
   "name": "formoj",
-  "version": "4.0.0-beta.2",
+  "version": "4.0.0",
   "description": "Customisable forms renderer",
   "main": "dist/formoj.js",
   "types": "src/index.js",
