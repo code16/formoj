@@ -14,7 +14,9 @@
                     <div class="fj-answer__content">
                         <template v-if="isEmpty">
                             <div class="fj-answer__empty">
-                                {{ $t('answer.empty') }}
+                                <slot name="empty">
+                                    {{ $t('answer.empty') }}
+                                </slot>
                             </div>
                         </template>
                         <template v-else>
