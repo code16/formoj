@@ -94,7 +94,7 @@
                 }
             },
             isEmpty() {
-                return Object.keys(this.answer.content).length === 0;
+                return Object.keys(this.filteredData).length === 0;
             },
             filteredData() {
                 return Object.fromEntries(
