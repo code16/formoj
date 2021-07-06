@@ -2,19 +2,18 @@
 
 namespace Code16\Formoj\Models\Resources;
 
+use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Field;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * @mixin Answer
+ */
 class AnswerResource extends JsonResource
 {
     public function toArray($request)
     {
-        $formFields = Field::whereIn('identifier', collect($this->content)->keys())
-            ->whereHas("section", function(Builder $query) {
-                return $query->where("form_id", $this->form_id);
-            })
-            ->get();
+        $formFields = $this->getRelatedFields();
 
         return [
             'id' => $this->id,

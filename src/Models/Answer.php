@@ -2,8 +2,10 @@
 
 namespace Code16\Formoj\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 
 class Answer extends Model
 {
@@ -24,6 +26,15 @@ class Answer extends Model
     public function content(string $attribute): ?string
     {
         return $this->content[$attribute] ?? null;
+    }
+
+    public function getRelatedFields(): Collection
+    {
+        return Field::whereIn('identifier', collect($this->content)->keys())
+            ->whereHas("section", function(Builder $query) {
+                return $query->where("form_id", $this->form_id);
+            })
+            ->get();
     }
 
     public function fillWithData(array $data): self
