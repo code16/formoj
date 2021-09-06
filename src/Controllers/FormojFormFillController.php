@@ -37,7 +37,11 @@ class FormojFormFillController
     {
         collect($data)
             ->filter(function ($value, $key) use ($form) {
-                if(!is_array($value) || ($value["uploaded"] ?? false)) {
+                if(!is_array($value)) {
+                    return false;
+                }
+
+                if(!($value["uploaded"] ?? false)) {
                     return false;
                 }
                 

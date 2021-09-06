@@ -339,7 +339,7 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         $this
             ->postJson("/formoj/api/form/{$field->section->form_id}", [
-                "f" . $field->id => ["file" => "image.jpg"],
+                "f" . $field->id => ["file" => "image.jpg", "uploaded" => true],
             ])
             ->assertStatus(200);
 
