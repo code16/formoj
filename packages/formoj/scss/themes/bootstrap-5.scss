@@ -1,0 +1,25 @@
+
+.formoj {
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  .custom-file {
+    display: block;
+  }
+  .custom-file-label {
+    display: none;
+  }
+  .custom-file-input {
+    @extend .form-control;
+    .dz-message {
+      display: block!important;
+    }
+  }
+}
+
+$label-margin-bottom: $form-label-margin-bottom;
+$formoj-check-appearance: 'default';
+$formoj-radio-appearance: 'default';
+$formoj-select-appearance: 'default';
+
+@import "bootstrap";
