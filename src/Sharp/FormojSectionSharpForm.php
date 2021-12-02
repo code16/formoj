@@ -19,6 +19,7 @@ class FormojSectionSharpForm extends SharpForm
         $this
             ->addField(
                 SharpFormTextField::make("title")
+                    ->setMaxLength(200)
                     ->setLabel(trans("formoj::sharp.sections.fields.title.label"))
             )
             ->addField(

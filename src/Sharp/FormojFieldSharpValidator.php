@@ -14,9 +14,11 @@ class FormojFieldSharpValidator extends FormRequest
         return [
             'label' => [
                 'required',
+                'max:200'
             ],
             'identifier' => [
                 'required',
+                'max:100',
                 'alpha_dash',
                 Rule::unique('formoj_fields', 'identifier')
                     ->whereIn("section_id",

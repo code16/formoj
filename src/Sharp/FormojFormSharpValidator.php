@@ -9,9 +9,10 @@ class FormojFormSharpValidator extends FormRequest
     public function rules()
     {
         return [
-            'published_at' => 'date|nullable',
-            'unpublished_at' => 'date|after:published_at|nullable',
-            'administrator_email' => 'required_unless:notifications_strategy,none|email|nullable'
+            'title' => ['max:200', 'nullable'],
+            'published_at' => ['date', 'nullable'],
+            'unpublished_at' => ['date', 'after:published_at', 'nullable'],
+            'administrator_email' => ['required_unless:notifications_strategy,none', 'email', 'nullable']
         ];
     }
 }
