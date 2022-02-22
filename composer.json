@@ -9,7 +9,7 @@
     "email": "antoine@code16.fr"
   }],
   "require": {
-    "php": "^8.0|^8.1",
+    "php": "^7.4|^8.0|^8.1",
     "laravel/framework": "^8.0|^9.0",
     "nesbot/carbon": "^2.0",
     "maatwebsite/excel": "^3.1",
