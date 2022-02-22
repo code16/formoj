@@ -9,20 +9,20 @@
     "email": "antoine@code16.fr"
   }],
   "require": {
-    "php": ">=7.4",
-    "laravel/framework": "^7.0|^8.0",
+    "php": "^8.0|^8.1",
+    "laravel/framework": "^8.0|^9.0",
     "nesbot/carbon": "^2.0",
     "maatwebsite/excel": "^3.1",
     "ext-zip": "*",
     "laravel/legacy-factories": "^1.1"
   },
   "require-dev": {
-    "fzaninotto/faker": "~1.4",
-    "mockery/mockery": "1.3.*",
-    "phpunit/phpunit": "^8.5",
+    "fakerphp/faker": "^1.19.0",
+    "mockery/mockery": "^1.3.0",
+    "phpunit/phpunit": "^9.5",
     "doctrine/dbal": "~2.5",
-    "orchestra/testbench": "5.*|6.*",
-    "code16/sharp": "^6.0",
+    "orchestra/testbench": "6.*|7.*",
+    "code16/sharp": "^6.0|^7.0",
     "ext-json": "*"
   },
   "autoload": {

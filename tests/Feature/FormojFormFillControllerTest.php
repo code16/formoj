@@ -23,7 +23,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_can_fill_a_form_with_one_section()
     {
-        $this->withoutNotifications();
+        Notification::fake();
         $answer = Str::random(5);
 
         $field = factory(Field::class)->create([
@@ -50,9 +50,9 @@ class FormojFormFillControllerTest extends FormojTestCase
                 $field->identifier => $answer
             ])
         ]);
-        
+
         $answer = Answer::where("form_id", $field->section->form_id)->first();
-        
+
         $response->assertJson([
             "answer_id" => $answer->id,
             "message" => "OK!"
@@ -62,7 +62,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_cant_fill_an_outdated_form()
     {
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "text",
@@ -100,7 +100,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function the_last_section_of_the_form_is_validated()
     {
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "text",
@@ -129,7 +129,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     function we_store_only_the_form_data_with_the_answer()
     {
         $this->withoutExceptionHandling();
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "text",
@@ -171,7 +171,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     function we_can_update_an_existing_answer()
     {
         $this->withoutExceptionHandling();
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "identifier" => "field_1",
@@ -190,7 +190,7 @@ class FormojFormFillControllerTest extends FormojTestCase
             ],
             'form_id' => $field->section->form_id
         ]);
-        
+
         $this
             ->postJson("/formoj/api/form/{$answer->form_id}/answer/{$answer->id}", [
                 "f" . $field->id => "new value",
@@ -203,14 +203,14 @@ class FormojFormFillControllerTest extends FormojTestCase
                 $field->identifier => "new value",
             ])
         ]);
-        
+
         $this->assertCount(1, $field->section->form->answers);
     }
 
     /** @test */
     function we_dont_store_headings_with_the_answer()
     {
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "text",
@@ -247,7 +247,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_store_select_values_with_the_answer()
     {
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "select",
@@ -279,7 +279,7 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function we_store_multiple_select_values_with_the_answer()
     {
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => "select",
@@ -315,7 +315,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->withoutExceptionHandling();
         Storage::fake('local');
 
-        $this->withoutNotifications();
+        Notification::fake();
 
         $field = factory(Field::class)->create([
             "type" => Field::TYPE_UPLOAD,
@@ -413,8 +413,8 @@ class FormojFormFillControllerTest extends FormojTestCase
     /** @test */
     function all_sections_of_the_form_are_validated_if_validate_all_argument_is_passed()
     {
-        $this->withoutNotifications();
-        
+        Notification::fake();
+
         $form = factory(Form::class)
             ->create([
                 "published_at" => null,
