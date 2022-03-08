@@ -55,7 +55,7 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         $response->assertJson([
             "answer_id" => $answer->id,
-            "message" => "OK!"
+            "message" => Str::markdown("OK!")
         ]);
     }
 

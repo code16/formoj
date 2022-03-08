@@ -7,6 +7,7 @@ use Code16\Formoj\Models\Form;
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 
 class FormojFormControllerTest extends FormojTestCase
 {
@@ -40,7 +41,7 @@ class FormojFormControllerTest extends FormojTestCase
                     "id" => $field->section->form_id,
                     "title" => $field->section->form->title,
                     "isTitleHidden" => true,
-                    "description" => $field->section->form->description,
+                    "description" => $field->section->form->description ? Str::markdown($field->section->form->description) : null,
                     "sections" => [
                         [
                             "id" => $field->section->id,
@@ -51,7 +52,7 @@ class FormojFormControllerTest extends FormojTestCase
                                 [
                                     "id" => "f" . $field->id,
                                     "type" => $field->type,
-                                    "helpText" => $field->help_text,
+                                    "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                                     "label" => $field->label,
                                     "identifier" => $field->identifier,
                                     "required" => $field->required
@@ -87,7 +88,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "label" => $field->label,
                         "name" => $field->identifier,
                         "identifier" => $field->identifier,
-                        "helpText" => $field->help_text,
+                        "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                         "required" => $field->required,
                         "maxlength" => 10,
                     ]
@@ -120,7 +121,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "label" => $field->label,
                         "name" => $field->identifier,
                         "identifier" => $field->identifier,
-                        "helpText" => $field->help_text,
+                        "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                         "required" => $field->required,
                         "rows" => 12,
                         "maxlength" => 10,
@@ -155,7 +156,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "label" => $field->label,
                         "name" => $field->identifier,
                         "identifier" => $field->identifier,
-                        "helpText" => $field->help_text,
+                        "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                         "required" => $field->required,
                         "radios" => true,
                         "options" => [
@@ -195,7 +196,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "label" => $field->label,
                         "name" => $field->identifier,
                         "identifier" => $field->identifier,
-                        "helpText" => $field->help_text,
+                        "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                         "required" => $field->required,
                         "multiple" => true,
                         "radios" => false,
@@ -263,7 +264,7 @@ class FormojFormControllerTest extends FormojTestCase
                         "name" => $field->identifier,
                         "identifier" => $field->identifier,
                         "label" => $field->label,
-                        "helpText" => $field->help_text,
+                        "helpText" => $field->help_text ? Str::markdown($field->help_text) : null,
                         "required" => $field->required,
                         "maxSize" => 4,
                         "accept" => ".jpg,.gif",
