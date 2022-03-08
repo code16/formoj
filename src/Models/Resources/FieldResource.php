@@ -28,7 +28,7 @@ class FieldResource extends JsonResource
             ),
             'helpText' => $this->when(
                 !$this->isTypeHeading(),
-                Str::markdown($this->help_text)
+                $this->help_text ? Str::markdown($this->help_text) : null
             ),
             'required' => $this->when(
                 !$this->isTypeHeading(),

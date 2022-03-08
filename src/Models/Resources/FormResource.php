@@ -13,7 +13,9 @@ class FormResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'isTitleHidden' => $this->is_title_hidden,
-            'description' => Str::markdown($this->description),
+            'description' => $this->description
+                ? Str::markdown($this->description)
+                : null,
             'sections' => SectionResource::collection($this->sections)
         ];
     }
