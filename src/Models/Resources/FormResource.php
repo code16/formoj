@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Models\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 class FormResource extends JsonResource
 {
@@ -12,7 +13,7 @@ class FormResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'isTitleHidden' => $this->is_title_hidden,
-            'description' => $this->description,
+            'description' => Str::markdown($this->description),
             'sections' => SectionResource::collection($this->sections)
         ];
     }

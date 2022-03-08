@@ -6,6 +6,7 @@ use Code16\Formoj\Controllers\Requests\FormRequest;
 use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Form;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class FormojFormFillController
 {
@@ -17,7 +18,9 @@ class FormojFormFillController
 
         return response()->json([
             "answer_id" => $answer->id,
-            "message" => $form->success_message ?: trans("formoj::form.success_message")
+            "message" => $form->success_message
+                ? Str::markdown($form->success_message)
+                : trans("formoj::form.success_message")
         ]);
     }
 
@@ -29,7 +32,9 @@ class FormojFormFillController
 
         return response()->json([
             "answer_id" => $answer->id,
-            "message" => $form->success_message ?: trans("formoj::form.success_message")
+            "message" => $form->success_message
+                ? Str::markdown($form->success_message)
+                : trans("formoj::form.success_message")
         ]);
     }
     

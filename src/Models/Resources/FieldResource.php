@@ -4,6 +4,7 @@ namespace Code16\Formoj\Models\Resources;
 
 use Code16\Formoj\Models\Field;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Str;
 
 /**
  * @mixin Field
@@ -27,7 +28,7 @@ class FieldResource extends JsonResource
             ),
             'helpText' => $this->when(
                 !$this->isTypeHeading(),
-                $this->help_text
+                Str::markdown($this->help_text)
             ),
             'required' => $this->when(
                 !$this->isTypeHeading(),
