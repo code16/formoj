@@ -8,7 +8,7 @@
                         <h3 class="fj-form__title">{{ title }}</h3>
                     </template>
                     <template v-if="description">
-                        <div class="fj-form__description">{{ description }}</div>
+                        <div class="fj-form__description fj-content" v-html="description"></div>
                     </template>
                 </slot>
             </div>

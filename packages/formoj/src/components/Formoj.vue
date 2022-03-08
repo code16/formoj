@@ -3,7 +3,9 @@
         <div class="formoj__content">
             <template v-if="hasAlert">
                 <div class="formoj__alert-wrapper">
-                    <fj-alert :type="messageType">{{ message }}</fj-alert>
+                    <fj-alert :type="messageType">
+                        <div class="fj-content" v-html="message"></div>
+                    </fj-alert>
                 </div>
             </template>
             <template v-if="ready && !isFinished">

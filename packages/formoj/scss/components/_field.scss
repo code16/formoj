@@ -5,8 +5,10 @@
   }
   &__help {
     font-size: 80%;
+    .fj-content, p {
+      display: inline;
+    }
   }
-
   &--required {
     .fj-field__label {
       &::after {

@@ -21,7 +21,12 @@
         <template v-if="hasError">
             <div class="fj-field__error">{{ errorMessage }}</div>
         </template>
-        <div class="fj-field__help">{{ field.helpText }} <span class="fj-nowrap">{{ contextualHelpText }}</span></div>
+        <template v-if="field.helpText || contextualHelpText">
+            <div class="fj-field__help">
+                <div class="fj-content" v-html="field.helpText"></div>
+                <span class="fj-nowrap">{{ contextualHelpText }}</span>
+            </div>
+        </template>
     </div>
 </template>
 
