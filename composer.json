@@ -9,7 +9,7 @@
     "email": "antoine@code16.fr"
   }],
   "require": {
-    "php": "^7.4|^8.0|^8.1",
+    "php": "^8.0|^8.1",
     "laravel/framework": "^8.0|^9.0",
     "nesbot/carbon": "^2.0",
     "maatwebsite/excel": "^3.1",
@@ -22,7 +22,7 @@
     "phpunit/phpunit": "^9.5",
     "doctrine/dbal": "~2.5",
     "orchestra/testbench": "6.*|7.*",
-    "code16/sharp": "^6.0|^7.0",
+    "code16/sharp": "^7.0",
     "ext-json": "*"
   },
   "autoload": {
