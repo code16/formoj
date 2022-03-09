@@ -4,43 +4,52 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
-use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
-use Code16\Sharp\EntityList\EntityListQueryParams;
+use Code16\Sharp\EntityList\Fields\EntityListField;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Contracts\Support\Arrayable;
 
 class FormojAnswerSharpEntityList extends SharpEntityList
 {
 
-    function buildListDataContainers(): void
+    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
     {
-        $this
-            ->addDataContainer(
-                EntityListDataContainer::make("created_at")
+        $fieldsContainer
+            ->addField(
+                EntityListField::make("created_at")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
             )
-            ->addDataContainer(
-                EntityListDataContainer::make("content")
+            ->addField(
+                EntityListField::make("content")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
             );
     }
 
-    function buildListLayout(): void
+    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
     {
-        $this->addColumn("created_at", 3, 5)
+        $fieldsLayout
+            ->addColumn("created_at", 3, 5)
             ->addColumn("content", 9, 7);
     }
 
     function buildListConfig(): void
     {
         $this
-            ->setPaginated()
-            ->addEntityCommand("export_answers", FormojAnswerExportCommand::class);
+            ->configurePaginated();
     }
 
-    function getListData(EntityListQueryParams $params)
+    function getEntityCommands(): ?array
+    {
+        return [
+            FormojAnswerExportCommand::class
+        ];
+    }
+
+    public function getListData(): array|Arrayable
     {
         $answers = Answer::orderBy("created_at", "desc")
-            ->where("form_id", $params->filterFor("formoj_form"));
+            ->where("form_id", $this->queryParams->filterFor("formoj_form"));
 
         return $this
             ->setCustomTransformer("created_at", function($value, $instance) {

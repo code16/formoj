@@ -4,25 +4,26 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
-use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
-use Code16\Sharp\EntityList\EntityListQueryParams;
+use Code16\Sharp\EntityList\Fields\EntityListField;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Contracts\Support\Arrayable;
 
 class FormojFieldSharpEntityList extends SharpEntityList
 {
-    function buildListDataContainers(): void
+    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
     {
-        $this
-            ->addDataContainer(
-                EntityListDataContainer::make("type")
+        $fieldsContainer
+            ->addField(
+                EntityListField::make("type")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
             )
-            ->addDataContainer(
-                EntityListDataContainer::make("label")
+            ->addField(
+                EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
             )
-            ->addDataContainer(
-                EntityListDataContainer::make("help_text")
+            ->addField(
+                EntityListField::make("help_text")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
             );
     }
@@ -36,13 +37,13 @@ class FormojFieldSharpEntityList extends SharpEntityList
 
     function buildListConfig(): void
     {
-        $this->setReorderable(FormojFieldReorderHandler::class);
+        $this->configureReorderable(FormojFieldReorderHandler::class);
     }
 
-    function getListData(EntityListQueryParams $params)
+    public function getListData(): array|Arrayable
     {
         $fields = Field::orderBy("order")
-            ->where("section_id", $params->filterFor("formoj_section"));
+            ->where("section_id", $this->queryParams->filterFor("formoj_section"));
 
         return $this
             ->setCustomTransformer("label", function($value, $instance) {

@@ -4,41 +4,44 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Sharp\Reorder\FormojSectionReorderHandler;
-use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
-use Code16\Sharp\EntityList\EntityListQueryParams;
+use Code16\Sharp\EntityList\Fields\EntityListField;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Contracts\Support\Arrayable;
 
 class FormojSectionSharpEntityList extends SharpEntityList
 {
-    function buildListDataContainers(): void
+    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
     {
-        $this
-            ->addDataContainer(
-                EntityListDataContainer::make("title")
+        $fieldsContainer
+            ->addField(
+                EntityListField::make("title")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.title_label"))
             )
-            ->addDataContainer(
-                EntityListDataContainer::make("description")
+            ->addField(
+                EntityListField::make("description")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.description_label"))
             );
     }
 
-    function buildListLayout(): void
+    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
     {
-        $this->addColumn("title", 4, 6)
+        $fieldsLayout
+            ->addColumn("title", 4, 6)
             ->addColumn("description", 8, 6);
     }
 
     function buildListConfig(): void
     {
         $this
-            ->setReorderable(FormojSectionReorderHandler::class);
+            ->configureReorderable(FormojSectionReorderHandler::class);
     }
 
-    function getListData(EntityListQueryParams $params)
+    public function getListData(): array|Arrayable
     {
         $sections = Section::orderBy("order")
-            ->where("form_id", $params->filterFor("formoj_form"));
+            ->where("form_id", $this->queryParams->filterFor("formoj_form"));
 
         return $this
             ->setCustomTransformer("title", function($value, $instance) {

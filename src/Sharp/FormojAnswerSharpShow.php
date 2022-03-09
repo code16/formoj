@@ -7,16 +7,18 @@ use Code16\Formoj\Sharp\Commands\FormojAnswerDownloadFilesCommand;
 use Code16\Sharp\Show\Fields\SharpShowEntityListField;
 use Code16\Sharp\Show\Fields\SharpShowFileField;
 use Code16\Sharp\Show\Fields\SharpShowTextField;
+use Code16\Sharp\Show\Layout\ShowLayout;
 use Code16\Sharp\Show\Layout\ShowLayoutColumn;
 use Code16\Sharp\Show\Layout\ShowLayoutSection;
 use Code16\Sharp\Show\SharpShow;
+use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojAnswerSharpShow extends SharpShow
 {
 
-    function buildShowFields(): void
+    protected function buildShowFields(FieldsContainer $showFields): void
     {
-        $this
+        $showFields
             ->addField(
                 SharpShowTextField::make("created_at")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
@@ -42,9 +44,9 @@ class FormojAnswerSharpShow extends SharpShow
             );
     }
 
-    function buildShowLayout(): void
+    protected function buildShowLayout(ShowLayout $showLayout): void
     {
-        $this
+        $showLayout
             ->addSection(trans("formoj::sharp.entities.answer"), function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
@@ -54,10 +56,16 @@ class FormojAnswerSharpShow extends SharpShow
             })
             ->addEntityListSection("replies");
     }
-    
+
     public function buildShowConfig(): void
     {
-        $this->addInstanceCommand("download_answer_files", FormojAnswerDownloadFilesCommand::class);
+    }
+
+    function getInstanceCommands(): ?array
+    {
+        return [
+            FormojAnswerDownloadFilesCommand::class,
+        ];
     }
 
     function find($id): array
