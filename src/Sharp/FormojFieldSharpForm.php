@@ -6,20 +6,22 @@ use Code16\Formoj\Models\Field;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
-use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
+use Code16\Sharp\Form\Fields\SharpFormEditorField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use Code16\Sharp\Form\Layout\FormLayout;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Layout\FormLayoutFieldset;
 use Code16\Sharp\Form\SharpForm;
+use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojFieldSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
-    function buildFormFields(): void
+    function buildFormFields(FieldsContainer $formFields) : void
     {
-        $this
+        $formFields
             ->addField(
                 SharpFormTextField::make("label")
                     ->setMaxLength(200)
@@ -32,12 +34,13 @@ class FormojFieldSharpForm extends SharpForm
                     ->setHelpMessage(trans("formoj::sharp.fields.fields.identifier.help_text"))
             )
             ->addField(
-                SharpFormMarkdownField::make("help_text")
+                SharpFormEditorField::make("help_text")
+                    ->setRenderContentAsMarkdown()
                     ->setLabel(trans("formoj::sharp.fields.fields.help_text.label"))
                     ->setToolbar([
-                        SharpFormMarkdownField::B, SharpFormMarkdownField::I,
-                        SharpFormMarkdownField::SEPARATOR,
-                        SharpFormMarkdownField::A,
+                        SharpFormEditorField::B, SharpFormEditorField::I,
+                        SharpFormEditorField::SEPARATOR,
+                        SharpFormEditorField::A,
                     ])
                     ->setHeight(200)
                     ->addConditionalDisplay("type", "!" . Field::TYPE_HEADING)
@@ -104,9 +107,9 @@ class FormojFieldSharpForm extends SharpForm
             );
     }
 
-    function buildFormLayout(): void
+    function buildFormLayout(FormLayout $formLayout): void
     {
-        $this
+        $formLayout
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withFieldset(trans("formoj::sharp.fields.fields.fieldsets.identifiers"), function (FormLayoutFieldset $fieldset) {
@@ -116,7 +119,7 @@ class FormojFieldSharpForm extends SharpForm
                     ->withSingleField("type")
                     ->withSingleField("required")
                     ->withSingleField("help_text");
-    
+
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column

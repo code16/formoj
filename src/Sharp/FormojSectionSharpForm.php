@@ -7,16 +7,18 @@ use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormTextareaField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use Code16\Sharp\Form\Layout\FormLayout;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\SharpForm;
+use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojSectionSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
-    function buildFormFields(): void
+    function buildFormFields(FieldsContainer $formFields) : void
     {
-        $this
+        $formFields
             ->addField(
                 SharpFormTextField::make("title")
                     ->setMaxLength(200)
@@ -32,14 +34,14 @@ class FormojSectionSharpForm extends SharpForm
             );
     }
 
-    function buildFormLayout(): void
+    function buildFormLayout(FormLayout $formLayout): void
     {
-        $this
+        $formLayout
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withSingleField("title")
                     ->withSingleField("is_title_hidden");
-    
+
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
@@ -55,8 +57,8 @@ class FormojSectionSharpForm extends SharpForm
 
     function update($id, array $data)
     {
-        $form = $id 
-            ? Section::findOrFail($id) 
+        $form = $id
+            ? Section::findOrFail($id)
             : new Section([
                 "form_id" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
                 "order" => 100

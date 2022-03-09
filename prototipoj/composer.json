@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "code16/sharp": "^6.0",
+        "code16/sharp": "^7.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^8.0",
         "laravel/legacy-factories": "^1.1",

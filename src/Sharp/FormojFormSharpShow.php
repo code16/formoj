@@ -5,16 +5,18 @@ namespace Code16\Formoj\Sharp;
 use Code16\Formoj\Models\Form;
 use Code16\Sharp\Show\Fields\SharpShowEntityListField;
 use Code16\Sharp\Show\Fields\SharpShowTextField;
+use Code16\Sharp\Show\Layout\ShowLayout;
 use Code16\Sharp\Show\Layout\ShowLayoutColumn;
 use Code16\Sharp\Show\Layout\ShowLayoutSection;
 use Code16\Sharp\Show\SharpShow;
+use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojFormSharpShow extends SharpShow
 {
 
-    function buildShowFields(): void
+    protected function buildShowFields(FieldsContainer $showFields): void
     {
-        $this
+        $showFields
             ->addField(
                 SharpShowTextField::make("ref")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
@@ -55,9 +57,9 @@ class FormojFormSharpShow extends SharpShow
             );
     }
 
-    function buildShowLayout(): void
+    protected function buildShowLayout(ShowLayout $showLayout): void
     {
-        $this
+        $showLayout
             ->addSection(trans("formoj::sharp.entities.form"), function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
@@ -76,10 +78,10 @@ class FormojFormSharpShow extends SharpShow
             ->addEntityListSection("sections")
             ->addEntityListSection("answers");
     }
-    
+
     public function buildShowConfig(): void
     {
-        $this->setBreadcrumbCustomLabelAttribute("breadcrumb");
+        $this->configureBreadcrumbCustomLabelAttribute("breadcrumb");
     }
 
     function find($id): array

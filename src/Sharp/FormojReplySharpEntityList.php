@@ -3,31 +3,33 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Answer;
-use Code16\Sharp\EntityList\Containers\EntityListDataContainer;
-use Code16\Sharp\EntityList\EntityListQueryParams;
+use Code16\Sharp\EntityList\Fields\EntityListField;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class FormojReplySharpEntityList extends SharpEntityList
 {
 
-    function buildListDataContainers(): void
+    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
     {
-        $this
-            ->addDataContainer(
-                EntityListDataContainer::make("label")
+        $fieldsContainer
+            ->addField(
+                EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.label_label"))
             )
-            ->addDataContainer(
-                EntityListDataContainer::make("value")
+            ->addField(
+                EntityListField::make("value")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.value_label"))
             );
     }
 
-    function buildListLayout(): void
+    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
     {
-        $this->addColumn("label", 3, 5)
+        $fieldsLayout
+            ->addColumn("label", 3, 5)
             ->addColumn("value", 9, 7);
     }
 
@@ -35,9 +37,9 @@ class FormojReplySharpEntityList extends SharpEntityList
     {
     }
 
-    function getListData(EntityListQueryParams $params)
+    public function getListData(): array|Arrayable
     {
-        if(!$answer = Answer::find($params->filterFor("formoj_answer"))) {
+        if(!$answer = Answer::find($this->queryParams->filterFor("formoj_answer"))) {
             return [];
         }
 
@@ -93,7 +95,7 @@ class FormojReplySharpEntityList extends SharpEntityList
                         )
                     );
             }
-            
+
             return false;
         }
 
@@ -105,7 +107,7 @@ class FormojReplySharpEntityList extends SharpEntityList
         if($formShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")) {
             return $formShow->instanceId();
         }
-        
+
         return null;
     }
 
@@ -114,7 +116,7 @@ class FormojReplySharpEntityList extends SharpEntityList
         if($answerShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_answer")) {
             return $answerShow->instanceId();
         }
-        
+
         return null;
     }
 

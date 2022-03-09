@@ -6,20 +6,22 @@ use Code16\Formoj\Models\Form;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormDateField;
-use Code16\Sharp\Form\Fields\SharpFormMarkdownField;
+use Code16\Sharp\Form\Fields\SharpFormEditorField;
 use Code16\Sharp\Form\Fields\SharpFormSelectField;
 use Code16\Sharp\Form\Fields\SharpFormTextField;
+use Code16\Sharp\Form\Layout\FormLayout;
 use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Layout\FormLayoutFieldset;
 use Code16\Sharp\Form\SharpForm;
+use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojFormSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
-    function buildFormFields(): void
+    function buildFormFields(FieldsContainer $formFields) : void
     {
-        $this
+        $formFields
             ->addField(
                 SharpFormTextField::make("title")
                     ->setMaxLength(200)
@@ -29,22 +31,24 @@ class FormojFormSharpForm extends SharpForm
                 SharpFormCheckField::make("is_title_hidden", trans("formoj::sharp.forms.fields.is_title_hidden.label"))
             )
             ->addField(
-                SharpFormMarkdownField::make("description")
+                SharpFormEditorField::make("description")
+                    ->setRenderContentAsMarkdown()
                     ->setLabel(trans("formoj::sharp.forms.fields.description.label"))
                     ->setToolbar([
-                        SharpFormMarkdownField::B, SharpFormMarkdownField::I,
-                        SharpFormMarkdownField::SEPARATOR,
-                        SharpFormMarkdownField::A,
+                        SharpFormEditorField::B, SharpFormEditorField::I,
+                        SharpFormEditorField::SEPARATOR,
+                        SharpFormEditorField::A,
                     ])
                     ->setHeight(200)
             )
             ->addField(
-                SharpFormMarkdownField::make("success_message")
+                SharpFormEditorField::make("success_message")
+                    ->setRenderContentAsMarkdown()
                     ->setLabel(trans("formoj::sharp.forms.fields.success_message.label"))
                     ->setToolbar([
-                        SharpFormMarkdownField::B, SharpFormMarkdownField::I,
-                        SharpFormMarkdownField::SEPARATOR,
-                        SharpFormMarkdownField::A,
+                        SharpFormEditorField::B, SharpFormEditorField::I,
+                        SharpFormEditorField::SEPARATOR,
+                        SharpFormEditorField::A,
                     ])
                     ->setHeight(200)
                     ->setHelpMessage(trans("formoj::sharp.forms.fields.success_message.help_text"))
@@ -72,9 +76,9 @@ class FormojFormSharpForm extends SharpForm
             );
     }
 
-    function buildFormLayout(): void
+    function buildFormLayout(FormLayout $formLayout): void
     {
-        $this
+        $formLayout
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.title"), function (FormLayoutFieldset $fieldset) {
@@ -85,7 +89,7 @@ class FormojFormSharpForm extends SharpForm
                         $fieldset->withFields("published_at|6", "unpublished_at|6");
                     })
                     ->withSingleField("description");
-    
+
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
