@@ -6,6 +6,7 @@ use Code16\Formoj\Models\Field;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -28,11 +29,12 @@ class FormojFieldSharpEntityList extends SharpEntityList
             );
     }
 
-    function buildListLayout(): void
+    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
     {
-        $this->addColumn("type", 3, 5)
+        $fieldsLayout
+            ->addColumn("type", 3, 5)
             ->addColumn("label", 5, 7)
-            ->addColumnLarge("help_text", 4);
+            ->addColumn("help_text", 4);
     }
 
     function buildListConfig(): void
