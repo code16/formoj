@@ -124,11 +124,17 @@ class FormojReplySharpEntityList extends SharpEntityList
     {
         return sprintf(
             '<a href="%s">%s</a>',
-            route("code16.sharp.api.show.download", [
-                "fieldKey" => "file",
+            route("code16.sharp.api.download.show", [
                 "entityKey" => "formoj_answer",
                 "instanceId" => $this->getCurrentAnswerId(),
-                "fileName" => $fileName
+                "path" => sprintf(
+                    "%s/%s/answers/%s/%s",
+                    config("formoj.storage.path"),
+                    $this->getCurrentFormId(),
+                    $this->getCurrentAnswerId(),
+                    $fileName
+                ),
+                "disk" => config("formoj.storage.disk"),
             ]),
             $fileName
         );
