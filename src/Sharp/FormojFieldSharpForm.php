@@ -18,6 +18,8 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 class FormojFieldSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
+    
+    protected ?string $formValidatorClass = FormojFieldSharpValidator::class;
 
     function buildFormFields(FieldsContainer $formFields) : void
     {

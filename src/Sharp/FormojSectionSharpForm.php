@@ -15,6 +15,8 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 class FormojSectionSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
+    
+    protected ?string $formValidatorClass = FormojSectionSharpValidator::class;
 
     function buildFormFields(FieldsContainer $formFields) : void
     {
