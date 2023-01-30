@@ -8,9 +8,7 @@ use Code16\Formoj\Controllers\FormojUploadController;
 
 Route::group([
     'prefix' => config("formoj.base_url"),
-    'middleware' => [
-        \Illuminate\Routing\Middleware\SubstituteBindings::class
-    ],
+    'middleware' => config("formoj.api_middleware"),
 ], function() {
     Route::get('/form/{form}', [FormojFormController::class, 'show']);
     Route::post('/form/{form}/validate/{section}', [FormojSectionController::class, 'update']);
