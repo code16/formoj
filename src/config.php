@@ -8,6 +8,13 @@ return [
     "base_url" => "/formoj/api/",
 
     /**
+     * API middleware
+     */
+    "api_middleware" => [
+        \Illuminate\Routing\Middleware\SubstituteBindings::class
+    ],
+
+    /**
      * Disk and base path used for export XLS storage.
      */
     "export" => [
