@@ -37,7 +37,7 @@ return [
             ],
             "success_message" => [
                 "label" => "Message displayed after posting the form",
-                "help_text" => "This text witl be shown to the user when posting his answer. If let blank, a standard message will be used.",
+                "help_text" => "This text will be shown to the user when posting his answer. If let blank, a standard message will be used.",
             ],
             "notifications_strategy" => [
                 "label" => "Sending frequency"
