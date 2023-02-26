@@ -1,0 +1,20 @@
+
+export default {
+    'answer.error.get': `Sem acesso à esta resposta no momento.`,
+    'answer.empty': `Resposta vazia`,
+    'form.error.get': `Não consegiu acesso ao formulário.`,
+    'form.error.post': `Um erro ocorreu ao enviar o formulário.`,
+    'form.error.post.unauthorized': `Este formulário não está mais disponível.`,
+    'form.error.post.invalid': `Alguns campos estão inválidos.`,
+    'section.button.next': 'Próximo',
+    'section.button.previous': 'Anterior',
+    'section.button.cancel': 'Cancelar',
+    'section.button.submit': 'Enviar resposta',
+    'field.select.placeholder': 'Escolher...',
+    'field.upload.browse': 'Navegar...',
+    'field.upload.placeholder': 'Escolher arquivo',
+    'field.upload.error.max_size': 'Arquivo muito grande (${max}MB. máx)',
+    'field.upload.error.invalid_type': 'Arquivo com extensão não permitida (${extensions} são aceitos)',
+    'field.help_text.select_max': '(${max} opções no máx.)',
+    'loading': 'Carregando...',
+}
