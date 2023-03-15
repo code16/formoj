@@ -54,6 +54,6 @@ class SendDailyNotificationsTest extends FormojTestCase
             }
         );
 
-        Notification::assertTimesSent(1, FormojFormWasAnsweredToday::class);
+        Notification::assertCount(1);
     }
 }

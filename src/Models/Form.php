@@ -16,11 +16,11 @@ class Form extends Model
 
     protected $table = "formoj_forms";
     protected $guarded = ["id"];
-    protected $dates = [
-        "created_at", "updated_at", "published_at", "unpublished_at"
-    ];
+
     protected $casts = [
         "is_title_hidden" => "boolean",
+        "published_at" => "datetime",
+        "unpublished_at" => "datetime",
     ];
 
     public function sections(): HasMany
@@ -79,7 +79,7 @@ class Form extends Model
         $answer = new Answer([
             "form_id" => $this->id,
         ]);
-        
+
         $answer->fillWithData($data)->save();
 
         return tap($answer, function(Answer $answer) {

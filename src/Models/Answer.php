@@ -14,9 +14,6 @@ class Answer extends Model
     protected $casts = [
         'content' => 'json',
     ];
-    protected $dates = [
-        "created_at", "updated_at",
-    ];
 
     public function form(): BelongsTo
     {
@@ -81,7 +78,7 @@ class Answer extends Model
                 return [$field->identifier => $value];
             })
             ->toArray();
-        
+
         return $this;
     }
 }
