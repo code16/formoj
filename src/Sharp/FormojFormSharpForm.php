@@ -116,9 +116,4 @@ class FormojFormSharpForm extends SharpForm
 
         return $form->id;
     }
-
-    function delete($id): void
-    {
-        Form::findOrFail($id)->delete();
-    }
 }

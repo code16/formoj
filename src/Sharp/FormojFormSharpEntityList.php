@@ -13,42 +13,42 @@ use Illuminate\Database\Eloquent\Builder;
 class FormojFormSharpEntityList extends SharpEntityList
 {
 
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    public function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make("ref")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.ref_label"))
                     ->setSortable()
+                    ->setWidth(1)
+                    ->hideOnSmallScreens()
             )
             ->addField(
                 EntityListField::make("title")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
                     ->setSortable()
+                    ->setWidth(3)
+                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("description")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.description_label"))
+                    ->setWidth(3)
+                    ->hideOnSmallScreens()
             )
             ->addField(
                 EntityListField::make("published_at")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
                     ->setSortable()
+                    ->setWidth(2)
+                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("sections")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
+                    ->setWidth(3)
+                    ->hideOnSmallScreens()
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn("ref", 1)
-            ->addColumn("title", 3, 5)
-            ->addColumn("description", 3)
-            ->addColumn("published_at", 2, 6)
-            ->addColumn("sections", 3);
     }
 
     function buildListConfig(): void

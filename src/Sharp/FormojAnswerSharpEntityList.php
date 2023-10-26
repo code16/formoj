@@ -13,24 +13,21 @@ use Illuminate\Contracts\Support\Arrayable;
 class FormojAnswerSharpEntityList extends SharpEntityList
 {
 
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    public function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make("created_at")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
+                    ->setWidth(3)
+                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("content")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
+                    ->setWidth(9)
+                    ->setWidthOnSmallScreensFill()
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn("created_at", 3, 5)
-            ->addColumn("content", 9, 7);
     }
 
     function buildListConfig(): void

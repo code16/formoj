@@ -69,4 +69,9 @@ class FormojSectionSharpShow extends SharpShow
                 Section::findOrFail($id)
             );
     }
+
+    public function delete(mixed $id): void
+    {
+        Section::findOrFail($id)->delete();
+    }
 }

@@ -22,7 +22,7 @@
     "phpunit/phpunit": "^9.5",
     "doctrine/dbal": "~2.5",
     "orchestra/testbench": "6.*|7.*|8.*",
-    "code16/sharp": "^7.0",
+    "code16/sharp": "^8.0",
     "ext-json": "*"
   },
   "autoload": {

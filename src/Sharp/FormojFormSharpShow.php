@@ -107,4 +107,9 @@ class FormojFormSharpShow extends SharpShow
                 Form::findOrFail($id)
             );
     }
+
+    public function delete(mixed $id): void
+    {
+        Form::findOrFail($id)->delete();
+    }
 }

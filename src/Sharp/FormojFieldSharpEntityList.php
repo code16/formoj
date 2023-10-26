@@ -4,42 +4,42 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
+use Code16\Sharp\EntityList\Eloquent\SimpleEloquentReorderHandler;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
-use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
 class FormojFieldSharpEntityList extends SharpEntityList
 {
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    public function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make("type")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
+                    ->setWidth(3)
+                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
+                    ->setWidth(5)
+                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("help_text")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
+                    ->setWidth(4)
+                    ->hideOnSmallScreens()
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn("type", 3, 5)
-            ->addColumn("label", 5, 7)
-            ->addColumn("help_text", 4);
     }
 
     function buildListConfig(): void
     {
-        $this->configureReorderable(FormojFieldReorderHandler::class);
+        $this->configureReorderable(
+            new SimpleEloquentReorderHandler(Field::class)
+        );
     }
 
     public function getListData(): array|Arrayable
@@ -69,10 +69,6 @@ class FormojFieldSharpEntityList extends SharpEntityList
             ->transform($fields->get());
     }
 
-    /**
-     * @param string|null $value
-     * @return array|string|null
-     */
     public static function fieldTypes(?string $value = null)
     {
         $types = [
@@ -84,5 +80,10 @@ class FormojFieldSharpEntityList extends SharpEntityList
         ];
 
         return $value ? ($types[$value] ?? null) : $types;
+    }
+
+    function delete($id): void
+    {
+        Field::findOrFail($id)->delete();
     }
 }

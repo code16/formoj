@@ -196,11 +196,6 @@ class FormojFieldSharpForm extends SharpForm
         return $field->id;
     }
 
-    function delete($id): void
-    {
-        Field::findOrFail($id)->delete();
-    }
-
     protected function transformAttributesToFieldAttributes(&$data, array $attributeLabels): void
     {
         collect($data)
@@ -212,11 +207,6 @@ class FormojFieldSharpForm extends SharpForm
             });
     }
 
-    /**
-     * @param ?string $value
-     * @param string $type
-     * @return bool|int|string
-     */
     protected function castValue(?string $value, string $type)
     {
         if($value === null || strlen($value) == 0) {

@@ -4,38 +4,37 @@ namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Sharp\Reorder\FormojSectionReorderHandler;
+use Code16\Sharp\EntityList\Eloquent\SimpleEloquentReorderHandler;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
-use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
 class FormojSectionSharpEntityList extends SharpEntityList
 {
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    public function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make("title")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.title_label"))
+                    ->setWidth(4)
+                    ->setWidthOnSmallScreens(6)
             )
             ->addField(
                 EntityListField::make("description")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.description_label"))
+                    ->setWidth(8)
+                    ->setWidthOnSmallScreens(6)
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn("title", 4, 6)
-            ->addColumn("description", 8, 6);
     }
 
     function buildListConfig(): void
     {
         $this
-            ->configureReorderable(FormojSectionReorderHandler::class);
+            ->configureReorderable(
+                new SimpleEloquentReorderHandler(Section::class)
+            );
     }
 
     public function getListData(): array|Arrayable

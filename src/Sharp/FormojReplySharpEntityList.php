@@ -13,24 +13,21 @@ use Illuminate\Support\Facades\Storage;
 class FormojReplySharpEntityList extends SharpEntityList
 {
 
-    public function buildListFields(EntityListFieldsContainer $fieldsContainer): void
+    public function buildList(EntityListFieldsContainer $fields): void
     {
-        $fieldsContainer
+        $fields
             ->addField(
                 EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.label_label"))
+                    ->setWidth(3)
+                    ->setWidthOnSmallScreens(5)
             )
             ->addField(
                 EntityListField::make("value")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.value_label"))
+                    ->setWidth(9)
+                    ->setWidthOnSmallScreens(7)
             );
-    }
-
-    public function buildListLayout(EntityListFieldsLayout $fieldsLayout): void
-    {
-        $fieldsLayout
-            ->addColumn("label", 3, 5)
-            ->addColumn("value", 9, 7);
     }
 
     function buildListConfig(): void

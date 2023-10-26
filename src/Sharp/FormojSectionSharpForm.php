@@ -70,9 +70,4 @@ class FormojSectionSharpForm extends SharpForm
 
         return $form->id;
     }
-
-    function delete($id): void
-    {
-        Section::findOrFail($id)->delete();
-    }
 }

@@ -78,4 +78,8 @@ class FormojAnswerSharpShow extends SharpShow
                 Answer::findOrFail($id)
             );
     }
+
+    public function delete(mixed $id): void
+    {
+    }
 }
