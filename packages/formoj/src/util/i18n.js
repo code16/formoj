@@ -17,6 +17,11 @@ export function createI18nConfig(customs = {}) {
 
 export function getDefaultLocale() {
     const langAttribute = document.documentElement.getAttribute('lang');
+
+    if(langAttribute in i18n) {
+        return langAttribute;
+    }
+
     return langAttribute
         ? langAttribute.split('-')[0]
         : 'en';
