@@ -105,7 +105,7 @@ return [
             Field::TYPE_SELECT => "Liste déroulante",
             Field::TYPE_HEADING => "Intertitre",
             Field::TYPE_UPLOAD => "Fichier",
-            Field::TYPE_RATING => "Note",
+            Field::TYPE_RATING => "Notation",
         ],
         'fields' => [
             "label" => [
