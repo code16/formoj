@@ -155,6 +155,12 @@ return [
             "fieldsets" => [
                 "identifiers" => "Identifiers",
             ],
+            "lowest_label" => [
+                "label" => "Lowest rating label"
+            ],
+            "highest_label" => [
+                "label" => "Highest rating label"
+            ],
         ],
         "list" => [
             "columns" => [
