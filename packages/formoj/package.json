@@ -37,5 +37,9 @@
     "vue": "^2.6.8",
     "vue-template-compiler": "^2.6.8",
     "webpack-bundle-analyzer": "^3.6.0"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }

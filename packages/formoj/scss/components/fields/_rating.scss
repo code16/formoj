@@ -1,18 +1,17 @@
 
 .fj-rating {
-  &__inner {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    padding-bottom: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding-bottom: 1rem;
 
-    @media (min-width: 768px) {
-      flex-wrap: nowrap;
-      justify-content: start;
-      align-items: center;
-      padding-bottom: 0;
-    }
+  @media (min-width: 768px) {
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+    padding-bottom: 0;
   }
+
   &__list {
     width: calc(100% + 1rem);
     display: flex;
