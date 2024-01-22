@@ -105,6 +105,7 @@ return [
             Field::TYPE_SELECT => "Dropdown list",
             Field::TYPE_HEADING => "Inter-title",
             Field::TYPE_UPLOAD => "File",
+            Field::TYPE_RATING => "Rating",
         ],
         'fields' => [
             "label" => [

@@ -1,0 +1,24 @@
+
+.fj-rating {
+  display: flex;
+  padding: 0;
+  align-items: center;
+  &__list {
+    display: flex;
+    margin: 0 -.5rem;
+  }
+  &__item {
+    position: relative;
+    padding: .5rem;
+    margin-bottom: 0;
+  }
+  &__label {
+    overflow-wrap: break-word;
+  }
+  &__label--lowest {
+    margin-right: 2rem;
+  }
+  &__label--highest {
+    margin-left: 2rem;
+  }
+}

@@ -15,13 +15,7 @@ return [
         "formoj_reply" => \Code16\Formoj\Sharp\Entities\FormojReplyEntity::class,
     ],
 
-    "menu" => [
-        [
-            "entity" => "formoj_form",
-            "label" => "Forms",
-            "icon" => "fa-list-alt"
-        ],
-    ],
+    "menu" => \App\Sharp\PrototipojSharpMenu::class,
 
     "uploads" => [
         "tmp_dir" => env("SHARP_UPLOADS_TMP_DIR", "tmp"),
