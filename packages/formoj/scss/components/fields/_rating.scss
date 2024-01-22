@@ -1,11 +1,26 @@
 
 .fj-rating {
-  display: flex;
-  padding: 0;
-  align-items: center;
+  &__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding-bottom: 1rem;
+
+    @media (min-width: 768px) {
+      flex-wrap: nowrap;
+      justify-content: start;
+      align-items: center;
+      padding-bottom: 0;
+    }
+  }
   &__list {
+    width: calc(100% + 1rem);
     display: flex;
     margin: 0 -.5rem;
+    justify-content: center;
+    @media (min-width: 768px) {
+      width: auto;
+    }
   }
   &__item {
     position: relative;
@@ -14,11 +29,29 @@
   }
   &__label {
     overflow-wrap: break-word;
+    flex: 1 1 0%;
+    min-width: 0;
+    line-height: 1.25;
+    @media (min-width: 768px) {
+      flex: 0 0 auto;
+    }
   }
   &__label--lowest {
-    margin-right: 2rem;
+    order: 1;
+    margin-right: .5rem;
+    @media (min-width: 768px) {
+      margin-right: 2rem;
+      order: 0;
+    }
   }
   &__label--highest {
-    margin-left: 2rem;
+    order: 1;
+    margin-left: .5rem;
+    text-align: right;
+    @media (min-width: 768px) {
+      margin-left: 2rem;
+      text-align: left;
+      order: 0;
+    }
   }
 }
