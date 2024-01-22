@@ -1,5 +1,5 @@
 import template from 'lodash/template';
-import * as i18n from '../lang';
+import i18n from '../lang';
 import { config } from "./config";
 
 export function createI18nConfig(customs = {}) {
