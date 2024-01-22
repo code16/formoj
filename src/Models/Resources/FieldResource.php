@@ -72,7 +72,15 @@ class FieldResource extends JsonResource
                         ];
                     }
                 )
-            )
+            ),
+            "lowestLabel" => $this->when(
+                $this->isTypeRating(),
+                $this->fieldAttribute('lowest_label')
+            ),
+            "highestLabel" => $this->when(
+                $this->isTypeRating(),
+                $this->fieldAttribute('highest_label')
+            ),
         ];
     }
 }

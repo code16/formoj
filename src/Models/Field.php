@@ -12,6 +12,7 @@ class Field extends Model
     const TYPE_SELECT = "select";
     const TYPE_HEADING = "heading";
     const TYPE_UPLOAD = "upload";
+    const TYPE_RATING = "rating";
 
     protected $table = "formoj_fields";
     protected $guarded = ["id"];
@@ -58,6 +59,12 @@ class Field extends Model
     {
         return $this->type === static::TYPE_UPLOAD;
     }
+    
+    public function isTypeRating(): bool
+    {
+        return $this->type === static::TYPE_RATING;
+    }
+    
     
     public function getFrontId(): string
     {

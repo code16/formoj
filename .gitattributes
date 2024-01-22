@@ -6,7 +6,9 @@
 /webpack.mix.js export-ignore
 /phpunit.xml export-ignore
 /tests export-ignore
-/packages export-ignore
+/packages/formoj/example export-ignore
+/packages/formoj/mix-manifest.json export-ignore
+/packages/formoj/webpack.mix export-ignore
 /prototipoj export-ignore
 /docs export-ignore
 /README.md export-ignore

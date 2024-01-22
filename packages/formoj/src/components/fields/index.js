@@ -5,6 +5,7 @@ import Checkboxes from './select/Checkboxes';
 import Radios from "./select/Radios";
 import Heading from './Heading';
 import Upload from './Upload';
+import Rating from "./Rating.vue";
 
 
 export function getFieldByType(type, { isMultiple, isRadios }={}) {
@@ -23,6 +24,8 @@ export function getFieldByType(type, { isMultiple, isRadios }={}) {
         return Heading;
     } else if(type === 'upload') {
         return Upload;
+    } else if(type === 'rating') {
+        return Rating;
     }
 }
 

@@ -106,6 +106,16 @@ class FormojFieldSharpForm extends SharpForm
                     ->setPlaceholder("Ex: .jpeg,.gif,.png")
                     ->setHelpMessage(trans("formoj::sharp.fields.fields.accept.help_text"))
                     ->addConditionalDisplay("type", Field::TYPE_UPLOAD)
+            )
+            ->addField(
+                SharpFormTextField::make("lowest_label")
+                    ->setLabel(trans("formoj::sharp.fields.fields.lowest_label.label"))
+                    ->addConditionalDisplay("type", Field::TYPE_RATING)
+            )
+            ->addField(
+                SharpFormTextField::make("highest_label")
+                    ->setLabel(trans("formoj::sharp.fields.fields.highest_label.label"))
+                    ->addConditionalDisplay("type", Field::TYPE_RATING)
             );
     }
 
@@ -134,13 +144,15 @@ class FormojFieldSharpForm extends SharpForm
                     })
                     ->withSingleField("radios")
                     ->withSingleField("multiple")
-                    ->withSingleField("max_options");
+                    ->withSingleField("lowest_label")
+                    ->withSingleField("highest_label");
             });
     }
 
     function find($id): array
     {
-        foreach(["max_length", "rows_count", "max_options", "radios", "multiple", "max_size", "accept"] as $attribute) {
+        foreach([
+            "max_length", "rows_count", "max_options", "radios", "multiple", "max_size", "accept", "lowest_label", "highest_label"] as $attribute) {
             $this->setCustomTransformer($attribute, function($value, $field) use($attribute) {
                 return $field->fieldAttribute($attribute);
             });
@@ -183,12 +195,16 @@ class FormojFieldSharpForm extends SharpForm
 
         } elseif($data["type"] == Field::TYPE_UPLOAD) {
             $this->transformAttributesToFieldAttributes($data, ["max_size" => "int", "accept" => "string"]);
+            
+        } elseif($data["type"] == Field::TYPE_RATING) {
+            $this->transformAttributesToFieldAttributes($data, ["lowest_label" => "string", "highest_label" => "string"]);
         }
 
         unset(
             $data["max_length"], $data["rows_count"], $data["options"],
             $data["max_options"], $data["multiple"], $data["radios"],
-            $data["max_size"], $data["accept"]
+            $data["max_size"], $data["accept"],
+            $data["lowest_label"], $data["highest_label"],
         );
 
         $this->save($field, $data);

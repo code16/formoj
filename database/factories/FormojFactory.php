@@ -36,6 +36,7 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
             \Code16\Formoj\Models\Field::TYPE_TEXTAREA,
             \Code16\Formoj\Models\Field::TYPE_SELECT,
             \Code16\Formoj\Models\Field::TYPE_UPLOAD,
+            \Code16\Formoj\Models\Field::TYPE_RATING,
         ]);
 
     $fieldAttributes = [];
@@ -51,6 +52,9 @@ $factory->define(\Code16\Formoj\Models\Field::class, function (Faker $faker, $at
     } elseif($type == \Code16\Formoj\Models\Field::TYPE_UPLOAD) {
         $fieldAttributes["max_size"] = 4;
         $fieldAttributes["accept"] = ".jpeg,.jpg,.gif,.png,.pdf";
+    } elseif ($type == \Code16\Formoj\Models\Field::TYPE_RATING) {
+        $fieldAttributes["lowest_label"] = $faker->word;
+        $fieldAttributes["highest_label"] = $faker->word;
     }
 
     $label = $faker->words(3, true);

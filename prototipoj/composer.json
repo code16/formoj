@@ -5,9 +5,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.1",
-        "code16/sharp": "^7.0",
-        "fideloper/proxy": "^4.0",
-        "laravel/framework": "^8.0",
+        "code16/sharp": "^8.0",
+        "laravel/framework": "^10.0",
         "laravel/legacy-factories": "^1.1",
         "laravel/tinker": "^2.0",
         "maatwebsite/excel": "^3.1"
@@ -17,7 +16,7 @@
         "filp/whoops": "^2.0",
         "fakerphp/faker": "^1.19.0",
         "mockery/mockery": "^1.3",
-        "nunomaduro/collision": "^5.0",
+        "nunomaduro/collision": "^7.0",
         "phpunit/phpunit": "^9.0"
     },
     "config": {
@@ -50,7 +49,7 @@
     "scripts": {
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
-            "@php artisan vendor:publish --provider='Code16\\\\Sharp\\\\SharpServiceProvider' --tag=assets --force",
+            "@php artisan vendor:publish --provider='Code16\\Sharp\\SharpServiceProvider' --tag=assets --force",
             "@php artisan package:discover --ansi"
         ],
         "post-root-package-install": [

@@ -105,6 +105,7 @@ return [
             Field::TYPE_SELECT => "Liste déroulante",
             Field::TYPE_HEADING => "Intertitre",
             Field::TYPE_UPLOAD => "Fichier",
+            Field::TYPE_RATING => "Notation",
         ],
         'fields' => [
             "label" => [
@@ -153,6 +154,12 @@ return [
             ],
             "fieldsets" => [
                 "identifiers" => "Identifiants",
+            ],
+            "lowest_label" => [
+                "label" => "Libellé de la note la plus basse"
+            ],
+            "highest_label" => [
+                "label" => "Libellé de la note la plus haute"
             ],
         ],
         "list" => [
