@@ -65,6 +65,16 @@ $formoj-select-appearance: 'default' !default;
   }
 }
 
+.fj-rating {
+  @extend .card;
+  &__body {
+    @extend .card-body;
+  }
+  &__label {
+    @extend .text-muted;
+  }
+}
+
 .fj-form {
 
   &__header {
