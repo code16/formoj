@@ -15,7 +15,7 @@ class SelectFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_default_select_field()
     {
-        (new SelectFieldCreator(factory(Section::class)->create(), "test", ["a","b"]))
+        (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
             ->create();
 
         $this->assertDatabaseHas("formoj_fields", [
@@ -35,7 +35,7 @@ class SelectFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_custom_select_field()
     {
-        (new SelectFieldCreator(factory(Section::class)->create(), "test", ["a","b"]))
+        (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
             ->setRequired()
             ->setHelpText("help")
             ->setOptions(["a","b","c"])
@@ -58,7 +58,7 @@ class SelectFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_custom_multiple_select_field()
     {
-        (new SelectFieldCreator(factory(Section::class)->create(), "test", ["a","b"]))
+        (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
             ->setRequired()
             ->setHelpText("help")
             ->setOptions(["a","b","c"])
@@ -83,7 +83,7 @@ class SelectFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_custom_radios_select_field()
     {
-        (new SelectFieldCreator(factory(Section::class)->create(), "test", ["a","b"]))
+        (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
             ->setRequired()
             ->setHelpText("help")
             ->setOptions(["a","b","c"])

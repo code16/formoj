@@ -2,11 +2,15 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Database\Factories\FieldFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Field extends Model
 {
+    use HasFactory;
+
     const TYPE_TEXT = "text";
     const TYPE_TEXTAREA = "textarea";
     const TYPE_SELECT = "select";
@@ -20,6 +24,11 @@ class Field extends Model
         'field_attributes' => 'json',
         'required' => 'boolean',
     ];
+
+    protected static function newFactory()
+    {
+        return new FieldFactory();
+    }
 
     public function section(): BelongsTo
     {
@@ -59,13 +68,13 @@ class Field extends Model
     {
         return $this->type === static::TYPE_UPLOAD;
     }
-    
+
     public function isTypeRating(): bool
     {
         return $this->type === static::TYPE_RATING;
     }
-    
-    
+
+
     public function getFrontId(): string
     {
         return "f" . $this->id;

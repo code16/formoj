@@ -26,11 +26,11 @@ class FormojFormFillControllerTest extends FormojTestCase
         Notification::fake();
         $answer = Str::random(5);
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                     "success_message" => "OK!"
@@ -64,10 +64,10 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => now()->addHour(),
                     "unpublished_at" => null,
                 ])->id
@@ -80,10 +80,10 @@ class FormojFormFillControllerTest extends FormojTestCase
             ])
             ->assertStatus(403);
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => now()->subHour(),
                 ])->id
@@ -102,11 +102,11 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -131,19 +131,19 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->withoutExceptionHandling();
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
             "field_attributes->max_length" => null,
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
             ])->id
         ]);
 
-        $field2 = factory(Field::class)->create([
+        $field2 = Field::factory()->create([
             "type" => "text",
             "required" => false,
             "field_attributes->max_length" => null,
@@ -173,18 +173,18 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->withoutExceptionHandling();
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "identifier" => "field_1",
             "type" => "text",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
             ])->id
         ]);
 
-        $answer = factory(Answer::class)->create([
+        $answer = Answer::factory()->create([
             'content' => [
                 "field_1" => "old value"
             ],
@@ -212,19 +212,19 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
             "required" => true,
             "field_attributes->max_length" => null,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
             ])->id
         ]);
 
-        $field2 = factory(Field::class)->create([
+        $field2 = Field::factory()->create([
             "type" => "heading",
             "section_id" => $field->section_id
         ]);
@@ -249,13 +249,13 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "select",
             "field_attributes->multiple" => false,
             "field_attributes->options" => ["A", "B", "C"],
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -281,14 +281,14 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "select",
             "field_attributes->multiple" => true,
             "field_attributes->max_options" => 3,
             "field_attributes->options" => ["A", "B", "C"],
             "required" => true,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -317,10 +317,10 @@ class FormojFormFillControllerTest extends FormojTestCase
 
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => Field::TYPE_UPLOAD,
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "published_at" => null,
                     "unpublished_at" => null,
                 ])->id
@@ -328,7 +328,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
 
         // Simulate previous answers
-        factory(Answer::class, 20)->create([
+        Answer::factory()->count(20)->create([
             "form_id" => $field->section->form_id
         ]);
 
@@ -361,10 +361,10 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "notifications_strategy" => Form::NOTIFICATION_STRATEGY_EVERY,
                     "administrator_email" => "admin@example.org",
                     "published_at" => null,
@@ -391,10 +391,10 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "type" => "text",
-            "section_id" => factory(Section::class)->create([
-                "form_id" => factory(Form::class)->create([
+            "section_id" => Section::factory()->create([
+                "form_id" => Form::factory()->create([
                     "notifications_strategy" => Form::NOTIFICATION_STRATEGY_NONE,
                     "administrator_email" => "admin@example.org",
                     "published_at" => null,
@@ -415,26 +415,26 @@ class FormojFormFillControllerTest extends FormojTestCase
     {
         Notification::fake();
 
-        $form = factory(Form::class)
+        $form = Form::factory()
             ->create([
                 "published_at" => null,
                 "unpublished_at" => null,
             ]);
 
-        $field1 = factory(Field::class)->create([
+        $field1 = Field::factory()->create([
             "type" => "text",
             "required" => true,
-            "section_id" => factory(Section::class)
+            "section_id" => Section::factory()
                 ->create([
                     "form_id" => $form->id
                 ])
                 ->id
         ]);
 
-        $field2 = factory(Field::class)->create([
+        $field2 = Field::factory()->create([
             "type" => "text",
             "required" => true,
-            "section_id" => factory(Section::class)
+            "section_id" => Section::factory()
                 ->create([
                     "form_id" => $form->id
                 ])

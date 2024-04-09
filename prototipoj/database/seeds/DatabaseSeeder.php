@@ -15,23 +15,25 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        User::factory()->create([
             "email" => "admin@example.org",
         ]);
 
-        foreach(factory(Form::class, 5)->create() as $form) {
+        foreach(Form::factory()->count(5)->create() as $form) {
             for($k=1; $k<=rand(1, 4); $k++) {
-                $section = factory(Section::class)->create([
+                $section = Section::factory()->create([
                     "title" => "Section $k",
                     "form_id" => $form->id
                 ]);
 
                 if(rand(0, 9) >= 6) {
-                    factory(Field::class, rand(1, 3))->create([
-                        "section_id" => $section->id
-                    ]);
+                    Field::factory()
+                        ->count(rand(1, 3))
+                        ->create([
+                            "section_id" => $section->id
+                        ]);
 
-                    factory(Field::class)->create([
+                    Field::factory()->create([
                         "type" => "heading",
                         "required" => false,
                         "help_text" => null,
@@ -39,9 +41,11 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
 
-                factory(Field::class, rand(3, 8))->create([
-                    "section_id" => $section->id
-                ]);
+                Field::factory()
+                    ->count(rand(3, 8))
+                    ->create([
+                        "section_id" => $section->id
+                    ]);
             }
         }
     }

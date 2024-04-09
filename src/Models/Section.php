@@ -2,21 +2,30 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Database\Factories\SectionFactory;
 use Code16\Formoj\Models\Creators\SelectFieldCreator;
 use Code16\Formoj\Models\Creators\TextareaFieldCreator;
 use Code16\Formoj\Models\Creators\TextFieldCreator;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Section extends Model
 {
+    use HasFactory;
+
     protected $table = "formoj_sections";
     protected $guarded = ["id"];
     protected $casts = [
         "is_title_hidden" => "boolean",
     ];
+
+    protected static function newFactory()
+    {
+        return new SectionFactory();
+    }
 
     public function form(): BelongsTo
     {
