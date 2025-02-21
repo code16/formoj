@@ -6,7 +6,7 @@ use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Sharp\Commands\FormojAnswerExportCommand;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
-use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
+use Code16\Sharp\EntityList\Filters\HiddenFilter;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -19,27 +19,24 @@ class FormojAnswerSharpEntityList extends SharpEntityList
             ->addField(
                 EntityListField::make("created_at")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.created_at_label"))
-                    ->setWidth(3)
-                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("content")
                     ->setLabel(trans("formoj::sharp.answers.list.columns.content_label"))
-                    ->setWidth(9)
-                    ->setWidthOnSmallScreensFill()
             );
-    }
-
-    function buildListConfig(): void
-    {
-        $this
-            ->configurePaginated();
     }
 
     function getEntityCommands(): ?array
     {
         return [
             FormojAnswerExportCommand::class
+        ];
+    }
+
+    protected function getFilters(): ?array
+    {
+        return [
+            HiddenFilter::make('formoj_form')
         ];
     }
 

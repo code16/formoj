@@ -15,8 +15,6 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 class FormojSectionSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
-    protected ?string $formValidatorClass = FormojSectionSharpValidator::class;
 
     function buildFormFields(FieldsContainer $formFields) : void
     {
@@ -41,13 +39,13 @@ class FormojSectionSharpForm extends SharpForm
         $formLayout
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
-                    ->withSingleField("title")
-                    ->withSingleField("is_title_hidden");
+                    ->withField("title")
+                    ->withField("is_title_hidden");
 
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
-                    ->withSingleField("description");
+                    ->withField("description");
             });
     }
 
@@ -62,12 +60,19 @@ class FormojSectionSharpForm extends SharpForm
         $form = $id
             ? Section::findOrFail($id)
             : new Section([
-                "form_id" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
+                "form_id" => sharp()->context()->breadcrumb()->previousShowSegment()->instanceId(),
                 "order" => 100
             ]);
 
         $this->save($form, $data);
 
         return $form->id;
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => ['required', 'max:200'],
+        ];
     }
 }

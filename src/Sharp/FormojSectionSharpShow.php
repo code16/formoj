@@ -13,7 +13,6 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojSectionSharpShow extends SharpShow
 {
-
     protected function buildShowFields(FieldsContainer $showFields): void
     {
         $showFields
@@ -41,11 +40,11 @@ class FormojSectionSharpShow extends SharpShow
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("title");
+                            ->withField("title");
                     })
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("description");
+                            ->withField("description");
                     });;
             })
             ->addEntityListSection("fields");

@@ -3,10 +3,10 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
-use Code16\Formoj\Sharp\Reorder\FormojFieldReorderHandler;
 use Code16\Sharp\EntityList\Eloquent\SimpleEloquentReorderHandler;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Filters\HiddenFilter;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -18,19 +18,14 @@ class FormojFieldSharpEntityList extends SharpEntityList
             ->addField(
                 EntityListField::make("type")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.type_label"))
-                    ->setWidth(3)
-                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.label_label"))
-                    ->setWidth(5)
-                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("help_text")
                     ->setLabel(trans("formoj::sharp.fields.list.columns.help_text_label"))
-                    ->setWidth(4)
                     ->hideOnSmallScreens()
             );
     }
@@ -40,6 +35,13 @@ class FormojFieldSharpEntityList extends SharpEntityList
         $this->configureReorderable(
             new SimpleEloquentReorderHandler(Field::class)
         );
+    }
+
+    protected function getFilters(): ?array
+    {
+        return [
+            HiddenFilter::make('formoj_section')
+        ];
     }
 
     public function getListData(): array|Arrayable

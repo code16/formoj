@@ -60,19 +60,19 @@ class FormojFormSharpShow extends SharpShow
     protected function buildShowLayout(ShowLayout $showLayout): void
     {
         $showLayout
-            ->addSection(trans("formoj::sharp.entities.form"), function(ShowLayoutSection $section) {
+            ->addSection('', function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("ref")
-                            ->withSingleField("title")
-                            ->withSingleField("published_at")
-                            ->withSingleField("notifications_strategy");
+                            ->withField("ref")
+                            ->withField("title")
+                            ->withField("published_at")
+                            ->withField("notifications_strategy");
                     })
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("description")
-                            ->withSingleField("success_message");
+                            ->withField("description")
+                            ->withField("success_message");
                     });
             })
             ->addEntityListSection("sections")
@@ -81,12 +81,15 @@ class FormojFormSharpShow extends SharpShow
 
     public function buildShowConfig(): void
     {
-        $this->configureBreadcrumbCustomLabelAttribute("breadcrumb");
+        $this
+            ->configurePageTitleAttribute("page_title")
+            ->configureBreadcrumbCustomLabelAttribute("breadcrumb");
     }
 
     function find($id): array
     {
         return $this
+            ->setCustomTransformer('page_title', fn() => trans("formoj::sharp.entities.form"))
             ->setCustomTransformer("ref", function($value, $form) {
                 return "#{$form->id}";
             })

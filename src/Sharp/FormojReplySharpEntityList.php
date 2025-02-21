@@ -5,7 +5,7 @@ namespace Code16\Formoj\Sharp;
 use Code16\Formoj\Models\Answer;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
-use Code16\Sharp\EntityList\Fields\EntityListFieldsLayout;
+use Code16\Sharp\EntityList\Filters\HiddenFilter;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\Storage;
@@ -19,19 +19,18 @@ class FormojReplySharpEntityList extends SharpEntityList
             ->addField(
                 EntityListField::make("label")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.label_label"))
-                    ->setWidth(3)
-                    ->setWidthOnSmallScreens(5)
             )
             ->addField(
                 EntityListField::make("value")
                     ->setLabel(trans("formoj::sharp.replies.list.columns.value_label"))
-                    ->setWidth(9)
-                    ->setWidthOnSmallScreens(7)
             );
     }
 
-    function buildListConfig(): void
+    protected function getFilters(): ?array
     {
+        return [
+            HiddenFilter::make("formoj_answer")
+        ];
     }
 
     public function getListData(): array|Arrayable
@@ -101,7 +100,7 @@ class FormojReplySharpEntityList extends SharpEntityList
 
     protected function getCurrentFormId(): ?string
     {
-        if($formShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")) {
+        if($formShow = sharp()->context()->breadcrumb()->previousShowSegment("formoj_form")) {
             return $formShow->instanceId();
         }
 
@@ -110,7 +109,7 @@ class FormojReplySharpEntityList extends SharpEntityList
 
     protected function getCurrentAnswerId(): ?string
     {
-        if($answerShow = currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_answer")) {
+        if($answerShow = sharp()->context()->breadcrumb()->previousShowSegment("formoj_answer")) {
             return $answerShow->instanceId();
         }
 

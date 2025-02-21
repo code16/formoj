@@ -3,6 +3,7 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Field;
+use Code16\Formoj\Models\Section;
 use Code16\Sharp\Form\Eloquent\WithSharpFormEloquentUpdater;
 use Code16\Sharp\Form\Fields\SharpFormCheckField;
 use Code16\Sharp\Form\Fields\SharpFormListField;
@@ -14,12 +15,11 @@ use Code16\Sharp\Form\Layout\FormLayoutColumn;
 use Code16\Sharp\Form\Layout\FormLayoutFieldset;
 use Code16\Sharp\Form\SharpForm;
 use Code16\Sharp\Utils\Fields\FieldsContainer;
+use Illuminate\Validation\Rule;
 
 class FormojFieldSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
-    protected ?string $formValidatorClass = FormojFieldSharpValidator::class;
 
     function buildFormFields(FieldsContainer $formFields) : void
     {
@@ -125,27 +125,28 @@ class FormojFieldSharpForm extends SharpForm
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withFieldset(trans("formoj::sharp.fields.fields.fieldsets.identifiers"), function (FormLayoutFieldset $fieldset) {
-                        $fieldset->withSingleField("label")
-                            ->withSingleField("identifier");
+                        $fieldset
+                            ->withField("label")
+                            ->withField("identifier");
                     })
-                    ->withSingleField("type")
-                    ->withSingleField("required")
-                    ->withSingleField("help_text");
+                    ->withField("type")
+                    ->withField("required")
+                    ->withField("help_text");
 
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
-                    ->withSingleField("max_size")
-                    ->withSingleField("accept")
-                    ->withSingleField("max_length")
-                    ->withSingleField("rows_count")
-                    ->withSingleField("options", function(FormLayoutColumn $column) {
-                        $column->withSingleField("label");
+                    ->withField("max_size")
+                    ->withField("accept")
+                    ->withField("max_length")
+                    ->withField("rows_count")
+                    ->withListField("options", function(FormLayoutColumn $column) {
+                        $column->withField("label");
                     })
-                    ->withSingleField("radios")
-                    ->withSingleField("multiple")
-                    ->withSingleField("lowest_label")
-                    ->withSingleField("highest_label");
+                    ->withField("radios")
+                    ->withField("multiple")
+                    ->withField("lowest_label")
+                    ->withField("highest_label");
             });
     }
 
@@ -177,7 +178,7 @@ class FormojFieldSharpForm extends SharpForm
         $field = $id
             ? Field::findOrFail($id)
             : new Field([
-                "section_id" => currentSharpRequest()->getPreviousShowFromBreadcrumbItems()->instanceId(),
+                "section_id" => sharp()->context()->breadcrumb()->previousShowSegment()->instanceId(),
                 "order" => 100
             ]);
 
@@ -237,5 +238,39 @@ class FormojFieldSharpForm extends SharpForm
         }
 
         return $value;
+    }
+
+    public function rules()
+    {
+        return [
+            'label' => [
+                'required',
+                'max:200'
+            ],
+            'identifier' => [
+                'required',
+                'max:100',
+                'alpha_dash',
+                Rule::unique('formoj_fields', 'identifier')
+                    ->whereIn("section_id",
+                        Section::select("id")
+                            ->where("form_id",
+                                Section::find(sharp()->context()->breadcrumb()->previousShowSegment()->instanceId())
+                                    ->form_id
+                            )
+                            ->pluck("id")
+                            ->all()
+                    )
+                    ->ignore(sharp()->context()->instanceId())
+            ],
+            'type' => 'required',
+            'max_length' => 'integer|nullable',
+            'max_values' => 'integer|nullable',
+            'rows_count' => 'integer|nullable|required_if:type,' . Field::TYPE_TEXTAREA,
+            'options' => 'required_if:type,' . Field::TYPE_SELECT,
+            'options.*.label' => 'required',
+            'max_size' => 'required_if:type,' . Field::TYPE_UPLOAD . '|integer|nullable',
+            'accept' => ['nullable','regex:/^(\.[a-z]+,)*(\.[a-z]+)$/']
+        ];
     }
 }
