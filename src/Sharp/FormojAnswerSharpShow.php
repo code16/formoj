@@ -36,7 +36,7 @@ class FormojAnswerSharpShow extends SharpShow
     protected function buildShowLayout(ShowLayout $showLayout): void
     {
         $showLayout
-            ->addSection(trans("formoj::sharp.entities.answer"), function(ShowLayoutSection $section) {
+            ->addSection('', function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
@@ -48,6 +48,7 @@ class FormojAnswerSharpShow extends SharpShow
 
     public function buildShowConfig(): void
     {
+        $this->configurePageTitleAttribute("page_title");
     }
 
     function getInstanceCommands(): ?array
@@ -60,6 +61,7 @@ class FormojAnswerSharpShow extends SharpShow
     function find($id): array
     {
         return $this
+            ->setCustomTransformer('page_title', fn() => trans("formoj::sharp.entities.answer"))
             ->setCustomTransformer("created_at", function($value, $instance) {
                 return $instance->created_at->isoFormat("LLLL");
             })
