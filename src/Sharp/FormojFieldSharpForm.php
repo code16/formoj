@@ -21,6 +21,13 @@ class FormojFieldSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
 
+    public function buildFormConfig(): void
+    {
+        $this
+            ->configureCreateTitle(trans("formoj::sharp.entities.field"))
+            ->configureEditTitle(trans("formoj::sharp.entities.field"));
+    }
+
     function buildFormFields(FieldsContainer $formFields) : void
     {
         $formFields
