@@ -27,26 +27,20 @@ class FormojFormSharpEntityList extends SharpEntityList
                 EntityListField::make("title")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.title_label"))
                     ->setSortable()
-                    ->setWidth(3)
-                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("description")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.description_label"))
-                    ->setWidth(3)
                     ->hideOnSmallScreens()
             )
             ->addField(
                 EntityListField::make("published_at")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.published_at_label"))
                     ->setSortable()
-                    ->setWidth(2)
-                    ->setWidthOnSmallScreensFill()
             )
             ->addField(
                 EntityListField::make("sections")
                     ->setLabel(trans("formoj::sharp.forms.list.columns.sections_label"))
-                    ->setWidth(3)
                     ->hideOnSmallScreens()
             );
     }
@@ -54,7 +48,6 @@ class FormojFormSharpEntityList extends SharpEntityList
     function buildListConfig(): void
     {
         $this
-            ->configurePaginated()
             ->configureDefaultSort("ref", "desc")
             ->configureSearchable();
     }

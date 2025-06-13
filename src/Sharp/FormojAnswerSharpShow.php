@@ -15,7 +15,6 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojAnswerSharpShow extends SharpShow
 {
-
     protected function buildShowFields(FieldsContainer $showFields): void
     {
         $showFields
@@ -26,32 +25,22 @@ class FormojAnswerSharpShow extends SharpShow
             // This field IS NOT displayed, and is used to handle the custom file DL in the FormojReplySharpEntityList list
             ->addField(
                 SharpShowFileField::make("file")
-                    ->setStorageDisk(config("formoj.storage.disk"))
-                    ->setStorageBasePath(
-                        sprintf(
-                            "%s/%s/answers/{id}",
-                            config("formoj.storage.path"),
-                            currentSharpRequest()->getPreviousShowFromBreadcrumbItems("formoj_form")->instanceId()
-                        )
-                    )
             )
             ->addField(
                 SharpShowEntityListField::make("replies", "formoj_reply")
                     ->setLabel(trans("formoj::sharp.answers.fields.replies.label"))
-                    ->hideFilterWithValue("formoj_answer", function($instanceId) {
-                        return $instanceId;
-                    })
+                    ->hideFilterWithValue("formoj_answer", fn($id) => $id)
             );
     }
 
     protected function buildShowLayout(ShowLayout $showLayout): void
     {
         $showLayout
-            ->addSection(trans("formoj::sharp.entities.answer"), function(ShowLayoutSection $section) {
+            ->addSection('', function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("created_at");
+                            ->withField("created_at");
                     });
             })
             ->addEntityListSection("replies");
@@ -59,6 +48,7 @@ class FormojAnswerSharpShow extends SharpShow
 
     public function buildShowConfig(): void
     {
+        $this->configurePageTitleAttribute("page_title");
     }
 
     function getInstanceCommands(): ?array
@@ -71,6 +61,7 @@ class FormojAnswerSharpShow extends SharpShow
     function find($id): array
     {
         return $this
+            ->setCustomTransformer('page_title', fn() => trans("formoj::sharp.entities.answer"))
             ->setCustomTransformer("created_at", function($value, $instance) {
                 return $instance->created_at->isoFormat("LLLL");
             })

@@ -2,14 +2,18 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Database\Factories\FormFactory;
 use Code16\Formoj\Notifications\FormojFormWasJustAnswered;
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\Notification;
 
 class Form extends Model
 {
+    use HasFactory;
+
     const NOTIFICATION_STRATEGY_EVERY = "every";
     const NOTIFICATION_STRATEGY_GROUPED = "grouped";
     const NOTIFICATION_STRATEGY_NONE = "none";
@@ -22,6 +26,11 @@ class Form extends Model
         "published_at" => "datetime",
         "unpublished_at" => "datetime",
     ];
+
+    protected static function newFactory()
+    {
+        return new FormFactory();
+    }
 
     public function sections(): HasMany
     {

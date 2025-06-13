@@ -7,15 +7,6 @@ use Orchestra\Testbench\TestCase;
 
 class FormojTestCase extends TestCase
 {
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-
-        $this->app->make(Factory::class)
-            ->load(__DIR__ . '/../database/factories');
-    }
-
     /**
      * @param \Illuminate\Foundation\Application $app
      * @return array

@@ -2,18 +2,27 @@
 
 namespace Code16\Formoj\Models;
 
+use Code16\Formoj\Database\Factories\AnswerFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Collection;
 
 class Answer extends Model
 {
+    use HasFactory;
+
     protected $table = "formoj_answers";
     protected $guarded = ["id"];
     protected $casts = [
         'content' => 'json',
     ];
+
+    protected static function newFactory()
+    {
+        return new AnswerFactory();
+    }
 
     public function form(): BelongsTo
     {

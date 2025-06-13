@@ -13,7 +13,6 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 
 class FormojSectionSharpShow extends SharpShow
 {
-
     protected function buildShowFields(FieldsContainer $showFields): void
     {
         $showFields
@@ -37,15 +36,15 @@ class FormojSectionSharpShow extends SharpShow
     protected function buildShowLayout(ShowLayout $showLayout): void
     {
         $showLayout
-            ->addSection(trans("formoj::sharp.entities.section"), function(ShowLayoutSection $section) {
+            ->addSection('', function(ShowLayoutSection $section) {
                 $section
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("title");
+                            ->withField("title");
                     })
                     ->addColumn(6, function(ShowLayoutColumn $column) {
                         $column
-                            ->withSingleField("description");
+                            ->withField("description");
                     });;
             })
             ->addEntityListSection("fields");
@@ -53,12 +52,15 @@ class FormojSectionSharpShow extends SharpShow
 
     public function buildShowConfig(): void
     {
-        $this->configureBreadcrumbCustomLabelAttribute("breadcrumb");
+        $this
+            ->configurePageTitleAttribute("page_title")
+            ->configureBreadcrumbCustomLabelAttribute("breadcrumb");
     }
 
     function find($id): array
     {
         return $this
+            ->setCustomTransformer("page_title", fn() => trans("formoj::sharp.entities.section"))
             ->setCustomTransformer("breadcrumb", function($value, $instance) {
                 return $instance->title;
             })

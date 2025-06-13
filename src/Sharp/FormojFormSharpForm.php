@@ -18,8 +18,6 @@ use Code16\Sharp\Utils\Fields\FieldsContainer;
 class FormojFormSharpForm extends SharpForm
 {
     use WithSharpFormEloquentUpdater;
-    
-    protected ?string $formValidatorClass = FormojFormSharpValidator::class;
 
     function buildFormFields(FieldsContainer $formFields) : void
     {
@@ -59,13 +57,11 @@ class FormojFormSharpForm extends SharpForm
                 SharpFormDateField::make("published_at")
                     ->setLabel(trans("formoj::sharp.forms.fields.published_at.label"))
                     ->setHasTime(true)
-                    ->setDisplayFormat("DD/MM/YYYY HH:mm")
             )
             ->addField(
                 SharpFormDateField::make("unpublished_at")
                     ->setLabel(trans("formoj::sharp.forms.fields.unpublished_at.label"))
                     ->setHasTime(true)
-                    ->setDisplayFormat("DD/MM/YYYY HH:mm")
             )
             ->addField(
                 SharpFormTextField::make("administrator_email")
@@ -84,22 +80,24 @@ class FormojFormSharpForm extends SharpForm
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.title"), function (FormLayoutFieldset $fieldset) {
-                        $fieldset->withSingleField("title")
-                            ->withSingleField("is_title_hidden");
+                        $fieldset
+                            ->withField("title")
+                            ->withField("is_title_hidden");
                     })
                     ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.dates"), function (FormLayoutFieldset $fieldset) {
                         $fieldset->withFields("published_at|6", "unpublished_at|6");
                     })
-                    ->withSingleField("description");
+                    ->withField("description");
 
             })
             ->addColumn(6, function (FormLayoutColumn $column) {
                 $column
                     ->withFieldset(trans("formoj::sharp.forms.fields.fieldsets.notifications"), function (FormLayoutFieldset $fieldset) {
-                        $fieldset->withSingleField("notifications_strategy")
-                            ->withSingleField("administrator_email");
+                        $fieldset
+                            ->withField("notifications_strategy")
+                            ->withField("administrator_email");
                     })
-                    ->withSingleField("success_message");
+                    ->withField("success_message");
             });
     }
 
@@ -115,5 +113,15 @@ class FormojFormSharpForm extends SharpForm
         $this->save($form, $data);
 
         return $form->id;
+    }
+
+    public function rules()
+    {
+        return [
+            'title' => ['max:200', 'nullable'],
+            'published_at' => ['date', 'nullable'],
+            'unpublished_at' => ['date', 'after:published_at', 'nullable'],
+            'administrator_email' => ['required_unless:notifications_strategy,none', 'email', 'nullable']
+        ];
     }
 }

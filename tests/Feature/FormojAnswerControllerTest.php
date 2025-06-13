@@ -23,13 +23,13 @@ class FormojAnswerControllerTest extends FormojTestCase
     {
         $this->withoutExceptionHandling();
         
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "label" => "Field label",
             "identifier" => "field_1",
             "type" => "select",
         ]);
         
-        $answer = factory(Answer::class)->create([
+        $answer = Answer::factory()->create([
             'content' => [
                 "field_1" => "some answer"
             ],
@@ -59,7 +59,7 @@ class FormojAnswerControllerTest extends FormojTestCase
     {
         $this->withoutExceptionHandling();
         
-        $answer = factory(Answer::class)->create([
+        $answer = Answer::factory()->create([
             'content' => [
                 "some_field" => "some answer" // a missing field
             ]
@@ -85,19 +85,19 @@ class FormojAnswerControllerTest extends FormojTestCase
         $this->withoutExceptionHandling();
 
         // Noise
-        factory(Field::class)->create([
+        Field::factory()->create([
             "label" => "Field label",
             "identifier" => "field_1",
             "type" => "text",
         ]);
 
-        $field = factory(Field::class)->create([
+        $field = Field::factory()->create([
             "label" => "Field label",
             "identifier" => "field_1",
             "type" => "select",
         ]);
 
-        $answer = factory(Answer::class)->create([
+        $answer = Answer::factory()->create([
             'content' => [
                 "field_1" => "some answer"
             ],

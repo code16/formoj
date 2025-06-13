@@ -3,10 +3,10 @@
 namespace Code16\Formoj\Sharp;
 
 use Code16\Formoj\Models\Section;
-use Code16\Formoj\Sharp\Reorder\FormojSectionReorderHandler;
 use Code16\Sharp\EntityList\Eloquent\SimpleEloquentReorderHandler;
 use Code16\Sharp\EntityList\Fields\EntityListField;
 use Code16\Sharp\EntityList\Fields\EntityListFieldsContainer;
+use Code16\Sharp\EntityList\Filters\HiddenFilter;
 use Code16\Sharp\EntityList\SharpEntityList;
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -18,14 +18,10 @@ class FormojSectionSharpEntityList extends SharpEntityList
             ->addField(
                 EntityListField::make("title")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.title_label"))
-                    ->setWidth(4)
-                    ->setWidthOnSmallScreens(6)
             )
             ->addField(
                 EntityListField::make("description")
                     ->setLabel(trans("formoj::sharp.sections.list.columns.description_label"))
-                    ->setWidth(8)
-                    ->setWidthOnSmallScreens(6)
             );
     }
 
@@ -35,6 +31,13 @@ class FormojSectionSharpEntityList extends SharpEntityList
             ->configureReorderable(
                 new SimpleEloquentReorderHandler(Section::class)
             );
+    }
+
+    protected function getFilters(): ?array
+    {
+        return [
+            HiddenFilter::make('formoj_form')
+        ];
     }
 
     public function getListData(): array|Arrayable

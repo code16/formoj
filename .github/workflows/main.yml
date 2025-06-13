@@ -11,25 +11,22 @@ jobs:
     strategy:
       matrix:
         include:
-          - php: 8.0
+          - php: 8.3
             env:
-              LARAVEL: 8.*
-              TESTBENCH: 6.*
-          - php: 8.1
+              LARAVEL: 11.*
+              TESTBENCH: 9.*
+          - php: 8.4
             env:
-              LARAVEL: 8.*
-              TESTBENCH: 6.*
-          - php: 8.1
+              LARAVEL: 11.*
+              TESTBENCH: 9.*
+          - php: 8.4
             env:
-              LARAVEL: 9.*
-              TESTBENCH: 7.*
-          - php: 8.2
-            env:
-              LARAVEL: 10.*
-              TESTBENCH: 8.*
+              LARAVEL: 12.*
+              TESTBENCH: 10.*
     env: ${{ matrix.env }}
+    name: P${{ matrix.php }} - L${{ matrix.env.LARAVEL }} - TB${{ matrix.env.TESTBENCH }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
@@ -39,7 +36,7 @@ jobs:
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Cache composer dependencies
-        uses: actions/cache@v1
+        uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}

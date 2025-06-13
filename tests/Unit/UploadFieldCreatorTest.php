@@ -15,7 +15,7 @@ class UploadFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_default_upload_field()
     {
-        (new UploadFieldCreator(factory(Section::class)->create(), "test"))
+        (new UploadFieldCreator(Section::factory()->create(), "test"))
             ->create();
 
         $this->assertDatabaseHas("formoj_fields", [
@@ -33,7 +33,7 @@ class UploadFieldCreatorTest extends FormojTestCase
     /** @test */
     function we_can_create_a_new_custom_upload_field()
     {
-        (new UploadFieldCreator(factory(Section::class)->create(), "test"))
+        (new UploadFieldCreator(Section::factory()->create(), "test"))
             ->setRequired()
             ->setHelpText("help")
             ->setMaxSize(4)
