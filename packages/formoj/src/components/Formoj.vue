@@ -41,9 +41,9 @@
 </template>
 
 <script>
-    import FjForm from './Form';
-    import FjAlert from './Alert';
-    import FjLoading from './Loading';
+    import FjForm from './Form.vue';
+    import FjAlert from './Alert.vue';
+    import FjLoading from './Loading.vue';
 
     import { getAnswer, getForm, postForm, postSection } from "../api";
     import { config } from "../util/config";

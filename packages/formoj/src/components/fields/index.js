@@ -1,10 +1,10 @@
-import Text from './Text';
-import Textarea from './Textarea';
-import Select from './select/Select';
-import Checkboxes from './select/Checkboxes';
-import Radios from "./select/Radios";
-import Heading from './Heading';
-import Upload from './Upload';
+import Text from './Text.vue';
+import Textarea from './Textarea.vue';
+import Select from './select/Select.vue';
+import Checkboxes from './select/Checkboxes.vue';
+import Radios from "./select/Radios.vue";
+import Heading from './Heading.vue';
+import Upload from './Upload.vue';
 import Rating from "./Rating.vue";
 
 

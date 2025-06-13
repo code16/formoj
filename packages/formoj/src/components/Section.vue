@@ -55,7 +55,7 @@
 </template>
 
 <script>
-    import FjField from './Field';
+    import FjField from './Field.vue';
     import {$t} from "../util/i18n";
 
     export default {

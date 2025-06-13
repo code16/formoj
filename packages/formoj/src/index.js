@@ -1,6 +1,6 @@
 import './polyfill';
 import Formoj from './components/Formoj.vue';
-import FormojAnswer from './components/Answer';
+import FormojAnswer from './components/Answer.vue';
 import Form from './components/Form.vue';
 import { createConfig } from "./util/config";
 import { versionNumber } from "./util/version";

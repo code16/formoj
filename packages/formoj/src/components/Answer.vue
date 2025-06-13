@@ -55,8 +55,8 @@
     import { getAnswer } from "../api";
     import { $t } from '../util/i18n';
     import { config } from "../util/config";
-    import FjAlert from "./Alert";
-    import FjLoading from './Loading';
+    import FjAlert from "./Alert.vue";
+    import FjLoading from './Loading.vue';
 
     export default {
         components: {
