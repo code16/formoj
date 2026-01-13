@@ -7,12 +7,13 @@ use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class TextareaFieldCreatorTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_default_textarea_field()
     {
         (new TextareaFieldCreator(Section::factory()->create(), "test"))
@@ -30,7 +31,7 @@ class TextareaFieldCreatorTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_custom_textarea_field()
     {
         (new TextareaFieldCreator(Section::factory()->create(), "test"))

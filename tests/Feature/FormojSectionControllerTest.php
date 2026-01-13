@@ -7,12 +7,13 @@ use Code16\Formoj\Models\Form;
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class FormojSectionControllerTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_get_a_422_when_posting_null_for_a_required_field()
     {
         $field = Field::factory()->create([
@@ -42,7 +43,7 @@ class FormojSectionControllerTest extends FormojTestCase
             ->assertJsonMissingValidationErrors("f" . $field2->id);
     }
 
-    /** @test */
+    #[Test]
     function we_get_a_422_when_posting_a_too_long_text_with_a_max_length_property()
     {
         $field = Field::factory()->create([
@@ -67,7 +68,7 @@ class FormojSectionControllerTest extends FormojTestCase
             ->assertJsonValidationErrors("f" . $field->id);
     }
 
-    /** @test */
+    #[Test]
     function we_get_a_422_when_posting_a_non_existing_value_to_a_single_select()
     {
         $field = Field::factory()->create([
@@ -108,7 +109,7 @@ class FormojSectionControllerTest extends FormojTestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     function we_get_a_422_when_posting_a_non_existing_value_to_a_multiple_select()
     {
         $field = Field::factory()->create([
@@ -156,7 +157,7 @@ class FormojSectionControllerTest extends FormojTestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     function we_get_a_422_when_posting_to_much_values_to_a_multiple_select_with_max_options()
     {
         $field = Field::factory()->create([
@@ -191,7 +192,7 @@ class FormojSectionControllerTest extends FormojTestCase
             ->assertStatus(200);
     }
 
-    /** @test */
+    #[Test]
     function we_cant_validate_a_section_of_an_outdated_form()
     {
         $field = Field::factory()->create([
