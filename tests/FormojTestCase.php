@@ -2,7 +2,6 @@
 
 namespace Code16\Formoj\Tests;
 
-use Illuminate\Database\Eloquent\Factory;
 use Orchestra\Testbench\TestCase;
 
 class FormojTestCase extends TestCase

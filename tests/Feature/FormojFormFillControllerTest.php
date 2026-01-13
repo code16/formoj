@@ -15,12 +15,13 @@ use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 
 class FormojFormFillControllerTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_can_fill_a_form_with_one_section()
     {
         Notification::fake();
@@ -59,7 +60,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_cant_fill_an_outdated_form()
     {
         Notification::fake();
@@ -97,7 +98,7 @@ class FormojFormFillControllerTest extends FormojTestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     function the_last_section_of_the_form_is_validated()
     {
         Notification::fake();
@@ -125,7 +126,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_store_only_the_form_data_with_the_answer()
     {
         $this->withoutExceptionHandling();
@@ -167,7 +168,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_update_an_existing_answer()
     {
         $this->withoutExceptionHandling();
@@ -207,7 +208,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         $this->assertCount(1, $field->section->form->answers);
     }
 
-    /** @test */
+    #[Test]
     function we_dont_store_headings_with_the_answer()
     {
         Notification::fake();
@@ -244,7 +245,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_store_select_values_with_the_answer()
     {
         Notification::fake();
@@ -276,7 +277,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_store_multiple_select_values_with_the_answer()
     {
         Notification::fake();
@@ -309,7 +310,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_move_uploads_and_store_filename_with_the_answer()
     {
         $this->withoutExceptionHandling();
@@ -356,7 +357,7 @@ class FormojFormFillControllerTest extends FormojTestCase
             ->assertExists("formoj/forms/{$field->section->form_id}/answers/{$answer->id}/image.jpg");
     }
 
-    /** @test */
+    #[Test]
     function posting_a_new_answer_sends_a_notification_if_configured()
     {
         Notification::fake();
@@ -386,7 +387,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         );
     }
 
-    /** @test */
+    #[Test]
     function posting_a_new_answer_does_not_sends_a_notification_if_not_configured()
     {
         Notification::fake();
@@ -410,7 +411,7 @@ class FormojFormFillControllerTest extends FormojTestCase
         Notification::assertNotSentTo(new AnonymousNotifiable, FormojFormWasJustAnswered::class);
     }
 
-    /** @test */
+    #[Test]
     function all_sections_of_the_form_are_validated_if_validate_all_argument_is_passed()
     {
         Notification::fake();
