@@ -30,10 +30,14 @@ jobs:
             env:
               LARAVEL: 12.*
               TESTBENCH: 10.*
+          - php: 8.5
+            env:
+              LARAVEL: 13.*
+              TESTBENCH: 11.*
     env: ${{ matrix.env }}
     name: P${{ matrix.php }} - L${{ matrix.env.LARAVEL }} - TB${{ matrix.env.TESTBENCH }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
