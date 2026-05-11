@@ -80,7 +80,7 @@ class AnswersExcelCollection extends DefaultValueBinder implements WithCustomVal
      * @return bool
      * @throws \PhpOffice\PhpSpreadsheet\Exception
      */
-    public function bindValue(Cell $cell, $value)
+    public function bindValue(Cell $cell, mixed $value): bool
     {
         if (is_array($value)) {
             // Multiselect case
