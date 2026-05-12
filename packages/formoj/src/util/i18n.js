@@ -1,4 +1,3 @@
-import template from 'lodash/template';
 import i18n from '../lang';
 import { config } from "./config";
 
@@ -28,7 +27,9 @@ export function getDefaultLocale() {
 }
 
 function interpolate(message, values) {
-    return template(message)(values);
+    return message.replace(/\${(.*?)}/g, (match, key) => {
+        return values[key.trim()] !== undefined ? values[key.trim()] : match;
+    });
 }
 
 export function translate(i18n, locale, key, values) {
