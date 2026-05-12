@@ -8,19 +8,20 @@ use Code16\Formoj\Models\Section;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Str;
+use PHPUnit\Framework\Attributes\Test;
 
 class FormojFormControllerTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_cant_get_a_non_existing_form()
     {
         $this->get("/formoj/api/form/1")
             ->assertStatus(404);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_properly_formatted()
     {
         $field = Field::factory()->create([
@@ -64,7 +65,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_a_text_field()
     {
         $field = Field::factory()->create([
@@ -96,7 +97,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_a_textarea_field()
     {
         $field = Field::factory()->create([
@@ -130,7 +131,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_a_single_select_field()
     {
         $field = Field::factory()->create([
@@ -169,7 +170,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_a_multiple_select_field()
     {
         $field = Field::factory()->create([
@@ -211,7 +212,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_an_heading_field()
     {
         $field = Field::factory()->create([
@@ -239,7 +240,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_an_upload_field()
     {
         $field = Field::factory()->create([
@@ -273,7 +274,7 @@ class FormojFormControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_not_get_a_not_published_already_form()
     {
         $form = Form::factory()->create([
@@ -285,7 +286,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertStatus(409);
     }
 
-    /** @test */
+    #[Test]
     function we_can_not_get_a_to_be_published_in_the_future_form()
     {
         $form = Form::factory()->create([
@@ -297,7 +298,7 @@ class FormojFormControllerTest extends FormojTestCase
             ->assertStatus(409);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_form_with_valid_publish_dates()
     {
         $form = Form::factory()->create([

@@ -11,12 +11,13 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Notifications\AnonymousNotifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
+use PHPUnit\Framework\Attributes\Test;
 
 class SendDailyNotificationsTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_send_a_grouped_notification_if_configured()
     {
         Notification::fake();

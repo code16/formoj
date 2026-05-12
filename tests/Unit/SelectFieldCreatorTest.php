@@ -7,12 +7,13 @@ use Code16\Formoj\Models\Field;
 use Code16\Formoj\Models\Section;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class SelectFieldCreatorTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_default_select_field()
     {
         (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
@@ -32,7 +33,7 @@ class SelectFieldCreatorTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_custom_select_field()
     {
         (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
@@ -55,7 +56,7 @@ class SelectFieldCreatorTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_custom_multiple_select_field()
     {
         (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))
@@ -80,7 +81,7 @@ class SelectFieldCreatorTest extends FormojTestCase
         ]);
     }
 
-    /** @test */
+    #[Test]
     function we_can_create_a_new_custom_radios_select_field()
     {
         (new SelectFieldCreator(Section::factory()->create(), "test", ["a","b"]))

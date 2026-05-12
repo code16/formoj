@@ -3,6 +3,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
 jobs:
 
 # Unit tests back (phpunit)
@@ -23,27 +26,43 @@ jobs:
             env:
               LARAVEL: 12.*
               TESTBENCH: 10.*
+          - php: 8.5
+            env:
+              LARAVEL: 12.*
+              TESTBENCH: 10.*
+          - php: 8.5
+            env:
+              LARAVEL: 13.*
+              TESTBENCH: 11.*
     env: ${{ matrix.env }}
     name: P${{ matrix.php }} - L${{ matrix.env.LARAVEL }} - TB${{ matrix.env.TESTBENCH }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: mbstring, dom, fileinfo, mysql
+
       - name: Get composer cache directory
         id: composer-cache
         run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
       - name: Cache composer dependencies
         uses: actions/cache@v4
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ runner.os }}-composer-
+
       - name: Install Composer dependencies
         run: |
           composer require "laravel/framework:${LARAVEL}" "orchestra/testbench:${TESTBENCH}" --no-interaction --no-update --prefer-dist
           composer update --prefer-stable --prefer-dist --no-interaction
+
+      - name: Run Security Audit
+        run: composer audit
+
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: ./vendor/bin/phpunit

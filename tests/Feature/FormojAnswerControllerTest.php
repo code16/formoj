@@ -6,19 +6,20 @@ use Code16\Formoj\Models\Answer;
 use Code16\Formoj\Models\Field;
 use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use PHPUnit\Framework\Attributes\Test;
 
 class FormojAnswerControllerTest extends FormojTestCase
 {
     use RefreshDatabase;
-    
-    /** @test */
+
+    #[Test]
     function we_cant_get_a_non_existing_answer()
     {
         $this->get("/formoj/api/answer/1")
             ->assertStatus(404);
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_a_answer_with_fields()
     {
         $this->withoutExceptionHandling();
@@ -54,7 +55,7 @@ class FormojAnswerControllerTest extends FormojTestCase
             ]);
     }
 
-    /** @test */
+    #[Test]
     function we_allow_missing_fields()
     {
         $this->withoutExceptionHandling();
@@ -79,7 +80,7 @@ class FormojAnswerControllerTest extends FormojTestCase
             ->assertJsonCount(0, "data.fields");
     }
 
-    /** @test */
+    #[Test]
     function we_can_get_only_field_of_the_current_answer()
     {
         $this->withoutExceptionHandling();

@@ -9,12 +9,13 @@ use Code16\Formoj\Tests\FormojTestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
+use PHPUnit\Framework\Attributes\Test;
 
 class FormojUploadControllerTest extends FormojTestCase
 {
     use RefreshDatabase;
 
-    /** @test */
+    #[Test]
     function we_can_upload_a_file()
     {
         Storage::fake('local');
@@ -45,7 +46,7 @@ class FormojUploadControllerTest extends FormojTestCase
         Storage::disk('local')->assertExists("formoj/tmp/{$field->section->form_id}/image.jpg");
     }
 
-    /** @test */
+    #[Test]
     function we_cant_upload_an_invalid_file()
     {
         Storage::fake('local');
@@ -76,7 +77,7 @@ class FormojUploadControllerTest extends FormojTestCase
             ->assertStatus(422);
     }
 
-    /** @test */
+    #[Test]
     function we_cant_upload_a_file_for_an_invalid_field()
     {
         Storage::fake('local');
@@ -99,7 +100,7 @@ class FormojUploadControllerTest extends FormojTestCase
             ->assertStatus(403);
     }
 
-    /** @test */
+    #[Test]
     function the_uploaded_file_name_is_suffixed_if_needed()
     {
         $this->withoutExceptionHandling();
